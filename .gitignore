@@ -1,0 +1,70 @@
+# build artifacts
+*.7z
+*.a
+**/build/
+*.bz2
+**/dist/
+*.dll
+*.dylib
+**/*.egg-info/
+*.exe
+*.msi
+*.o
+**/__pycache__/
+*.py[cod]
+*.rar
+*.so
+*.tar.gz
+*.zip
+
+# documentation
+*.doc
+*.docm
+*.docx
+*.pdf
+*.ppt
+*.pptm
+*.pptx
+
+# notebook stuff
+*.ipynb_checkpoints/
+
+# misc files
+*.cache
+*.DS_Store
+*history
+*.log
+
+# backup files from tools like aspell and sed
+*.bak
+
+# data files
+*.csv
+*.data
+*.db
+*.feather
+*.json
+*.ndjson
+*.npy
+*.parquet
+*.pkl
+*.pq
+*.rda
+*.Rdata
+*.rds
+*.sqlite
+*.xls
+*.xlsm
+*.xlsx
+
+# files from local testing
+.coverage
+dask-worker-space/
+**/htmlcov/
+.mypy_cache/
+prefect-fork/*
+.pytest_cache/
+
+# editor files
+**/.idea/
+**/.vscode/
