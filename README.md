@@ -13,7 +13,7 @@ These projects should include all the information needed to run them from within
 
 This will look something like:
 
-```
+```text
 .
 ├── examples
 │   ├── taxi-cpu
@@ -22,7 +22,7 @@ This will look something like:
 │   │   ├── eda
 │   │   ├── etl
 │   │   │   └── data-loading.ipynb
-│   │   └── saturn
+│   │   └── .saturn
 │   │       ├── image
 │   │       │   ├── environment.yaml
 │   │       │   └── postBuild
@@ -33,9 +33,12 @@ This will look something like:
 │       ├── eda
 │       ├── etl
 │       │   └── data-loading.ipynb
-│       └── saturn
+│       └── .saturn
 │           ├── image
 │           │   ├── environment.yaml
 │           │   └── postBuild
 │           └── start
 └── README.md
+```
+
+For details on the structure of the `.saturn/` directory and notes on how to add new examples, see [`CONTRIBUTING.md`](./CONTRIBUTING.md).
