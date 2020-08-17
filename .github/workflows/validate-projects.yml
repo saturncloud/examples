@@ -1,0 +1,41 @@
+name: Continuous Integration
+
+# only run this workflow on new commits to main
+# or PRs into main
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  test:
+    name: ${{ matrix.task }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - task: linting
+          - task: validating-examples
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Set up Python 3.7
+        uses: s-weigand/setup-conda@v1.0.3
+        with:
+          python-version: 3.7
+      - name: linting
+        if: matrix.task == 'linting'
+        shell: bash
+        run: |
+          pip install --upgrade black flake8
+          make lint
+      - name: validation
+        if: matrix.task == 'validating-examples'
+        shell: bash
+        run: |
+          pip install --upgrade requests
+          make validate
