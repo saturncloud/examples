@@ -27,6 +27,7 @@
 *.pptx
 
 # notebook stuff
+Untitled*.ipynb
 *.ipynb_checkpoints/
 
 # misc files

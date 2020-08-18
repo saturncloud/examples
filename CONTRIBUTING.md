@@ -6,6 +6,12 @@ This document describes how to contribute to `saturncloud/examples`.
 
 Examples in this the `examples/` directory follow a specific directory structure that allows Saturn to automatically seed them in a new user's environment with these.
 
+To test if you've added a new example correctly, run the following from the root of this repo:
+
+```shell
+make test
+```
+
 ### `examples/`
 
 Each directory below `examples/` corresponds to one new Saturn Project + Jupyter that will be created in users' environments. The names of these directories should have names which only contain lowercase alphanumeric characters and dashes.

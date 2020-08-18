@@ -10,3 +10,6 @@ lint:
 .PHONY: validate
 validate:
 	python .ci/validate-examples.py --examples-dir $$(pwd)/examples
+
+.PHONY: test
+test: format lint validate
