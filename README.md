@@ -1,5 +1,6 @@
 # Examples
-Public facing examples for populating Saturn Cloud installations
+
+Public facing examples for populating Saturn Cloud installations.
 
 ## Structure
 
@@ -22,10 +23,9 @@ This will look something like:
 │   │   ├── eda
 │   │   ├── etl
 │   │   │   └── data-loading.ipynb
-│   │   └── saturn
-│   │       ├── image
-│   │       │   ├── environment.yaml
-│   │       │   └── postBuild
+│   │   ├── README.md
+│   │   └── .saturn
+│   |       └── saturn.json
 │   │       └── start
 │   └── taxi-gpu
 │       ├── dashboard
@@ -33,9 +33,8 @@ This will look something like:
 │       ├── eda
 │       ├── etl
 │       │   └── data-loading.ipynb
-│       └── saturn
-│           ├── image
-│           │   ├── environment.yaml
-│           │   └── postBuild
+│       ├── README.md
+│       └── .saturn
+│           └── saturn.json
 │           └── start
 └── README.md
