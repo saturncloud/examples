@@ -122,3 +122,32 @@ if __name__ == "__main__":
     ERRORS.report()
 
 # https://ops.tips/blog/inspecting-docker-image-without-pull/
+# image=saturncloud/saturn:2020d.07.08.1
+
+# curl \
+#     --silent \
+#     "https://auth.docker.io/token?scope=repository:$image:pull&service=registry.docker.io" \
+#     | jq -r '.token'
+
+# curl \
+#     --silent \
+#     --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+#     --header "Authorization: Bearer $token" \
+#     "https://registry-1.docker.io/v2/$image/manifests/$tag" \
+#     | jq -r '.config.digest'
+
+# import requests
+
+# image="saturncloud/saturn:2020.07.08.1"
+# res = requests.get(
+#     f"https://auth.docker.io/token?scope=repository:saturncloud/saturn:pull&service=registry.docker.io"
+# )
+# token = res.json()["token"]
+
+# res = requests.get(
+#     url=f"https://registry-1.docker.io/v2/saturncloud/saturn/manifests/2020.07.08.1",
+#     headers={
+#         "Accept": "application/vnd.docker.distribution.manifest.v2+json",
+#         "Authorization": f"Bearer {token}"
+#     }
+# )
