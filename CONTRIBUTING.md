@@ -42,12 +42,12 @@ NOTE: this was generated with `tree -a examples/`.
 
 ### The `README.md`
 
-Each folder exactly one level below `examples/` should have a `README.md`. This should contain relevant information for understanding the example, such as:
+Each folder exactly one and two levels below `examples/` should have a `README.md`. This should contain relevant information for understanding the example, such as:
 
 * description of any manual steps needed to use the code (like configuring credentials)
 * links to reference material like blogs posts or data dictionaries
 
-So, for example, in the directory structure above, `taxi-cpu/README.md` is required but `taxi-cpu/dashboard/README.md` is not.
+So, for example, in the directory structure above, `examples-cpu/README.md` is required, `examples-cpu/prefect/README.md` is required, but `examples-cpu/prefect/some-other-directory/README.md` would not be required.
 
 ### The `.saturn` Directory
 
