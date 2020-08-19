@@ -11,31 +11,36 @@ These projects should include all the information needed to run them from within
  - project settings (image name, start script, env vars)
  - project files (python scripts, notebooks, markdown...)
 
-This will look something like:
+This will look something like this:
 
+```text
+examples/
+├── examples-cpu
+│   ├── nyc-taxi
+│   │   ├── dashboard.ipynb
+│   │   ├── hyperparameter-dask.ipynb
+│   │   ├── hyperparameter-scikit.ipynb
+│   │   ├── random-forest-scikit.ipynb
+│   │   ├── README.md
+│   │   ├── xgboost-dask.ipynb
+│   │   └── xgboost.ipynb
+│   ├── prefect
+│   │   ├── flow.png
+│   │   ├── prefect-scheduled-scoring.ipynb
+│   │   └── README.md
+│   ├── README.md
+│   └── .saturn
+│       ├── saturn.json
+│       └── start
+└── examples-gpu
+    ├── nyc-taxi
+    │   ├── random-forest-rapids.ipynb
+    │   ├── README.md
+    │   └── xgboost-rapids.ipynb
+    ├── README.md
+    └── .saturn
+        ├── saturn.json
+        └── start
 ```
-.
-├── examples
-│   ├── taxi-cpu
-│   │   ├── dashboard
-│   │   │   └── dashboard.ipynb
-│   │   ├── eda
-│   │   ├── etl
-│   │   │   └── data-loading.ipynb
-│   │   └── saturn
-│   │       ├── image
-│   │       │   ├── environment.yaml
-│   │       │   └── postBuild
-│   │       └── start
-│   └── taxi-gpu
-│       ├── dashboard
-│       │   └── dashboard.ipynb
-│       ├── eda
-│       ├── etl
-│       │   └── data-loading.ipynb
-│       └── saturn
-│           ├── image
-│           │   ├── environment.yaml
-│           │   └── postBuild
-│           └── start
-└── README.md
+
+NOTE: this was generated with `tree -a examples/`.
