@@ -1,5 +1,5 @@
 {
-    "image": "saturncloud/saturn:2020.07.08.1",
+    "image": "saturncloud/saturn-gpu:2020.07.08.1",
     "jupyter": {
         "size": "8xlarge",
         "disk_space": "256Gi",
