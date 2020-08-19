@@ -1,6 +1,0 @@
-pip install \
-    dask \
-    dask-saturn \
-    distributed \
-    dask-saturndask-xgboost==0.1.11 \
-    xgboost==0.90
