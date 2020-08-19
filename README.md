@@ -15,19 +15,15 @@ This will look something like this:
 
 ```text
 examples/
-├── examples-cpu
+├── cpu
 │   ├── nyc-taxi
-│   │   ├── dashboard
-│   │   │   └── dashboard.ipynb
-│   │   ├── machine-learning
-│   │   │   ├── hyperparameter-dask.ipynb
-│   │   │   ├── hyperparameter-scikit.ipynb
-│   │   │   ├── .ipynb_checkpoints
-│   │   │   │   └── xgboost-dask-checkpoint.ipynb
-│   │   │   ├── random-forest-scikit.ipynb
-│   │   │   ├── xgboost-dask.ipynb
-│   │   │   └── xgboost.ipynb
-│   │   └── README.md
+│   │   ├── dashboard.ipynb
+│   │   ├── hyperparameter-dask.ipynb
+│   │   ├── hyperparameter-scikit.ipynb
+│   │   ├── random-forest-scikit.ipynb
+│   │   ├── README.md
+│   │   ├── xgboost-dask.ipynb
+│   │   └── xgboost.ipynb
 │   ├── prefect
 │   │   ├── flow.png
 │   │   ├── prefect-scheduled-scoring.ipynb
@@ -36,12 +32,11 @@ examples/
 │   └── .saturn
 │       ├── saturn.json
 │       └── start
-└── examples-gpu
+└── gpu
     ├── nyc-taxi
-    │   ├── machine-learning
-    │   │   ├── random-forest-rapids.ipynb
-    │   │   └── xgboost-rapids.ipynb
-    │   └── README.md
+    │   ├── random-forest-rapids.ipynb
+    │   ├── README.md
+    │   └── xgboost-rapids.ipynb
     ├── README.md
     └── .saturn
         ├── saturn.json
