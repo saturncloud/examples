@@ -6,21 +6,39 @@ This document describes how to contribute to `saturncloud/examples`.
 
 Examples in this the `examples/` directory follow a specific directory structure that allows Saturn to automatically seed them in a new user's environment with these.
 
-Each directory below `examples/` corresponds to one new Saturn Project + Jupyter that will be created in users' environments. The names of these directories should have names which only contain lowercase alphanumeric characters and dashes.
+Each directory below `examples/` corresponds to one new Saturn Project + Jupyter that will be created in users' environments. Those projects will be named using the directory name, so the names of these directories should have names which only contain lowercase alphanumeric characters and dashes.
 
 ```text
-.
-├── examples
-│   ├── taxi-cpu
-│   │   ├── dashboard
-│   │   │   └── dashboard.ipynb
-│   │   ├── etl
-│   │   │   └── data-loading.ipynb
+examples/
+├── examples-cpu
+│   ├── nyc-taxi
+│   │   ├── dashboard.ipynb
+│   │   ├── hyperparameter-dask.ipynb
+│   │   ├── hyperparameter-scikit.ipynb
+│   │   ├── random-forest-scikit.ipynb
 │   │   ├── README.md
-│   │   └── .saturn
-│   │       └── saturn.json
-│   │       └── start
+│   │   ├── xgboost-dask.ipynb
+│   │   └── xgboost.ipynb
+│   ├── prefect
+│   │   ├── flow.png
+│   │   ├── prefect-scheduled-scoring.ipynb
+│   │   └── README.md
+│   ├── README.md
+│   └── .saturn
+│       ├── saturn.json
+│       └── start
+└── examples-gpu
+    ├── nyc-taxi
+    │   ├── random-forest-rapids.ipynb
+    │   ├── README.md
+    │   └── xgboost-rapids.ipynb
+    ├── README.md
+    └── .saturn
+        ├── saturn.json
+        └── start
 ```
+
+NOTE: this was generated with `tree -a examples/`.
 
 ### The `README.md`
 
