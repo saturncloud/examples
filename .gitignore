@@ -27,6 +27,7 @@
 *.pptx
 
 # notebook stuff
+Untitled*.ipynb
 *.ipynb_checkpoints/
 
 # misc files
@@ -40,10 +41,10 @@
 
 # data files
 *.csv
+*.dat
 *.data
 *.db
 *.feather
-*.json
 *.ndjson
 *.npy
 *.parquet
@@ -68,3 +69,8 @@ prefect-fork/*
 # editor files
 **/.idea/
 **/.vscode/
+
+# key material
+*.pem
+*rsa
+*.pub
