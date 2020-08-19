@@ -11,31 +11,41 @@ These projects should include all the information needed to run them from within
  - project settings (image name, start script, env vars)
  - project files (python scripts, notebooks, markdown...)
 
-This will look something like:
+This will look something like this:
 
-```
-.
-├── examples
-│   ├── taxi-cpu
+```text
+examples/
+├── examples-cpu
+│   ├── nyc-taxi
 │   │   ├── dashboard
 │   │   │   └── dashboard.ipynb
-│   │   ├── eda
-│   │   ├── etl
-│   │   │   └── data-loading.ipynb
-│   │   └── saturn
-│   │       ├── image
-│   │       │   ├── environment.yaml
-│   │       │   └── postBuild
-│   │       └── start
-│   └── taxi-gpu
-│       ├── dashboard
-│       │   └── dashboard.ipynb
-│       ├── eda
-│       ├── etl
-│       │   └── data-loading.ipynb
-│       └── saturn
-│           ├── image
-│           │   ├── environment.yaml
-│           │   └── postBuild
-│           └── start
-└── README.md
+│   │   ├── machine-learning
+│   │   │   ├── hyperparameter-dask.ipynb
+│   │   │   ├── hyperparameter-scikit.ipynb
+│   │   │   ├── .ipynb_checkpoints
+│   │   │   │   └── xgboost-dask-checkpoint.ipynb
+│   │   │   ├── random-forest-scikit.ipynb
+│   │   │   ├── xgboost-dask.ipynb
+│   │   │   └── xgboost.ipynb
+│   │   └── README.md
+│   ├── prefect
+│   │   ├── flow.png
+│   │   ├── prefect-scheduled-scoring.ipynb
+│   │   └── README.md
+│   ├── README.md
+│   └── .saturn
+│       ├── saturn.json
+│       └── start
+└── examples-gpu
+    ├── nyc-taxi
+    │   ├── machine-learning
+    │   │   ├── random-forest-rapids.ipynb
+    │   │   └── xgboost-rapids.ipynb
+    │   └── README.md
+    ├── README.md
+    └── .saturn
+        ├── saturn.json
+        └── start
+```
+
+NOTE: this was generated with `tree -a examples/`.
