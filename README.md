@@ -15,7 +15,7 @@ This will look something like this:
 
 ```text
 examples/
-├── cpu
+├── examples-cpu
 │   ├── nyc-taxi
 │   │   ├── dashboard.ipynb
 │   │   ├── hyperparameter-dask.ipynb
@@ -32,7 +32,7 @@ examples/
 │   └── .saturn
 │       ├── saturn.json
 │       └── start
-└── gpu
+└── examples-gpu
     ├── nyc-taxi
     │   ├── random-forest-rapids.ipynb
     │   ├── README.md
