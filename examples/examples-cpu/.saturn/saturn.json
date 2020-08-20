@@ -1,11 +1,11 @@
 {
     "image": "saturncloud/saturn:2020.07.08.1",
     "jupyter": {
-        "disk_space": 5.0,
-        "ssh_enabled": null
+        "size": "8xlarge",
+        "disk_space": "256Gi",
+        "ssh_enabled": false
     },
     "environment_variables": {
         "TAXI_S3": "s3://saturn-titan/nyc-taxi"
-    },
-    "extra-field": "it is I, the extra field"
+    }
 }
