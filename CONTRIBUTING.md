@@ -2,6 +2,8 @@
 
 This document describes how to contribute to `saturncloud/examples`.
 
+When you add a new example, add an entry to [`CODEOWNERS`](./.github/CODEOWNERS) to be sure you'll be added as a reviewer on future updates to it.
+
 ## `examples/` Directory Structure
 
 Examples in this the `examples/` directory follow a specific directory structure that allows Saturn to automatically seed them in a new user's environment with these.
@@ -11,27 +13,27 @@ Each directory below `examples/` corresponds to one new Saturn Project + Jupyter
 ```text
 examples/
 ├── examples-cpu
-│   ├── nyc-taxi
-│   │   ├── dashboard.ipynb
-│   │   ├── hyperparameter-dask.ipynb
-│   │   ├── hyperparameter-scikit.ipynb
-│   │   ├── random-forest-scikit.ipynb
-│   │   ├── README.md
-│   │   ├── xgboost-dask.ipynb
-│   │   └── xgboost.ipynb
-│   ├── prefect
-│   │   ├── flow.png
-│   │   ├── prefect-scheduled-scoring.ipynb
-│   │   └── README.md
-│   ├── README.md
-│   └── .saturn
-│       ├── saturn.json
-│       └── start
+│   ├── nyc-taxi
+│   │   ├── dashboard.ipynb
+│   │   ├── hyperparameter-dask.ipynb
+│   │   ├── hyperparameter-scikit.ipynb
+│   │   ├── random-forest-scikit.ipynb
+│   │   ├── README.md
+│   │   ├── xgboost-dask.ipynb
+│   │   └── xgboost.ipynb
+│   ├── prefect
+│   │   ├── flow.png
+│   │   ├── prefect-scheduled-scoring.ipynb
+│   │   └── README.md
+│   ├── README.md
+│   └── .saturn
+│       ├── saturn.json
+│       └── start
 └── examples-gpu
     ├── nyc-taxi
-    │   ├── random-forest-rapids.ipynb
-    │   ├── README.md
-    │   └── xgboost-rapids.ipynb
+    │   ├── random-forest-rapids.ipynb
+    │   ├── README.md
+    │   └── xgboost-rapids.ipynb
     ├── README.md
     └── .saturn
         ├── saturn.json
@@ -39,6 +41,12 @@ examples/
 ```
 
 NOTE: this was generated with `tree -a examples/`.
+
+To test if you've added a new example correctly, run the following from the root of this repo:
+
+```shell
+make test
+```
 
 ### The `README.md`
 
