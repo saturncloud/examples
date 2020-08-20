@@ -113,6 +113,17 @@ if __name__ == "__main__":
             ERRORS.add(msg)
             continue
 
+        first_level_dirs = glob.glob(f"{full_dir}/**", recursive=False)
+        for fname in first_level_dirs:
+            if os.path.isdir(fname):
+                readme_file = os.path.join(fname, "README.md")
+                if not os.path.isfile(readme_file):
+                    msg = (
+                        f"Every directory two-levels below '{TOP_LEVEL_DIR}' "
+                        f"must have a README.md. None found for '{fname}'."
+                    )
+                    ERRORS.add(msg)
+
         # every example must have at least one notebook. All cells in that
         # notebook should be cleared of output and execution counts
         notebook_files = [f for f in all_files if f.endswith(".ipynb")]
