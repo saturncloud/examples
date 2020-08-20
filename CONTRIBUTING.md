@@ -2,6 +2,8 @@
 
 This document describes how to contribute to `saturncloud/examples`.
 
+When you add a new example, add an entry to [`CODEOWNERS`](./.github/CODEOWNERS) to be sure you'll be added as a reviewer on future updates to it.
+
 ## `examples/` Directory Structure
 
 Examples in this the `examples/` directory follow a specific directory structure that allows Saturn to automatically seed them in a new user's environment with these.
