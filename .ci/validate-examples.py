@@ -15,6 +15,8 @@ import re
 import requests
 import sys
 
+from marshmallow import fields, Schema, ValidationError
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
 ARGS = parser.parse_args()
@@ -45,6 +47,18 @@ class ErrorCollection:
             print(f"{i}. {error}")
             i += 1
         sys.exit(self.num_errors)
+
+
+class JupyterSchema(Schema):
+    size = fields.String(required=True)
+    disk_space = fields.String(required=True)
+    ssh_enabled = fields.Boolean(required=True)
+
+
+class SaturnJsonSchema(Schema):
+    image = fields.String(required=True)
+    environment_variables = fields.Mapping(required=True)
+    jupyter = fields.Nested(JupyterSchema, attribute="jupyter", required=True)
 
 
 def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
@@ -185,7 +199,12 @@ if __name__ == "__main__":
             continue
 
         with open(saturn_json, "r") as f:
-            saturn_config = json.loads(f.read())
+            try:
+                saturn_config = SaturnJsonSchema().loads(f.read())
+            except ValidationError as err:
+                msg = f"'{saturn_json}' has the following schema issues: {str(err.messages)}"
+                ERRORS.add(msg)
+                continue
 
         for required_key in SATURN_JSON_KEYS:
             if required_key not in saturn_config.keys():
