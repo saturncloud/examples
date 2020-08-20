@@ -37,5 +37,5 @@ jobs:
         if: matrix.task == 'validating-examples'
         shell: bash
         run: |
-          pip install --upgrade requests
+          pip install --upgrade marshmallow requests
           make validate
