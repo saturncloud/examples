@@ -4,5 +4,6 @@
         "size": "large",
         "disk_space": "10Gi",
         "ssh_enabled": false
-    }
+    },
+    "environment_variables": {}
 }
