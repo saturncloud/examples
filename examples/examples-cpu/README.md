@@ -6,7 +6,9 @@ Each folder corresponds to an example project that utilizes the tools within Sat
 
 Refer to the `README.md` file within each folder for detailed instructions on how to run them.
 
-> Pro tip! Right-click on any `README.md` file and choose "Open With -> Markdown Preview" to view a rendered version
+> **Pro tip**: Right-click on any `README.md` file and choose "Open With -> Markdown Preview" to view a rendered version
+
+If you don't already use Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/)!
 
 ### Running in a new project
 
