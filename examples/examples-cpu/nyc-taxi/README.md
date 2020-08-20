@@ -7,7 +7,7 @@ The notebooks in this example showcase a data science workflow with NYC taxi dat
 
 <img src="img/pipeline.png" width="800">
 
-All code for the full workflow is [available for you to clone and run in Saturn](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo).
+All code for the full demo is [available here](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo). You can follow the instructions there to create a new project and run the full examples. The example you are currently in is a reduced version to quickly (and cost-effectively) highlight key features of Saturn Cloud.
 
 The notebooks in _this_ example cover:
 
@@ -58,8 +58,8 @@ It will take a few seconds to load when first viewing the page, as all the cells
 
 To run as part of a persistent Deployment, go to the "Deployments" page in Saturn Cloud and create a new deployment. This will host the dashboard so users can view it without having to launch a Jupyter project.
 
-- Name: `taxi-dashboard`
-- Project: `saturn-taxi` (or whatever you named your CPU Jupyter server)
+- Name: `examples-taxi-dashboard`
+- Project: `examples-cpu`
 - Command: (see below)
 - Instance Count: 1
 - Instance Size: Medium - 2 cores - 4 GB RAM
@@ -67,7 +67,7 @@ To run as part of a persistent Deployment, go to the "Deployments" page in Satur
 The command is:
 
 ```bash
-python -m panel serve taxi_demo/dashboard/dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"
+python -m panel serve /home/jovyan/project/examples/nyc-taxi/dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"
 ```
 
 After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can view the dashboard at the URL listed on the Deployment card. You can view logs by clicking on the Status link.
@@ -78,11 +78,11 @@ Note that the "Predict my Tip" widget on the "ML" tab will return `-1.00%` until
 
 **NOTE**: This section requires that you have AWS credentials with write access to an S3 bucket. It is not required to proceed with the later examples so you can skip this section.
 
-Saturn Cloud hosts pre-aggregated NYC taxi data from 2017-2019 for the dashboard in the previous step. The [`data_aggregation.ipynb`](data_aggreation.ipynb) notebook contains all the code to perform these aggregations. It is set up to run on a small sample (first few months of 2017) to be able to be executed in this example project. 
+Saturn Cloud hosts pre-aggregated NYC taxi data from 2017-2019 for the dashboard in the previous step. The [`data-aggregation.ipynb`](data-aggregation.ipynb) notebook contains all the code to perform these aggregations. It is set up to run on a small sample (first few months of 2017) to be able to be executed in this example project. 
 
 To tell the notebook where to write data, the `DASHBOARD_DATA` environment variable must be set with an S3 location, and you will need [AWS credentials](https://www.saturncloud.io/docs/connecting/data/iam/) set up to write to that location. You will need to stop this Jupyter project to make the necessary modifications, so don't close this JupyterLab window (or read the instructions carefully)!
 
-Go to the "Jupyter" page, stop and then edit this project (`examples-cpu`). Set the environment variable in the "Environment Varaibles" section or using the "Start Script". This ensures that the environment variable is set for all notebooks and deployments created from the project. The dashboard ([`dashboard.ipynb`](dashboard.ipynb)) will then pull from the location specified in `DASHBOARD_DATA` rather than the public S3 bucket hosted by Saturn.
+Go to the "Jupyter" page, stop and then edit this project (`examples-cpu`). Set the environment variable in the "Environment Variables" section or using the "Start Script". This ensures that the environment variable is set for all notebooks and deployments created from the project. The dashboard ([`dashboard.ipynb`](dashboard.ipynb)) will then pull from the location specified in `DASHBOARD_DATA` rather than the public S3 bucket hosted by Saturn.
 
 If you don't have AWS credentials set, go to the "Credentials" page in Saturn Cloud and add Environment Variable entries for:
 
