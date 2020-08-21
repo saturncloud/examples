@@ -20,7 +20,6 @@ git clone https://github.com/saturncloud/examples.git examples
 cp -r examples/examples/examples-cpu project/
 ```
 
-
 ## NYC Taxi
 
 An end-to-end data science pipeline comprising data ingest, exploratory analysis, machine learning model training, and deploying models and a dashboard.
