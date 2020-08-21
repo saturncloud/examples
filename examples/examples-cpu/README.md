@@ -34,4 +34,4 @@ An end-to-end data science pipeline comprising data ingest, exploratory analysis
 *You will learn:*
 - How to set up a Prefect flow for scheduled scoring of a statistical model
 - How to use a Dask cluster to distribute work
-- How to deploy the flow
+- How to deploy the flow and run it on a schedule
