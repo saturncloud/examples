@@ -16,7 +16,7 @@ These examples are configured to run with small data sizes to quickly (and cost-
 
 ```bash
 cd /home/jovyan
-git clone https://github.com/saturncloud/examples.git examples
+git clone https://github.com/saturncloud/examples.git
 cp -r examples/examples/examples-cpu project/
 ```
 
