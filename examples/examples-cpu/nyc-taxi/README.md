@@ -76,7 +76,26 @@ Saturn Cloud hosts pre-aggregated NYC taxi data from 2017-2019 for the dashboard
 
 ## Train ML models
 
-TBD
+Several examples of machine learning model training are included. With each, we include a single-node Python version and a synonymous distributed Dask version.
+
+| ML task                                 | Single node  | Distributed               |
+|------------------------------------------------|--------------|---------------------------|
+| Hyperparamer tuning + Elastic net   regression | `scikit-learn` | `scikit-learn` + `dask-ml`    |
+| XGBoost regression                             | `xgboost`      | `dask-xgboost`              |
+| Random forest classification                   | `scikit-learn` | `cuml.dask` (RAPIDS + Dask) |
+
+### Hyperparameter tuning
+
+In this example we use data that fits comfortably in memory and train a model that does not require intense compute. Scale problems arise when we introduce a large hyperparameter grid to search over. This becomes a compute-bound problem because we need to train a large number of models, but the data is small. `dask-ml` saves the day when it comes to [hyperparameter tuning with large grids](https://ml.dask.org/hyper-parameter-search.html#scaling-hyperparameter-searches), because we can parallelize our grid search across a cluster rather than just the processes in our single node.
+
+We will use `dask-ml`'s [drop-in replacement for `GridSearchCV`](https://ml.dask.org/hyper-parameter-search.html#drop-in-replacements-for-scikit-learn) to scale the parameter search. Not only can we take advantage of more processes for model fitting, but `dask-ml`'s grid search [avoids repeating expensive pre-processing steps](https://ml.dask.org/hyper-parameter-search.html#avoid-repeated-work) in the pipeline.
+
+Ready to dive in? Run these two notebooks in order:
+
+1. [`hyperparameter-scikit.ipynb`](hyperparameter-scikit.ipynb): single-node scikit version - takes a while 🙁
+1. [`hyperparameter-dask.ipynb`](hyperparameter-dask.ipynb): distributed dask version - super fast! ⚡️
+
+For the best experience, we recommend opening up both notebooks side-by-side in JupyterLab. That way you can see which lines of the code change when we use Dask (spoiler: not many!). To monitor resource utilization of your Jupyter client, open a new Terminal window and run `htop`. To monitor resource utilization of a Dask cluster, click the "Dashboard" link in the cell output when you initialize the cluster.
 
 ## Deploy ML model
 
