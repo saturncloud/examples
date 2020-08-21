@@ -2,7 +2,7 @@
 
 # Saturn Cloud Examples (CPU)
 
-Each folder corresponds to an example project that utilizes the tools within Saturn Cloud. These examples run on a Jupyter Server and/or Dask cluster with a CPU instance type and image (there is a separate set of example projects for GPU workloads).
+Each folder corresponds to an example project that utilizes the tools within [Saturn Cloud](https://www.saturncloud.io/s/). These examples run on a Jupyter Server and/or Dask cluster with a CPU instance type and image (there is a separate set of example projects for GPU workloads).
 
 Refer to the `README.md` file within each folder for detailed instructions on how to run them.
 
