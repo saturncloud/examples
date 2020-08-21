@@ -5,5 +5,7 @@
         "disk_space": "10Gi",
         "ssh_enabled": false
     },
-    "environment_variables": {}
+    "environment_variables": {
+	"TAXI_S3": "s3://saturn-public-data/nyc-taxi"
+    }
 }
