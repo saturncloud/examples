@@ -76,30 +76,43 @@ Saturn Cloud hosts pre-aggregated NYC taxi data from 2017-2019 for the dashboard
 
 ## Train ML models
 
-Several examples of machine learning model training are included. With each, we include a single-node Python version and a synonymous distributed Dask version.
+Several examples of machine learning model training are included. With each, we include a "traditional" Python version (single-node on CPU) and a synonymous version accelerated by parallel and/or GPU computing.
 
-| ML task                                 | Single node  | Distributed               |
+| ML task                                 | Traditional  | Accelerated               |
 |------------------------------------------------|--------------|---------------------------|
-| Hyperparamer tuning + Elastic net   regression | `scikit-learn` | `scikit-learn` + `dask-ml`    |
-| XGBoost regression                             | `xgboost`      | `dask-xgboost`              |
-| Random forest classification                   | `scikit-learn` | `cuml.dask` (RAPIDS + Dask) |
+| Hyperparamer tuning + Elastic net   regression | `scikit-learn` | `scikit-learn` + `dask-ml`<br> (CPU cluster)    |
+| XGBoost regression                             | `xgboost`      | `dask-xgboost`<br> (CPU cluster)              |
+| Random forest classification*                   | `scikit-learn` | `cuml`<br> (GPU cluster) |
+
+\* The random forest example utilizes GPU acceleration with RAPIDS, so it must be executed on a project with a GPU instance and image. See the `examples-gpu` project on your Jupyter page to get going with it! 
 
 ### Hyperparameter tuning
 
-In this example we use data that fits comfortably in memory and train a model that does not require intense compute. Scale problems arise when we introduce a large hyperparameter grid to search over. This becomes a compute-bound problem because we need to train a large number of models, but the data is small. `dask-ml` saves the day when it comes to [hyperparameter tuning with large grids](https://ml.dask.org/hyper-parameter-search.html#scaling-hyperparameter-searches), because we can parallelize our grid search across a cluster rather than just the processes in our single node.
+In this example we use data that fits comfortably in memory and train a model that does not require intense compute. Scale problems arise when we introduce a large hyperparameter grid to search over. This becomes a compute-bound problem because we need to train a large number of models, but the data is small. `dask-ml` saves the day when it comes to [hyperparameter tuning with large grids](https://youtu.be/zKky9e9nc0E), because we can parallelize our grid search across a cluster rather than just the processes in our single node.
 
 We will use `dask-ml`'s [drop-in replacement for `GridSearchCV`](https://ml.dask.org/hyper-parameter-search.html#drop-in-replacements-for-scikit-learn) to scale the parameter search. Not only can we take advantage of more processes for model fitting, but `dask-ml`'s grid search [avoids repeating expensive pre-processing steps](https://ml.dask.org/hyper-parameter-search.html#avoid-repeated-work) in the pipeline.
 
 Ready to dive in? Run these two notebooks in order:
 
 1. [`hyperparameter-scikit.ipynb`](hyperparameter-scikit.ipynb): single-node scikit version - takes a while 🙁
-1. [`hyperparameter-dask.ipynb`](hyperparameter-dask.ipynb): distributed dask version - super fast! ⚡️
+1. [`hyperparameter-dask.ipynb`](hyperparameter-dask.ipynb): distributed Dask version - super fast! ⚡️
 
 For the best experience, we recommend opening up both notebooks side-by-side in JupyterLab. That way you can see which lines of the code change when we use Dask (spoiler: not many!). To monitor resource utilization of your Jupyter client, open a new Terminal window and run `htop`. To monitor resource utilization of a Dask cluster, click the "Dashboard" link in the cell output when you initialize the cluster.
 
+## XGBoost regression
+
+The XGBoost notebooks are an example of using Dask to distribute a single model fit across a cluster. The hero in this story is an [integration between Dask and XGBoost](https://examples.dask.org/machine-learning/xgboost.html) from the `dask-xgboost` package. `dask-xgboost` sets up XGBoost master and worker processes on the Dask cluster's scheduler and workers, respectively. This allows for scaling to more cores than what would be available in a single node with `xgboost` alone.
+
+As with the hyperparameter example, there are two notebooks that you can run and examine side-by-side:
+
+1. [`xgboost.ipynb`](xgboost.ipynb): single-node XGBoost version 💡
+1. [`xgboost-dask.ipynb`](xgboost-dask.ipynb): distributed Dask version 💥
+
+You'll notice that there is not much code to change here beyond launching the Dask cluster with Saturn and importing `dask_xgboost` instead of `xgboost`. There is a modest performance gain from distributing training because we're using a small cluster; with a larger cluster there would more dramatic speedups.
+
 ## Deploy ML model
 
-TBD
+The machine learning notebooks above all save the trained models to `.pkl` files using `cloudpickle`. We can use these trained model files to serve a REST API as shown in the [`model-api.py`](model-api.py) script. 
 
 
 ## References
