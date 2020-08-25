@@ -23,13 +23,15 @@ You are free to open each notebook in this example and start playing around! For
 
 ### Random forest classification
 
-Ready to dive in? Run these notebooks in order:
+The random forest notebooks are an example of GPU-acceleration for model training with [RAPIDS](http://rapids.ai/). The [`cuml` package](https://github.com/rapidsai/cuml) features an API that closely resembles scikit-learn, but does all processing on GPUs. This leads to some crazy performance speedups! What if your data doesn't fit into a single GPU's memory? That's where Dask comes in! RAPIDS has native Dask integrations to be able to run on a cluster of machines with GPUs. Buckle up, this is going to be a fun ride!
+
+Run these notebooks in order:
 
 1. [`rf-scikit.ipynb`](rf-scikit.ipynb): single-node scikit version - takes a while 🙁
 1. [`rf-rapids.ipynb`](rf-rapids.ipynb): single-GPU RAPIDS version - super fast! 🤯
 1. [`rf-rapids-dask.ipynb`](rf-rapids-dask.ipynb): multi-GPU Dask+RAPIDS version - _extra_ super fast! 🤯🤯🤯
 
-For the best experience, we recommend opening up two notebooks at a time side-by-side in JupyterLab. That way you can see which lines of the code change between them (spoiler: not many!). There are a few different resources to monitor to see what's happening:
+For the best experience, we recommend opening up two notebooks at a time side-by-side in JupyterLab. That way you can see which lines of code change between them (spoiler: not many!). There are a few different resources to monitor to see what's happening:
 
 - **CPU utilization of Jupyter client** for scikit-learn example: open a new Terminal window and run `htop`. 
 - **GPU utilization of Jupyter client** for RAPIDS example: open a new Terminal window and run:
@@ -42,6 +44,16 @@ Here what this might look like in JupyterLab:
 
 [![workspace](img/workspace.png)](img/workspace.png)
 
-And then another browser window for Dask cluster monitoring:
+And then some browser windows for Dask cluster monitoring:
 
 [![dask](img/dask.png)](img/dask.png)
+
+# That's all folks
+
+Thanks for following along! We encourage you to continue to play around with these examples and use the code for your own work. There is a much [larger version of NYC taxi analysis](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo) that you can clone into a new project and see more of the power of Dask+RAPIDS on Saturn Cloud.
+
+If you have any issue with Saturn Cloud, please email us at support@saturncloud.io.
+
+## References
+
+- NYC taxi image by [David Hurley on Unsplash](https://unsplash.com/photos/aPlUUmO4qr8).

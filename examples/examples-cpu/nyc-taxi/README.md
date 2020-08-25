@@ -9,6 +9,8 @@ The notebooks in this example showcase a data science workflow with NYC taxi dat
 
 All code for the full demo is [available here](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo). You can follow the instructions there to create a new project and run the full examples. The example you are currently in is a reduced version to quickly (and cost-effectively) highlight key features of Saturn Cloud.
 
+You are currently viewing the **CPU** project for the NYC taxi examples, which covers most aspects of the workflow. For GPU-accelerated ML examples, go to the `examples-gpu` project. 
+
 The notebooks in _this_ example cover:
 
 1. Create and deploy a dashboard with exploratory analysis (`holoviz`, `bokeh`, `panel`)
@@ -52,9 +54,9 @@ It will take a few seconds to load when first viewing the page, as all the cells
 
 #### Deployment 
 
-To run as part of a persistent Deployment, go to the "Deployments" page in Saturn Cloud and create a new deployment. This will host the dashboard so users can view it without having to launch a Jupyter project.
+To run as part of a persistent Deployment, go to the "Deployments" page in Saturn Cloud and create a new deployment. This will host the dashboard so users can view it without having to launch a Jupyter project. Note that Deployment names must be unique across all users.
 
-- Name: `examples-taxi-dashboard`
+- Name: Any name you like, for example: `<USERNAME>-taxi-dashboard`
 - Project: `examples-cpu`
 - Command: (see below)
 - Instance Count: 1
@@ -80,9 +82,9 @@ Several examples of machine learning model training are included. With each, we 
 
 | ML task                                 | Traditional  | Accelerated               |
 |------------------------------------------------|--------------|---------------------------|
-| Hyperparamer tuning + Elastic net   regression | `scikit-learn` | `scikit-learn` + `dask-ml`<br> (CPU cluster)    |
-| XGBoost regression                             | `xgboost`      | `dask-xgboost`<br> (CPU cluster)              |
-| Random forest classification*                   | `scikit-learn` | `cuml`<br> (GPU cluster) |
+| Hyperparamer tuning + Elastic net   regression | `scikit-learn` | `dask-ml` (CPU cluster)    |
+| XGBoost regression                             | `xgboost`      | `dask-xgboost` (CPU cluster)              |
+| Random forest classification*                   | `scikit-learn` | `cuml` (GPU)<br>`cuml.dask` (GPU cluster) |
 
 \* The random forest example utilizes GPU acceleration with RAPIDS, so it must be executed on a project with a GPU instance and image. See the `examples-gpu` project on your Jupyter page to get going with it! 
 
@@ -97,7 +99,7 @@ Ready to dive in? Run these two notebooks in order:
 1. [`hyperparameter-scikit.ipynb`](hyperparameter-scikit.ipynb): single-node scikit version - takes a while 🙁
 1. [`hyperparameter-dask.ipynb`](hyperparameter-dask.ipynb): distributed Dask version - super fast! ⚡️
 
-For the best experience, we recommend opening up both notebooks side-by-side in JupyterLab. That way you can see which lines of the code change when we use Dask (spoiler: not many!). To monitor resource utilization of your Jupyter client, open a new Terminal window and run `htop`. To monitor resource utilization of a Dask cluster, click the "Dashboard" link in the cell output when you initialize the cluster.
+For the best experience, we recommend opening up both notebooks side-by-side in JupyterLab. That way you can see which lines of code change when we use Dask (spoiler: not many!). To monitor resource utilization of your Jupyter client, open a new Terminal window and run `htop`. To monitor resource utilization of a Dask cluster, click the "Dashboard" link in the cell output when you initialize the cluster.
 
 ### XGBoost regression
 
@@ -114,10 +116,74 @@ You'll notice that there is not much code to change here beyond launching the Da
 
 The random forest examples showcase GPU-accelerated model training with [RAPIDS](http://rapids.ai/). Jump over to the `examples-gpu` project on your Jupyter page for these examples.
 
-## Deploy ML model
+## Serve ML model
 
-The machine learning notebooks above all save the trained models to `.pkl` files using `cloudpickle`. We can use these trained model files to serve a REST API as shown in the [`model-api.py`](model-api.py) script. 
+An example `flask` app to serve a model REST API is in [`model-api.py`](model-api.py). This script pulls down a trained model from Saturn's public S3 bucket and hosts an endpoint for model predictions.
 
+To test the REST API from JupyterLab, open a new Terminal window and run the following to start up the app:
+
+```bash
+cd /home/jovyan/project/examples-cpu/nyc-taxi
+python model-api.py
+```
+
+Open another Terminal window to get a prediction from the API:
+
+```bash
+curl -X POST \
+    http://0.0.0.0:8000/api/predict \
+    -d '{"passenger_count": 1, "tpep_pickup_datetime": "2019-01-01T11:15:38Z", "PULocationID": 37, "DOLocationID": 215}'
+```
+
+### Deployment 
+
+To run as part of a persistent Deployment, go to the "Deployments" page in Saturn Cloud and create a new deployment. This will host the API so apps can get predictions from the model.
+
+- Name: Any name you like, for example: `<USERNAME>-taxi-model`
+- Project: `examples-cpu`
+- Command: (see below)
+- Instance Count: 1
+- Instance Size: Medium - 2 cores - 4 GB RAM
+
+The command is:
+
+```bash
+python /home/jovyan/project/examples-cpu/nyc-taxi/model-api.py
+```
+
+After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can hit the API from a Jupyter client in Saturn using the URL listed:
+
+```bash
+DEPLOYMENT_URL='<URL from Deployment>'
+curl -X POST \
+    http://${DEPLOYMENT_URL}:8000/api/predict \
+    -d '{"passenger_count": 1, "tpep_pickup_datetime": "2019-01-01T11:15:38Z", "PULocationID": 37, "DOLocationID": 215}'
+```
+
+
+### Hook up to dashboard
+
+To get the "Predit my tip" widget in the dashboard to use the deployed model, a `MODEL_URL` environment variable should point to the URL from the model Deployment. You can set it when running the dashboard from JupyterLab:
+
+```bash
+export MODEL_URL='<URL from Deployment>'
+cd /home/jovyan/project/examples-cpu/nyc-taxi/
+panel serve dashboard.ipynb
+```
+
+For the persistent dashboard, edit the dashboard Deployment we set up earlier to set the environment variable. In the Environment Variables section, add:
+
+```bash
+MODEL_URL='<URL from Deployment>'
+```
+
+Check out [this part of the `dashboard.ipynb` notebook](dashboard.ipynb#ML-Tab) that hits the endpoint using the `requests` package.
+
+# That's all folks
+
+Thanks for following along! We encourage you to continue to play around with these examples and use the code for your own work. There is a much [larger version of NYC taxi analysis](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo) that you can clone into a new project and see more of the power of Dask+RAPIDS on Saturn Cloud.
+
+If you have any issue with Saturn Cloud, please email us at support@saturncloud.io.
 
 ## References
 
