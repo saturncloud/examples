@@ -99,7 +99,7 @@ Ready to dive in? Run these two notebooks in order:
 
 For the best experience, we recommend opening up both notebooks side-by-side in JupyterLab. That way you can see which lines of the code change when we use Dask (spoiler: not many!). To monitor resource utilization of your Jupyter client, open a new Terminal window and run `htop`. To monitor resource utilization of a Dask cluster, click the "Dashboard" link in the cell output when you initialize the cluster.
 
-## XGBoost regression
+### XGBoost regression
 
 The XGBoost notebooks are an example of using Dask to distribute a single model fit across a cluster. The hero in this story is an [integration between Dask and XGBoost](https://examples.dask.org/machine-learning/xgboost.html) from the `dask-xgboost` package. `dask-xgboost` sets up XGBoost master and worker processes on the Dask cluster's scheduler and workers, respectively. This allows for scaling to more cores than what would be available in a single node with `xgboost` alone.
 
@@ -109,6 +109,10 @@ As with the hyperparameter example, there are two notebooks that you can run and
 1. [`xgboost-dask.ipynb`](xgboost-dask.ipynb): distributed Dask version 💥
 
 You'll notice that there is not much code to change here beyond launching the Dask cluster with Saturn and importing `dask_xgboost` instead of `xgboost`. There is a modest performance gain from distributing training because we're using a small cluster; with a larger cluster there would more dramatic speedups.
+
+### Random forest classification
+
+The random forest examples showcase GPU-accelerated model training with [RAPIDS](http://rapids.ai/). Jump over to the `examples-gpu` project on your Jupyter page for these examples.
 
 ## Deploy ML model
 
