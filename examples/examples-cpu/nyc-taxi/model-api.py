@@ -11,20 +11,21 @@ TAXI_PATH = os.environ["TAXI_S3"]
 MODEL_FILE = os.environ["MODEL_FILE"]
 
 s3 = s3fs.S3FileSystem()
-model = cloudpickle.load(s3.open(f's3://{TAXI_PATH}/ml_results/models/{MODEL_FILE}', 'rb'))
+model = cloudpickle.load(s3.open(f"s3://{TAXI_PATH}/ml_results/models/{MODEL_FILE}", "rb"))
 
 features = [
-    'pickup_weekday', 
-    'pickup_weekofyear', 
-    'pickup_hour', 
-    'pickup_week_hour', 
-    'pickup_minute', 
-    'passenger_count',
-    'PULocationID',
-    'DOLocationID'
+    "pickup_weekday",
+    "pickup_weekofyear",
+    "pickup_hour",
+    "pickup_week_hour",
+    "pickup_minute",
+    "passenger_count",
+    "PULocationID",
+    "DOLocationID",
 ]
 
-@app.route('/api/predict', methods=['POST'])
+
+@app.route("/api/predict", methods=["POST"])
 def predict():
     global model
     payload = json.loads(request.get_data())
@@ -39,8 +40,8 @@ def predict():
     df["pickup_week_hour"] = (df["pickup_weekday"] * 24) + df["pickup_hour"]
 
     pred = model.predict(df[features])
-    return(jsonify({"prediction": str(pred[0])}))
+    return jsonify({"prediction": str(pred[0])})
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
