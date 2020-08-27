@@ -21,7 +21,7 @@ cp -r /tmp/examples/examples/examples-gpu /home/jovyan/project/
 
 ## NYC Taxi
 
-An end-to-end data science pipeline comprising data ingest, exploratory analysis, machine learning model training, and deploying models and a dashboard. The `examples-cpu` project contains most of the examples, but there are GPU examples for machine learning with RAPIDS.
+An end-to-end data science pipeline comprising data ingest, exploratory analysis, machine learning model training, and deploying models and a dashboard. The `examples-cpu` project contains most of the examples, but these are GPU examples for machine learning with RAPIDS.
 
 *You will learn:*
 - How to train a tree-based machine learning model on a GPU using RAPIDS

@@ -36,7 +36,9 @@ For the best experience, we recommend opening up two notebooks at a time side-by
 - **CPU utilization of Jupyter client** for scikit-learn example: open a new Terminal window and run `htop`. 
 - **GPU utilization of Jupyter client** for RAPIDS example: open a new Terminal window and run:
 
-    ```watch -n 1 nvidia-smi```
+    ```shell
+    watch -n 1 nvidia-smi
+    ```
     
 - **GPU cluster utilization** for Dask+RAPIDS example: click the dashboard and GPU monitoring links provided in the notebook.
 
@@ -52,7 +54,7 @@ And then some browser windows for Dask cluster monitoring:
 
 Thanks for following along! We encourage you to continue to play around with these examples and use the code for your own work. There is a much [larger version of NYC taxi analysis](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo) that you can clone into a new project and see more of the power of Dask+RAPIDS on Saturn Cloud.
 
-If you have any issue with Saturn Cloud, please email us at support@saturncloud.io.
+If you have any issue with Saturn Cloud, please email us at support@saturncloud.io. If you notice any mistakes in these notebooks or documentation, [open an issue](https://github.com/saturncloud/examples/issues) or a [a pull request](https://github.com/saturncloud/examples/pulls).
 
 ## References
 
