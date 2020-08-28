@@ -2,7 +2,7 @@
 
 # Saturn Cloud Examples (CPU)
 
-Each folder corresponds to an example project that utilizes the tools within [Saturn Cloud](https://www.saturncloud.io/s/). These examples run on a Jupyter Server and/or Dask cluster with a CPU instance type and image (there is a separate set of example projects for GPU workloads).
+Each folder corresponds to an example project that utilizes the tools within [Saturn Cloud](https://www.saturncloud.io/s/). These examples run on a Jupyter Server and/or Dask cluster with a **CPU** instance type and image.
 
 Refer to the `README.md` file within each folder for detailed instructions on how to run them.
 
@@ -27,6 +27,8 @@ An end-to-end data science pipeline comprising data ingest, exploratory analysis
 - How to get performance speedups for ML model training with Dask
 - How to deploy a dashboard
 - How to deploy an ML model with a REST API
+
+There are examples for GPU-accelerated ML in the `examples-gpu` project.
 
 ## Prefect
 

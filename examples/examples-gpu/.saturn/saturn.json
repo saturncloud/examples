@@ -1,11 +1,9 @@
 {
-    "image": "saturncloud/saturn-gpu:2020.07.08.1",
+    "image": "saturncloud/saturn-gpu:2020.08.14",
     "jupyter": {
-        "size": "8xlarge",
-        "disk_space": "256Gi",
+        "size": "g4dnxlarge",
+        "disk_space": "10Gi",
         "ssh_enabled": false
     },
-    "environment_variables": {
-        "TAXI_S3": "s3://saturn-titan/nyc-taxi"
-    }
+    "environment_variables": {}
 }
