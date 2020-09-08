@@ -36,3 +36,4 @@ There are examples for GPU-accelerated ML in the `examples-gpu` project.
 - How to set up a Prefect flow for scheduled scoring of a statistical model
 - How to use a Dask cluster to distribute work
 - How to deploy the flow and run it on a schedule
+- How to deploy a flow using Prefect Cloud
