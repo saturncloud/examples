@@ -6,7 +6,8 @@
         "ssh_enabled": false
     },
     "environment_variables": {
-	"TAXI_S3": "s3://saturn-public-data/nyc-taxi",
-	"MODEL_FILE": "xgboost.pkl"
+        "TAXI_S3": "s3://saturn-public-data/nyc-taxi",
+        "MODEL_FILE": "xgboost.pkl",
+        "PREFECT_CLOUD_PROJECT_NAME": "dask-iz-gr8"
     }
 }
