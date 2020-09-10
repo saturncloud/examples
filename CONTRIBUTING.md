@@ -94,7 +94,8 @@ A JSON with the following structure:
     },
     "environment_variables": {
         "TAXI_S3": "s3://saturn-titan/nyc-taxi"
-    }
+    },
+    "description": "GPU-accelerated machine learning model training with RAPIDS."
 }
 ```
 
@@ -105,6 +106,7 @@ A JSON with the following structure:
     - `ssh_enabled`: A boolean indicating whether to set up [SSH access from outside Saturn into the Server](https://www.saturncloud.io/docs/connecting/tools/ssh/)
 * `environment_variables`:
     - A dictionary whose keys are the names of environment variables, and whose values are the values for the environment variables.
+* `description`: plain text explaining what the project does
 
 Any customization of Dask clusters should be done in notebook code, using [`dask-saturn`](https://github.com/saturncloud/dask-saturn).
 
