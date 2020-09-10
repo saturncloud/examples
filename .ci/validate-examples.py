@@ -59,6 +59,7 @@ class SaturnJsonSchema(Schema):
     image = fields.String(required=True)
     environment_variables = fields.Mapping(required=True)
     jupyter = fields.Nested(JupyterSchema, attribute="jupyter", required=True)
+    description = fields.String(required=True)
 
 
 def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
