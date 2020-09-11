@@ -27,6 +27,8 @@ You are free to open each notebook in this example and start playing around! For
 
 ## Load data into Snowflake
 
+> **Note**: If you ran the `snowflake` example and already loaded the NYC taxi data into your Snowflake account, you can skip this step. This example uses the same data.
+
 First step is to add your Snowflake credentials for notebooks in Saturn to access. To avoid setting credentials directly in notebooks, we recommend uploading credentials stored in a .yml file on the "Credentials page" in Saturn Cloud.
 
 - Type: `File`

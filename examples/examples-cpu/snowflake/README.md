@@ -39,14 +39,24 @@ conn = snowflake.connector.connect(
 )
 ```
 
-# Loading data with Pandas
+# Load data into Snowflake
+
+This example utilizes [public NYC Taxi data](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page). To load some data into a Snowflake table, run the commands in the [`load-data.sql`](load-data.sql) script from a Snowflake worksheet.
+
+# Query data with Pandas
 
 If your table or query result fits into the memory of your Jupyter client, you can load data into a pandas dataframe using `fetch_pandas_all()` or `fetch_pandas_batch()`.
 
 See [`snowflake-pandas.ipynb`](snowflake-pandas.ipynb).
 
-# Loading data with Dask
+# Query data with Dask
 
 If your table or query result _don't_ into the memory of your Jupyter client, you can use Dask! Then you can take advantage of using a Dask cluster with Saturn to speed up your computations.
 
 See [`snowflake-dask.ipynb`](snowflake-dask.ipynb).
+
+# Writing to Snowflake with Pandas and Dask
+
+TBD
+
+See [`snowflake-write.ipynb`](snowflake-write.ipynb)
