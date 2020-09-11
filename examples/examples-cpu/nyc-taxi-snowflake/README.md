@@ -27,7 +27,25 @@ You are free to open each notebook in this example and start playing around! For
 
 ## Load data into Snowflake
 
-TBD
+First step is to add your Snowflake credentials for notebooks in Saturn to access. To avoid setting credentials directly in notebooks, we recommend uploading credentials stored in a .yml file on the "Credentials page" in Saturn Cloud.
+
+- Type: `File`
+- Shared with: `<your username>`
+- Path: /home/jovyan/snowflake_creds.yml
+- Value: .yml file contents (below)
+
+The .yml file can specify any arguments that can be passed to `snowflake.connector.connect`, such as:
+
+```yaml
+account: ...
+user: ...
+password: ...
+role: ...
+```
+
+You will need to restart the Jupyter server if you add a Credential while its running. The examples utilize a warehouse called `COMPUTE_WH` at size `Medium`, but you can edit the paramemeters of `snowflake.connector.connect` in the notebooks if you want to use a different warehouse.
+
+To load the data, open up a Worksheet inside of Snowflake and run the commands in the [`load-data.sql`](load-data.sql) file.
 
 ## Dashboard
 
