@@ -90,7 +90,7 @@ To run as part of a persistent Deployment, go to the "Deployments" page in Satur
 The command is:
 
 ```bash
-python -m panel serve /home/jovyan/project/examples/nyc-taxi/dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"
+python -m panel serve /home/jovyan/project/examples/nyc-taxi-snowflake/dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"
 ```
 
 After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can view the dashboard at the URL listed on the Deployment card. You can view logs by clicking on the Status link.
@@ -142,7 +142,7 @@ An example `flask` app to serve a model REST API is in [`model-api.py`](model-ap
 To test the REST API from JupyterLab, open a new Terminal window and run the following to start up the app:
 
 ```bash
-python /home/jovyan/project/examples/nyc-taxi/model-api.py
+python /home/jovyan/project/examples/nyc-taxi-snowflake/model-api.py
 ```
 
 Open another Terminal window to get a prediction from the API:
@@ -166,7 +166,7 @@ To run as part of a persistent Deployment, go to the "Deployments" page in Satur
 The command is:
 
 ```bash
-python /home/jovyan/project/examples/nyc-taxi/model-api.py
+python /home/jovyan/project/examples/nyc-taxi-snowflake/model-api.py
 ```
 
 After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can hit the API from a Jupyter client in Saturn using the URL listed:
@@ -185,7 +185,7 @@ To get the "Predict my tip" widget in the dashboard to use the deployed model, a
 
 ```bash
 export MODEL_URL='<URL from Deployment>'
-panel serve /home/jovyan/project/examples/nyc-taxi/dashboard.ipynb
+panel serve /home/jovyan/project/examples/nyc-taxi-snowflake/dashboard.ipynb
 ```
 
 For the persistent dashboard, edit the dashboard Deployment we set up earlier to set the environment variable. In the Environment Variables section, add:
