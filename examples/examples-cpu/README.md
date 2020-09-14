@@ -40,6 +40,7 @@ This example is in the [`prefect`](prefect) folder.
 - How to set up a Prefect flow for scheduled scoring of a statistical model
 - How to use a Dask cluster to distribute work
 - How to deploy the flow and run it on a schedule
+- How to deploy a flow using Prefect Cloud
 
 ## Snowflake
 
@@ -61,5 +62,3 @@ The same end-to-end data science pipeline in the "NYC Taxi" example, except usin
 - How to ingest data from S3 into a Snowflake database
 - How to perform data aggregations in Snowflake and read the results into Pandas dataframes
 - How to efficiently load large datasets from Snowflake into Dask, and train ML models with the data
-
-

@@ -6,7 +6,9 @@
         "ssh_enabled": false
     },
     "environment_variables": {
-	"TAXI_S3": "s3://saturn-public-data/nyc-taxi",
-	"MODEL_FILE": "xgboost.pkl"
-    }
+        "TAXI_S3": "s3://saturn-public-data/nyc-taxi",
+        "MODEL_FILE": "xgboost.pkl",
+        "PREFECT_CLOUD_PROJECT_NAME": "dask-iz-gr8"
+    },
+    "description": "End-to-end data science pipeline comprising data ingest, exploratory analysis, machine learning model training, and deploying models and a dashboard."
 }
