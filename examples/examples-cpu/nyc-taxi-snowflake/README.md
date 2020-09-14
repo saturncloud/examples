@@ -150,7 +150,7 @@ Open another Terminal window to get a prediction from the API:
 ```bash
 curl -X POST \
     http://0.0.0.0:8000/api/predict \
-    -d '{"passenger_count": 1, "tpep_pickup_datetime": "2019-01-01T11:15:38Z", "PULocationID": 37, "DOLocationID": 215}'
+    -d '{"passenger_count": 1, "pickup_datetime": "2019-01-01T11:15:38Z", "pickup_taxizone_id": 37, "dropoff_taxizone_id": 215}'
 ```
 
 ### Deployment 
@@ -175,7 +175,7 @@ After you create the Deployment, click the play button to start it up. It will t
 DEPLOYMENT_URL='<URL from Deployment>'
 curl -X POST \
     http://${DEPLOYMENT_URL}:8000/api/predict \
-    -d '{"passenger_count": 1, "tpep_pickup_datetime": "2019-01-01T11:15:38Z", "PULocationID": 37, "DOLocationID": 215}'
+    -d '{"passenger_count": 1, "pickup_datetime": "2019-01-01T11:15:38Z", "pickup_taxizone_id": 37, "dropoff_taxizone_id": 215}'
 ```
 
 
