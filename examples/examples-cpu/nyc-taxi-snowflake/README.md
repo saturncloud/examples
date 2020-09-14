@@ -3,7 +3,7 @@
 
 # NYC Taxi analysis with Saturn Cloud and Snowflake
 
-The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with a database hosted in [Snowflake](https://www.snowflake.com/). 
+The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with a database hosted in [Snowflake](https://www.snowflake.com/). For more information on how to connect to Snowflake using Saturn, Dask, and Pandas, refer to the `snowflake` example.
 
 > **Note:** Running this example requires a Snowflake account. You can see how to set up a [free trial here](https://docs.snowflake.com/en/user-guide/admin-trial-account.html).
 
