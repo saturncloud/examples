@@ -10,7 +10,7 @@ app = Flask(__name__)
 TAXI_PATH = os.environ["TAXI_S3"]
 MODEL_FILE = os.environ["MODEL_FILE"]
 
-s3 = s3fs.S3FileSystem()
+s3 = s3fs.S3FileSystem(anon=True)
 model = cloudpickle.load(s3.open(f"s3://{TAXI_PATH}/ml_results/models/{MODEL_FILE}", "rb"))
 
 features = [
