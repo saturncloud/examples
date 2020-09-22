@@ -3,7 +3,7 @@
 
 # NYC Taxi analysis with Saturn Cloud and Snowflake
 
-The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with a database hosted in [Snowflake](https://www.snowflake.com/). For more information on how to connect to Snowflake using Saturn, Dask, and Pandas, refer to the `snowflake` example.
+The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with a database hosted in [Snowflake](https://www.snowflake.com/). For more information on how to connect to Snowflake using Saturn, Dask, and Pandas, refer to the "snowflake" example.
 
 > **Note:** Running this example requires a Snowflake account. You can see how to set up a [free trial here](https://docs.snowflake.com/en/user-guide/admin-trial-account.html).
 
@@ -36,7 +36,7 @@ First step is to add your Snowflake credentials for notebooks in Saturn to acces
 - Path: /home/jovyan/snowflake_creds.yml
 - Value: .yml file contents (below)
 
-The .yml file can specify any arguments that can be passed to `snowflake.connector.connect`, such as:
+The .yml file can [specify any arguments that can be passed](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) to `snowflake.connector.connect`, such as:
 
 ```yaml
 account: ...
@@ -45,7 +45,7 @@ password: ...
 role: ...
 ```
 
-You will need to restart the Jupyter server if you add a Credential while its running. The examples utilize a warehouse called `COMPUTE_WH` at size `Medium`, but you can edit the paramemeters of `snowflake.connector.connect` in the notebooks if you want to use a different warehouse.
+You will need to restart the Jupyter server if you add a Credential while it's running. The examples utilize a warehouse called `COMPUTE_WH` at size `Medium`, but you can edit the paramemeters of `snowflake.connector.connect` in the notebooks if you want to use a different warehouse.
 
 To load the data, open up a Worksheet inside of Snowflake and run the commands in the [`load-data.sql`](load-data.sql) file.
 
@@ -137,12 +137,12 @@ The random forest examples showcase GPU-accelerated model training with [RAPIDS]
 
 ## Serve ML model
 
-An example `flask` app to serve a model REST API is in [`model-api.py`](model-api.py). This script pulls down a trained model from Saturn's public S3 bucket and hosts an endpoint for model predictions.
+An example `flask` app to serve a model REST API is in [`../nyc-taxi/model-api.py`](../nyc-taxi/model-api.py) (note that this is the same file from the "nyc-taxi" example). This script pulls down a trained model from Saturn's public S3 bucket and hosts an endpoint for model predictions.
 
 To test the REST API from JupyterLab, open a new Terminal window and run the following to start up the app:
 
 ```bash
-python /home/jovyan/project/examples/nyc-taxi-snowflake/model-api.py
+python /home/jovyan/project/examples/nyc-taxi/model-api.py
 ```
 
 Open another Terminal window to get a prediction from the API:

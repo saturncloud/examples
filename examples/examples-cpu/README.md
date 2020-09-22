@@ -21,7 +21,7 @@ cp -r /tmp/examples/examples/examples-cpu /home/jovyan/project/
 
 ## NYC Taxi
 
-This example is in the [`nyc-taxi`](nyc-taxi) folder.
+This example is in the [nyc-taxi](nyc-taxi) folder.
 
 An end-to-end data science pipeline comprising data ingest, exploratory analysis, machine learning model training, and deploying models and a dashboard.
 
@@ -34,7 +34,7 @@ There are examples for GPU-accelerated ML in the `examples-gpu` project.
 
 ## Prefect
 
-This example is in the [`prefect`](prefect) folder.
+This example is in the [prefect](prefect) folder.
 
 *You will learn:*
 - How to set up a Prefect flow for scheduled scoring of a statistical model
@@ -44,7 +44,7 @@ This example is in the [`prefect`](prefect) folder.
 
 ## Snowflake
 
-This example is in the [`snowflake`](snowflake) folder.
+This example is in the [snowflake](snowflake) folder.
 
 *You will learn:*
 - How to query Snowflake and load data into a Pandas dataframe
@@ -53,9 +53,9 @@ This example is in the [`snowflake`](snowflake) folder.
 
 ## NYC Taxi using Snowflake
 
-This example is in the [`nyc-taxi-snowflake`](nyc-taxi-snowflake) folder.
+This example is in the [nyc-taxi-snowflake](nyc-taxi-snowflake) folder.
 
-The same end-to-end data science pipeline in the "NYC Taxi" example, except using [Snowflake](https://www.snowflake.com/) for data ingest and exploratory analysis. The ML examples then pull data from a Snowflake database rather than from S3.
+The same end-to-end data science pipeline in the "NYC Taxi" example, except using [Snowflake](https://www.snowflake.com/) for data ingest and exploratory analysis. The ML examples pull data from a Snowflake database rather than from S3.
 
 *You will learn:*
 - Everything from the "NYC Taxi" example _plus_:

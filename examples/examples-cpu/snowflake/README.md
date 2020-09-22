@@ -51,7 +51,7 @@ See [`snowflake-pandas.ipynb`](snowflake-pandas.ipynb).
 
 # Query data with Dask
 
-If your table or query result _don't_ into the memory of your Jupyter client, you can use Dask! Then you can take advantage of using a Dask cluster with Saturn to speed up your computations.
+If your table or query result _doesn't_ into the memory of your Jupyter client, you can use Dask! Then you can take advantage of using a Dask cluster with Saturn to speed up your computations.
 
 See [`snowflake-dask.ipynb`](snowflake-dask.ipynb).
 
