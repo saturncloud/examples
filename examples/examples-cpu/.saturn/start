@@ -1,4 +1,0 @@
-pip install \
-    --upgrade \
-        "prefect>0.13.0" \
-        "prefect-saturn>=0.1.0"

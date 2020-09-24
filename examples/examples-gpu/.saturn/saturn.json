@@ -1,10 +1,10 @@
 {
-    "image": "saturncloud/saturn-gpu:2020.08.14",
+    "image": "saturncloud/saturn-gpu:2020.08.28",
     "jupyter": {
         "size": "g4dnxlarge",
         "disk_space": "10Gi",
         "ssh_enabled": false
     },
     "environment_variables": {},
-    "description": "GPU-accelerated machine learning model training with RAPIDS."
+    "description": "Examples for using Saturn Cloud with GPUs. Includes GPU-accelerated machine learning model training with RAPIDS."
 }
