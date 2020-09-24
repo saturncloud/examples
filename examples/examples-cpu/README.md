@@ -55,7 +55,7 @@ This example is in the [snowflake](snowflake) folder.
 
 This example is in the [nyc-taxi-snowflake](nyc-taxi-snowflake) folder.
 
-The same end-to-end data science pipeline in the "NYC Taxi" example, except using [Snowflake](https://www.snowflake.com/) for data ingest and exploratory analysis. The ML examples pull data from a Snowflake database rather than from S3.
+The same end-to-end data science pipeline from the "NYC Taxi" example, except using [Snowflake](https://www.snowflake.com/) for data ingestion and exploratory analysis. The machine learning examples pull data from a Snowflake database rather than from S3.
 
 *You will learn:*
 - Everything from the "NYC Taxi" example _plus_:
