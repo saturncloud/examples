@@ -2,13 +2,7 @@ name: Continuous Integration
 
 # only run this workflow on new commits to main
 # or PRs into main
-on:
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
+on: [push]
 
 jobs:
   test:
