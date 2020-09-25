@@ -20,8 +20,8 @@ features = [
     "pickup_week_hour",
     "pickup_minute",
     "passenger_count",
-    "PULocationID",
-    "DOLocationID",
+    "pickup_taxizone_id",
+    "dropoff_taxizone_id",
 ]
 
 
