@@ -1,9 +1,13 @@
-|<img src="img/taxi.png" width="200" /> | <img src="img/saturn.png" width="400" />|
-| -- | -- |
+|<img src="img/taxi.png" width="200" /> | <img src="img/saturn.png" width="400" />|<img src="img/snowflake.png" width="400" /> |
+| -- | -- | -- |
 
-# NYC Taxi analysis with Saturn Cloud
+# NYC Taxi analysis with Saturn Cloud and Snowflake
 
-The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/). They are a subset of a [larger demo](https://youtu.be/SgXSIbB4Hik), reduced to quickly highlight key features of Saturn Cloud. The larger demo includes the following:
+The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with a database hosted in [Snowflake](https://www.snowflake.com/). For more information on how to connect to Snowflake using Saturn, Dask, and Pandas, refer to the "snowflake" example.
+
+> **Note:** Running this example requires a Snowflake account. You can see how to set up a [free trial here](https://docs.snowflake.com/en/user-guide/admin-trial-account.html).
+
+This example is a subset of a [larger demo](https://youtu.be/SgXSIbB4Hik), reduced to quickly highlight key features of Saturn Cloud and Snowflake together. The larger demo includes the following:
 
 <img src="img/pipeline.png" width="800">
 
@@ -11,8 +15,8 @@ All code for the full demo is [available here](https://github.com/saturncloud/sa
 
 The notebooks in _this_ example cover:
 
-1. Create and deploy a dashboard with exploratory analysis (`holoviz`, `bokeh`, `panel`)
-1. Load records from CSV files and produce aggregate data files (`dask.dataframe`, `pandas`)*
+1. Load records from CSV files into Snowflake (Snowflake SQL)
+1. Create and deploy a dashboard with exploratory analysis (`holoviz`, `bokeh`, `panel`, `snowflake-connector-python`)
 1. Train a number of machine learning models using single-node Python tools (`scikit-learn`, `xgboost`)
 1. Use Dask to distribute and speed up model training (`dask-ml`, `dask-xgboost`)*
 1. Deploy models via REST API (`flask`)
@@ -21,13 +25,37 @@ _\* These examples illustrate how to launch and utilize a Dask cluster with Satu
 
 You are free to open each notebook in this example and start playing around! For a guided experience, follow the steps below.
 
+## Load data into Snowflake
+
+> **Note**: If you ran the `snowflake` example and already loaded the NYC taxi data into your Snowflake account, you can skip this step. This example uses the same data.
+
+First step is to add your Snowflake credentials for notebooks in Saturn to access. To avoid setting credentials directly in notebooks, we recommend uploading credentials stored in a .yml file on the "Credentials page" in Saturn Cloud.
+
+- Type: `File`
+- Shared with: `<your username>`
+- Path: /home/jovyan/snowflake_creds.yml
+- Value: .yml file contents (below)
+
+The .yml file can [specify any arguments that can be passed](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) to `snowflake.connector.connect`, such as:
+
+```yaml
+account: ...
+user: ...
+password: ...
+role: ...
+```
+
+You will need to restart the Jupyter server if you add a Credential while it's running. The examples utilize a warehouse called `COMPUTE_WH` at size `Medium`, but you can edit the paramemeters of `snowflake.connector.connect` in the notebooks if you want to use a different warehouse.
+
+To load the data, open up a Worksheet inside of Snowflake and run the commands in the [`load-data.sql`](load-data.sql) file.
+
 ## Dashboard
 
 The dashboard presents summary statistics about NYC taxi rides from the years 2017 through 2019. Plots are built with [HoloViz](https://holoviz.org/) and [Bokeh](https://bokeh.org/), and the dashboard is served using [Panel](https://panel.holoviz.org/). Any other Python visualization or dashboard library is supported by Saturn; this is just one example.
 
 ![dashboard](img/dashboard.png)
 
-Saturn Cloud hosts pre-aggregated data files on a public S3 bucket, so you can immediately run and view the dashboard. See [`dashboard.ipynb`](dashboard.ipynb) for the dashboard code. 
+The dashboard queries the Snowflake database and pulls the data into Pandas. See [`dashboard.ipynb`](dashboard.ipynb) for the dashboard code. 
 
 ### Running dashboard
 
@@ -62,16 +90,12 @@ To run as part of a persistent Deployment, go to the "Deployments" page in Satur
 The command is:
 
 ```bash
-python -m panel serve /home/jovyan/project/examples/nyc-taxi/dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"
+python -m panel serve /home/jovyan/project/examples/nyc-taxi-snowflake/dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"
 ```
 
 After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can view the dashboard at the URL listed on the Deployment card. You can view logs by clicking on the Status link.
 
 Note that the "Predict my Tip" widget on the "ML" tab will return `-1.00%` until we specify a model deployment for it to point to. We will get there later in the example.
-
-## Aggregate data files
-
-Saturn Cloud hosts pre-aggregated NYC taxi data from 2017-2019 for the dashboard in the previous step. The [`data-aggregation.ipynb`](data-aggregation.ipynb) notebook contains all the code to perform these aggregations. It is set up to run on a small sample (first few months of 2017) to be able to be executed in this example project. This notebook is included to illustrate how Dask is used with a Saturn cluster for data processing, but the files generated here will not be used by any of the other examples. 
 
 ## Train ML models
 
@@ -113,7 +137,7 @@ The random forest examples showcase GPU-accelerated model training with [RAPIDS]
 
 ## Serve ML model
 
-An example `flask` app to serve a model REST API is in [`model-api.py`](model-api.py). This script pulls down a trained model from Saturn's public S3 bucket and hosts an endpoint for model predictions.
+An example `flask` app to serve a model REST API is in [`../nyc-taxi/model-api.py`](../nyc-taxi/model-api.py) (note that this is the same file from the "nyc-taxi" example). This script pulls down a trained model from Saturn's public S3 bucket and hosts an endpoint for model predictions.
 
 To test the REST API from JupyterLab, open a new Terminal window and run the following to start up the app:
 
@@ -142,7 +166,7 @@ To run as part of a persistent Deployment, go to the "Deployments" page in Satur
 The command is:
 
 ```bash
-python /home/jovyan/project/examples/nyc-taxi/model-api.py
+python /home/jovyan/project/examples/nyc-taxi-snowflake/model-api.py
 ```
 
 After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can hit the API from a Jupyter client in Saturn using the URL listed:
@@ -161,7 +185,7 @@ To get the "Predict my tip" widget in the dashboard to use the deployed model, a
 
 ```bash
 export MODEL_URL='<URL from Deployment>'
-panel serve /home/jovyan/project/examples/nyc-taxi/dashboard.ipynb
+panel serve /home/jovyan/project/examples/nyc-taxi-snowflake/dashboard.ipynb
 ```
 
 For the persistent dashboard, edit the dashboard Deployment we set up earlier to set the environment variable. In the Environment Variables section, add:
