@@ -5,6 +5,11 @@
         "disk_space": "10Gi",
         "ssh_enabled": false
     },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "medium",
+        "worker_size": "g4dnxlarge"
+    },
     "environment_variables": {},
     "description": "Examples for using Saturn Cloud with GPUs. Includes GPU-accelerated machine learning model training with RAPIDS."
 }
