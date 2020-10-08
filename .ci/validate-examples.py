@@ -24,7 +24,7 @@ DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
 FILENAME_REGEX = r"^[0-9A-Za-z\-\.]+$"
 SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
-SATURN_JSON_KEYS = ["image", "jupyter", "environment_variables"]
+SATURN_JSON_KEYS = ["image", "jupyter", "dask_cluster", "environment_variables"]
 TOP_LEVEL_DIR = ARGS.examples_dir
 
 
@@ -55,10 +55,20 @@ class JupyterSchema(Schema):
     ssh_enabled = fields.Boolean(required=True)
 
 
+class DaskClusterSchema(Schema):
+    n_workers = fields.Integer(required=False)
+    scheduler_size = fields.String(required=False)
+    worker_size = fields.String(required=False)
+    nthreads = fields.Integer(required=False)
+    nprocs = fields.Integer(required=False)
+    worker_is_spot = fields.Boolean(required=False)
+
+
 class SaturnJsonSchema(Schema):
     image = fields.String(required=True)
     environment_variables = fields.Mapping(required=True)
     jupyter = fields.Nested(JupyterSchema, attribute="jupyter", required=True)
+    dask_cluster = fields.Nested(DaskClusterSchema, required=False)
     description = fields.String(required=True)
 
 
