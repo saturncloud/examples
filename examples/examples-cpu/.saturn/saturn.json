@@ -5,6 +5,12 @@
         "disk_space": "10Gi",
         "ssh_enabled": false
     },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "medium",
+        "worker_size": "large",
+        "nthreads": 2
+    },
     "environment_variables": {
         "TAXI_S3": "s3://saturn-public-data/nyc-taxi",
         "MODEL_FILE": "xgboost.pkl",
