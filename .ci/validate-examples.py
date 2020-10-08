@@ -24,7 +24,7 @@ DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
 FILENAME_REGEX = r"^[0-9A-Za-z\-\.]+$"
 SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
-SATURN_JSON_KEYS = ["image", "jupyter", "dask_cluster", "environment_variables"]
+SATURN_JSON_KEYS = ["image", "jupyter", "environment_variables"]
 TOP_LEVEL_DIR = ARGS.examples_dir
 
 
