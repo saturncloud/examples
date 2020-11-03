@@ -1,14 +1,20 @@
 {
-    "image": "saturncloud/saturn:2020.08.14",
+    "image": "saturncloud/saturn:2020.10.23",
     "jupyter": {
         "size": "large",
         "disk_space": "10Gi",
         "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "medium",
+        "worker_size": "large",
+        "nthreads": 2
     },
     "environment_variables": {
         "TAXI_S3": "s3://saturn-public-data/nyc-taxi",
         "MODEL_FILE": "xgboost.pkl",
         "PREFECT_CLOUD_PROJECT_NAME": "dask-iz-gr8"
     },
-    "description": "End-to-end data science pipeline comprising data ingest, exploratory analysis, machine learning model training, and deploying models and a dashboard."
+    "description": "Examples for using Saturn Cloud. Includes Dask and Prefect tutorials, an end-to-end data science pipeline, and more."
 }
