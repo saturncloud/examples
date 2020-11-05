@@ -8,34 +8,33 @@
 
 # Credentials and connecting
 
-To avoid setting and storing credentials directly in notebooks, we recommend sourcing credentials stored a in .yml file uploaded using the "Credentials" page in Saturn Cloud.
+To avoid setting and storing credentials directly in notebooks, we recommend sourcing credentials from environment variables using the "Credentials" page in Saturn Cloud.
 
-- Type: `File`
-- Shared with: `<your username>`
-- Path: /home/jovyan/snowflake_creds.yml
-- Value: .yml file contents (below)
-
-The .yml file can specify any arguments that can be passed to `snowflake.connector.connect`, such as:
-
-```yaml
-account: ...
-user: ...
-password: ...
-role: ...
+```sh
+Type: Environment Variable
+Shared with: <your username>
+Name: <variable name>
+Value: <variable value>
 ```
 
-You will need to restart the Jupyter server if you add a file under "Credentials" while it is running. Then from any notebook where you want to connect to Snowflake, you can read in the credentials and then provide additional arguments (or override the ones set in the file):
+Create a credential for each of these variables:
+- `SNOWFLAKE_ACCOUNT`
+- `SNOWFLAKE_USER`
+- `SNOWFLAKE_PASSWORD`
+
+You will need to restart the Jupyter server if you add "Credentials" while it is running. Then from any notebook where you want to connect to Snowflake, you can read in the credentials and then provide additional arguments:
 
 ```python
-import yaml
+import os
 import snowflake.connector
 
-creds = yaml.full_load(open('/home/jovyan/snowflake_creds.yml'))
 conn = snowflake.connector.connect(
+    account=os.environ['SNOWFLAKE_ACCOUNT'],
+    user=os.environ['SNOWFLAKE_USER'],
+    password=os.environ['SNOWFLAKE_PASSWORD'],
     warehouse=...,
     database=...,
     schema=...,
-    **creds,
 )
 ```
 
