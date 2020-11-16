@@ -29,23 +29,25 @@ You are free to open each notebook in this example and start playing around! For
 
 > **Note**: If you ran the `snowflake` example and already loaded the NYC taxi data into your Snowflake account, you can skip this step. This example uses the same data.
 
-First step is to add your Snowflake credentials for notebooks in Saturn to access. To avoid setting credentials directly in notebooks, we recommend uploading credentials stored in a .yml file on the "Credentials page" in Saturn Cloud.
+First step is to add your Snowflake credentials for notebooks in Saturn to access. To avoid setting and storing credentials directly in notebooks, we recommend sourcing credentials from environment variables using the "Credentials" page in Saturn Cloud.
 
-- Type: `File`
-- Shared with: `<your username>`
-- Path: /home/jovyan/snowflake_creds.yml
-- Value: .yml file contents (below)
-
-The .yml file can [specify any arguments that can be passed](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) to `snowflake.connector.connect`, such as:
-
-```yaml
-account: ...
-user: ...
-password: ...
-role: ...
+```sh
+Type: Environment Variable
+Shared with: <your username>
+Name: <variable name>
+Value: <variable value>
 ```
 
-You will need to restart the Jupyter server if you add a Credential while it's running. The examples utilize a warehouse called `COMPUTE_WH` at size `Medium`, but you can edit the paramemeters of `snowflake.connector.connect` in the notebooks if you want to use a different warehouse.
+Create a credential for each of these variables:
+- `SNOWFLAKE_ACCOUNT`
+- `SNOWFLAKE_USER`
+- `SNOWFLAKE_PASSWORD`
+
+These variables will be used to [specify arguments](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) passed to `snowflake.connector.connect`.
+
+
+You will need to restart the Jupyter server if you add a Credential while it's running. The examples also utilize the environment variables SNOWFLAKE_WAREHOUSE, TAXI_DATABASE, and TAXI_SCHEMA for configuring the snowflake connection, but since these are not sensitive they can be set directly on the Jupyter server instead of setting them as Credentials. The Jupyter server will need to be stopped in order to edit its environment variables.
+
 
 To load the data, open up a Worksheet inside of Snowflake and run the commands in the [`load-data.sql`](load-data.sql) file.
 
@@ -55,7 +57,7 @@ The dashboard presents summary statistics about NYC taxi rides from the years 20
 
 ![dashboard](img/dashboard.png)
 
-The dashboard queries the Snowflake database and pulls the data into Pandas. See [`dashboard.ipynb`](dashboard.ipynb) for the dashboard code. 
+The dashboard queries the Snowflake database and pulls the data into Pandas. See [`dashboard.ipynb`](dashboard.ipynb) for the dashboard code.
 
 ### Running dashboard
 
@@ -71,13 +73,13 @@ The dashboard will be live behind the Jupyter proxy. You can copy the URL of thi
 
 > https://main.demo.saturnenterprise.io/user/aaron/examples-cpu/lab/workspaces/examples-cpu
 
-Then your dashboard URL would be: 
+Then your dashboard URL would be:
 
 > https://main.demo.saturnenterprise.io/user/aaron/examples-cpu/proxy/5006/dashboard
 
 It will take a few seconds to load when first viewing the page, as all the cells in this notebook must be executed first.
 
-#### Deployment 
+#### Deployment
 
 To run as part of a persistent Deployment, go to the "Deployments" page in Saturn Cloud and create a new deployment. This will host the dashboard so users can view it without having to launch a Jupyter project. Note that Deployment names must be unique across all users.
 
@@ -153,7 +155,7 @@ curl -X POST \
     -d '{"passenger_count": 1, "pickup_datetime": "2019-01-01T11:15:38Z", "pickup_taxizone_id": 37, "dropoff_taxizone_id": 215}'
 ```
 
-### Deployment 
+### Deployment
 
 To run as part of a persistent Deployment, go to the "Deployments" page in Saturn Cloud and create a new deployment. This will host the API so apps can get predictions from the model.
 
