@@ -130,10 +130,10 @@ def _lint_python_cell(file_name: str, code_lines: List[str]) -> List[str]:
     # Jupyter notebooks already store literal newlines
     code_str = "".join(code_lines)
 
-    WARNING_FILTER_REGEX = r".*warnings\.simplefilter.*"
+    WARNING_FILTER_REGEX = r".*warnings\.filter.*"
     if bool(re.search(WARNING_FILTER_REGEX, code_str)):
         msg = (
-            f"Found use of warnings.simplefilter() in {file_name}. "
+            f"Found use of warnings.simplefilter() or warnings.filterwarnings() in {file_name}. "
             "Do not filter out warnings in example notebooks. Try to fix them or "
             "add text explaining why they can be safely ignored."
         )
