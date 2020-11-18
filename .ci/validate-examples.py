@@ -16,6 +16,7 @@ import requests
 import sys
 
 from marshmallow import fields, Schema, ValidationError
+from typing import List
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
@@ -30,16 +31,16 @@ TOP_LEVEL_DIR = ARGS.examples_dir
 
 class ErrorCollection:
 
-    _errors = []
+    _errors: List[str] = []
 
-    def add(self, error):
+    def add(self, error: str):
         self._errors.append(error)
 
     @property
-    def num_errors(self):
+    def num_errors(self) -> int:
         return len(self._errors)
 
-    def report(self):
+    def report(self) -> None:
         print("\n------ check results ------\n")
         print(f"{self.num_errors} errors found checking examples\n")
         i = 1
@@ -111,6 +112,36 @@ def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
     return res.status_code == 200
 
 
+def _lint_python_cell(file_name: str, code_lines: List[str]) -> List[str]:
+    """
+    Given the content of a Python code cell, check if for problems we
+    want to avoid.
+
+    :param file_name: Name of the notebook this code came from. This is used
+        to make error messages more informative.
+    :param code_lines: List of strings, where each item in the list is one
+        line of Python code.
+
+    :return: A list of strings, where each string represents an error
+        found by this check
+    """
+    errors = []
+
+    # Jupyter notebooks already store literal newlines
+    code_str = "".join(code_lines)
+
+    WARNING_FILTER_REGEX = r".*warnings\.simplefilter.*"
+    if bool(re.search(WARNING_FILTER_REGEX, code_str)):
+        msg = (
+            f"Found use of warnings.simplefilter() in {file_name}. "
+            "Do not filter out warnings in example notebooks. Try to fix them or "
+            "add text explaining why they can be safely ignored."
+        )
+        errors.append(msg)
+
+    return errors
+
+
 if __name__ == "__main__":
 
     ERRORS = ErrorCollection()
@@ -163,6 +194,10 @@ if __name__ == "__main__":
                 for cell in notebook_dict["cells"]:
                     if cell.get("outputs", []) or cell.get("execution_count", None):
                         non_empty_cells += 1
+                    if cell["cell_type"] == "code":
+                        linting_errors = _lint_python_cell(notebook_file, cell["source"])
+                        for err in linting_errors:
+                            ERRORS.add(err)
                 if non_empty_cells > 0:
                     msg = (
                         f"Found {non_empty_cells} non-empty cells in '{notebook_file}'. "
