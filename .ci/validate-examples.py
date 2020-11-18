@@ -142,8 +142,8 @@ def _lint_python_cell(file_name: str, code_lines: List[str]) -> List[str]:
     DELAYED_DECORATOR_REGEX = r"@delayed"
     if bool(re.search(DELAYED_DECORATOR_REGEX, code_str)):
         msg = (
-            f"Found a use of @delayed in {file_name}. "
-            "Instead, `import dask` and then `@dask.delayed`."
+            f"Found a use of '@delayed' in {file_name}. "
+            "Instead, 'import dask' and then use '@dask.delayed'."
         )
         errors.append(msg)
 
