@@ -114,7 +114,7 @@ def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
 
 def _lint_python_cell(file_name: str, code_lines: List[str]) -> List[str]:
     """
-    Given the content of a Python code cell, check if for problems we
+    Given the content of a Python code cell, check it for problems we
     want to avoid.
 
     :param file_name: Name of the notebook this code came from. This is used
