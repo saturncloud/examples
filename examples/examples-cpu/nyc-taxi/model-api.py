@@ -34,7 +34,7 @@ def predict():
     # add stateless features
     df["pickup_datetime"] = pd.to_datetime(df["pickup_datetime"])
     df["pickup_weekday"] = df["pickup_datetime"].dt.weekday
-    df["pickup_weekofyear"] = df["pickup_datetime"].dt.weekofyear
+    df["pickup_weekofyear"] = df["pickup_datetime"].dt.isocalendar().week
     df["pickup_hour"] = df["pickup_datetime"].dt.hour
     df["pickup_minute"] = df["pickup_datetime"].dt.minute
     df["pickup_week_hour"] = (df["pickup_weekday"] * 24) + df["pickup_hour"]
