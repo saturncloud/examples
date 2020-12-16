@@ -1,6 +1,0 @@
-pip uninstall -y dask-xgboost xgboost || true
-
-rm -f /opt/conda/envs/saturn/lib/libxgboost.so
-rm -f /opt/conda/envs/saturn/lib/python3.7/site-packages/xgboost/lib/libxgboost.so
-
-pip install --upgrade 'xgboost>=1.3.0'
