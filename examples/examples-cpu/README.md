@@ -2,13 +2,21 @@
 
 # Saturn Cloud Examples (CPU)
 
+If you don't already use Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/). Once you've done that, come back here and click one of the links below to open a notebook and get started.
+
+1. [Hyperparameter Tuning with scikit-learn](./nyc-taxi/hyperparameter-scikit.ipynb)
+1. [Hyperparameter Tuning with Dask](./nyc-taxi/hyperparameter-dask.ipynb)
+1. [Train an XGBoost Model](./nyc-taxi/xgboost.ipynb)
+1. [XGBoost Distributed Training with Dask](./nyc-taxi/xgboost-dask.ipynb)
+1. [Deploy a Dashboard](./nyc-taxi/dashboard.ipynb)
+1. [ETL with Dask](./nyc-taxi/data-aggregation.ipynb)
+
+
 Each folder corresponds to an example project that utilizes the tools within [Saturn Cloud](https://www.saturncloud.io/s/). These examples run on a Jupyter Server and/or Dask cluster with a **CPU** instance type and image.
 
 Refer to the `README.md` file within each folder for detailed instructions on how to run them.
 
 > **Pro tip**: Right-click on any `README.md` file and choose "Open With -> Markdown Preview" to view a rendered version
-
-If you don't already use Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/)!
 
 ### Running in a new project
 
