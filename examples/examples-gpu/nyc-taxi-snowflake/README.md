@@ -1,4 +1,4 @@
-|<img src="img/taxi.png" width="200" /> | <img src="img/saturn.png" width="400" />|<img src="img/snowflake.png" width="400" /> |
+|<img src="../_img/taxi.png" width="200" /> | <img src="../_img/saturn.png" width="400" />|<img src="../_img/snowflake.png" width="400" /> |
 | -- | -- | -- |
 
 # NYC Taxi analysis with Saturn Cloud and Snowflake
@@ -7,7 +7,7 @@ The notebooks in this example showcase a data science workflow with NYC taxi dat
 
 > **Note:** Running this example requires a Snowflake account. You can see how to set up a [free trial here](https://docs.snowflake.com/en/user-guide/admin-trial-account.html).
 
-<img src="img/pipeline.png" width="800">
+<img src="../_img/pipeline.png" width="800">
 
 All code for the full demo is [available here](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo). You can follow the instructions there to create a new project and run the full examples. The example you are currently in is a reduced version to quickly (and cost-effectively) highlight key features of Saturn Cloud.
 
@@ -50,11 +50,11 @@ For the best experience, we recommend opening up two notebooks at a time side-by
 
 Here what this might look like in JupyterLab:
 
-[![workspace](img/workspace.png)](img/workspace.png)
+[![workspace](../_img/workspace.png)](../_img/workspace.png)
 
 And then some browser windows for Dask cluster monitoring:
 
-[![dask](img/dask.png)](img/dask.png)
+[![dask](../_img/dask.png)](../_img/dask.png)
 
 # That's all folks
 
