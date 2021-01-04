@@ -1,14 +1,19 @@
-![Saturn Cloud](saturn.png)
+<img src="./_img/saturn.png" width="600">
 
 # Saturn Cloud Examples (GPU)
 
-Each folder corresponds to an example project that utilizes the tools within [Saturn Cloud](https://www.saturncloud.io/s/). These examples run on a Jupyter Server and/or Dask cluster with a **GPU** instance type and image, and showcase workflows with tools that take advantage of GPU processing such as [RAPIDS](http://rapids.ai/) and deep learning.
+If you're new to Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/).
 
-Refer to the `README.md` file within each folder for detailed instructions on how to run them.
+Once you've done that, click one of the links below to open a notebook and try an example.
 
-> **Pro tip**: Right-click on any `README.md` file and choose "Open With -> Markdown Preview" to view a rendered version
+**Data Exploration and Machine Learning**
 
-If you don't already use Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/)!
+1. Train a Random Forest Model
+    - [single-machine, CPU (scikit-learn)](./nyc-taxi/rf-scikit.ipynb)
+    - [single-machine, GPU (RAPIDS)](./nyc-taxi/rf-rapids.ipynb)
+    - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi/rf-rapids-dask.ipynb)
+
+<hr>
 
 ### Running in a new project
 
