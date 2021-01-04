@@ -2,21 +2,40 @@
 
 # Saturn Cloud Examples (CPU)
 
-If you don't already use Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/). Once you've done that, come back here and click one of the links below to open a notebook and get started.
+If you're new to Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/).
 
-1. [Hyperparameter Tuning with scikit-learn](./nyc-taxi/hyperparameter-scikit.ipynb)
-1. [Hyperparameter Tuning with Dask](./nyc-taxi/hyperparameter-dask.ipynb)
-1. [Train an XGBoost Model](./nyc-taxi/xgboost.ipynb)
-1. [XGBoost Distributed Training with Dask](./nyc-taxi/xgboost-dask.ipynb)
+Once you've done that, click one of the links below to open a notebook and try an example.
+
+**Data Exploration and Machine Learning**
+
+1. Hyperparameter tuning
+    - [single-machine (scikit-learn)](./nyc-taxi/hyperparameter-scikit.ipynb)
+    - [multi-machine (Dask)](./nyc-taxi/hyperparameter-dask.ipynb)
+1. Train an XGBoost Model
+    - [single-machine (scikit-learn)](./nyc-taxi/xgboost.ipynb)
+    - [multi-machine (Dask)](./nyc-taxi/xgboost-dask.ipynb)
 1. [Deploy a Dashboard](./nyc-taxi/dashboard.ipynb)
 1. [ETL with Dask](./nyc-taxi/data-aggregation.ipynb)
 
+**Prefect**
 
-Each folder corresponds to an example project that utilizes the tools within [Saturn Cloud](https://www.saturncloud.io/s/). These examples run on a Jupyter Server and/or Dask cluster with a **CPU** instance type and image.
+[prefect](https://www.prefect.io/) is an open-source workflow orchestration tool, similar to [Apache Airflow](https://airflow.apache.org/). Prefect can take advantage of Dask to run tasks in a workflow in parallel.
 
-Refer to the `README.md` file within each folder for detailed instructions on how to run them.
+1. [Run a prefect flow on Saturn](./prefect/prefect-scoring.ipynb)
+1. [Run a Prefect Cloud flow on a Saturn Dask cluster](./prefect/prefect-cloud-scheduled-scoring.ipynb)
 
-> **Pro tip**: Right-click on any `README.md` file and choose "Open With -> Markdown Preview" to view a rendered version
+**Snowflake**
+
+[Snowflake](https://www.snowflake.com/cloud-data-platform/) is a popular cloud-based data warehouse. If you have a Snowflake account, explore these examples to see how to use Saturn Cloud to process the data stored there.
+
+1. [Reading Snowflake data into `pandas`](./snowflake/snowflake-pandas.ipynb)
+1. [Reading Snowflake data into Dask DataFrame](./snowflake/snowflake-dask.ipynb)
+1. Hyperparameter Tuning
+    - [single-machine (scikit-learn)](./nyc-taxi-snowflake/hyperparameter-scikit.ipynb)
+    - [multi-machine (Dask)](./nyc-taxi-snowflake/hyperparameter-dask.ipynb)
+1. Train an XGBoost model
+    - [single-machine (scikit-learn)](./nyc-taxi-snowflake/xgboost.ipynb)
+    - [multi-machine (Dask)](./nyc-taxi-snowflake/xgboost-dask.ipynb)
 
 ### Running in a new project
 
