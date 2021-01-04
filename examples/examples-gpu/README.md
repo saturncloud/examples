@@ -1,4 +1,4 @@
-![Saturn Cloud](saturn.png)
+<img src="./_img/saturn.png" width="600">
 
 # Saturn Cloud Examples (GPU)
 
@@ -21,6 +21,8 @@ Snowflake is a popular data warehouse technology. If you have a Snowflake accoun
     - [single-machine, CPU (scikit-learn)](./nyc-taxi-snowflake/rf-scikit.ipynb)
     - [single-machine, GPU (RAPIDS)](./nyc-taxi-snowflake/rf-rapids.ipynb)
     - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi-snowflake/rf-rapids-dask.ipynb)
+
+<hr>
 
 ### Running in a new project
 

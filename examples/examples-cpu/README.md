@@ -1,4 +1,4 @@
-![Saturn Cloud](saturn.png)
+<img src="./_img/saturn.png" width="600">
 
 # Saturn Cloud Examples (CPU)
 
@@ -36,6 +36,8 @@ Once you've done that, click one of the links below to open a notebook and try a
 1. Train an XGBoost model
     - [single-machine (scikit-learn)](./nyc-taxi-snowflake/xgboost.ipynb)
     - [multi-machine (Dask)](./nyc-taxi-snowflake/xgboost-dask.ipynb)
+
+<hr>
 
 ### Running in a new project
 
