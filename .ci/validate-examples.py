@@ -20,6 +20,7 @@ from typing import List
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
+ADMIN_DIRS = ["_img"]
 ARGS = parser.parse_args()
 DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
 FILENAME_REGEX = r"^[0-9A-Za-z\-\.]+$"
@@ -217,21 +218,23 @@ if __name__ == "__main__":
         for fname in all_files:
             if os.path.isdir(fname):
                 base_name = os.path.basename(os.path.normpath(fname))
-                matches_name_pattern = bool(re.search(DIRECTORY_REGEX, base_name))
+                is_valid = bool(re.search(DIRECTORY_REGEX, base_name))
                 msg = (
                     f"[here] All directories should be named with only "
                     "lower alphanumeric characters and dashes. "
                     f"'{fname}` violates this rule."
                 )
+                if base_name in ADMIN_DIRS:
+                    is_valid = True
             else:
                 base_name = os.path.basename(fname)
-                matches_name_pattern = bool(re.search(FILENAME_REGEX, base_name))
+                is_valid = bool(re.search(FILENAME_REGEX, base_name))
                 msg = (
                     f"All files should be named with only "
                     "alphanumeric characters, dashes, and periods. "
                     f"'{fname}` violates this rule."
                 )
-            if not matches_name_pattern:
+            if not is_valid:
                 ERRORS.add(msg)
 
         # each example must have a README.md

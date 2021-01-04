@@ -1,4 +1,4 @@
-|<img src="img/snowflake.png" width="400" /> |$~~~~~~~~~~~~~~~~~~$| <img src="img/saturn.png" width="400" />|
+|<img src="../_img/snowflake.png" width="400" /> |$~~~~~~~~~~~~~~~~~~$| <img src="../_img/saturn.png" width="400" />|
 | -- | -- | -- |
 
 
