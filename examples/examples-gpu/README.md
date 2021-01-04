@@ -1,4 +1,4 @@
-![Saturn Cloud](./_img/saturn.png)
+<img src="./_img/saturn.png" width="600">
 
 # Saturn Cloud Examples (GPU)
 
