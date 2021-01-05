@@ -13,6 +13,15 @@ Once you've done that, click one of the links below to open a notebook and try a
     - [single-machine, GPU (RAPIDS)](./nyc-taxi/rf-rapids.ipynb)
     - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi/rf-rapids-dask.ipynb)
 
+**Snowflake**
+
+Snowflake is a popular data warehouse technology. If you have a Snowflake account, explore these examples to see how to use Saturn Cloud to process the data stored there. [click here to learn more](https://www.snowflake.com/cloud-data-platform/).
+
+1. Train a Random Forest Model
+    - [single-machine, CPU (scikit-learn)](./nyc-taxi-snowflake/rf-scikit.ipynb)
+    - [single-machine, GPU (RAPIDS)](./nyc-taxi-snowflake/rf-rapids.ipynb)
+    - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi-snowflake/rf-rapids-dask.ipynb)
+
 <hr>
 
 ### Running in a new project
