@@ -24,11 +24,5 @@ jobs:
         if: matrix.task == 'linting'
         shell: bash
         run: |
-          pip install --upgrade black flake8
+          pip install --upgrade black flake8 marshmallow requests
           make lint
-      - name: validation
-        if: matrix.task == 'validating-examples'
-        shell: bash
-        run: |
-          pip install --upgrade marshmallow requests
-          make validate
