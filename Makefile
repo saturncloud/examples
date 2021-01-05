@@ -1,7 +1,9 @@
+SHELL=/bin/bash
+
 .PHONY: format
 format:
-	black --line-length 100 .
-	python .ci/format-notebooks.py
+	black .
+	nbqa black . --nbqa-mutate
 
 .PHONY: validate
 validate:
@@ -9,8 +11,14 @@ validate:
 
 .PHONY: lint
 lint: validate
-	flake8 --count --max-line-length 100 .
-	black --check --diff --line-length 100 .
+	black --check --diff .
+	diff_lines=$$(nbqa black --nbqa-diff . | wc -l); \
+	if [ $${diff_lines} -gt 0 ]; then \
+		echo "Some notebooks would be reformatted by black. Run 'make format' and try again."; \
+		exit 1; \
+	fi
+	flake8 --count .
+	nbqa flake8 .
 
 .PHONY: test
 test: lint
