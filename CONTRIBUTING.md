@@ -64,6 +64,12 @@ To test if you've added a new example correctly, run the following from the root
 make test
 ```
 
+If this raises any issues, try automatically fixing them
+
+```shell
+make format
+```
+
 ### The `README.md`
 
 Each folder exactly one and two levels below `examples/` should have a `README.md`. This should contain relevant information for understanding the example, such as:
