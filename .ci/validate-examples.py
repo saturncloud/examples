@@ -113,7 +113,7 @@ def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
     return res.status_code == 200
 
 
-def _lint_python_cell(file_name: str, code_lines: List[str], cell_number: int) -> List[str]:
+def _lint_python_cell(file_name: str, code_lines: List[str]) -> List[str]:
     """
     Given the content of a Python code cell, check it for problems we
     want to avoid.
@@ -122,8 +122,6 @@ def _lint_python_cell(file_name: str, code_lines: List[str], cell_number: int) -
         to make error messages more informative.
     :param code_lines: List of strings, where each item in the list is one
         line of Python code.
-    :param cell_number: Number of the cell in the notebook, used to give
-        more specific error messages.
 
     :return: A list of strings, where each string represents an error
         found by this check
@@ -136,8 +134,7 @@ def _lint_python_cell(file_name: str, code_lines: List[str], cell_number: int) -
     WARNING_FILTER_REGEX = r".*warnings\.filter.*"
     if bool(re.search(WARNING_FILTER_REGEX, code_str)):
         msg = (
-            "Found use of warnings.simplefilter() or warnings.filterwarnings() in "
-            f"{file_name} (cell {cell_number}). "
+            f"Found use of warnings.simplefilter() or warnings.filterwarnings() in {file_name}. "
             "Do not filter out warnings in example notebooks. Try to fix them or "
             "add text explaining why they can be safely ignored."
         )
@@ -146,18 +143,9 @@ def _lint_python_cell(file_name: str, code_lines: List[str], cell_number: int) -
     DELAYED_DECORATOR_REGEX = r"@delayed"
     if bool(re.search(DELAYED_DECORATOR_REGEX, code_str)):
         msg = (
-            f"Found a use of '@delayed' in {file_name} (cell {cell_number}). "
+            f"Found a use of '@delayed' in {file_name}. "
             "Instead, 'import dask' and then use '@dask.delayed'."
         )
-        errors.append(msg)
-
-    lines_with_spaces = 0
-    for code_line in code_lines:
-        if code_line.endswith(" ") or code_line.endswith("\t") or code_line.endswith(" \n"):
-            lines_with_spaces += 1
-
-    if lines_with_spaces > 0:
-        msg = "Found trailing horizontal whitespace " f"in {file_name} (cell {cell_number})."
         errors.append(msg)
 
     return errors
@@ -209,19 +197,14 @@ if __name__ == "__main__":
             ERRORS.add(msg)
         else:
             for notebook_file in notebook_files:
-                base_file_name = notebook_file.replace(os.getcwd() + "/", "")
                 with open(notebook_file, "r") as f:
                     notebook_dict = json.loads(f.read())
                 non_empty_cells = 0
-                for cell_number, cell in enumerate(notebook_dict["cells"]):
+                for cell in notebook_dict["cells"]:
                     if cell.get("outputs", []) or cell.get("execution_count", None):
                         non_empty_cells += 1
                     if cell["cell_type"] == "code":
-                        linting_errors = _lint_python_cell(
-                            file_name=base_file_name,
-                            code_lines=cell["source"],
-                            cell_number=cell_number,
-                        )
+                        linting_errors = _lint_python_cell(notebook_file, cell["source"])
                         for err in linting_errors:
                             ERRORS.add(err)
                 if non_empty_cells > 0:
