@@ -28,7 +28,7 @@ def _replace_whitespace(notebook_file: str) -> None:
 
     notebook_dict["cells"] = cells
     with open(notebook_file, "w") as f:
-        f.write(json.dumps(notebook_dict, indent=1))
+        f.write(json.dumps(notebook_dict, indent=1) + "\n")
 
 
 def _format_all_notebooks(directory: str) -> None:
