@@ -45,9 +45,7 @@ Create a credential for each of these variables:
 
 These variables will be used to [specify arguments](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) passed to `snowflake.connector.connect`.
 
-
 You will need to restart the Jupyter server if you add a Credential while it's running. The examples also utilize the environment variables SNOWFLAKE_WAREHOUSE, TAXI_DATABASE, and TAXI_SCHEMA for configuring the snowflake connection, but since these are not sensitive they can be set directly on the Jupyter server instead of setting them as Credentials. The Jupyter server will need to be stopped in order to edit its environment variables.
-
 
 To load the data, open up a Worksheet inside of Snowflake and run the commands in the [`load-data.sql`](load-data.sql) file.
 
@@ -179,7 +177,6 @@ curl -X POST \
     http://${DEPLOYMENT_URL}:8000/api/predict \
     -d '{"passenger_count": 1, "pickup_datetime": "2019-01-01T11:15:38Z", "pickup_taxizone_id": 37, "dropoff_taxizone_id": 215}'
 ```
-
 
 ### Hook up to dashboard
 
