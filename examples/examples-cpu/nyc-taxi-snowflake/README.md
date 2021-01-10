@@ -1,4 +1,4 @@
-|<img src="img/taxi.png" width="200" /> | <img src="img/saturn.png" width="400" />|<img src="img/snowflake.png" width="400" /> |
+|<img src="../_img/taxi.png" width="200" /> | <img src="../_img/saturn.png" width="400" />|<img src="../_img/snowflake.png" width="400" /> |
 | -- | -- | -- |
 
 # NYC Taxi analysis with Saturn Cloud and Snowflake
@@ -9,7 +9,7 @@ The notebooks in this example showcase a data science workflow with NYC taxi dat
 
 This example is a subset of a [larger demo](https://youtu.be/SgXSIbB4Hik), reduced to quickly highlight key features of Saturn Cloud and Snowflake together. The larger demo includes the following:
 
-<img src="img/pipeline.png" width="800">
+<img src="../_img/pipeline.png" width="800">
 
 All code for the full demo is [available here](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo). You can follow the instructions there to create a new project and run the full examples. The example you are currently in is a reduced version to quickly (and cost-effectively) highlight key features of Saturn Cloud.
 
@@ -45,9 +45,7 @@ Create a credential for each of these variables:
 
 These variables will be used to [specify arguments](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) passed to `snowflake.connector.connect`.
 
-
 You will need to restart the Jupyter server if you add a Credential while it's running. The examples also utilize the environment variables SNOWFLAKE_WAREHOUSE, TAXI_DATABASE, and TAXI_SCHEMA for configuring the snowflake connection, but since these are not sensitive they can be set directly on the Jupyter server instead of setting them as Credentials. The Jupyter server will need to be stopped in order to edit its environment variables.
-
 
 To load the data, open up a Worksheet inside of Snowflake and run the commands in the [`load-data.sql`](load-data.sql) file.
 
@@ -55,7 +53,7 @@ To load the data, open up a Worksheet inside of Snowflake and run the commands i
 
 The dashboard presents summary statistics about NYC taxi rides from the years 2017 through 2019. Plots are built with [HoloViz](https://holoviz.org/) and [Bokeh](https://bokeh.org/), and the dashboard is served using [Panel](https://panel.holoviz.org/). Any other Python visualization or dashboard library is supported by Saturn; this is just one example.
 
-![dashboard](img/dashboard.png)
+![dashboard](../_img/dashboard.png)
 
 The dashboard queries the Snowflake database and pulls the data into Pandas. See [`dashboard.ipynb`](dashboard.ipynb) for the dashboard code.
 
@@ -179,7 +177,6 @@ curl -X POST \
     http://${DEPLOYMENT_URL}:8000/api/predict \
     -d '{"passenger_count": 1, "pickup_datetime": "2019-01-01T11:15:38Z", "pickup_taxizone_id": 37, "dropoff_taxizone_id": 215}'
 ```
-
 
 ### Hook up to dashboard
 
