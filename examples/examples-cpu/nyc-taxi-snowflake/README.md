@@ -47,7 +47,7 @@ These variables will be used to [specify arguments](https://docs.snowflake.com/e
 
 You will need to restart the Jupyter server if you add a Credential while it's running. The examples also utilize the environment variables SNOWFLAKE_WAREHOUSE, TAXI_DATABASE, and TAXI_SCHEMA for configuring the snowflake connection, but since these are not sensitive they can be set directly on the Jupyter server instead of setting them as Credentials. The Jupyter server will need to be stopped in order to edit its environment variables.
 
-To load the data, open up a Worksheet inside of Snowflake and run the commands in the [`load-data.sql`](load-data.sql) file.
+To load the data, open up a Worksheet inside of Snowflake and run the commands in the [`load-data.sql`](../snowflake/load-data.sql) file.
 
 ## Dashboard
 
