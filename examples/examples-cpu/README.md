@@ -2,9 +2,9 @@
 
 # Saturn Cloud Examples (CPU)
 
-If you're new to Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/).
+## Welcome to Saturn Cloud! 
 
-Once you've done that, click one of the links below to open a notebook and try an example.
+These example notebooks highlight ways Saturn Cloud can help accelerate your data science work. Click on one of the links below to get started!
 
 **Data Exploration and Machine Learning**
 
