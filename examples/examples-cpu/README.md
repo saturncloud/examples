@@ -39,15 +39,6 @@ These example notebooks highlight ways Saturn Cloud can help accelerate your dat
 
 <hr>
 
-### Running in a new project
-
-These examples are configured to run with small data sizes to quickly (and cost-effectively) illustrate the features of Saturn Cloud. If you prefer to run these examples in a new project, or would like to modify the code and run with larger data sizes and clusters, you can clone the repo by opening a new Terminal within the JupyterLab of your project, then copying the example you want into the `/home/jovyan/project` folder:
-
-```bash
-git clone https://github.com/saturncloud/examples.git /tmp/examples
-cp -r /tmp/examples/examples/examples-cpu /home/jovyan/project/
-```
-
 ## NYC Taxi
 
 This example is in the [nyc-taxi](nyc-taxi) folder.
@@ -91,3 +82,9 @@ The same end-to-end data science pipeline from the "NYC Taxi" example, except us
 - How to ingest data from S3 into a Snowflake database
 - How to perform data aggregations in Snowflake and read the results into Pandas dataframes
 - How to efficiently load large datasets from Snowflake into Dask, and train ML models with the data
+
+## Next steps
+
+Thanks for trying out these examples! To learn more about how Saturn Cloud works, check out our [Documentation](https://www.saturncloud.io/docs/), [blog](https://www.saturncloud.io/s/blog/), or join an [upcoming event](https://www.saturncloud.io/s/events/).
+
+If you have any questions or suggestions for example projects, reach out to us at support@saturncloud.io or open an issue on the [examples Github repo](https://github.com/saturncloud/examples).

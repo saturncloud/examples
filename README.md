@@ -20,6 +20,15 @@ The readme for the example project will be opened up and you can take it from th
 
 If you delete an example project or would like the latest version, navigate to the "Projects" page and click "Set up example projects". This will set up the projects again in your account with the latest code from this repository.
 
+## Running in a new project
+
+These examples are configured to run with small data sizes to quickly (and cost-effectively) illustrate the features of Saturn Cloud. If you prefer to run these examples in a new project, or would like to modify the code and run with larger data sizes and clusters, you can clone the repo by opening a new Terminal within the JupyterLab of your project, then copying the example you want into the `/home/jovyan/project` folder:
+
+```bash
+git clone https://github.com/saturncloud/examples.git /tmp/examples
+cp -r /tmp/examples/examples/examples-gpu /home/jovyan/project/
+```
+
 ## Contributing
 
 Each example in the `examples/` directory is used to pre-populate a Saturn Cloud project in installations of Saturn Cloud. For details on the structure and guidance on how to edit or add examples, see [the contributing guidelines](./CONTRIBUTING.md).
