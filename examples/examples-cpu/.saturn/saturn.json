@@ -1,5 +1,5 @@
 {
-    "image": "saturncloud/saturn:2020.12.16-dev",
+    "image": "saturncloud/saturn:2021.01.13",
     "jupyter": {
         "size": "large",
         "disk_space": "10Gi",

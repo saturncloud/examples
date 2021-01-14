@@ -92,7 +92,7 @@ A JSON with the following structure:
 
 ```json
 {
-    "image": "saturncloud/saturn:2020.07.08.1",
+    "image": "saturncloud/saturn:2021.01.13",
     "jupyter": {
         "size": "8xlarge",
         "disk_space": "256Gi",
