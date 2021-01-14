@@ -2,7 +2,7 @@
 
 # Saturn Cloud Examples (CPU)
 
-## Welcome to Saturn Cloud! 
+## Welcome to Saturn Cloud!
 
 These example notebooks highlight ways Saturn Cloud can help accelerate your data science work. Click on one of the links below to get started!
 
@@ -41,7 +41,7 @@ These example notebooks highlight ways Saturn Cloud can help accelerate your dat
 
 ## NYC Taxi
 
-This example is in the [nyc-taxi](nyc-taxi) folder.
+This example is in the nyc-taxi folder.
 
 An end-to-end data science pipeline comprising data ingest, exploratory analysis, machine learning model training, and deploying models and a dashboard.
 
@@ -54,7 +54,7 @@ There are examples for GPU-accelerated ML in the `examples-gpu` project.
 
 ## Prefect
 
-This example is in the [prefect](prefect) folder.
+This example is in the prefect folder.
 
 *You will learn:*
 - How to set up a Prefect flow for scheduled scoring of a statistical model
@@ -64,7 +64,7 @@ This example is in the [prefect](prefect) folder.
 
 ## Snowflake
 
-This example is in the [snowflake](snowflake) folder.
+This example is in the snowflake folder.
 
 *You will learn:*
 - How to query Snowflake and load data into a Pandas dataframe
@@ -73,7 +73,7 @@ This example is in the [snowflake](snowflake) folder.
 
 ## NYC Taxi using Snowflake
 
-This example is in the [nyc-taxi-snowflake](nyc-taxi-snowflake) folder.
+This example is in the nyc-taxi-snowflake folder.
 
 The same end-to-end data science pipeline from the "NYC Taxi" example, except using [Snowflake](https://www.snowflake.com/) for data ingestion and exploratory analysis. The machine learning examples pull data from a Snowflake database rather than from S3.
 
