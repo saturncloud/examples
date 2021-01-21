@@ -5,11 +5,7 @@
 
 The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with a database hosted in [Snowflake](https://www.snowflake.com/). For more information on how to connect to Snowflake using Saturn, Dask, and Pandas, refer to the "snowflake" example from the "examples-cpu" project.
 
-> **Note:** Running this example requires a Snowflake account. You can see how to set up a [free trial here](https://docs.snowflake.com/en/user-guide/admin-trial-account.html).
-
-<img src="../_img/pipeline.png" width="800">
-
-All code for the full demo is [available here](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo). You can follow the instructions there to create a new project and run the full examples. The example you are currently in is a reduced version to quickly (and cost-effectively) highlight key features of Saturn Cloud.
+<img src="../_img/snowflake-saturn.png" width="800">
 
 You are currently viewing the **GPU** project for the NYC taxi examples, which covers GPU-accelerated machine learning with RAPIDS. For all other examples, go to the `examples-cpu` project. 
 
@@ -21,9 +17,9 @@ The notebooks in _this_ example cover:
 
 You are free to open each notebook in this example and start playing around! For a guided experience, follow the steps below.
 
-## Load data into Snowflake
+## Connecting to Snowflake
 
-See the "examples-cpu" project for instructions on how to load data into Snowflake for these examples.
+This example uses data stored in a Snowflake data warehouse that is managed by the team at Saturn Cloud. We've set up a read-only user for use in these examples. If you would like to access data stored in your own Snowflake account, you should set up [Credentials](https://www.saturncloud.io/docs/concepts/credentials/) for your account, user, and password then set the other connection information accordingly. For more details on Snowflake connection information, see ["Connecting to Snowflake"](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) in the `snowflake-connector-python` docs.
 
 ## Train ML models
 
@@ -33,19 +29,12 @@ The random forest notebooks are an example of GPU-acceleration for model trainin
 
 Run these notebooks in order:
 
-1. [`rf-scikit.ipynb`](rf-scikit.ipynb): single-node scikit version - takes a while 🙁
-1. [`rf-rapids.ipynb`](rf-rapids.ipynb): single-GPU RAPIDS version - super fast! 🤯
-1. [`rf-rapids-dask.ipynb`](rf-rapids-dask.ipynb): multi-GPU Dask+RAPIDS version - _extra_ super fast! 🤯🤯🤯
+1. [`01-rf-scikit.ipynb`](01-rf-scikit.ipynb): single-node scikit version - takes a while 🙁
+1. [`02-rf-rapids-dask.ipynb`](rf-rapids-dask.ipynb): multi-GPU Dask+RAPIDS version - _extra_ super fast! 🤯🤯🤯
 
 For the best experience, we recommend opening up two notebooks at a time side-by-side in JupyterLab. That way you can see which lines of code change between them (spoiler: not many!). There are a few different resources to monitor to see what's happening:
 
-- **CPU utilization of Jupyter client** for scikit-learn example: open a new Terminal window and run `htop`. 
-- **GPU utilization of Jupyter client** for RAPIDS example: open a new Terminal window and run:
-
-    ```shell
-    watch -n 1 nvidia-smi
-    ```
-    
+- **CPU utilization of Jupyter client** for scikit-learn example: open a new Terminal window and run `htop`.     
 - **GPU cluster utilization** for Dask+RAPIDS example: click the dashboard and GPU monitoring links provided in the notebook.
 
 Here what this might look like in JupyterLab:
@@ -58,7 +47,7 @@ And then some browser windows for Dask cluster monitoring:
 
 # That's all folks
 
-Thanks for following along! We encourage you to continue to play around with these examples and use the code for your own work. There is a much [larger version of NYC taxi analysis](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo) that you can clone into a new project and see more of the power of Dask+RAPIDS on Saturn Cloud.
+Thanks for following along! We encourage you to continue to play around with these examples and use the code for your own work. 
 
 If you have any issue with Saturn Cloud, please email us at support@saturncloud.io. If you notice any mistakes in these notebooks or documentation, [open an issue](https://github.com/saturncloud/examples/issues) or a [a pull request](https://github.com/saturncloud/examples/pulls).
 

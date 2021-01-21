@@ -9,18 +9,16 @@ These example notebooks highlight ways Saturn Cloud can help accelerate your dat
 **Data Exploration and Machine Learning**
 
 1. Train a Random Forest Model
-    - [single-machine, CPU (scikit-learn)](./nyc-taxi/rf-scikit.ipynb)
-    - [single-machine, GPU (RAPIDS)](./nyc-taxi/rf-rapids.ipynb)
-    - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi/rf-rapids-dask.ipynb)
+    - [single-machine, CPU (scikit-learn)](./nyc-taxi/01-rf-scikit.ipynb)
+    - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi/02-rf-rapids-dask.ipynb)
 
 **Snowflake**
 
-Snowflake is a popular data warehouse technology. If you have a Snowflake account, explore these examples to see how to use Saturn Cloud to process the data stored there. [click here to learn more](https://www.snowflake.com/cloud-data-platform/).
+Snowflake is a popular data warehouse technology. Explore these examples to see how to use Saturn Cloud to process the data stored there. [click here to learn more](https://www.snowflake.com/cloud-data-platform/).
 
 1. Train a Random Forest Model
-    - [single-machine, CPU (scikit-learn)](./nyc-taxi-snowflake/rf-scikit.ipynb)
-    - [single-machine, GPU (RAPIDS)](./nyc-taxi-snowflake/rf-rapids.ipynb)
-    - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi-snowflake/rf-rapids-dask.ipynb)
+    - [single-machine, CPU (scikit-learn)](./nyc-taxi-snowflake/02-rf-scikit.ipynb)
+    - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi-snowflake/02-rf-rapids-dask.ipynb)
 
 <hr>
 
