@@ -1,23 +1,28 @@
-![Saturn Cloud](saturn.png)
+<img src="./_img/saturn.png" width="600">
 
 # Saturn Cloud Examples (GPU)
 
-Each folder corresponds to an example project that utilizes the tools within [Saturn Cloud](https://www.saturncloud.io/s/). These examples run on a Jupyter Server and/or Dask cluster with a **GPU** instance type and image, and showcase workflows with tools that take advantage of GPU processing such as [RAPIDS](http://rapids.ai/) and deep learning.
+## Welcome to Saturn Cloud! 
 
-Refer to the `README.md` file within each folder for detailed instructions on how to run them.
+These example notebooks highlight ways Saturn Cloud can help accelerate your data science work. Click on one of the links below to get started!
 
-> **Pro tip**: Right-click on any `README.md` file and choose "Open With -> Markdown Preview" to view a rendered version
+**Data Exploration and Machine Learning**
 
-If you don't already use Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/)!
+1. Train a Random Forest Model
+    - [single-machine, CPU (scikit-learn)](./nyc-taxi/rf-scikit.ipynb)
+    - [single-machine, GPU (RAPIDS)](./nyc-taxi/rf-rapids.ipynb)
+    - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi/rf-rapids-dask.ipynb)
 
-### Running in a new project
+**Snowflake**
 
-These examples are configured to run with small data sizes to quickly (and cost-effectively) illustrate the features of Saturn Cloud. If you prefer to run these examples in a new project, or would like to modify the code and run with larger data sizes and clusters, you can clone the repo by opening a new Terminal within the JupyterLab of your project, then copying the example you want into the `/home/jovyan/project` folder:
+Snowflake is a popular data warehouse technology. If you have a Snowflake account, explore these examples to see how to use Saturn Cloud to process the data stored there. [click here to learn more](https://www.snowflake.com/cloud-data-platform/).
 
-```bash
-git clone https://github.com/saturncloud/examples.git /tmp/examples
-cp -r /tmp/examples/examples/examples-gpu /home/jovyan/project/
-```
+1. Train a Random Forest Model
+    - [single-machine, CPU (scikit-learn)](./nyc-taxi-snowflake/rf-scikit.ipynb)
+    - [single-machine, GPU (RAPIDS)](./nyc-taxi-snowflake/rf-rapids.ipynb)
+    - [multi-machine, GPU (Dask + RAPIDS)](./nyc-taxi-snowflake/rf-rapids-dask.ipynb)
+
+<hr>
 
 ## NYC Taxi
 
@@ -26,3 +31,9 @@ An end-to-end data science pipeline comprising data ingest, exploratory analysis
 *You will learn:*
 - How to train a tree-based machine learning model on a GPU using RAPIDS
 - How to train the same model on a cluster of GPU machines using RAPIDS with Dask
+
+## Next steps
+
+Thanks for trying out these examples! To learn more about how Saturn Cloud works, check out our [Documentation](https://www.saturncloud.io/docs/), [blog](https://www.saturncloud.io/s/blog/), or join an [upcoming event](https://www.saturncloud.io/s/events/).
+
+If you have any questions or suggestions for example projects, reach out to us at support@saturncloud.io or open an issue on the [examples Github repo](https://github.com/saturncloud/examples).

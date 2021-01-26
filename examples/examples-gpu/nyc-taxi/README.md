@@ -1,11 +1,11 @@
-|<img src="img/taxi.png" width="200" /> | <img src="img/saturn.png" width="400" />|
+|<img src="../_img/taxi.png" width="200" /> | <img src="../_img/saturn.png" width="400" />|
 | -- | -- |
 
 # NYC Taxi analysis with Saturn Cloud
 
 The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/). They are a subset of a [larger demo](https://youtu.be/SgXSIbB4Hik), reduced to quickly highlight key features of Saturn Cloud. The larger demo includes the following:
 
-<img src="img/pipeline.png" width="800">
+<img src="../_img/pipeline.png" width="800">
 
 All code for the full demo is [available here](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo). You can follow the instructions there to create a new project and run the full examples. The example you are currently in is a reduced version to quickly (and cost-effectively) highlight key features of Saturn Cloud.
 
@@ -44,11 +44,11 @@ For the best experience, we recommend opening up two notebooks at a time side-by
 
 Here what this might look like in JupyterLab:
 
-[![workspace](img/workspace.png)](img/workspace.png)
+[![workspace](../_img/workspace.png)](../_img/workspace.png)
 
 And then some browser windows for Dask cluster monitoring:
 
-[![dask](img/dask.png)](img/dask.png)
+[![dask](../_img/dask.png)](../_img/dask.png)
 
 # That's all folks
 

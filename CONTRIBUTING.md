@@ -64,6 +64,12 @@ To test if you've added a new example correctly, run the following from the root
 make test
 ```
 
+If this raises any issues, try automatically fixing them
+
+```shell
+make format
+```
+
 ### The `README.md`
 
 Each folder exactly one and two levels below `examples/` should have a `README.md`. This should contain relevant information for understanding the example, such as:
@@ -103,7 +109,7 @@ A JSON with the following structure:
 * `jupyter`: customization specific to the jupyter server, including:
     - `size`: A valid size for a Saturn instance
     - `disk_space`: An amount of disk space, in units `Gi`. See the "Disk Space" dropdown on the "Jupyter" page in the Saturn UI for valid values.
-    - `ssh_enabled`: A boolean indicating whether to set up [SSH access from outside Saturn into the Server](https://www.saturncloud.io/docs/connecting/tools/ssh/)
+    - `ssh_enabled`: A boolean indicating whether to set up [SSH access from outside Saturn into the Server](https://www.saturncloud.io/docs/tips-and-tricks/ssh/)
 * `environment_variables`:
     - A dictionary whose keys are the names of environment variables, and whose values are the values for the environment variables.
 * `description`: plain text explaining what the project does

@@ -1,27 +1,47 @@
-![Saturn Cloud](saturn.png)
+<img src="./_img/saturn.png" width="600">
 
 # Saturn Cloud Examples (CPU)
 
-Each folder corresponds to an example project that utilizes the tools within [Saturn Cloud](https://www.saturncloud.io/s/). These examples run on a Jupyter Server and/or Dask cluster with a **CPU** instance type and image.
+## Welcome to Saturn Cloud!
 
-Refer to the `README.md` file within each folder for detailed instructions on how to run them.
+These example notebooks highlight ways Saturn Cloud can help accelerate your data science work. Click on one of the links below to get started!
 
-> **Pro tip**: Right-click on any `README.md` file and choose "Open With -> Markdown Preview" to view a rendered version
+**Data Exploration and Machine Learning**
 
-If you don't already use Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/)!
+1. Hyperparameter tuning
+    - [single-machine (scikit-learn)](./nyc-taxi/hyperparameter-scikit.ipynb)
+    - [multi-machine (Dask)](./nyc-taxi/hyperparameter-dask.ipynb)
+1. Train an XGBoost Model
+    - [single-machine (scikit-learn)](./nyc-taxi/xgboost.ipynb)
+    - [multi-machine (Dask)](./nyc-taxi/xgboost-dask.ipynb)
+1. [Deploy a Dashboard](./nyc-taxi/dashboard.ipynb)
+1. [ETL with Dask](./nyc-taxi/data-aggregation.ipynb)
 
-### Running in a new project
+**Prefect**
 
-These examples are configured to run with small data sizes to quickly (and cost-effectively) illustrate the features of Saturn Cloud. If you prefer to run these examples in a new project, or would like to modify the code and run with larger data sizes and clusters, you can clone the repo by opening a new Terminal within the JupyterLab of your project, then copying the example you want into the `/home/jovyan/project` folder:
+[prefect](https://www.prefect.io/) is an open-source workflow orchestration tool, similar to [Apache Airflow](https://airflow.apache.org/). Prefect can take advantage of Dask to run tasks in a workflow in parallel.
 
-```bash
-git clone https://github.com/saturncloud/examples.git /tmp/examples
-cp -r /tmp/examples/examples/examples-cpu /home/jovyan/project/
-```
+1. [Run a prefect flow on Saturn](./prefect/prefect-scoring.ipynb)
+1. [Run a Prefect Cloud flow on a Saturn Dask cluster](./prefect/prefect-cloud-scheduled-scoring.ipynb)
+
+**Snowflake**
+
+[Snowflake](https://www.snowflake.com/cloud-data-platform/) is a popular cloud-based data warehouse. If you have a Snowflake account, explore these examples to see how to use Saturn Cloud to process the data stored there.
+
+1. [Reading Snowflake data into `pandas`](./snowflake/snowflake-pandas.ipynb)
+1. [Reading Snowflake data into Dask DataFrame](./snowflake/snowflake-dask.ipynb)
+1. Hyperparameter Tuning
+    - [single-machine (scikit-learn)](./nyc-taxi-snowflake/hyperparameter-scikit.ipynb)
+    - [multi-machine (Dask)](./nyc-taxi-snowflake/hyperparameter-dask.ipynb)
+1. Train an XGBoost model
+    - [single-machine (scikit-learn)](./nyc-taxi-snowflake/xgboost.ipynb)
+    - [multi-machine (Dask)](./nyc-taxi-snowflake/xgboost-dask.ipynb)
+
+<hr>
 
 ## NYC Taxi
 
-This example is in the [nyc-taxi](nyc-taxi) folder.
+This example is in the nyc-taxi folder.
 
 An end-to-end data science pipeline comprising data ingest, exploratory analysis, machine learning model training, and deploying models and a dashboard.
 
@@ -34,7 +54,7 @@ There are examples for GPU-accelerated ML in the `examples-gpu` project.
 
 ## Prefect
 
-This example is in the [prefect](prefect) folder.
+This example is in the prefect folder.
 
 *You will learn:*
 - How to set up a Prefect flow for scheduled scoring of a statistical model
@@ -44,7 +64,7 @@ This example is in the [prefect](prefect) folder.
 
 ## Snowflake
 
-This example is in the [snowflake](snowflake) folder.
+This example is in the snowflake folder.
 
 *You will learn:*
 - How to query Snowflake and load data into a Pandas dataframe
@@ -53,7 +73,7 @@ This example is in the [snowflake](snowflake) folder.
 
 ## NYC Taxi using Snowflake
 
-This example is in the [nyc-taxi-snowflake](nyc-taxi-snowflake) folder.
+This example is in the nyc-taxi-snowflake folder.
 
 The same end-to-end data science pipeline from the "NYC Taxi" example, except using [Snowflake](https://www.snowflake.com/) for data ingestion and exploratory analysis. The machine learning examples pull data from a Snowflake database rather than from S3.
 
@@ -62,3 +82,9 @@ The same end-to-end data science pipeline from the "NYC Taxi" example, except us
 - How to ingest data from S3 into a Snowflake database
 - How to perform data aggregations in Snowflake and read the results into Pandas dataframes
 - How to efficiently load large datasets from Snowflake into Dask, and train ML models with the data
+
+## Next steps
+
+Thanks for trying out these examples! To learn more about how Saturn Cloud works, check out our [Documentation](https://www.saturncloud.io/docs/), [blog](https://www.saturncloud.io/s/blog/), or join an [upcoming event](https://www.saturncloud.io/s/events/).
+
+If you have any questions or suggestions for example projects, reach out to us at support@saturncloud.io or open an issue on the [examples Github repo](https://github.com/saturncloud/examples).
