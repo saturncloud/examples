@@ -1,3 +1,7 @@
+"""
+Just a little utility to record your progress with these Notebooks so that we can make Saturn better.
+"""
+
 import mixpanel
 import os
 from urllib.parse import urlparse
