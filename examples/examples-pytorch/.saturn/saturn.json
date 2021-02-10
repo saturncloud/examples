@@ -11,7 +11,7 @@
         "worker_size": "g4dnxlarge"
     },
     "environment_variables": {
-	"TAXI_DATABASE": "saturn_nyc_taxi"
+    "DASK_DISTRIBUTED__WORKER__DAEMON": "False"
     },
     "description": "Examples for using Saturn Cloud for PyTorch with GPUs. Includes GPU-accelerated machine learning model training with PyTorch."
 }
