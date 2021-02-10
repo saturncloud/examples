@@ -1,0 +1,17 @@
+{
+    "image": "saturncloud/saturn-gpu:2020.11.30",
+    "jupyter": {
+        "size": "g4dnxlarge",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "medium",
+        "worker_size": "g4dnxlarge"
+    },
+    "environment_variables": {
+	"TAXI_DATABASE": "saturn_nyc_taxi"
+    },
+    "description": "Examples for using Saturn Cloud for PyTorch with GPUs. Includes GPU-accelerated machine learning model training with PyTorch."
+}
