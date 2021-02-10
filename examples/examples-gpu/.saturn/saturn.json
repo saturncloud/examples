@@ -10,6 +10,8 @@
         "scheduler_size": "medium",
         "worker_size": "g4dnxlarge"
     },
-    "environment_variables": {},
+    "environment_variables": {
+	"TAXI_DATABASE": "saturn_nyc_taxi"
+    },
     "description": "Examples for using Saturn Cloud with GPUs. Includes GPU-accelerated machine learning model training with RAPIDS."
 }

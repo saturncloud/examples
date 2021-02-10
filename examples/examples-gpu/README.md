@@ -15,7 +15,7 @@ These example notebooks highlight ways Saturn Cloud can help accelerate your dat
 
 **Snowflake**
 
-Snowflake is a popular data warehouse technology. If you have a Snowflake account, explore these examples to see how to use Saturn Cloud to process the data stored there. [click here to learn more](https://www.snowflake.com/cloud-data-platform/).
+Snowflake is a popular data warehouse technology. Explore these examples to see how to use Saturn Cloud to process the data stored there. [Click here to learn more](https://www.snowflake.com/cloud-data-platform/).
 
 1. Train a Random Forest Model
     - [single-machine, CPU (scikit-learn)](./nyc-taxi-snowflake/rf-scikit.ipynb)

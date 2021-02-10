@@ -5,11 +5,7 @@
 
 The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with a database hosted in [Snowflake](https://www.snowflake.com/). For more information on how to connect to Snowflake using Saturn, Dask, and Pandas, refer to the "snowflake" example from the "examples-cpu" project.
 
-> **Note:** Running this example requires a Snowflake account. You can see how to set up a [free trial here](https://docs.snowflake.com/en/user-guide/admin-trial-account.html).
-
-<img src="../_img/pipeline.png" width="800">
-
-All code for the full demo is [available here](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo). You can follow the instructions there to create a new project and run the full examples. The example you are currently in is a reduced version to quickly (and cost-effectively) highlight key features of Saturn Cloud.
+<img src="../_img/snowflake-saturn.png" width="800">
 
 You are currently viewing the **GPU** project for the NYC taxi examples, which covers GPU-accelerated machine learning with RAPIDS. For all other examples, go to the `examples-cpu` project. 
 
@@ -19,11 +15,12 @@ The notebooks in _this_ example cover:
 1. Accelerate random forest training on a GPU with RAPIDS (`cudf`, `cuml`)
 1. Distribute the random forest training on a GPU cluster (`dask_cudf`, `cuml.dask`)
 
-You are free to open each notebook in this example and start playing around! For a guided experience, follow the steps below.
+All notebooks utilize `snowflake-connector-python` to pull data from Snowflake. You are free to open each notebook in this example and start playing around! For a guided experience, follow the steps below.
 
-## Load data into Snowflake
+## Connecting to Snowflake
 
-See the "examples-cpu" project for instructions on how to load data into Snowflake for these examples.
+This example uses data stored in a Snowflake data warehouse that is managed by the team at Saturn Cloud. We've set up a read-only user for use in these examples. If you would like to access data stored in your own Snowflake account, you should set up [Credentials](https://www.saturncloud.io/docs/concepts/credentials/) for your account, user, and password then set the other connection information accordingly. For more details on Snowflake connection information, see ["Connecting to Snowflake"](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) in the `snowflake-connector-python` docs.
+
 
 ## Train ML models
 
