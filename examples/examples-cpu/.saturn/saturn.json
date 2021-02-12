@@ -20,7 +20,8 @@
     "required_secrets": [
         "EXAMPLE_SNOWFLAKE_ACCOUNT",
         "EXAMPLE_SNOWFLAKE_USER",
-        "EXAMPLE_SNOWFLAKE_PASSWORD"
+        "EXAMPLE_SNOWFLAKE_PASSWORD",
+        "PREFECT_USER_TOKEN"
     ],
     "description": "Examples for using Saturn Cloud. Includes Dask and Prefect tutorials, an end-to-end data science pipeline, and more."
 }
