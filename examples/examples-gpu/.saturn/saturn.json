@@ -11,7 +11,12 @@
         "worker_size": "g4dnxlarge"
     },
     "environment_variables": {
-	"TAXI_DATABASE": "saturn_nyc_taxi"
+        "TAXI_DATABASE": "saturn_nyc_taxi"
     },
+    "required_secrets": [
+        "EXAMPLE_SNOWFLAKE_ACCOUNT",
+        "EXAMPLE_SNOWFLAKE_USER",
+        "EXAMPLE_SNOWFLAKE_PASSWORD"
+    ],
     "description": "Examples for using Saturn Cloud with GPUs. Includes GPU-accelerated machine learning model training with RAPIDS."
 }

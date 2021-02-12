@@ -5,15 +5,8 @@
 
 The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with a database hosted in [Snowflake](https://www.snowflake.com/). For more information on how to connect to Snowflake using Saturn, Dask, and Pandas, refer to the "snowflake" example.
 
-> **Note:** Running this example requires a Snowflake account. You can see how to set up a [free trial here](https://docs.snowflake.com/en/user-guide/admin-trial-account.html).
-
-This example is a subset of a [larger demo](https://youtu.be/SgXSIbB4Hik), reduced to quickly highlight key features of Saturn Cloud and Snowflake together. The larger demo includes the following:
-
-<img src="../_img/pipeline.png" width="800">
-
-All code for the full demo is [available here](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo). You can follow the instructions there to create a new project and run the full examples. The example you are currently in is a reduced version to quickly (and cost-effectively) highlight key features of Saturn Cloud.
-
-The notebooks in _this_ example cover:
+<img src="../_img/snowflake-saturn.png" width="800">
+The notebooks in this example cover:
 
 1. Load records from CSV files into Snowflake (Snowflake SQL)
 1. Create and deploy a dashboard with exploratory analysis (`holoviz`, `bokeh`, `panel`, `snowflake-connector-python`)
@@ -25,29 +18,11 @@ _\* These examples illustrate how to launch and utilize a Dask cluster with Satu
 
 You are free to open each notebook in this example and start playing around! For a guided experience, follow the steps below.
 
-## Load data into Snowflake
+## Connecting to Snowflake
 
-> **Note**: If you ran the `snowflake` example and already loaded the NYC taxi data into your Snowflake account, you can skip this step. This example uses the same data.
+This example uses data stored in a Snowflake data warehouse that is managed by the team at Saturn Cloud. We've set up a read-only user for use in these examples. If you would like to access data stored in your own Snowflake account, you should set up [Credentials](https://www.saturncloud.io/docs/concepts/credentials/) for your account, user, and password then set the other connection information accordingly. For more details on Snowflake connection information, see ["Connecting to Snowflake"](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) in the `snowflake-connector-python` docs.
 
-First step is to add your Snowflake credentials for notebooks in Saturn to access. To avoid setting and storing credentials directly in notebooks, we recommend sourcing credentials from environment variables using the "Credentials" page in Saturn Cloud.
-
-```sh
-Type: Environment Variable
-Shared with: <your username>
-Name: <variable name>
-Value: <variable value>
-```
-
-Create a credential for each of these variables:
-- `SNOWFLAKE_ACCOUNT`
-- `SNOWFLAKE_USER`
-- `SNOWFLAKE_PASSWORD`
-
-These variables will be used to [specify arguments](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) passed to `snowflake.connector.connect`.
-
-You will need to restart the Jupyter server if you add a Credential while it's running. The examples also utilize the environment variables SNOWFLAKE_WAREHOUSE, TAXI_DATABASE, and TAXI_SCHEMA for configuring the snowflake connection, but since these are not sensitive they can be set directly on the Jupyter server instead of setting them as Credentials. The Jupyter server will need to be stopped in order to edit its environment variables.
-
-To load the data, open up a Worksheet inside of Snowflake and run the commands in the [`load-data.sql`](../snowflake/load-data.sql) file.
+To load the data, open up a Worksheet inside of Snowflake and run the commands in the [snowflake/load-data.sql](../snowflake/load-data.sql) file.
 
 ## Dashboard
 
