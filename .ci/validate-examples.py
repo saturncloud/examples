@@ -71,6 +71,7 @@ class SaturnJsonSchema(Schema):
     environment_variables = fields.Mapping(required=True)
     jupyter = fields.Nested(JupyterSchema, attribute="jupyter", required=True)
     dask_cluster = fields.Nested(DaskClusterSchema, required=False)
+    required_secrets = fields.List(fields.String(), required=False)
     description = fields.String(required=True)
 
 
