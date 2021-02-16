@@ -1,5 +1,5 @@
 {
-    "image": "saturncloud/saturn-gpu:2020.11.30",
+    "image": "saturncloud/saturn-pytorch:2021.02.09-3",
     "jupyter": {
         "size": "g4dnxlarge",
         "disk_space": "10Gi",
