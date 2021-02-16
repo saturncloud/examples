@@ -13,7 +13,7 @@ If you would like more details about how to use your own Snowflake account, scro
 
 # Query data with Pandas
 
-If your table or query result fits into the memory of your Jupyter client, you can load data into a pandas dataframe using methods `fetch_pandas_all()` or `fetch_pandas_batch()` available in the Snowflake Connector for Python a.k.a. the Python Connector.
+If your table or query result fits into the memory of your Jupyter client, you can load data into a pandas dataframe using `pd.read_sql()`.
 
 See [snowflake-pandas.ipynb](./snowflake-pandas.ipynb).
 
