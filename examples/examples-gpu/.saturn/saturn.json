@@ -1,5 +1,5 @@
 {
-    "image": "saturncloud/examples-cpu:2021.02.09-1",
+    "image": "saturncloud/examples-gpu:2021.02.09-1",
     "jupyter": {
         "size": "g4dnxlarge",
         "disk_space": "10Gi",
