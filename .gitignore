@@ -39,24 +39,25 @@ Untitled*.ipynb
 # backup files from tools like aspell and sed
 *.bak
 
-# data files
-*.csv
-*.dat
-*.data
-*.db
-*.feather
-*.ndjson
-*.npy
-*.parquet
-*.pkl
-*.pq
-*.rda
-*.Rdata
-*.rds
-*.sqlite
-*.xls
-*.xlsm
-*.xlsx
+## data files
+## These are commented out since we very well may want them to be included in quickstarts  
+# *.csv
+# *.dat
+# *.data
+# *.db
+# *.feather
+# *.ndjson
+# *.npy
+# *.parquet
+# *.pkl
+# *.pq
+# *.rda
+# *.Rdata
+# *.rds
+# *.sqlite
+# *.xls
+# *.xlsm
+# *.xlsx
 
 # files from local testing
 .coverage

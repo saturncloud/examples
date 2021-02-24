@@ -1,0 +1,11 @@
+{
+    "image": "saturncloud/saturn:2021.01.29",
+    "jupyter": {
+        "size": "medium",
+        "disk_space": "4Gi",
+        "ssh_enabled": false
+    },
+    "description": "Deploy a dashboard to Saturn Cloud",
+    "title": "Deploy Dashboards",
+    "thumbnail_image_url": "url"
+}
