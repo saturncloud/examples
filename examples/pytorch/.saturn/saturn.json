@@ -1,0 +1,19 @@
+{
+    "image": "saturncloud/saturn-pytorch:2021.02.09-3",
+    "jupyter": {
+        "size": "g4dnxlarge",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "medium",
+        "worker_size": "g4dnxlarge"
+    },
+    "environment_variables": {
+        "DASK_DISTRIBUTED__WORKER__DAEMON": "False"
+    },
+    "description": "Use Pytorch on one GPU or across multiple GPUs with Dask",
+    "title": "Pytorch",
+    "thumbnail_image_url": "url"
+}
