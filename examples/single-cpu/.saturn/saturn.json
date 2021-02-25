@@ -7,5 +7,6 @@
     },
     "description": "A project with a single CPU workspace--good for general data science",
     "title": "Single CPU",
-    "thumbnail": "thumbnail.png"
+    "thumbnail": "thumbnail.png",
+    "category": "Empty Projects"
 }

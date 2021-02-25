@@ -7,5 +7,6 @@
     },
     "description": "A project with a single GPU workspace--good for tasks that require a small amount of GPU",
     "title": "Single GPU",
-    "thumbnail_image_url": "url"
+    "thumbnail_image_url": "url",
+    "category": "Empty Projects"
 }
