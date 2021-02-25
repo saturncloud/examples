@@ -1,0 +1,16 @@
+{
+    "image": "saturncloud/saturn:2021.01.29",
+    "jupyter": {
+        "size": "xlarge",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "medium",
+        "worker_size": "xlarge"
+    },
+    "description": "Run Python across multiple machines using Dask",
+    "title": "Distributed Computing",
+    "thumbnail": "thumbnail.png"
+}

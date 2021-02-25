@@ -1,0 +1,11 @@
+{
+    "image": "saturncloud/saturn:2021.01.29",
+    "jupyter": {
+        "size": "large",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "description": "A project with a single CPU workspace--good for general data science",
+    "title": "Single CPU",
+    "thumbnail": "thumbnail.png"
+}
