@@ -13,7 +13,7 @@
     "environment_variables": {
         "DASK_DISTRIBUTED__WORKER__DAEMON": "False"
     },
-    "description": "Use Pytorch across multiple GPUs with Dask",
+    "description": "Use Pytorch with a single GPU or across multiple GPUs with Dask",
     "title": "Distributed Pytorch",
     "thumbnail": "thumbnail.png",
     "category": "Distributed"

@@ -1,0 +1,17 @@
+{
+    "image": "saturncloud/saturn:2021.01.29",
+    "jupyter": {
+        "size": "large",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "medium",
+        "worker_size": "large"
+    },
+    "description": "Connect to a Snowflake database from either a single machine or distributed clsuter",
+    "title": "Snowflake",
+    "thumbnail": "thumbnail.png",
+    "category": "Distributed"
+}

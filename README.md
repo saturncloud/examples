@@ -26,7 +26,8 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
     },
     "description": "Use Pytorch on one GPU or across multiple GPUs with Dask",
     "title": "Pytorch",
-    "thumbnail_image_url": "url"
+    "thumbnail": "thumbnail.png",
+    "category": "Empty Projects"
 }
 ```
 
