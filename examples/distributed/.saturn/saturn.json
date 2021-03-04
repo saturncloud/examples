@@ -13,5 +13,6 @@
     "description": "Run Python across multiple machines using Dask",
     "title": "Distributed Computing",
     "thumbnail": "thumbnail.png",
-    "category": "Distributed"
+    "category": "Distributed",
+    "weight":3
 }

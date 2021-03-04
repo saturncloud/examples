@@ -8,5 +8,6 @@
     "description": "Deploy a dashboard to Saturn Cloud",
     "title": "Deploy Dashboards",
     "thumbnail_image_url": "url",
-    "category": "Deployments"
+    "category": "Deployments",
+    "weight":3
 }
