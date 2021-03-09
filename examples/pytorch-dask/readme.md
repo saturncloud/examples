@@ -12,6 +12,10 @@ This workbook gives an example of how to train a PyTorch neural network with a G
 
 This workbook shows a basic example of how you can parallelize abitrary code with a Dask cluster. The example takes a list of inputs and a function to use on each item in the list, then sends each of the operations to the Dask cluster.
 
-## [Use Pytorch to train across multiple GPUs in parallel with Dask](03-start-with-pytorch+dask.ipynb)
+## [Use Pytorch to train many different models across multiple GPUs in parallel](03-start-with-pytorch+dask-multiple-models.ipynb)
 
-By combining Pytorch with Dask you can train a neural network over many different GPUs at once. This example uses the same pet names example as the single-GPU notebook, but instead uses the three GPUs of the dask workers to train the model.
+By combining Pytorch with Dask you can run experiments on how a model performs with different parameters by quickly testing them across multiple machines. This example takes the same pet names code from the single GPU and sets up an experiment to try adjusting the parameters and running on different GPUs concurrently.
+
+## [Use Pytorch to train a single model across multiple GPUs in parallel with Dask](04-start-with-pytorch+dask-single-model.ipynb)
+
+By combining Pytorch with Dask you can train a single neural network over many different GPUs at once. This example uses the same pet names example as the single-GPU notebook, but instead uses the three GPUs of the dask workers to train the model.
