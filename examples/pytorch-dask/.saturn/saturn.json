@@ -16,5 +16,6 @@
     "description": "Use Pytorch with a single GPU or across multiple GPUs with Dask",
     "title": "Distributed Pytorch",
     "thumbnail": "thumbnail.png",
-    "category": "Distributed"
+    "category": "Distributed",
+    "weight":3
 }

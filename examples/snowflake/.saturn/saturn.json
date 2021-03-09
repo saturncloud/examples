@@ -13,5 +13,6 @@
     "description": "Connect to a Snowflake database from either a single machine or distributed clsuter",
     "title": "Snowflake",
     "thumbnail": "thumbnail.png",
-    "category": "Distributed"
+    "category": "Distributed",
+    "weight":3
 }
