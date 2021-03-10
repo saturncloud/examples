@@ -2,6 +2,8 @@
 
 These are the quickstart projects available in Saturn cloud. Each project has a set of files to include on workspace machine when the project is started, as well as parameters for how the workspace should be set up. The parameters include the number of machines for a Dask cluster, if any, the size of the machines, and a start script to run when they are first turn on. If you would like to use code from one of these projects, select the quickstart options from within Saturn Cloud.
 
+**Note: this repo includes the existing legacy `examples-cpu` and `examples-gpu`. This is for compatibility with existing enterprise customers, and will be deprecated in the future**
+
 ## Project structure
 
 Each project is a separate folder within the `examples` folder. For each project there is one subfolder called `.saturn` which contains the information specific to the Saturn Cloud project. Everything not within a `.saturn` folder will be available within the workspace machine of the project in Saturn Cloud.
