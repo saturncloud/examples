@@ -1,6 +1,8 @@
-# Quickstart projects
+# Example projects
 
 These are the quickstart projects available in Saturn cloud. Each project has a set of files to include on workspace machine when the project is started, as well as parameters for how the workspace should be set up. The parameters include the number of machines for a Dask cluster, if any, the size of the machines, and a start script to run when they are first turn on. If you would like to use code from one of these projects, select the quickstart options from within Saturn Cloud.
+
+In addition to be used as quickstarts, many of the [Saturn Cloud docs](http://saturncloud.io/docs) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/docs/blob/main/make_md.py) from the [docs repo](https://github.com/saturncloud/docs).
 
 **Note: this repo includes the existing legacy `examples-cpu` and `examples-gpu`. This is for compatibility with existing enterprise customers, and will be deprecated in the future**
 
@@ -34,3 +36,11 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
 ```
 
 It's possible that other files might existing in the .saturn folder, such as `start_script` which contains the initialization script for the project. However, no file besides `saturn.json` is required.
+
+## Flat files
+
+If your quickstart involves flat files they should be saved in the saturn cloud public S3 (ask @hhuuggoo for permission to access this). Each quickstart's file should be saved in the `examples` folder in the bucket in a subfolder with the same name as the quickstart folder in this repo. In your code, use the HTTP path to download the file rather than a Python S3 package, since not all of the readers will have an understanding of S3. For example in Pandas you can run:
+
+```python
+pd.read_csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/pickup_grouped_by_zone.csv")
+```
