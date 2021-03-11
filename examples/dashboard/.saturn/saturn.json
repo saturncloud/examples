@@ -2,12 +2,12 @@
     "image": "saturncloud/saturn:2021.02.22",
     "jupyter": {
         "size": "medium",
-        "disk_space": "4Gi",
+        "disk_space": "10Gi",
         "ssh_enabled": false
     },
     "environmental_variables": {},
     "description": "Deploy a dashboard to Saturn Cloud",
     "title": "Deploy Dashboards",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
-    "weight":3
+    "weight": 3
 }
