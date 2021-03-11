@@ -73,8 +73,8 @@ class SaturnJsonSchema(Schema):
     dask_cluster = fields.Nested(DaskClusterSchema, required=False)
     required_secrets = fields.List(fields.String(), required=False)
     description = fields.String(required=True)
-    title = field.String(required=False)
-    thumbnail_image_url = field.Url(required=False)
+    title = fields.String(required=False)
+    thumbnail_image_url = fields.Url(required=False)
     weight = fields.Integer(required=False)
 
 
