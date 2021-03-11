@@ -73,6 +73,9 @@ class SaturnJsonSchema(Schema):
     dask_cluster = fields.Nested(DaskClusterSchema, required=False)
     required_secrets = fields.List(fields.String(), required=False)
     description = fields.String(required=True)
+    title = fields.String(required=False)
+    thumbnail_image_url = fields.Url(required=False)
+    weight = fields.Integer(required=False)
 
 
 def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
