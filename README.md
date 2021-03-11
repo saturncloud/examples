@@ -35,7 +35,12 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
 }
 ```
 
-It's possible that other files might existing in the .saturn folder, such as `start_script` which contains the initialization script for the project. However, no file besides `saturn.json` is required.
+It's possible that other files might existing in the .saturn folder, such as `script` which contains the initialization script for the project. However, no file besides `saturn.json` is required.
+
+Notes about the project structure:
+* The disk_space must be one of the preset choices from the Saturn Cloud UI, it can't be an arbitrary amount of disk space.
+* The startup script must be name `start` without a file extension for Atlas to know it.
+* Options like "environmental_variables" may be required even if they are empty, be aware there is a risk in removing them entirely.
 
 ## Flat files
 
