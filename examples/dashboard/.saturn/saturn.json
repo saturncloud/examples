@@ -5,8 +5,9 @@
         "disk_space": "4Gi",
         "ssh_enabled": false
     },
-    "environment_variables": {},
+    "environmental_variables": {},
     "description": "Deploy a dashboard to Saturn Cloud",
+    "title": "Deploy Dashboards",
     "thumbnail": "thumbnail.png",
     "weight":3
 }
