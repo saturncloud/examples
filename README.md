@@ -30,7 +30,7 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
     },
     "description": "Use Pytorch on one GPU or across multiple GPUs with Dask",
     "title": "Pytorch",
-    "thumbnail": "thumbnail.png",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
     "weight": 10
 }
 ```
@@ -44,3 +44,8 @@ If your quickstart involves flat files they should be saved in the saturn cloud 
 ```python
 pd.read_csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/pickup_grouped_by_zone.csv")
 ```
+
+
+## Example thumbnail
+
+Each example needs a thumbnail to show in the ui. The thumbnails should be 500px*250px images. They should be saved in the s3 bucket `saturn-public-assets` in the `example-thumbnails` folder with a name that matches the name of the example. So for the `dashboard` example the url would be: `https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png`

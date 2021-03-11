@@ -8,6 +8,6 @@
     "environmental_variables": {},
     "description": "Deploy a dashboard to Saturn Cloud",
     "title": "Deploy Dashboards",
-    "thumbnail": "thumbnail.png",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
     "weight":3
 }
