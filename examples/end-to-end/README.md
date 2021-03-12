@@ -3,21 +3,11 @@
 
 # NYC Taxi analysis with Saturn Cloud
 
-<<<<<<< HEAD
 The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/). 
 
 <img src="_img/pipeline.png" width="800">
 
 The notebooks in this example cover:
-=======
-The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/). They are a subset of a [larger demo](https://youtu.be/SgXSIbB4Hik), reduced to quickly highlight key features of Saturn Cloud. The larger demo includes the following:
-
-<img src="_img/pipeline.png" width="800">
-
-All code for the full demo is [available here](https://github.com/saturncloud/saturn-cloud-examples/tree/main/taxi_demo). You can follow the instructions there to create a new project and run the full examples. The example you are currently in is a reduced version to quickly (and cost-effectively) highlight key features of Saturn Cloud.
-
-The notebooks in _this_ example cover:
->>>>>>> 6f36ccc08426bc08166550d849d8e96720609fb9
 
 1. Create and deploy a dashboard with exploratory analysis (`holoviz`, `bokeh`, `panel`)
 1. Load records from CSV files and produce aggregate data files (`dask.dataframe`, `pandas`)*
@@ -41,45 +31,7 @@ Saturn Cloud hosts pre-aggregated data files on a public S3 bucket, so you can i
 
 If you run all the cells in the notebook, the final cell will display the dashboard inline.
 
-<<<<<<< HEAD
 To run as part of a persistent Deployment check out the [Saturn Cloud docs](https://www.saturncloud.io/docs/examples/dashboards/dashboard/).
-=======
-To run it as a separate process from JupyterLab: open a terminal, then cd into the dashboard directory and run `panel serve`:
-
-```bash
-panel serve /home/jovyan/project/examples/nyc-taxi/dashboard.ipynb
-```
-
-The dashboard will be live behind the Jupyter proxy. You can copy the URL of this Jupyter window and replace `/lab/*` with `/proxy/5006/dashboard`. For example, your Jupyter URL might be:
-
-> https://main.demo.saturnenterprise.io/user/aaron/examples-cpu/lab/workspaces/examples-cpu
-
-Then your dashboard URL would be: 
-
-> https://main.demo.saturnenterprise.io/user/aaron/examples-cpu/proxy/5006/dashboard
-
-It will take a few seconds to load when first viewing the page, as all the cells in this notebook must be executed first.
-
-#### Deployment 
-
-To run as part of a persistent Deployment, go to the "Deployments" page in Saturn Cloud and create a new deployment. This will host the dashboard so users can view it without having to launch a Jupyter project. Note that Deployment names must be unique across all users.
-
-- Name: Any name you like, for example: `<USERNAME>-taxi-dashboard`
-- Project: `examples-cpu`
-- Command: (see below)
-- Instance Count: 1
-- Instance Size: Medium - 2 cores - 4 GB RAM
-
-The command is:
-
-```bash
-python -m panel serve /home/jovyan/project/examples/nyc-taxi/dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"
-```
-
-After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can view the dashboard at the URL listed on the Deployment card. You can view logs by clicking on the Status link.
-
-Note that the "Predict my Tip" widget on the "ML" tab will return `-1.00%` until we specify a model deployment for it to point to. We will get there later in the example.
->>>>>>> 6f36ccc08426bc08166550d849d8e96720609fb9
 
 ## Aggregate data files
 
@@ -141,35 +93,7 @@ curl -X POST \
     -d '{"passenger_count": 1, "pickup_datetime": "2019-01-01T11:15:38Z", "pickup_taxizone_id": 37, "dropoff_taxizone_id": 215}'
 ```
 
-<<<<<<< HEAD
 To run as part of a persistent Deployment, check out the [Saturn Cloud docs](https://www.saturncloud.io/docs/reference/deployments/).
-=======
-### Deployment 
-
-To run as part of a persistent Deployment, go to the "Deployments" page in Saturn Cloud and create a new deployment. This will host the API so apps can get predictions from the model.
-
-- Name: Any name you like, for example: `<USERNAME>-taxi-model`
-- Project: `end-to-end`
-- Command: (see below)
-- Instance Count: 1
-- Instance Size: Medium - 2 cores - 4 GB RAM
-
-The command is:
-
-```bash
-python /home/jovyan/project/examples/nyc-taxi/model-api.py
-```
-
-After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can hit the API from a Jupyter client in Saturn using the URL listed:
-
-```bash
-DEPLOYMENT_URL='<URL from Deployment>'
-curl -X POST \
-    http://${DEPLOYMENT_URL}:8000/api/predict \
-    -d '{"passenger_count": 1, "pickup_datetime": "2019-01-01T11:15:38Z", "pickup_taxizone_id": 37, "dropoff_taxizone_id": 215}'
-```
-
->>>>>>> 6f36ccc08426bc08166550d849d8e96720609fb9
 
 ### Hook up to dashboard
 
