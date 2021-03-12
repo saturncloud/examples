@@ -1,0 +1,31 @@
+{
+<<<<<<< HEAD
+    "image": "saturncloud/saturn:2021.02.22",
+=======
+    "image": "saturncloud/saturn:2021.01.29",
+>>>>>>> 6f36ccc08426bc08166550d849d8e96720609fb9
+    "jupyter": {
+        "size": "large",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "medium",
+        "worker_size": "large",
+        "nthreads": 2
+    },
+    "environment_variables": {
+        "TAXI_S3": "s3://saturn-public-data/nyc-taxi",
+        "MODEL_FILE": "xgboost.pkl"
+    },
+    "description": "Data science pipeline including analysis and model training. Deploy a dashboard and model API.",
+    "title": "End-to-end Pipeline",
+<<<<<<< HEAD
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/saturn.png",
+    "weight": 3
+=======
+    "thumbnail_image_url": "url",
+    "category": "End-to-end"
+>>>>>>> 6f36ccc08426bc08166550d849d8e96720609fb9
+}
