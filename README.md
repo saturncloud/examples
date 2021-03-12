@@ -1,34 +1,56 @@
-# Examples
+# Example projects
 
-Example projects for getting started with Saturn Cloud. These examples are pre-populated for each user account in all Saturn Cloud installations, so the best place to experience them is by running the projects in your Saturn Cloud installation. If you do not have access to Saturn Cloud, you can [get started with a free account](https://www.saturncloud.io/docs/getting-started/).
+These are the quickstart projects available in Saturn cloud. Each project has a set of files to include on workspace machine when the project is started, as well as parameters for how the workspace should be set up. The parameters include the number of machines for a Dask cluster, if any, the size of the machines, and a start script to run when they are first turn on. If you would like to use code from one of these projects, select the quickstart options from within Saturn Cloud.
 
-## Getting Started
+In addition to be used as quickstarts, many of the [Saturn Cloud docs](http://saturncloud.io/docs) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/docs/blob/main/make_md.py) from the [docs repo](https://github.com/saturncloud/docs).
 
-Once you have a Saturn Cloud account, the example projects will be available on the "Projects" page. Click "Start" on one of the projects to spin up the Jupyter Server and Dask cluster.
+**Note: this repo includes the existing legacy `examples-cpu` and `examples-gpu`. This is for compatibility with existing enterprise customers, and will be deprecated in the future**
 
-![projects](img/projects.png)
+## Project structure
 
-Once the Jupyter Server is running, click "Jupyter Lab" to open up Jupyter Lab. 
+Each project is a separate folder within the `examples` folder. For each project there is one subfolder called `.saturn` which contains the information specific to the Saturn Cloud project. Everything not within a `.saturn` folder will be available within the workspace machine of the project in Saturn Cloud.
 
-![start-jupyter](img/start-jupyter.png)
+The most important file within the `.saturn` folder is the `saturn.json` file which includes setup parameters. Here is an example of a `saturn.json` file:
 
-The readme for the example project will be opened up and you can take it from there!
-
-![readme](img/readme.png)
-
-## Update example projects
-
-If you delete an example project or would like the latest version, navigate to the "Projects" page and click "Set up example projects". This will set up the projects again in your account with the latest code from this repository.
-
-## Running in a new project
-
-These examples are configured to run with small data sizes to quickly (and cost-effectively) illustrate the features of Saturn Cloud. If you prefer to run these examples in a new project, or would like to modify the code and run with larger data sizes and clusters, you can clone the repo by opening a new Terminal within the JupyterLab of your project, then copying the example you want into the `/home/jovyan/project` folder:
-
-```bash
-git clone https://github.com/saturncloud/examples.git /tmp/examples
-cp -r /tmp/examples/examples/examples-gpu /home/jovyan/project/
+```json
+{
+    "image": "saturncloud/saturn-pytorch:2021.02.09-3",
+    "jupyter": {
+        "size": "g4dnxlarge",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "medium",
+        "worker_size": "g4dnxlarge"
+    },
+    "environment_variables": {
+        "DASK_DISTRIBUTED__WORKER__DAEMON": "False"
+    },
+    "description": "Use Pytorch on one GPU or across multiple GPUs with Dask",
+    "title": "Pytorch",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
+    "weight": 10
+}
 ```
 
-## Contributing
+It's possible that other files might existing in the .saturn folder, such as `start` which contains the initialization script for the project. However, no file besides `saturn.json` is required.
 
-Each example in the `examples/` directory is used to pre-populate a Saturn Cloud project in installations of Saturn Cloud. For details on the structure and guidance on how to edit or add examples, see [the contributing guidelines](./CONTRIBUTING.md).
+Notes about the project structure:
+* The disk_space must be one of the preset choices from the Saturn Cloud UI, it can't be an arbitrary amount of disk space.
+* The startup script must be name `start` without a file extension for Atlas to know it.
+* Options like "environment_variables" may be required even if they are empty, be aware there is a risk in removing them entirely.
+
+## Flat files
+
+If your quickstart involves flat files they should be saved in the saturn cloud public S3 (ask @hhuuggoo for permission to access this). Each quickstart's file should be saved in the `examples` folder in the bucket in a subfolder with the same name as the quickstart folder in this repo. In your code, use the HTTP path to download the file rather than a Python S3 package, since not all of the readers will have an understanding of S3. For example in Pandas you can run:
+
+```python
+pd.read_csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/pickup_grouped_by_zone.csv")
+```
+
+
+## Example thumbnail
+
+Each example needs a thumbnail to show in the ui. The thumbnails should be 500px*250px images. They should be saved in the s3 bucket `saturn-public-assets` in the `example-thumbnails` folder with a name that matches the name of the example. So for the `dashboard` example the url would be: `https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png`

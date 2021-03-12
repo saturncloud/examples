@@ -39,7 +39,7 @@ Untitled*.ipynb
 # backup files from tools like aspell and sed
 *.bak
 
-# data files
+# data files 
 *.csv
 *.dat
 *.data
