@@ -11,8 +11,9 @@
         "scheduler_size": "medium",
         "worker_size": "g4dnxlarge"
     },
+    "environment_variables": {},
     "description": "Perform data science work on GPUs using RAPIDS",
     "title": "RAPIDS",
-    "thumbnail_image_url": "url",
-    "category": "RAPIDS"
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rapids.png",
+    "weight": 2
 }
