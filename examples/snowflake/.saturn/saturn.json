@@ -12,7 +12,8 @@
         "worker_size": "g4dnxlarge"
     },
     "environment_variables": {
-        "TAXI_DATABASE": "saturn_nyc_taxi"
+        "TAXI_DATABASE": "saturn_nyc_taxi",
+        "JUPYTERLAB_SATURN_EXTENSION_DISABLED": "True"
     },
     "description": "Connect to a Snowflake database from either a single machine or distributed clsuter",
     "title": "Snowflake",
