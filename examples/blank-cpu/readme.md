@@ -1,0 +1,3 @@
+# Generic CPU project
+
+This project provides a simple single workspace machine, usually to run Python and Jupyter from. It does not include a Dask cluster for distributed computing by default, but that can be added from the [project page of the Saturn UI](https://www.saturncloud.io/docs/getting-started/create_cluster_ui/). There is no GPU associated with this worker either--if you want GPU computing (either on the workspace machine or for an attached dask cluster) use the blank GPU project instead.

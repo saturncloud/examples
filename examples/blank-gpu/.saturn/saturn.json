@@ -1,0 +1,12 @@
+{
+    "image": "saturncloud/saturn-gpu:2021.12.23",
+    "jupyter": {
+        "size": "g4dnxlarge",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "description": "A blank project with a single GPU workspace--good for tasks that require a small amount of GPU",
+    "title": "Single GPU",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/blank-gpu.png",
+    "weight": 920
+}
