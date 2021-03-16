@@ -1,15 +1,21 @@
-|<img src="../_img/taxi.png" width="200" /> | <img src="../_img/saturn.png" width="400" />|
-| -- | -- |
+|<img src="../_img/taxi.png" width="200" /> | <img src="../_img/saturn.png" width="400" />| <img src="../_img/snowflake.png" width="400" />|
+| -- | -- | -- |
 
 # NYC Taxi analysis with Saturn Cloud
 
-The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/). The notebooks in this example cover:
+The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with data hosted in [Snowflake](https://www.snowflake.com/). The notebooks in this example cover:
 
 1. Train a random forest classifier using single-node Python (`scikit-learn`)
 1. Accelerate random forest training on a GPU with RAPIDS (`cudf`, `cuml`)
 1. Distribute the random forest training on a GPU cluster (`dask_cudf`, `cuml.dask`)
 
 You are free to open each notebook in this example and start playing around! For a guided experience, follow the steps below.
+
+## Connect to Snowflake
+
+This example uses data stored in a Snowflake data warehouse that is managed by the team at Saturn Cloud. We've set up a read-only user for use in these examples. If you would like to access data stored in your own Snowflake account, you should set up [Credentials](https://www.saturncloud.io/docs/concepts/credentials/) for your account, user, and password then set the other connection information accordingly. For more details on Snowflake connection information, see ["Connecting to Snowflake"](https://docs.snowflake.com/en/user-guide/python-connector-example.html#connecting-to-snowflake) in the `snowflake-connector-python` docs.
+
+Note that in order to update environment variables your Jupyter server will need to be stopped.
 
 ## Train ML models
 
