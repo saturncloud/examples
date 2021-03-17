@@ -15,8 +15,13 @@
         "TAXI_DATABASE": "saturn_nyc_taxi",
         "JUPYTERLAB_SATURN_EXTENSION_DISABLED": "True"
     },
+    "required_secrets": [
+        "EXAMPLE_SNOWFLAKE_ACCOUNT",
+        "EXAMPLE_SNOWFLAKE_USER",
+        "EXAMPLE_SNOWFLAKE_PASSWORD"
+    ]
     "description": "Connect to a Snowflake database from either a single machine or distributed clsuter",
     "title": "Snowflake",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
-    "weight": 2
+    "weight": 10
 }
