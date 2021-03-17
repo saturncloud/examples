@@ -25,9 +25,9 @@ The random forest notebooks are an example of GPU-acceleration for model trainin
 
 Run these notebooks in order:
 
-1. [`rf-scikit.ipynb`](rf-scikit.ipynb): single-node scikit version - takes a while 🙁
-1. [`rf-rapids.ipynb`](rf-rapids.ipynb): single-GPU RAPIDS version - super fast! 🤯
-1. [`rf-rapids-dask.ipynb`](rf-rapids-dask.ipynb): multi-GPU Dask+RAPIDS version - _extra_ super fast! 🤯🤯🤯
+1. [`rf-scikit.ipynb`](./rf-scikit.ipynb): single-node scikit version - takes a while 🙁
+1. [`rf-rapids.ipynb`](./rf-rapids.ipynb): single-GPU RAPIDS version - super fast! 🤯
+1. [`rf-rapids-dask.ipynb`](./rf-rapids-dask.ipynb): multi-GPU Dask+RAPIDS version - _extra_ super fast! 🤯🤯🤯
 
 For the best experience, we recommend opening up two notebooks at a time side-by-side in JupyterLab. That way you can see which lines of code change between them (spoiler: not many!). There are a few different resources to monitor to see what's happening:
 

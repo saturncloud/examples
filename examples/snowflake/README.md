@@ -9,4 +9,4 @@ Both of these tasks can be found in the [snowflake-dask.ipynb](snowflake-dask.ip
 
 ## _Advanced_ - NYC Taxi analysis
 
-Once you're familiar with how to query data from Snowflake, check out the [advanced](advanced/README.md) folder for complete examples of a classification exercise with NYC Taxi data. Those notebooks compare the runtime of a CPU-based pipeline with a GPU-based one to illustrate the massive speedups you can get when pairing Snowflake with GPUs on Saturn Cloud!
+Once you're familiar with how to query data from Snowflake, check out the [advanced](./advanced/README.md) folder for complete examples of a classification exercise with NYC Taxi data. Those notebooks compare the runtime of a CPU-based pipeline with a GPU-based one to illustrate the massive speedups you can get when pairing Snowflake with GPUs on Saturn Cloud!
