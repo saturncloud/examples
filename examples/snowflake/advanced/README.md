@@ -3,7 +3,11 @@
 
 # NYC Taxi analysis with Saturn Cloud
 
-The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with data hosted in [Snowflake](https://www.snowflake.com/). The notebooks in this example cover:
+The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/) with data hosted in [Snowflake](https://www.snowflake.com/). 
+
+![snowflake-saturn](../_img/snowflake-saturn.png)
+
+The notebooks in this example cover:
 
 1. Train a random forest classifier using single-node Python (`scikit-learn`)
 1. Accelerate random forest training on a GPU with RAPIDS (`cudf`, `cuml`)
