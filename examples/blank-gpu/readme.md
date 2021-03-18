@@ -1,3 +1,0 @@
-# Generic GPU project
-
-This project provides a simple single workspace machine that has a GPU, usually to run Python and Jupyter from. This is good for tasks like training small or medium neural networks that would benefit from a single GPU. It does not include a Dask cluster for training over multiple machines worth of GPUs by default, but that can be added from the [project page of the Saturn UI](https://www.saturncloud.io/docs/getting-started/create_cluster_ui/).

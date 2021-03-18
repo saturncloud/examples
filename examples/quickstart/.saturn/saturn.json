@@ -1,0 +1,13 @@
+{
+    "image": "saturncloud/saturn-gpu:2021.01.13",
+    "jupyter": {
+        "size": "g4dnxlarge",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "environment_variables": {},
+    "description": "Start instantly with a blank project",
+    "title": "Blank quickstart",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/quickstart.png",
+    "weight": 0
+}
