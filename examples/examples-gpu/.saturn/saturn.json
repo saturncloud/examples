@@ -22,5 +22,5 @@
     "description": "GPU-accelerated machine learning model training with RAPIDS",
     "title": "GPU Examples",
     "thumbnail_image_url": "https://s3-us-east-2.amazonaws.com/saturn-public-files/saturn-2x1.png",
-    "weight": 101,
+    "weight": 101
 }
