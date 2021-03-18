@@ -1,7 +1,7 @@
-|<img src="../_img/taxi.png" width="200" /> | <img src="../_img/saturn.png" width="400" />|
-| -- | -- |
-
 # NYC Taxi analysis with Saturn Cloud
+
+|<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/taxi.png" width="200" /> | <img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn.png" width="400" />|
+| -- | -- |
 
 The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/). The notebooks in this example cover:
 
@@ -36,11 +36,11 @@ For the best experience, we recommend opening up two notebooks at a time side-by
 
 Here what this might look like in JupyterLab:
 
-[![workspace](../_img/workspace.png)](_img/workspace.png)
+![workspace](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/workspace.png)
 
 And then some browser windows for Dask cluster monitoring:
 
-[![dask](../_img/dask.png)](_img/dask.png)
+![dask](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/workspace-dask.png)
 
 # That's all folks
 
