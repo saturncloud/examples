@@ -26,7 +26,15 @@ DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
 FILENAME_REGEX = r"^[0-9A-Za-z\-\.]+$"
 SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
-SATURN_JSON_KEYS = ["image", "jupyter", "environment_variables", "description"]
+SATURN_JSON_KEYS = [
+    "image",
+    "jupyter",
+    "environment_variables",
+    "description",
+    "title",
+    "thumbnail_image_url",
+    "weight",
+]
 TOP_LEVEL_DIR = ARGS.examples_dir
 
 
@@ -73,9 +81,9 @@ class SaturnJsonSchema(Schema):
     dask_cluster = fields.Nested(DaskClusterSchema, required=False)
     required_secrets = fields.List(fields.String(), required=False)
     description = fields.String(required=True)
-    title = fields.String(required=False)
-    thumbnail_image_url = fields.Url(required=False)
-    weight = fields.Integer(required=False)
+    title = fields.String(required=True)
+    thumbnail_image_url = fields.Url(required=True)
+    weight = fields.Integer(required=True)
 
 
 def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
@@ -162,6 +170,8 @@ if __name__ == "__main__":
     example_dirs = os.listdir(TOP_LEVEL_DIR)
     if len(example_dirs) == 0:
         ERRORS.add(f"No directories found under '{TOP_LEVEL_DIR}'")
+
+    weights = {}
 
     for example_dir in example_dirs:
         print(f"Working on directory '{example_dir}'")
@@ -271,6 +281,13 @@ if __name__ == "__main__":
             if required_key not in saturn_config.keys():
                 msg = f"'{saturn_json}' missing required key: '{required_key}'"
                 ERRORS.add(msg)
+
+        weight = saturn_config["weight"]
+        matches = [key for key, value in weights.items() if weight == value]
+        if matches:
+            msg = f"Weight ({weight}) for {example_dir} is non-unique. It matches {matches}."
+            ERRORS.add(msg)
+        weights[example_dir] = weight
 
         project_image = saturn_config["image"]
         image_name, image_tag = project_image.split(":")
