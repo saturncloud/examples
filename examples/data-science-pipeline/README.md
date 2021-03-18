@@ -1,11 +1,11 @@
-|<img src="_img/taxi.png" width="200" /> | <img src="_img/saturn.png" width="400" />|
-| -- | -- |
-
 # NYC Taxi analysis with Saturn Cloud
+
+|<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/taxi.png" width="200" /> | <img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn.png" width="400" />|
+| -- | -- |
 
 The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/). 
 
-<img src="_img/pipeline.png" width="800">
+<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/pipeline.png" width="800">
 
 The notebooks in this example cover:
 
@@ -23,7 +23,7 @@ You are free to open each notebook in this example and start playing around! For
 
 The dashboard presents summary statistics about NYC taxi rides from the years 2017 through 2019. Plots are built with [HoloViz](https://holoviz.org/) and [Bokeh](https://bokeh.org/), and the dashboard is served using [Panel](https://panel.holoviz.org/). Any other Python visualization or dashboard library is supported by Saturn; this is just one example.
 
-![dashboard](_img/dashboard.png)
+![dashboard](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/dashboard.png)
 
 Saturn Cloud hosts pre-aggregated data files on a public S3 bucket, so you can immediately run and view the dashboard. See [`dashboard.ipynb`](dashboard.ipynb) for the dashboard code. 
 
