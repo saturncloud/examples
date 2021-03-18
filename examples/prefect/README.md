@@ -8,7 +8,7 @@ Saturn Cloud supports two different tools in the Prefect ecosystem:
 
 If you would like an introduction to the concepts behind job scheduling with Prefect, you can start with our [Introduction to Prefect Concepts](https://www.saturncloud.io/docs/examples/prefect/prefect_concepts/) docs page then come back here and run these examples!
 
-## [Develop a Scheduled Data Pipeline with Prefect Core](./01-prefect.ipynb)
+## [Develop a Scheduled Data Pipeline with Prefect](./01-prefect.ipynb)
 
 Use the open-source `prefect` library to schedule a data pipeline.
 
