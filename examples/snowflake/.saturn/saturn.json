@@ -12,8 +12,7 @@
         "worker_size": "g4dnxlarge"
     },
     "environment_variables": {
-        "TAXI_DATABASE": "saturn_nyc_taxi",
-        "JUPYTERLAB_SATURN_EXTENSION_DISABLED": "True"
+        "TAXI_DATABASE": "saturn_nyc_taxi"
     },
     "required_secrets": [
         "EXAMPLE_SNOWFLAKE_ACCOUNT",
