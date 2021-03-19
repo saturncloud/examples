@@ -38,6 +38,7 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
 It's possible that other files might existing in the .saturn folder, such as `start` which contains the initialization script for the project. However, no file besides `saturn.json` is required.
 
 Notes about the project structure:
+
 * The disk_space must be one of the preset choices from the Saturn Cloud UI, it can't be an arbitrary amount of disk space.
 * The startup script must be name `start` without a file extension for Atlas to know it.
 * Options like "environment_variables" may be required even if they are empty, be aware there is a risk in removing them entirely.
@@ -50,6 +51,18 @@ If your quickstart involves flat files they should be saved in the saturn cloud 
 pd.read_csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/pickup_grouped_by_zone.csv")
 ```
 
+## Dask cluster
+
+If your quickstart needs a dask cluster, make sure you both specify the number of workers in the `saturn.json` file and also within the notebooks themselves to correctly use wait for workers. If you have to change the number of workers in the quickstart make sure you change it in both places.
+
+Example chunk in a notebook, where n_workers is the same value as the `saturn.json` one:
+
+```python
+n_workers = 3
+cluster = SaturnCluster(n_workers=n_workers)
+client = Client(cluster)
+client.wait_for_workers(n_workers)
+```
 
 ## Example thumbnail
 
