@@ -1,0 +1,19 @@
+{
+    "image": "saturncloud/saturn-rapids:2021.02.22",
+    "jupyter": {
+        "size": "g4dnxlarge",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "nthreads": 1,
+        "scheduler_size": "medium",
+        "worker_size": "g4dnxlarge"
+    },
+    "environment_variables": {},
+    "description": "Perform data science work on GPUs using RAPIDS",
+    "title": "RAPIDS",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rapids.png",
+    "weight": 2
+}
