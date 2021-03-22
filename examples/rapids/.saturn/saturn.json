@@ -8,7 +8,7 @@
     "dask_cluster": {
         "n_workers": 3,
         "nthreads": 1,
-        "scheduler_size": "medium",
+        "scheduler_size": "large",
         "worker_size": "g4dnxlarge"
     },
     "environment_variables": {},

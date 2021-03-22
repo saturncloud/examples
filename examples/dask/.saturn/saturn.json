@@ -1,14 +1,14 @@
 {
     "image": "saturncloud/saturn:2021.02.22",
     "jupyter": {
-        "size": "xlarge",
+        "size": "large",
         "disk_space": "10Gi",
         "ssh_enabled": false
     },
     "dask_cluster": {
         "n_workers": 3,
-        "scheduler_size": "medium",
-        "worker_size": "xlarge"
+        "scheduler_size": "large",
+        "worker_size": "large"
     },
     "environment_variables": {},
     "description": "Use distributed computing with Dask",
