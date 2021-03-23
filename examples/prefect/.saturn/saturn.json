@@ -1,0 +1,24 @@
+{
+    "image": "saturncloud/saturn:2021.02.22",
+    "jupyter": {
+        "size": "large",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "large",
+        "worker_size": "large",
+        "nthreads": 2
+    },
+    "environment_variables": {
+        "PREFECT_CLOUD_PROJECT_NAME": "dask-iz-gr8"
+    },
+    "required_secrets": [
+        "PREFECT_USER_TOKEN"
+    ],
+    "description": "Scheduled jobs with Prefect and Prefect Cloud",
+    "title": "Prefect",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/prefect.png",
+    "weight": 20
+}

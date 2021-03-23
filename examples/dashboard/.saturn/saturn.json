@@ -1,7 +1,7 @@
 {
     "image": "saturncloud/saturn:2021.02.22",
     "jupyter": {
-        "size": "medium",
+        "size": "large",
         "disk_space": "10Gi",
         "ssh_enabled": false
     },
