@@ -17,6 +17,6 @@
     },
     "description": "Data science pipeline including analysis and model training. Deploy a dashboard and model API.",
     "title": "Data science Pipeline",
-    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/saturn.png",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/quickstart.png",
     "weight": 1
 }
