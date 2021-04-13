@@ -18,5 +18,5 @@
     "description": "Example demonstrating how to use Saturn clusters from local environments",
     "title": "Local Connection Examples",
     "thumbnail_image_url": "https://s3-us-east-2.amazonaws.com/saturn-public-files/saturn-2x1.png",
-    "weight": 101
+    "weight": 120
 }
