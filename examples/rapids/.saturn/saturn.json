@@ -15,5 +15,6 @@
     "description": "Perform data science work on GPUs using RAPIDS",
     "title": "RAPIDS",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rapids.png",
-    "weight": 2
+    "weight": 2,
+    "auto_populate_in_saturn": true
 }

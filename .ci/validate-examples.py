@@ -34,6 +34,7 @@ SATURN_JSON_KEYS = [
     "title",
     "thumbnail_image_url",
     "weight",
+    "auto_populate_in_saturn",
 ]
 TOP_LEVEL_DIR = ARGS.examples_dir
 
@@ -84,6 +85,7 @@ class SaturnJsonSchema(Schema):
     title = fields.String(required=True)
     thumbnail_image_url = fields.Url(required=True)
     weight = fields.Integer(required=True)
+    auto_populate_in_saturn = fields.Boolean(required=True)
 
 
 def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
