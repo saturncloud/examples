@@ -17,5 +17,5 @@
     "title": "Distributed PyTorch",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/pytorch.png",
     "weight": 50,
-    "auto_populate_in_saturn": true
+    "include_in_every_saturn": true
 }
