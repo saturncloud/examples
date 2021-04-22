@@ -43,7 +43,7 @@ Notes about the project structure:
 * The disk_space must be one of the preset choices from the Saturn Cloud UI, it can't be an arbitrary amount of disk space.
 * The startup script must be name `start` without a file extension for Atlas to know it.
 * Options like "environment_variables" may be required even if they are empty, be aware there is a risk in removing them entirely.
-* ``include_in_every_saturn`` indicates whether the example will be created by default in every organizations' Saturn account. Examples that are more niche, or only relevant to certain customers should have ``"include_in_ever_saturn": false``
+* ``include_in_every_saturn`` indicates whether the example will be created by default in every organizations' Saturn account. Examples that are more niche, or only relevant to certain customers should have ``"include_in_every_saturn": false``
 
 ## Flat files
 
