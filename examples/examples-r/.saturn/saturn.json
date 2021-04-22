@@ -11,5 +11,5 @@
     "title": "R Project",
     "thumbnail_image_url": "https://s3-us-east-2.amazonaws.com/saturn-public-assets/example-thumbnails/rlogo.png",
     "weight": 150,
-    "include_in_every_saturn": False
+    "include_in_every_saturn": false
 }
