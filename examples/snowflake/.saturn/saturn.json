@@ -22,5 +22,6 @@
     "description": "Connect to a Snowflake database from either a single machine or distributed clsuter",
     "title": "Snowflake",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
-    "weight": 10
+    "weight": 10,
+    "include_in_every_saturn": true
 }

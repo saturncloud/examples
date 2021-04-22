@@ -26,5 +26,6 @@
     "description": "Dask and Prefect tutorials, an end-to-end data science pipeline, and more.",
     "title": "CPU Examples",
     "thumbnail_image_url": "https://s3-us-east-2.amazonaws.com/saturn-public-files/saturn-2x1.png",
-    "weight": 100
+    "weight": 100,
+    "include_in_every_saturn": true
 }
