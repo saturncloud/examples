@@ -14,5 +14,6 @@
     "description": "Use distributed computing with Dask",
     "title": "Dask",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dask.png",
-    "weight": 30
+    "weight": 30,
+    "include_in_every_saturn": true
 }
