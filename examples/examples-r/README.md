@@ -1,4 +1,4 @@
-<img src="./_img/saturn.png" width="600">
+<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn.png" width="600" />
 
 # Start Using R in Saturn Cloud
 ## Welcome to Saturn Cloud!
@@ -6,6 +6,11 @@
 This project gives you an environment ready for conducting data science in R in Jupyter. Open a new notebook and select the R kernel to begin.
 
 The following libraries are included in the image, and you can install others with `install.packages()`, `devtools`, or `remotes` according to your preference.
+
+The following packages and all of their `Imports`, `Depends`, and `LinkingTo` dependencies are included in the image.
+
+>To see the full list of installed packages, run the following in an R session in Jupyter.  
+>`as.data.frame(installed.packages())[, c("Package", "Version")]`
 
 * caret
 * data.table
