@@ -5,12 +5,11 @@
 
 This project gives you an environment ready for conducting data science in R in Jupyter. Open a new notebook and select the R kernel to begin.
 
-The following libraries are included in the image, and you can install others with `install.packages()`, `devtools`, or `remotes` according to your preference.
-
 The following packages and all of their `Imports`, `Depends`, and `LinkingTo` dependencies are included in the image.
 
->To see the full list of installed packages, run the following in an R session in Jupyter.  
->`as.data.frame(installed.packages())[, c("Package", "Version")]`
+>To see the full list of installed packages, run the following in an R session in Jupyter.    
+> `as.data.frame(installed.packages())[, c("Package", "Version")]`  
+> You can install other libraries with `install.packages()`, `devtools`, or `remotes` according to your preference.
 
 * caret
 * data.table
