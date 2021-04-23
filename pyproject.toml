@@ -1,2 +1,6 @@
 [tool.black]
 line-length = 100
+
+[tool.nbqa.exclude]
+black = "examples/examples-r"
+flake8 = "examples/examples-r"
