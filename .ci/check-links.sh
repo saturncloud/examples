@@ -6,7 +6,7 @@
 #
 # [usage]
 #
-#     ./pdc/scripts/dev/check-links.sh frontend/src
+#     ./.ci/check-links.sh $(pwd)
 #
 
 set -u -o pipefail
