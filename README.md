@@ -57,7 +57,7 @@ pd.read_csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dash
 
 ## Dask cluster
 
-If your quickstart needs a dask cluster, make sure you both specify the number of workers in the `saturn.json` file and also within the notebooks themselves to correctly use wait for workers. If you have to change the number of workers in the quickstart make sure you change it in both places.
+If your quickstart needs a Dask cluster, make sure you both specify the number of workers in the `saturn.json` file and also within the notebooks themselves to correctly use wait for workers. If you have to change the number of workers in the quickstart make sure you change it in both places.
 
 Example chunk in a notebook, where n_workers is the same value as the `saturn.json` one:
 
