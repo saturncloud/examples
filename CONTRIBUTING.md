@@ -24,7 +24,7 @@ When you add a new example, add an entry to [`CODEOWNERS`](./.github/CODEOWNERS)
 
 Examples in this the `examples/` directory follow a specific directory structure that allows Saturn to automatically seed them in a new user's environment with these.
 
-Each directory below `examples/` corresponds to one new Saturn Project + Jupyter that will be created in users' environments. Those projects will be named using the directory name, so the names of these directories should have names which only contain lowercase alphanumeric characters and dashes.
+Each directory below `examples/` corresponds to one new Saturn Project + Jupyter server that will be created in users' environments. Those projects will be named using the directory name, so the names of these directories should have names which only contain lowercase alphanumeric characters and dashes.
 
 ```text
 examples/

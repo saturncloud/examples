@@ -58,7 +58,7 @@ Ready to dive in? Run these two notebooks in order:
 1. [`hyperparameter-scikit.ipynb`](hyperparameter-scikit.ipynb): single-node scikit version - takes a while 🙁
 1. [`hyperparameter-dask.ipynb`](hyperparameter-dask.ipynb): distributed Dask version - super fast! ⚡️
 
-For the best experience, we recommend opening up both notebooks side-by-side in JupyterLab. That way you can see which lines of code change when we use Dask (spoiler: not many!). To monitor resource utilization of your Jupyter client, open a new Terminal window and run `htop`. To monitor resource utilization of a Dask cluster, click the "Dashboard" link in the cell output when you initialize the cluster.
+For the best experience, we recommend opening up both notebooks side-by-side in JupyterLab. That way you can see which lines of code change when we use Dask (spoiler: not many!). To monitor resource utilization of your Jupyter server, open a new Terminal window and run `htop`. To monitor resource utilization of a Dask cluster, click the "Dashboard" link in the cell output when you initialize the cluster.
 
 ### XGBoost regression
 

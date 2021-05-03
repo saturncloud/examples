@@ -36,8 +36,8 @@ Run these notebooks in order:
 
 For the best experience, we recommend opening up two notebooks at a time side-by-side in JupyterLab. That way you can see which lines of code change between them (spoiler: not many!). There are a few different resources to monitor to see what's happening:
 
-- **CPU utilization of Jupyter client** for scikit-learn example: open a new Terminal window and run `htop`. 
-- **GPU utilization of Jupyter client** for RAPIDS example: open a new Terminal window and run:
+- **CPU utilization of Jupyter server** for scikit-learn example: open a new Terminal window and run `htop`. 
+- **GPU utilization of Jupyter server** for RAPIDS example: open a new Terminal window and run:
 
     ```shell
     watch -n 1 nvidia-smi
