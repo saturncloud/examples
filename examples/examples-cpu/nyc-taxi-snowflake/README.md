@@ -144,7 +144,7 @@ The command is:
 python /home/jovyan/project/examples/nyc-taxi-snowflake/model-api.py
 ```
 
-After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can hit the API from a Jupyter client in Saturn using the URL listed:
+After you create the Deployment, click the play button to start it up. It will take a few minutes to launch the deployment, then when its up you can hit the API from a Jupyter server in Saturn using the URL listed:
 
 ```bash
 DEPLOYMENT_URL='<URL from Deployment>'

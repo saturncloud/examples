@@ -13,12 +13,12 @@ If you would like more details about how to use your own Snowflake account, scro
 
 # Query data with Pandas
 
-If your table or query result fits into the memory of your Jupyter client, you can load data into a pandas dataframe using `pd.read_sql()`.
+If your table or query result fits into the memory of your Jupyter server, you can load data into a pandas dataframe using `pd.read_sql()`.
 
 See [snowflake-pandas.ipynb](./snowflake-pandas.ipynb).
 
 # Query data with Dask
-If your table or query result _don't_ fit into the memory of the computer running your Jupyter client, you can use Dask! Then you can take advantage of using a Dask cluster with Saturn to speed up your computations.
+If your table or query result _don't_ fit into the memory of the computer running your Jupyter server, you can use Dask! Then you can take advantage of using a Dask cluster with Saturn to speed up your computations.
 
 See [snowflake-dask.ipynb](./snowflake-dask.ipynb).
 
