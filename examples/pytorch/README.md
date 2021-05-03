@@ -16,4 +16,4 @@ By combining Pytorch with Dask you can run experiments on how a model performs w
 
 ## [Use Pytorch to train a single model across multiple GPUs in parallel with Dask](04-start-with-pytorch+dask-single-model.ipynb)
 
-By combining Pytorch with Dask you can train a single neural network over many different GPUs at once. This example uses the same pet names example as the single-GPU notebook, but instead uses the three GPUs of the dask workers to train the model.
+By combining Pytorch with Dask you can train a single neural network over many different GPUs at once. This example uses the same pet names example as the single-GPU notebook, but instead uses the three GPUs of the Dask workers to train the model.
