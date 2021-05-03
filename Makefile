@@ -1,5 +1,9 @@
 SHELL=/bin/bash
 
+.PHONY: check-links
+check-links:
+	./.ci/check-links.sh $$(pwd)
+
 .PHONY: format
 format:
 	black .
