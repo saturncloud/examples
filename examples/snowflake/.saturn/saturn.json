@@ -19,7 +19,7 @@
         "EXAMPLE_SNOWFLAKE_USER",
         "EXAMPLE_SNOWFLAKE_PASSWORD"
     ],
-    "description": "Connect to a Snowflake database from either a single machine or distributed clsuter",
+    "description": "Connect to a Snowflake database from either a single machine or distributed cluster",
     "title": "Snowflake",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
     "weight": 10,
