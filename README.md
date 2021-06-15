@@ -4,7 +4,7 @@
 
 These are the quickstart projects available in Saturn cloud. Each project has a set of files to include on workspace machine when the project is started, as well as parameters for how the workspace should be set up. The parameters include the number of machines for a Dask cluster, if any, the size of the machines, and a start script to run when they are first turn on. If you would like to use code from one of these projects, select the quickstart options from within Saturn Cloud.
 
-In addition to be used as quickstarts, many of the [Saturn Cloud docs](http://saturncloud.io/docs) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/docs/blob/main/make_md.py) from the [docs repo](https://github.com/saturncloud/docs/).
+In addition to be used as quickstarts, many of the [Saturn Cloud docs](http://saturncloud.io/website) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/website/blob/main/make_md.py) from the [website repo](https://github.com/saturncloud/website/).
 
 **Note: this repo includes the existing legacy `examples-cpu` and `examples-gpu`. This is for compatibility with existing enterprise customers, and will be deprecated in the future**
 

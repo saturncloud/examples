@@ -33,6 +33,7 @@ URLS=$(
     | grep -v 'auth.docker.io' \
     | grep -v 'demo.saturnenterprise.io' \
     | grep -v "https://github.com/saturncloud/docs/" \
+    | grep -v "https://github.com/saturncloud/website/" \
     | grep -v -E "(http|https)://[0-9]+" \
     | grep -v 'localhost.' \
     | grep -v 'localtest.' \
