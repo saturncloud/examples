@@ -2,7 +2,7 @@
     "image": "saturncloud/saturn:2021.07.26",
     "deployment": {
         "size": "large",
-        "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'",
+        "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'"
     },
     "environment_variables": {},
     "description": "Deploy a dashboard to Saturn Cloud",
