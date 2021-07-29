@@ -1,9 +1,8 @@
 {
     "image": "saturncloud/saturn:2021.07.26",
-    "jupyter": {
+    "deployment": {
         "size": "large",
-        "disk_space": "10Gi",
-        "ssh_enabled": false
+        "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'",
     },
     "environment_variables": {},
     "description": "Deploy a dashboard to Saturn Cloud",
