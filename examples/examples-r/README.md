@@ -3,7 +3,7 @@
 # Start Using R in Saturn Cloud
 ## Welcome to Saturn Cloud!
 
-This project gives you an environment ready for conducting data science in R in Jupyter. Open a new notebook and select the R kernel to begin.
+This resource gives you an environment ready for conducting data science in R in Jupyter. Open a new notebook and select the R kernel to begin.
 
 The following packages and all of their `Imports`, `Depends`, and `LinkingTo` dependencies are included in the image.
 
@@ -33,6 +33,6 @@ R is not compatible with Dask or Dask clusters, so you will not be able to take 
 
 ## Next steps
 
-Thanks for trying out this project! To learn more about how Saturn Cloud works, check out our [Documentation](https://www.saturncloud.io/docs/), [blog](https://www.saturncloud.io/s/blog/), or join an [upcoming event](https://www.saturncloud.io/s/events/).
+Thanks for trying out this resource! To learn more about how Saturn Cloud works, check out our [Documentation](https://www.saturncloud.io/docs/), [blog](https://www.saturncloud.io/s/blog/), or join an [upcoming event](https://www.saturncloud.io/s/events/).
 
-If you have any questions or suggestions for example projects, reach out to us at support@saturncloud.io or open an issue on the [examples Github repo](https://github.com/saturncloud/examples).
+If you have any questions or suggestions reach out to us at support@saturncloud.io or open an issue on the [examples Github repo](https://github.com/saturncloud/examples).

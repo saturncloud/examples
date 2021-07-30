@@ -2,7 +2,7 @@
 
 <img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/rapids.png" width="400">
 
-This project provides the basics for using [RAPIDS](https://rapids.ai/) on Saturn Cloud. The project is set to have a workspace server with a GPU, and three workers in a Dask cluster, each with their own GPU. Here are some example notebooks that walk through using a GPU with RAPIDS, scaling to a cluster with Dask, then some runtime comparisons:
+This resource provides the basics for using [RAPIDS](https://rapids.ai/) on Saturn Cloud. The resource is set to have a workspace server with a GPU, and three workers in a Dask cluster, each with their own GPU. Here are some example notebooks that walk through using a GPU with RAPIDS, scaling to a cluster with Dask, then some runtime comparisons:
 
 ## [Use RAPIDS on a single GPU](01-rapids-gpu.ipynb)
 
