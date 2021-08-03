@@ -35,7 +35,7 @@ To run as part of a persistent Deployment check out the [Saturn Cloud docs](http
 
 ## Aggregate data files
 
-Saturn Cloud hosts pre-aggregated NYC taxi data from 2017-2019 for the dashboard in the previous step. The [`data-aggregation.ipynb`](data-aggregation.ipynb) notebook contains all the code to perform these aggregations. It is set up to run on a small sample (first few months of 2017) to be able to be executed in this example project. This notebook is included to illustrate how Dask is used with a Saturn cluster for data processing, but the files generated here will not be used by any of the other examples. 
+Saturn Cloud hosts pre-aggregated NYC taxi data from 2017-2019 for the dashboard in the previous step. The [`data-aggregation.ipynb`](data-aggregation.ipynb) notebook contains all the code to perform these aggregations. It is set up to run on a small sample (first few months of 2017) to be able to be executed in this example. This notebook is included to illustrate how Dask is used with a Saturn cluster for data processing, but the files generated here will not be used by any of the other examples. 
 
 ## Train ML models
 
@@ -73,7 +73,7 @@ You'll notice that there is not much code to change here beyond launching the Da
 
 ### Random forest classification
 
-The random forest examples showcase GPU-accelerated model training with [RAPIDS](http://rapids.ai/). This requires a separate project running on a GPU instance and image. Jump over to the `examples-gpu` project on your Jupyter page for these examples.
+The random forest examples showcase GPU-accelerated model training with [RAPIDS](http://rapids.ai/). This requires a separate resource running on a GPU instance and image.
 
 ## Serve ML model
 

@@ -24,7 +24,7 @@ When you add a new example, add an entry to [`CODEOWNERS`](./.github/CODEOWNERS)
 
 Examples in this the `examples/` directory follow a specific directory structure that allows Saturn to automatically seed them in a new user's environment with these.
 
-Each directory below `examples/` corresponds to one new Saturn Project + Jupyter server that will be created in users' environments. Those projects will be named using the directory name, so the names of these directories should have names which only contain lowercase alphanumeric characters and dashes.
+Each directory below `examples/` corresponds to one new resource that will be created in users' environments. Those resources will be named using the directory name, so the names of these directories should have names which only contain lowercase alphanumeric characters and dashes.
 
 ```text
 examples/
@@ -112,7 +112,7 @@ A JSON with the following structure:
     - `ssh_enabled`: A boolean indicating whether to set up [SSH access from outside Saturn into the Server](https://www.saturncloud.io/docs/tips-and-tricks/ssh/)
 * `environment_variables`:
     - A dictionary whose keys are the names of environment variables, and whose values are the values for the environment variables.
-* `description`: plain text explaining what the project does
+* `description`: plain text explaining what the resource does
 
 Any customization of Dask clusters should be done in notebook code, using [`dask-saturn`](https://github.com/saturncloud/dask-saturn).
 
@@ -122,7 +122,7 @@ A shell script that will be run on startup of the Jupyter server and all Dask re
 
 # Releasing
 
-Releases of this project follow releases of Saturn Cloud.
+Releases of this repository follow releases of Saturn Cloud.
 
 When it is time to cut a new release, follow these steps:
 
@@ -143,16 +143,16 @@ This repo has a branch protection to prevent deletion or changes without a pull 
 
 #### Can I include other code or add more sub-directories under and example in the `examples/` directory?
 
-All other directories included under the example directory will be included in the example, and an arbitrary amount of nesting is permitted.
+All other directories included under the example directory will be included in the example, and an arbitrary amount of nesting is permitted. Non-code files such as data should be stored on S3.
 
 #### What do I do if my example needs a custom image?
 
-All images referenced in an example's `.saturn/saturn.json` should be publicly available on Docker Hub. This project does not handle building new images.
+All images referenced in an example's `.saturn/saturn.json` should be publicly available on Docker Hub. This repository does not handle building new images.
 
 If you need a new image, you can make a pull request in https://github.com/saturncloud/images to add it.
 
-#### Why does this project use long-lived release branches instead of GitHub releases and tags on `main`?
+#### Why does this repository use long-lived release branches instead of GitHub releases and tags on `main`?
 
-Using long-lived release branches allows for the possiblility of hotfixing older versions of this project if issues arise.
+Using long-lived release branches allows for the possiblility of hotfixing older versions of this repository if issues arise.
 
-Releases of this project are intended to be tightly coupled to releases of Saturn's main product. Releasing a version of Saturn's main product with code that says "grab the latest commit from a particular branch" allows us to release hotfixes without needing to interrupt any running Saturn installations.
+Releases of this repository are intended to be tightly coupled to releases of Saturn's main product. Releasing a version of Saturn's main product with code that says "grab the latest commit from a particular branch" allows us to release hotfixes without needing to interrupt any running Saturn installations.
