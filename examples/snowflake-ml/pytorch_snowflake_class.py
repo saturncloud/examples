@@ -10,6 +10,7 @@ from torch.utils.data import Dataset
 import numpy as np, pandas as pd
 import requests, io, os, datetime, re
 
+
 def _list_all_files(table_name: str, conn):
     """
     Get dataframe of all items from table
@@ -17,6 +18,7 @@ def _list_all_files(table_name: str, conn):
 
     df = pd.read_sql(f"select * from {table_name}", conn)
     return df
+
 
 def _load_image_obj(fileobj):
     """
@@ -27,7 +29,7 @@ def _load_image_obj(fileobj):
 
 class SnowflakeImageFolder(Dataset):
     """
-    An image table that lives in Snowflake.  
+    An image table that lives in Snowflake.
     relative path: the path containing the label for the image as the lowest folder
     url: the authenticated link allowing download of the file
     """
@@ -49,9 +51,11 @@ class SnowflakeImageFolder(Dataset):
         self.relative_path_col = relative_path_col
         self.url_col = url_col
         self.all_files = _list_all_files(self.table_name, self.connection)
-        
-        self.classes = sorted({self._get_class(x[self.relative_path_col]) for j, x in self.all_files.iterrows()})
-        
+
+        self.classes = sorted(
+            {self._get_class(x[self.relative_path_col]) for j, x in self.all_files.iterrows()}
+        )
+
         self.class_to_idx = {k: idx for idx, k in enumerate(self.classes)}
         self.transform = transform
         self.target_transform = target_transform
