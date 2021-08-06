@@ -7,8 +7,8 @@ This resource gives you an environment ready for conducting data science in R in
 
 The following packages and all of their `Imports`, `Depends`, and `LinkingTo` dependencies are included in the image.
 
->To see the full list of installed packages, run the following in an R session in Jupyter.    
-> `as.data.frame(installed.packages())[, c("Package", "Version")]`  
+>To see the full list of installed packages, run the following in an R session in Jupyter.
+> `as.data.frame(installed.packages())[, c("Package", "Version")]`
 > You can install other libraries with `install.packages()`, `devtools`, or `remotes` according to your preference.
 
 * caret
@@ -27,12 +27,12 @@ The following packages and all of their `Imports`, `Depends`, and `LinkingTo` de
 * stringr
 * tensorflow
 * tidyr
-* xgboost 
+* xgboost
 
 R is not compatible with Dask or Dask clusters, so you will not be able to take advantage of parallelization with Dask in R. However, we have provided the `reticulate` library, which can enable interaction between R and Python code.
 
 ## Next steps
 
-Thanks for trying out this resource! To learn more about how Saturn Cloud works, check out our [Documentation](https://www.saturncloud.io/docs/), [blog](https://www.saturncloud.io/s/blog/), or join an [upcoming event](https://www.saturncloud.io/s/events/).
+Thanks for trying out this resource! To learn more about how Saturn Cloud works, check out our [Documentation](https://saturncloud.io/docs/), [blog](https://saturncloud.io/s/blog/), or join an [upcoming event](https://saturncloud.io/s/events/).
 
 If you have any questions or suggestions reach out to us at support@saturncloud.io or open an issue on the [examples Github repo](https://github.com/saturncloud/examples).
