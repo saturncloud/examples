@@ -3,7 +3,7 @@
 |<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/taxi.png" width="200" /> | <img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn.png" width="400" />|
 | -- | -- |
 
-The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/). The notebooks in this example cover:
+The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://saturncloud.io/). The notebooks in this example cover:
 
 1. Train a random forest classifier using single-node Python (`scikit-learn`)
 1. Accelerate random forest training on a GPU with RAPIDS (`cudf`, `cuml`)
@@ -25,13 +25,13 @@ Run these notebooks in order:
 
 For the best experience, we recommend opening up two notebooks at a time side-by-side in JupyterLab. That way you can see which lines of code change between them (spoiler: not many!). There are a few different resources to monitor to see what's happening:
 
-- **CPU utilization of Jupyter server** for scikit-learn example: open a new Terminal window and run `htop`. 
+- **CPU utilization of Jupyter server** for scikit-learn example: open a new Terminal window and run `htop`.
 - **GPU utilization of Jupyter server** for RAPIDS example: open a new Terminal window and run:
 
     ```shell
     watch -n 1 nvidia-smi
     ```
-    
+
 - **GPU cluster utilization** for Dask+RAPIDS example: click the dashboard and GPU monitoring links provided in the notebook.
 
 Here what this might look like in JupyterLab:
