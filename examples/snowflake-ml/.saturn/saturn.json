@@ -16,6 +16,6 @@
     "description": "Use Snowflake and Saturn Cloud to do image classification",
     "title": "Snowflake Machine Learning",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
-    "weight": 50,
+    "weight": 60,
     "include_in_every_saturn": true
 }
