@@ -103,15 +103,13 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
 if __name__ == "__main__":
 
     conn_kwargs = dict(
-        user=os.environ["SNOWFLAKE_USER"],  # This will draw from your Saturn Cloud credentials
-        password=os.environ[
-            "SNOWFLAKE_PASSWORD"
-        ],  # This will draw from your Saturn Cloud credentials
-        account="mf80263.us-east-2.aws",  # Fill in your own account here!
-        warehouse="COMPUTE_WH",  # Fill in your own warehouse here!
-        database="clothing",  # You created this earlier!
+        user=os.environ["ANALYTICS_SNOWFLAKE_USER"],
+        password=os.environ["ANALYTICS_SNOWFLAKE_PASSWORD"],
+        account="mf80263.us-east-2.aws",
+        warehouse="COMPUTE_WH",
+        database="clothing_dataset",
         schema="PUBLIC",
-        role="datascience",  # Fill in your own role here!
+        role="datascience_examples_writer",
     )
 
     model_params = {
