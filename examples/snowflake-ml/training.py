@@ -10,6 +10,7 @@ from torch.utils.data.sampler import SubsetRandomSampler, RandomSampler
 from pytorch_snowflake_class import SnowflakeImageFolder
 import snowflake.connector
 from fastprogress.fastprogress import master_bar, progress_bar
+import multiprocessing as mp
 
 
 def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwargs):
@@ -17,7 +18,9 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
     # --------- Format params --------- #
     device = torch.device("cuda")
     net = models.resnet50(pretrained=False)  # True means we start with the imagenet version
-
+    # net.load_state_dict(
+    #     torch.load("model/model_trained.pt")
+    # )  # Start from the existing model state if desired
     model = net.to(device)
 
     # --------- Set up eval --------- #
@@ -31,9 +34,9 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
 
     with snowflake.connector.connect(**conn_kwargs) as conn:
         whole_dataset = SnowflakeImageFolder(
-            table_name="clothing_data",
+            table_name="clothing_train",
             relative_path_col="RELATIVE_PATH",
-            url_col="URL",
+            stage="clothing_dataset_train",
             connection=conn,
             transform=transform,
         )
@@ -47,6 +50,8 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
             num_samples=math.floor(len(whole_dataset) * downsample_to),
         ),
         batch_size=batch_size,
+        num_workers=4,
+        multiprocessing_context=mp.get_context("fork"),
     )
 
     # Using the OneCycleLR learning rate schedule
@@ -103,8 +108,8 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
 if __name__ == "__main__":
 
     conn_kwargs = dict(
-        user=os.environ["ANALYTICS_SNOWFLAKE_USER"],
-        password=os.environ["ANALYTICS_SNOWFLAKE_PASSWORD"],
+        user=os.environ["SNOWFLAKE_USER"],
+        password=os.environ["SNOWFLAKE_PASSWORD"],
         account="mf80263.us-east-2.aws",
         warehouse="COMPUTE_WH",
         database="clothing_dataset",
@@ -113,8 +118,8 @@ if __name__ == "__main__":
     )
 
     model_params = {
-        "n_epochs": 20,
-        "batch_size": 32,
+        "n_epochs": 25,
+        "batch_size": 64,
         "base_lr": 0.003,
         "downsample_to": 1,  # Value represents percent of training data you want to use
         "conn_kwargs": conn_kwargs,
