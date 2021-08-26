@@ -1,3 +1,5 @@
+# pylint: disable=unused-import, trailing-whitespace, multiple-imports, F841
+
 """
 PyTorch Snowflake Image Folder Data Class
 
@@ -5,7 +7,6 @@ This class is an extension of PyTorch image data objects to allow
 loading image files from a Snowflake unstructured table. 
 Learn more at https://quickstarts.snowflake.com/.
 """
-# pylint: disable=unused-import, trailing-whitespace
 
 import tempfile
 from os.path import basename, dirname
