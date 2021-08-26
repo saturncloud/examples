@@ -1,14 +1,14 @@
 # pylint: disable=unused-import, trailing-whitespace, multiple-imports, F841
+# noqa: F841
 # # Train Model with Snowflake unstructured files
 
 # This script trains an image classification model based on ResNet50, using source image files from a Snowflake unstructured table. Learn more at https://quickstarts.snowflake.com/.
 
 
-import numpy as np, pandas as pd
-import requests, io, os, datetime, re, math
+import os, datetime, math  # noqa: E401
 import torch
 from torch import nn, optim
-from torchvision import datasets, transforms, models
+from torchvision import transforms, models
 from torch.utils.data.sampler import (
     RandomSampler,
 )
@@ -74,7 +74,7 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
             # zero the parameter gradients
             optimizer.zero_grad()
 
-            dt = datetime.datetime.now().isoformat()
+            dt = datetime.datetime.now().isoformat()  # noqa: F841
             inputs, labels = inputs.to(device), labels.to(device)
 
             # Run model iteration
@@ -82,7 +82,7 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
 
             # Format results
             pred_idx, preds = torch.max(outputs, 1)
-            perct = [
+            perct = [  # noqa: F841
                 torch.nn.functional.softmax(el, dim=0)[i].item() for i, el in zip(preds, outputs)
             ]
 

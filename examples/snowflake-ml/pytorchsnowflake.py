@@ -1,20 +1,18 @@
-# pylint: disable=unused-import, trailing-whitespace, multiple-imports, F841
-
 """
 PyTorch Snowflake Image Folder Data Class
 
-This class is an extension of PyTorch image data objects to allow 
-loading image files from a Snowflake unstructured table. 
+This class is an extension of PyTorch image data objects to allow
+loading image files from a Snowflake unstructured table.
 Learn more at https://quickstarts.snowflake.com/.
 """
 
 import tempfile
 from os.path import basename, dirname
-from typing import List, Callable, Optional
+from typing import Callable, Optional
 from PIL import Image
 from torch.utils.data import Dataset
-import numpy as np, pandas as pd
-import requests, io
+import pandas as pd
+import requests, io  # noqa: E401
 
 
 def _list_all_files(table_name: str, relative_path_col: str, stage: str, conn):
@@ -46,6 +44,7 @@ class SnowflakeImageFolder(Dataset):
 
     # pylint: disable=too-many-instance-attributes
     # pylint: disable=too-many-arguments
+    # pylint: disable=unused-import, trailing-whitespace, multiple-imports, F841
 
     def __init__(
         self,
@@ -66,7 +65,6 @@ class SnowflakeImageFolder(Dataset):
         self.classes = sorted(
             {self._get_class(x[self.relative_path_col]) for j, x in self.all_files.iterrows()}
         )
-
         self.class_to_idx = {k: idx for idx, k in enumerate(self.classes)}
         self.transform = transform
         self.target_transform = target_transform
