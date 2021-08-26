@@ -1,5 +1,9 @@
 """
-Utilities for loading PyTorch image data from Snowflake
+PyTorch Snowflake Image Folder Data Class
+
+This class is an extension of PyTorch image data objects to allow 
+loading image files from a Snowflake unstructured table. 
+Learn more at https://quickstarts.snowflake.com/.
 """
 
 import tempfile

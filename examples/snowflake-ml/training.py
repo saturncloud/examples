@@ -1,5 +1,7 @@
 # Train Model with Snowflake unstructured files
 
+# This script trains an image classification model based on ResNet50, using source image files from a Snowflake unstructured table. Learn more at https://quickstarts.snowflake.com/.
+
 import numpy as np, pandas as pd
 import requests, io, os, datetime, re, math
 import torch
