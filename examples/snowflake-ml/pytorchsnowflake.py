@@ -15,25 +15,29 @@ import numpy as np, pandas as pd
 import requests, io, os, datetime, re
 
 
-def _list_all_files(table_name: str, relative_path_col: str, stage:str, conn):
+def _list_all_files(table_name: str, relative_path_col: str, stage: str, conn):
     """
     Get dataframe of all items from table
     """
 
-    df = pd.read_sql(f"select *, get_presigned_url(@{stage}, {relative_path_col}) as SIGNEDURL from {table_name}", conn)
+    df = pd.read_sql(
+        f"select *, get_presigned_url(@{stage}, {relative_path_col}) as SIGNEDURL from {table_name}",
+        conn,
+    )
     return df
+
 
 def _load_image_obj(fileobj):
     """
     Turn a byte file object into an image
     """
-   
+
     return Image.open(io.BytesIO(fileobj)).convert("RGB")
 
 
 class SnowflakeImageFolder(Dataset):
     """
-    An image table that lives in Snowflake.  
+    An image table that lives in Snowflake.
     relative path: the path containing the label for the image as the lowest folder
     url: the authenticated link allowing download of the file
     """
@@ -54,9 +58,13 @@ class SnowflakeImageFolder(Dataset):
         self.connection = connection
         self.stage = stage
         self.relative_path_col = relative_path_col
-        self.all_files = _list_all_files(self.table_name, self.relative_path_col, self.stage, self.connection)
-        self.classes = sorted({self._get_class(x[self.relative_path_col]) for j, x in self.all_files.iterrows()})
-        
+        self.all_files = _list_all_files(
+            self.table_name, self.relative_path_col, self.stage, self.connection
+        )
+        self.classes = sorted(
+            {self._get_class(x[self.relative_path_col]) for j, x in self.all_files.iterrows()}
+        )
+
         self.class_to_idx = {k: idx for idx, k in enumerate(self.classes)}
         self.transform = transform
         self.target_transform = target_transform
