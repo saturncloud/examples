@@ -12,4 +12,4 @@ Image files are stored in a Snowflake data table, and results of inference are s
 * Parallelize inference on Dask: [inference.ipynb](inference.ipynb)
 * PyTorch data class for Snowflake stored image files: [pytorch_snowflake_class.py](pytorch_snowflake_class.py)
 
-Use these files along with our full guide on the Snowflake website. 
+Use these files along with [our full guide on the Snowflake website](https://quickstarts.snowflake.com/). 
