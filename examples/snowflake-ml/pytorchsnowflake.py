@@ -11,8 +11,8 @@ from os.path import basename, dirname
 from typing import List, Callable, Optional
 from PIL import Image
 from torch.utils.data import Dataset
-import numpy as np, pandas as pd
-import requests, io, os, datetime, re
+import numpy as np, pandas as pd # pylint: disable=import-error
+import requests, io, os, datetime, re # pylint: disable=import-error
 
 
 def _list_all_files(table_name: str, relative_path_col: str, stage: str, conn):
