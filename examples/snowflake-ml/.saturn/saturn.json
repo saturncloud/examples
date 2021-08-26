@@ -1,0 +1,21 @@
+{
+    "image": "saturncloud/saturn-pytorch:2021.07.26",
+    "jupyter": {
+        "size": "g4dnxlarge",
+        "disk_space": "10Gi",
+        "ssh_enabled": false
+    },
+    "dask_cluster": {
+        "n_workers": 3,
+        "scheduler_size": "large",
+        "worker_size": "g4dnxlarge"
+    },
+    "environment_variables": {
+        "DASK_DISTRIBUTED__WORKER__DAEMON": "False"
+    },
+    "description": "Use Snowflake unstructured data for image classification with Dask",
+    "title": "Machine Learning with Snowflake",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
+    "weight": 60,
+    "include_in_every_saturn": true
+}
