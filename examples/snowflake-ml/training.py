@@ -9,7 +9,7 @@ from torch import nn, optim
 from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler, RandomSampler
-from pytorch_snowflake_class import SnowflakeImageFolder
+from pytorchsnowflake import SnowflakeImageFolder
 import snowflake.connector
 from fastprogress.fastprogress import master_bar, progress_bar
 import multiprocessing as mp
@@ -21,7 +21,7 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
     device = torch.device("cuda")
     net = models.resnet50(pretrained=False)  # True means we start with the imagenet version
     # net.load_state_dict(
-    #     torch.load("model/model_trained.pt")
+    #     torch.load("model/modeltrained.pt")
     # )  # Start from the existing model state if desired
     model = net.to(device)
 
@@ -102,9 +102,9 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
             #  Print logs every so often
             if count % 10 == 0:
                 print(logs)
-                torch.save(model.state_dict(), "model/model_trained.pt")
+                torch.save(model.state_dict(), "model/modeltrained.pt")
             count += 1
-    torch.save(model.state_dict(), "model/model_trained.pt")
+    torch.save(model.state_dict(), "model/modeltrained.pt")
 
 
 if __name__ == "__main__":
