@@ -5,7 +5,7 @@ This class is an extension of PyTorch image data objects to allow
 loading image files from a Snowflake unstructured table. 
 Learn more at https://quickstarts.snowflake.com/.
 """
-# pylint: disable=import-error
+# pylint: disable=unused-import, trailing-whitespace
 
 import tempfile
 from os.path import basename, dirname
