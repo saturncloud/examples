@@ -17,6 +17,7 @@ import snowflake.connector
 from fastprogress.fastprogress import master_bar, progress_bar
 import multiprocessing as mp
 
+
 def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwargs):
 
     # --------- Format params --------- #

@@ -16,7 +16,6 @@ import numpy as np, pandas as pd
 import requests, io
 
 
-
 def _list_all_files(table_name: str, relative_path_col: str, stage: str, conn):
     """
     Get dataframe of all items from table
