@@ -2,13 +2,16 @@
 
 # This script trains an image classification model based on ResNet50, using source image files from a Snowflake unstructured table. Learn more at https://quickstarts.snowflake.com/.
 
-import numpy as np, pandas as pd # pylint: disable=import-error
-import requests, io, os, datetime, re, math # pylint: disable=import-error
+import numpy as np, pandas as pd  # pylint: disable=import-error
+import requests, io, os, datetime, re, math  # pylint: disable=import-error
 import torch
 from torch import nn, optim
-from torchvision import datasets, transforms, models # pylint: disable=import-error
-from torch.utils.data import DataLoader # pylint: disable=import-error
-from torch.utils.data.sampler import SubsetRandomSampler, RandomSampler # pylint: disable=import-error
+from torchvision import datasets, transforms, models  # pylint: disable=import-error
+from torch.utils.data import DataLoader  # pylint: disable=import-error
+from torch.utils.data.sampler import (
+    SubsetRandomSampler,
+    RandomSampler,
+)  # pylint: disable=import-error
 from pytorchsnowflake import SnowflakeImageFolder
 import snowflake.connector
 from fastprogress.fastprogress import master_bar, progress_bar
