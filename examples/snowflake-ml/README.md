@@ -1,6 +1,3 @@
-<img src="saturncloud-logo.png" alt="Saturn Cloud" width="300"/>
-
-
 # Machine Learning on Unstructured Data with Saturn Cloud and Snowflake
 ## Supplementary Materials
 

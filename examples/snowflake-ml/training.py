@@ -117,9 +117,9 @@ if __name__ == "__main__":
         password=os.environ["SNOWFLAKE_PASSWORD"],
         account="mf80263.us-east-2.aws",
         warehouse="COMPUTE_WH",
-        database="clothing_dataset",
+        database="clothing",
         schema="PUBLIC",
-        role="datascience_examples_writer",
+        role="sysadmin",
     )
 
     model_params = {
