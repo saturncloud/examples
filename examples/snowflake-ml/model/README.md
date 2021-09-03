@@ -1,1 +1,0 @@
-Model object trained by script in parent folder.
