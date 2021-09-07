@@ -11,7 +11,8 @@
         "worker_size": "g4dnxlarge"
     },
     "environment_variables": {
-        "DASK_DISTRIBUTED__WORKER__DAEMON": "False"
+        "DASK_DISTRIBUTED__WORKER__DAEMON": "False",
+        "MODEL_S3": "s3://saturn-public-files/examples-data/snowflake-ml/modeltrained.pt"
     },
     "description": "Use Snowflake unstructured data for image classification with Dask",
     "title": "Machine Learning with Snowflake",
