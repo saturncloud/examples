@@ -14,6 +14,10 @@
         "DASK_DISTRIBUTED__WORKER__DAEMON": "False",
         "MODEL_S3": "s3://saturn-public-files/examples-data/snowflake-ml/modeltrained.pt"
     },
+    "required_secrets": [
+        "EXAMPLE_SNOWFLAKE_USER",
+        "EXAMPLE_SNOWFLAKE_PASSWORD"
+    ],
     "description": "Use Snowflake unstructured data for image classification with Dask",
     "title": "Machine Learning with Snowflake",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",

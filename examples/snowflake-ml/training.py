@@ -113,8 +113,8 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
 if __name__ == "__main__":
 
     conn_kwargs = dict(
-        user=os.environ["SNOWFLAKE_USER"],
-        password=os.environ["SNOWFLAKE_PASSWORD"],
+        user=os.environ["EXAMPLE_SNOWFLAKE_USER"],
+        password=os.environ["EXAMPLE_SNOWFLAKE_PASSWORD"],
         account="mf80263.us-east-2.aws",
         warehouse="COMPUTE_WH",
         database="clothing",
