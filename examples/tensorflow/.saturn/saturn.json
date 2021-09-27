@@ -1,5 +1,5 @@
 {
-    "image": "saturncloud/saturn-tensorflow:2021.08.16",
+    "image": "saturncloud/saturn-tensorflow:2021.07.26-2",
     "jupyter": {
         "size": "g4dnxlarge",
         "disk_space": "40Gi",
