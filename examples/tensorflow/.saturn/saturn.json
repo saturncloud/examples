@@ -5,10 +5,6 @@
         "disk_space": "40Gi",
         "ssh_enabled": false
     },
-    "environment_variables": {
-        "DASK_DISTRIBUTED__WORKER__DAEMON": "False",
-        "MODEL_S3": "s3://saturn-public-files/examples-data/snowflake-ml/modeltrained.pt"
-    },
     "description": "Train deep learning models with Tensorflow",
     "title": "Tensorflow",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
