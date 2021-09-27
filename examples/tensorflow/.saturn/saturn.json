@@ -5,8 +5,8 @@
         "disk_space": "40Gi",
         "ssh_enabled": false
     },
-    "description": "Train deep learning models with Tensorflow",
-    "title": "Tensorflow",
+    "description": "Train deep learning models with TensorFlow",
+    "title": "TensorFlow",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/tensorflow.png",
     "weight": 70,
     "include_in_every_saturn": true
