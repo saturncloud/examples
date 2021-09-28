@@ -15,7 +15,7 @@ You are free to open each notebook in this example and start playing around! For
 
 ### Random forest classification
 
-The random forest notebooks are an example of GPU-acceleration for model training with [RAPIDS](http://rapids.ai/). The [`cuml` package](https://github.com/rapidsai/cuml) features an API that closely resembles scikit-learn, but does all processing on GPUs. This leads to some crazy performance speedups! What if your data doesn't fit into a single GPU's memory? That's where Dask comes in! RAPIDS has native Dask integrations to be able to run on a cluster of machines with GPUs. Buckle up, this is going to be a fun ride!
+The random forest notebooks are an example of GPU-acceleration for model training with [RAPIDS](http://rapids.ai/). The [`cuml` package](https://github.com/rapidsai/cuml) features an API that closely resembles scikit-learn, but does all processing on GPUs. This leads to some incredible performance speedups! What if your data doesn't fit into a single GPU's memory? That's where Dask comes in! RAPIDS has native Dask integrations to be able to run on a cluster of machines with GPUs. Buckle up, this is going to be a fun ride!
 
 Run these notebooks in order:
 
@@ -34,17 +34,6 @@ For the best experience, we recommend opening up two notebooks at a time side-by
     
 - **GPU cluster utilization** for Dask+RAPIDS example: click the dashboard and GPU monitoring links provided in the notebook.
 
-Here what this might look like in JupyterLab:
-
-![workspace](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/workspace.png)
-
-And then some browser windows for Dask cluster monitoring:
-
-![dask](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/workspace-dask.png)
-
-# That's all folks
-
-If you have any issue with Saturn Cloud, please email us at support@saturncloud.io. If you notice any mistakes in these notebooks or documentation, [open an issue](https://github.com/saturncloud/examples/issues) or a [a pull request](https://github.com/saturncloud/examples/pulls).
 
 ## References
 
