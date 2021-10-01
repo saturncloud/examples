@@ -1,16 +1,16 @@
-# Example projects
+# Saturn Cloud Default Resources
 
 [![link checks](https://github.com/saturncloud/examples/workflows/link%20checks/badge.svg?branch=main)](https://github.com/saturncloud/examples/actions/workflows/check-links.yml)
 
-These are the quickstart projects available in Saturn cloud. Each project has a set of files to include on workspace machine when the project is started, as well as parameters for how the workspace should be set up. The parameters include the number of machines for a Dask cluster, if any, the size of the machines, and a start script to run when they are first turn on. If you would like to use code from one of these projects, select the quickstart options from within Saturn Cloud.
+These are the Saturn Cloud Default Resources that populate admin accounts and cannot be deleted. They are used to power template resources (which can turned on or off by Saturn Cloud admins). Each example has a set of files to include on workspace machine when the resource is started, as well as parameters for how the resource should be set up. These parameters match those which users set when creating new resources. If you would like to use code from one of these resources, select one of the template resources from the resource page of Saturn Cloud.
 
-In addition to be used as quickstarts, many of the [Saturn Cloud docs](http://saturncloud.io/website) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/website/blob/main/make_md.py) from the [website repo](https://github.com/saturncloud/website/).
+In addition to be used as template resources, many of the [Saturn Cloud docs](http://saturncloud.io/website) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/website/blob/main/make_md.py) from the [website repo](https://github.com/saturncloud/website/).
 
 **Note: this repo includes the existing legacy `examples-cpu` and `examples-gpu`. This is for compatibility with existing enterprise customers, and will be deprecated in the future**
 
-## Project structure
+## Resource structure
 
-Each project is a separate folder within the `examples` folder. For each project there is one subfolder called `.saturn` which contains the information specific to the Saturn Cloud project. Everything not within a `.saturn` folder will be available within the workspace machine of the project in Saturn Cloud.
+Each resource is a separate folder within the `examples` folder. For each resource there is one subfolder called `.saturn` which contains the information specific to the Saturn Cloud resource. Everything not within a `.saturn` folder will be available within the resource in Saturn Cloud.
 
 The most important file within the `.saturn` folder is the `saturn.json` file which includes setup parameters. Here is an example of a `saturn.json` file:
 
@@ -38,9 +38,9 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
 }
 ```
 
-It's possible that other files might existing in the .saturn folder, such as `start` which contains the initialization script for the project. However, no file besides `saturn.json` is required.
+It's possible that other files might existing in the .saturn folder, such as `start` which contains the initialization script for the resource. However, no file besides `saturn.json` is required.
 
-Notes about the project structure:
+Notes about the resource structure:
 
 * The disk_space must be one of the preset choices from the Saturn Cloud UI, it can't be an arbitrary amount of disk space.
 * The startup script must be name `start` without a file extension for Atlas to know it.

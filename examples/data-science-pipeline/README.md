@@ -3,7 +3,7 @@
 |<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/taxi.png" width="200" /> | <img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn.png" width="400" />|
 | -- | -- |
 
-The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://www.saturncloud.io/). 
+The notebooks in this example showcase a data science workflow with NYC taxi data, executed on [Saturn Cloud](https://saturncloud.io/).
 
 <img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/pipeline.png" width="800">
 
@@ -25,17 +25,17 @@ The dashboard presents summary statistics about NYC taxi rides from the years 20
 
 ![dashboard](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/dashboard.png)
 
-Saturn Cloud hosts pre-aggregated data files on a public S3 bucket, so you can immediately run and view the dashboard. See [`dashboard.ipynb`](dashboard.ipynb) for the dashboard code. 
+Saturn Cloud hosts pre-aggregated data files on a public S3 bucket, so you can immediately run and view the dashboard. See [`dashboard.ipynb`](dashboard.ipynb) for the dashboard code.
 
 ### Running dashboard
 
 If you run all the cells in the notebook, the final cell will display the dashboard inline.
 
-To run as part of a persistent Deployment check out the [Saturn Cloud docs](https://www.saturncloud.io/docs/examples/dashboards/dashboard/).
+To run as part of a persistent Deployment check out the [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/).
 
 ## Aggregate data files
 
-Saturn Cloud hosts pre-aggregated NYC taxi data from 2017-2019 for the dashboard in the previous step. The [`data-aggregation.ipynb`](data-aggregation.ipynb) notebook contains all the code to perform these aggregations. It is set up to run on a small sample (first few months of 2017) to be able to be executed in this example project. This notebook is included to illustrate how Dask is used with a Saturn cluster for data processing, but the files generated here will not be used by any of the other examples. 
+Saturn Cloud hosts pre-aggregated NYC taxi data from 2017-2019 for the dashboard in the previous step. The [`data-aggregation.ipynb`](data-aggregation.ipynb) notebook contains all the code to perform these aggregations. It is set up to run on a small sample (first few months of 2017) to be able to be executed in this example. This notebook is included to illustrate how Dask is used with a Saturn cluster for data processing, but the files generated here will not be used by any of the other examples.
 
 ## Train ML models
 
@@ -73,7 +73,7 @@ You'll notice that there is not much code to change here beyond launching the Da
 
 ### Random forest classification
 
-The random forest examples showcase GPU-accelerated model training with [RAPIDS](http://rapids.ai/). This requires a separate project running on a GPU instance and image. Jump over to the `examples-gpu` project on your Jupyter page for these examples.
+The random forest examples showcase GPU-accelerated model training with [RAPIDS](http://rapids.ai/). This requires a separate resource running on a GPU instance and image.
 
 ## Serve ML model
 
@@ -93,7 +93,7 @@ curl -X POST \
     -d '{"passenger_count": 1, "pickup_datetime": "2019-01-01T11:15:38Z", "pickup_taxizone_id": 37, "dropoff_taxizone_id": 215}'
 ```
 
-To run as part of a persistent Deployment, check out the [Saturn Cloud docs](https://www.saturncloud.io/docs/reference/deployments/).
+To run as part of a persistent Deployment, check out the [Saturn Cloud docs](https://saturncloud.io/docs/reference/deployments/).
 
 ### Hook up to dashboard
 

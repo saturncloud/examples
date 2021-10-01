@@ -1,6 +1,6 @@
 # PyTorch Quickstart
 
-This project provides the basics for using PyTorch on Saturn Cloud. The project is set to have a workspace server with GPU, and three workers in a Dask cluster, each with their own GPU. Here are some examples notebooks that walk through using a GPU with PyTorch, using Dask, then using Dask and PyTorch together across multiple workers:
+This resource provides the basics for using PyTorch on Saturn Cloud. The resource is set to have a workspace server with GPU, and three workers in a Dask cluster, each with their own GPU. Here are some examples notebooks that walk through using a GPU with PyTorch, using Dask, then using Dask and PyTorch together across multiple workers:
 
 ## [Use Pytorch on a single GPU](01-start-with-pytorch.ipynb)
 

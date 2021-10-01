@@ -6,7 +6,7 @@ Saturn Cloud supports two different tools in the Prefect ecosystem:
 - Prefect Core, which is an open source library users can install, and
 - Prefect Cloud, which is a fully hosted cloud service which you can purchase. The same team that maintains the `prefect` core library runs Prefect Cloud. Prefect Cloud is a hosted, high-availability, fault-tolerant service that handles all the orchestration responsibilities for running data pipelines.
 
-If you would like an introduction to the concepts behind job scheduling with Prefect, you can start with our [Introduction to Prefect Concepts](https://www.saturncloud.io/docs/examples/prefect/prefect_concepts/) docs page then come back here and run these examples!
+If you would like an introduction to the concepts behind job scheduling with Prefect, you can start with our [Introduction to Prefect Concepts](https://saturncloud.io/docs/examples/prefect/prefect_concepts/) docs page then come back here and run these examples!
 
 ## [Develop a Scheduled Data Pipeline with Prefect](./01-prefect.ipynb)
 
