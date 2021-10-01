@@ -1,5 +1,5 @@
 {
-    "image": "saturncloud/saturn-rapids:2021.08.16",
+    "image": "saturncloud/saturn-rapids:2021.09.20",
     "jupyter": {
         "size": "g4dnxlarge",
         "disk_space": "10Gi",
