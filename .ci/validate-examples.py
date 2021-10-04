@@ -28,7 +28,7 @@ SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
 SATURN_JSON_KEYS = [
     "image",
-    "jupyter",
+    ("jupyter", "deployment"),  # require exactly one of the items in a tuple
     "environment_variables",
     "description",
     "title",
@@ -66,6 +66,11 @@ class JupyterSchema(Schema):
     ssh_enabled = fields.Boolean(required=True)
 
 
+class DeploymentSchema(Schema):
+    size = fields.String(required=True)
+    command = fields.String(required=True)
+
+
 class DaskClusterSchema(Schema):
     n_workers = fields.Integer(required=False)
     scheduler_size = fields.String(required=False)
@@ -78,7 +83,8 @@ class DaskClusterSchema(Schema):
 class SaturnJsonSchema(Schema):
     image = fields.String(required=True)
     environment_variables = fields.Mapping(required=True)
-    jupyter = fields.Nested(JupyterSchema, attribute="jupyter", required=True)
+    jupyter = fields.Nested(JupyterSchema, required=False)
+    deployment = fields.Nested(DeploymentSchema, required=False)
     dask_cluster = fields.Nested(DaskClusterSchema, required=False)
     required_secrets = fields.List(fields.String(), required=False)
     description = fields.String(required=True)
@@ -280,7 +286,12 @@ if __name__ == "__main__":
                 continue
 
         for required_key in SATURN_JSON_KEYS:
-            if required_key not in saturn_config.keys():
+            if isinstance(required_key, tuple):
+                # require exactly one of the items in a tuple
+                if not sum(key in saturn_config.keys() for key in required_key) == 1:
+                    msg = f"'{saturn_json}' missing one of required keys: '{required_key}'"
+                    ERRORS.add(msg)
+            elif required_key not in saturn_config.keys():
                 msg = f"'{saturn_json}' missing required key: '{required_key}'"
                 ERRORS.add(msg)
 
