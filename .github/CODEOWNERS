@@ -7,7 +7,7 @@
 # offer a reasonable automatic best-guess
 
 # catch-all rule (this only gets matched if no rules below match)
-*    @skirmer @jnolis
+*    @jnolis
 
 .ci/*     @jsignell
 .github/*    @jsignell
