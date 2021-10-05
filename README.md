@@ -16,7 +16,7 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
 
 ```json
 {
-    "image": "saturncloud/saturn-pytorch:2021.02.09-3",
+    "image": "saturncloud/saturn-pytorch:2021.09.20",
     "jupyter": {
         "size": "g4dnxlarge",
         "disk_space": "10Gi",
