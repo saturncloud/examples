@@ -12,6 +12,6 @@ This notebook gives an example of how to load data and train a random forest mod
 
 By using RAPIDS with a Dask cluster, you can load data that does not fit into a single GPU's memory, as well as parallelize model training across multiple machines.
 
-## [_Advanced_ - NYC Taxi analysis](advanced/README.md)
+## [Compare RAPIDS with Dask to Scikit-learn](compare/README.md)
 
-Once you're familiar with RAPIDS, check out the [advanced](advanced/README.md) folder for complete examples of a classification exercise with NYC Taxi data. Those notebooks compare the runtime of a CPU-based pipeline with a GPU-based one to illustrate the massive speedups you can get with RAPIDS!
+Once you're familiar with RAPIDS, check out the [compare](compare/README.md) folder for complete examples of a classification exercise with NYC Taxi data. Those notebooks compare the runtime of a CPU-based pipeline with a GPU-based one to illustrate the massive speedups you can get with RAPIDS and Dask together.

@@ -12,7 +12,7 @@
         "worker_size": "g4dnxlarge"
     },
     "environment_variables": {},
-    "description": "Perform data science work on GPUs using RAPIDS",
+    "description": "Use GPUs for data science and machine learning with this platform by NVIDIA",
     "title": "RAPIDS",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rapids.png",
     "weight": 2,
