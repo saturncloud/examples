@@ -1,12 +1,11 @@
 {
     "image": "saturncloud/saturn:2021.09.20",
-    "jupyter": {
+    "deployment": {
         "size": "large",
-        "disk_space": "10Gi",
-        "ssh_enabled": false
+        "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'"
     },
     "environment_variables": {},
-    "description": "Deploy a dashboard to Saturn Cloud",
+    "description": "Deploy a dashboard to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
     "title": "Deploy Dashboards",
     "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
     "weight": 3,
