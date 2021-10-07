@@ -1,0 +1,344 @@
+{
+  "recipes": [
+    {
+      "name": "data-science-pipeline",
+      "image": "saturncloud/saturn-geospatial:2021.09.20",
+      "description": "Data science pipeline including analysis and model training. Deploy a dashboard and model API.",
+      "environment_variables": {
+        "TAXI_S3": "s3://saturn-public-data/nyc-taxi",
+        "MODEL_FILE": "xgboost.pkl",
+        "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+      },
+      "working_dir": "/home/jovyan/git-repos/examples/examples/data-science-pipeline",
+      "start_script": "pip install flask xgboost\n",
+      "git_repos": [
+        {
+          "remote_url": "https://github.com/saturncloud/examples",
+          "ref": "release-2021.09.20",
+          "location": "examples"
+        }
+      ],
+      "jupyter_server": {
+        "start_ssh": false,
+        "disk_space": "10Gi",
+        "instance_type": "large",
+        "auto_shutoff": "1 hour"
+      },
+      "dask_cluster": {
+        "n_workers": 3,
+        "worker": {
+          "instance_type": "large",
+          "nprocs": 1,
+          "nthreads": 2,
+          "is_spot": false
+        },
+        "scheduler": {
+          "instance_type": "large"
+        }
+      },
+      "template": {
+        "title": "Data science Pipeline",
+        "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/saturn.png",
+        "weight": 1
+      }
+    },
+    {
+      "name": "snowflake-ml",
+      "image": "saturncloud/saturn-pytorch:2021.09.20",
+      "description": "Use Snowflake unstructured data for image classification with Dask",
+      "environment_variables": {
+        "DASK_DISTRIBUTED__WORKER__DAEMON": "False",
+        "MODEL_S3": "s3://saturn-public-files/examples-data/snowflake-ml/modeltrained.pt",
+        "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+      },
+      "working_dir": "/home/jovyan/git-repos/examples/examples/snowflake-ml",
+      "start_script": "",
+      "git_repos": [
+        {
+          "remote_url": "https://github.com/saturncloud/examples",
+          "ref": "release-2021.09.20",
+          "location": "examples"
+        }
+      ],
+      "jupyter_server": {
+        "start_ssh": false,
+        "disk_space": "10Gi",
+        "instance_type": "g4dnxlarge",
+        "auto_shutoff": "1 hour"
+      },
+      "dask_cluster": {
+        "n_workers": 3,
+        "worker": {
+          "instance_type": "large",
+          "nprocs": 1,
+          "nthreads": 1,
+          "is_spot": false
+        },
+        "scheduler": {
+          "instance_type": "large"
+        }
+      },
+      "template": {
+        "title": "Machine Learning with Snowflake",
+        "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
+        "weight": 60
+      }
+    },
+    {
+      "name": "pytorch",
+      "image": "saturncloud/saturn-pytorch:2021.09.20",
+      "description": "Use PyTorch with a single GPU or across multiple GPUs with Dask",
+      "environment_variables": {
+        "DASK_DISTRIBUTED__WORKER__DAEMON": "False",
+        "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+      },
+      "working_dir": "/home/jovyan/git-repos/examples/examples/pytorch",
+      "start_script": "pip install torch dask-pytorch-ddp seaborn",
+      "git_repos": [
+        {
+          "remote_url": "https://github.com/saturncloud/examples",
+          "ref": "release-2021.09.20",
+          "location": "examples"
+        }
+      ],
+      "jupyter_server": {
+        "start_ssh": false,
+        "disk_space": "10Gi",
+        "instance_type": "g4dnxlarge",
+        "auto_shutoff": "1 hour"
+      },
+      "dask_cluster": {
+        "n_workers": 3,
+        "worker": {
+          "instance_type": "g4dnxlarge",
+          "nprocs": 1,
+          "nthreads": 1,
+          "is_spot": false
+        },
+        "scheduler": {
+          "instance_type": "large"
+        }
+      },
+      "template": {
+        "title": "Distributed PyTorch",
+        "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/pytorch.png",
+        "weight": 50
+      }
+    },
+    {
+      "name": "rapids",
+      "image": "saturncloud/saturn-rapids:2021.09.20",
+      "description": "Perform data science work on GPUs using RAPIDS",
+      "environment_variables": {
+        "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+      },
+      "working_dir": "/home/jovyan/git-repos/examples/examples/rapids",
+      "start_script": "/srv/conda/bin/pip install jupyterlab-nvdashboard==0.5.0\n/srv/conda/bin/jupyter labextension install jupyterlab-nvdashboard",
+      "git_repos": [
+        {
+          "remote_url": "https://github.com/saturncloud/examples",
+          "ref": "release-2021.09.20",
+          "location": "examples"
+        }
+      ],
+      "jupyter_server": {
+        "start_ssh": false,
+        "disk_space": "10Gi",
+        "instance_type": "g4dnxlarge",
+        "auto_shutoff": "1 hour"
+      },
+      "dask_cluster": {
+        "n_workers": 3,
+        "worker": {
+          "instance_type": "g4dnxlarge",
+          "nprocs": 1,
+          "nthreads": 1,
+          "is_spot": false
+        },
+        "scheduler": {
+          "instance_type": "large"
+        }
+      },
+      "template": {
+        "title": "RAPIDS",
+        "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rapids.png",
+        "weight": 2
+      }
+    },
+    {
+      "name": "prefect",
+      "image": "saturncloud/saturn:2021.09.20",
+      "description": "Scheduled jobs with Prefect and Prefect Cloud",
+      "environment_variables": {
+        "PREFECT_CLOUD_PROJECT_NAME": "dask-iz-gr8",
+        "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+      },
+      "working_dir": "/home/jovyan/git-repos/examples/examples/prefect",
+      "start_script": "",
+      "git_repos": [
+        {
+          "remote_url": "https://github.com/saturncloud/examples",
+          "ref": "release-2021.09.20",
+          "location": "examples"
+        }
+      ],
+      "jupyter_server": {
+        "start_ssh": false,
+        "disk_space": "10Gi",
+        "instance_type": "large",
+        "auto_shutoff": "1 hour"
+      },
+      "dask_cluster": {
+        "n_workers": 3,
+        "worker": {
+          "instance_type": "large",
+          "nprocs": 1,
+          "nthreads": 2,
+          "is_spot": false
+        },
+        "scheduler": {
+          "instance_type": "large"
+        }
+      },
+      "template": {
+        "title": "Prefect",
+        "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/prefect.png",
+        "weight": 20
+      }
+    },
+    {
+      "name": "snowflake",
+      "image": "saturncloud/saturn-rapids:2021.09.20",
+      "description": "Connect to a Snowflake database from either a single machine or distributed cluster",
+      "environment_variables": {
+        "TAXI_DATABASE": "saturn_nyc_taxi",
+        "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+      },
+      "working_dir": "/home/jovyan/git-repos/examples/examples/snowflake",
+      "start_script": "",
+      "git_repos": [
+        {
+          "remote_url": "https://github.com/saturncloud/examples",
+          "ref": "release-2021.09.20",
+          "location": "examples"
+        }
+      ],
+      "jupyter_server": {
+        "start_ssh": false,
+        "disk_space": "10Gi",
+        "instance_type": "g4dnxlarge",
+        "auto_shutoff": "1 hour"
+      },
+      "dask_cluster": {
+        "n_workers": 3,
+        "worker": {
+          "instance_type": "large",
+          "nprocs": 1,
+          "nthreads": 1,
+          "is_spot": false
+        },
+        "scheduler": {
+          "instance_type": "large"
+        }
+      },
+      "template": {
+        "title": "Snowflake",
+        "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
+        "weight": 10
+      }
+    },
+    {
+      "name": "tensorflow",
+      "image": "saturncloud/saturn-tensorflow:2021.07.26-2",
+      "description": "Train deep learning models with TensorFlow",
+      "environment_variables": {
+        "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+      },
+      "working_dir": "/home/jovyan/git-repos/examples/examples/tensorflow",
+      "start_script": "",
+      "git_repos": [
+        {
+          "remote_url": "https://github.com/saturncloud/examples",
+          "ref": "release-2021.09.20",
+          "location": "examples"
+        }
+      ],
+      "jupyter_server": {
+        "start_ssh": false,
+        "disk_space": "40Gi",
+        "instance_type": "g4dnxlarge",
+        "auto_shutoff": "1 hour"
+      },
+      "template": {
+        "title": "TensorFlow",
+        "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/tensorflow.png",
+        "weight": 70
+      }
+    },
+    {
+      "name": "dask",
+      "image": "saturncloud/saturn:2021.09.20",
+      "description": "Use distributed computing with Dask",
+      "environment_variables": {
+        "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+      },
+      "working_dir": "/home/jovyan/git-repos/examples/examples/dask",
+      "start_script": "",
+      "git_repos": [
+        {
+          "remote_url": "https://github.com/saturncloud/examples",
+          "ref": "release-2021.09.20",
+          "location": "examples"
+        }
+      ],
+      "jupyter_server": {
+        "start_ssh": false,
+        "disk_space": "10Gi",
+        "instance_type": "large",
+        "auto_shutoff": "1 hour"
+      },
+      "dask_cluster": {
+        "n_workers": 3,
+        "worker": {
+          "instance_type": "large",
+          "nprocs": 1,
+          "nthreads": 1,
+          "is_spot": false
+        },
+        "scheduler": {
+          "instance_type": "large"
+        }
+      },
+      "template": {
+        "title": "Dask",
+        "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dask.png",
+        "weight": 30
+      }
+    },
+    {
+      "image": "saturncloud/saturn:2021.09.20",
+      "description": "Deploy a dashboard to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
+      "environment_variables": {
+        "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+      },
+      "working_dir": "/home/jovyan/git-repos/examples/examples/dashboard",
+      "start_script": "pip install hvplot",
+      "git_repos": [
+        {
+          "remote_url": "https://github.com/saturncloud/examples",
+          "ref": "release-2021.09.20",
+          "location": "examples"
+        }
+      ],
+      "deployment": {
+        "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'",
+        "scale": 1
+      },
+      "template": {
+        "title": "Deploy Dashboards",
+        "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
+        "weight": 3
+      }
+    }
+  ]
+}
