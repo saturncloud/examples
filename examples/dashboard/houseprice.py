@@ -15,5 +15,5 @@ async def predict(BedroomAbvGr: int = 3, YearBuilt: int = 2000):
     if v <= 0:
         raise HTTPException(status_code=400,
                             detail="Please enter BedroomAbvGr between 0 and 8. Enter YearBuilt greater than 1872")
-
     return {'prediction': v[0]}
+#this is the end of code
