@@ -1,0 +1,13 @@
+{
+    "image": "saturncloud/saturn:2021.09.20",
+    "deployment": {
+        "size": "large",
+        "command": "python3 -m uvicorn houseprice:app --reload --host 0.0.0.0 --port 8000"
+    },
+    "environment_variables": {},
+    "description": "Deploy an API to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
+    "title": "Deploy API",
+    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/api.png",
+    "weight": 3,
+    "include_in_every_saturn": true
+}
