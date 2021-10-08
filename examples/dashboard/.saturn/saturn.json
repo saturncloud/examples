@@ -1,13 +1,22 @@
 {
-    "image": "saturncloud/saturn:2021.09.20",
-    "deployment": {
-        "size": "large",
-        "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'"
-    },
-    "environment_variables": {},
-    "description": "Deploy a dashboard to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
-    "title": "Deploy Dashboards",
-    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
-    "weight": 3,
-    "include_in_every_saturn": true
+  "name": "dashboard",
+  "image": "saturncloud/saturn:2021.09.20",
+  "description": "Deploy a dashboard to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
+  "environment_variables": {
+    "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+  },
+  "working_dir": "/home/jovyan/git-repos/examples/examples/dashboard",
+  "start_script": "pip install hvplot",
+  "git_repos": [
+    {
+      "remote_url": "https://github.com/saturncloud/examples",
+      "ref": "release-2021.09.20",
+      "location": "examples"
+    }
+  ],
+  "deployment": {
+    "instance_size": "large",
+    "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'",
+    "scale": 1
+  }
 }

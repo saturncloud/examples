@@ -1,21 +1,36 @@
 {
-    "image": "saturncloud/saturn-pytorch:2021.09.20",
-    "jupyter": {
-        "size": "g4dnxlarge",
-        "disk_space": "10Gi",
-        "ssh_enabled": false
+  "name": "pytorch",
+  "image": "saturncloud/saturn-pytorch:2021.09.20",
+  "description": "Use PyTorch with a single GPU or across multiple GPUs with Dask",
+  "environment_variables": {
+    "DASK_DISTRIBUTED__WORKER__DAEMON": "False",
+    "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+  },
+  "working_dir": "/home/jovyan/git-repos/examples/examples/pytorch",
+  "start_script": "pip install torch dask-pytorch-ddp seaborn",
+  "git_repos": [
+    {
+      "remote_url": "https://github.com/saturncloud/examples",
+      "ref": "release-2021.09.20",
+      "location": "examples"
+    }
+  ],
+  "jupyter_server": {
+    "start_ssh": false,
+    "disk_space": "10Gi",
+    "instance_type": "g4dnxlarge",
+    "auto_shutoff": "1 hour"
+  },
+  "dask_cluster": {
+    "n_workers": 3,
+    "worker": {
+      "instance_type": "g4dnxlarge",
+      "nprocs": 1,
+      "nthreads": 1,
+      "is_spot": false
     },
-    "dask_cluster": {
-        "n_workers": 3,
-        "scheduler_size": "large",
-        "worker_size": "g4dnxlarge"
-    },
-    "environment_variables": {
-        "DASK_DISTRIBUTED__WORKER__DAEMON": "False"
-    },
-    "description": "Use PyTorch with a single GPU or across multiple GPUs with Dask",
-    "title": "Distributed PyTorch",
-    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/pytorch.png",
-    "weight": 50,
-    "include_in_every_saturn": true
+    "scheduler": {
+      "instance_type": "large"
+    }
+  }
 }

@@ -1,20 +1,35 @@
 {
-    "image": "saturncloud/saturn-rapids:2021.09.20",
-    "jupyter": {
-        "size": "g4dnxlarge",
-        "disk_space": "10Gi",
-        "ssh_enabled": false
+  "name": "rapids",
+  "image": "saturncloud/saturn-rapids:2021.09.20",
+  "description": "Perform data science work on GPUs using RAPIDS",
+  "environment_variables": {
+    "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+  },
+  "working_dir": "/home/jovyan/git-repos/examples/examples/rapids",
+  "start_script": "/srv/conda/bin/pip install jupyterlab-nvdashboard==0.5.0\n/srv/conda/bin/jupyter labextension install jupyterlab-nvdashboard",
+  "git_repos": [
+    {
+      "remote_url": "https://github.com/saturncloud/examples",
+      "ref": "release-2021.09.20",
+      "location": "examples"
+    }
+  ],
+  "jupyter_server": {
+    "start_ssh": false,
+    "disk_space": "10Gi",
+    "instance_type": "g4dnxlarge",
+    "auto_shutoff": "1 hour"
+  },
+  "dask_cluster": {
+    "n_workers": 3,
+    "worker": {
+      "instance_type": "g4dnxlarge",
+      "nprocs": 1,
+      "nthreads": 1,
+      "is_spot": false
     },
-    "dask_cluster": {
-        "n_workers": 3,
-        "nthreads": 1,
-        "scheduler_size": "large",
-        "worker_size": "g4dnxlarge"
-    },
-    "environment_variables": {},
-    "description": "Use GPUs for data science and machine learning with this platform by NVIDIA",
-    "title": "RAPIDS",
-    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rapids.png",
-    "weight": 2,
-    "include_in_every_saturn": true
+    "scheduler": {
+      "instance_type": "large"
+    }
+  }
 }
