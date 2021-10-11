@@ -211,13 +211,10 @@ if __name__ == "__main__":
                     )
                     ERRORS.add(msg)
 
-        # every example must have at least one notebook. All cells in that
+        # For all the notebooks (and there may be none), check that all cells in that
         # notebook should be cleared of output and execution counts
         notebook_files = [f for f in all_files if f.endswith(".ipynb")]
-        if len(notebook_files) == 0:
-            msg = f"No notebooks were found in '{full_dir}' or its subdirectories"
-            ERRORS.add(msg)
-        else:
+        if len(notebook_files) > 0:
             for notebook_file in notebook_files:
                 with open(notebook_file, "r") as f:
                     notebook_dict = json.loads(f.read())
