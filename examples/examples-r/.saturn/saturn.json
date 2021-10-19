@@ -11,9 +11,8 @@
       "location": "examples"
     }
   ],
-  "jupyter-server": {
+  "jupyter_server": {
     "instance_type": "large",
-    "disk_space": "10Gi",
-    "ssh_enabled": false
+    "disk_space": "10Gi"
   }
 }
