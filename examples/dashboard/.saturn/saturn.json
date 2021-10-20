@@ -18,7 +18,6 @@
   ],
   "deployment": {
     "instance_type": "large",
-    "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'",
-    "scale": 1
+    "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'"
   }
 }
