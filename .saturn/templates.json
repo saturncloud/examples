@@ -1,12 +1,6 @@
 {
   "templates": [
     {
-      "title": "Data science Pipeline",
-      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/saturn.png",
-      "weight": 1,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/{REF}/examples/data-science-pipeline/.saturn/saturn.json"
-    },
-    {
       "title": "Machine Learning with Snowflake",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
       "weight": 60,
