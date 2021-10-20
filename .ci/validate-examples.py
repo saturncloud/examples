@@ -211,30 +211,26 @@ if __name__ == "__main__":
                     )
                     ERRORS.add(msg)
 
-        # every example must have at least one notebook. All cells in that
+        # For all the notebooks (and there may be none), check that all cells in that
         # notebook should be cleared of output and execution counts
         notebook_files = [f for f in all_files if f.endswith(".ipynb")]
-        if len(notebook_files) == 0:
-            msg = f"No notebooks were found in '{full_dir}' or its subdirectories"
-            ERRORS.add(msg)
-        else:
-            for notebook_file in notebook_files:
-                with open(notebook_file, "r") as f:
-                    notebook_dict = json.loads(f.read())
-                non_empty_cells = 0
-                for cell in notebook_dict["cells"]:
-                    if cell.get("outputs", []) or cell.get("execution_count", None):
-                        non_empty_cells += 1
-                    if cell["cell_type"] == "code":
-                        linting_errors = _lint_python_cell(notebook_file, cell["source"])
-                        for err in linting_errors:
-                            ERRORS.add(err)
-                if non_empty_cells > 0:
-                    msg = (
-                        f"Found {non_empty_cells} non-empty cells in '{notebook_file}'. "
-                        "Clear all outputs and re-commit this file."
-                    )
-                    ERRORS.add(msg)
+        for notebook_file in notebook_files:
+            with open(notebook_file, "r") as f:
+                notebook_dict = json.loads(f.read())
+            non_empty_cells = 0
+            for cell in notebook_dict["cells"]:
+                if cell.get("outputs", []) or cell.get("execution_count", None):
+                    non_empty_cells += 1
+                if cell["cell_type"] == "code":
+                    linting_errors = _lint_python_cell(notebook_file, cell["source"])
+                    for err in linting_errors:
+                        ERRORS.add(err)
+            if non_empty_cells > 0:
+                msg = (
+                    f"Found {non_empty_cells} non-empty cells in '{notebook_file}'. "
+                    "Clear all outputs and re-commit this file."
+                )
+                ERRORS.add(msg)
 
         # all files and directories should have appropriate name
         for fname in all_files:
