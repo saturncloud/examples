@@ -1,7 +1,6 @@
 <img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn.png" width="600" />
 
-# Start Using R in Saturn Cloud
-## Welcome to Saturn Cloud!
+# R in Saturn Cloud
 
 This resource gives you an environment ready for conducting data science in R in Jupyter. Open a new notebook and select the R kernel to begin.
 
@@ -11,23 +10,14 @@ The following packages and all of their `Imports`, `Depends`, and `LinkingTo` de
 > `as.data.frame(installed.packages())[, c("Package", "Version")]`
 > You can install other libraries with `install.packages()`, `devtools`, or `remotes` according to your preference.
 
-* caret
 * data.table
 * devtools
-* dplyr
-* ggplot2
 * IRkernel
-* keras
-* lightgbm
+* tidyverse (full installation including dplyr, ggplot2, and other packages)
 * lubridate
 * Rcpp
-* readr
 * remotes
 * reticulate
-* stringr
-* tensorflow
-* tidyr
-* xgboost
 
 R is not compatible with Dask or Dask clusters, so you will not be able to take advantage of parallelization with Dask in R. However, we have provided the `reticulate` library, which can enable interaction between R and Python code.
 
