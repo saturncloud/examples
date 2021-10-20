@@ -5,8 +5,10 @@
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
+  "extra_packages": {
+    "pip": "hvplot"
+  },
   "working_dir": "/home/jovyan/git-repos/examples/examples/dashboard",
-  "start_script": "pip install hvplot",
   "git_repos": [
     {
       "remote_url": "https://github.com/saturncloud/examples",

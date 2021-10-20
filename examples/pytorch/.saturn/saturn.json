@@ -7,7 +7,9 @@
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
   "working_dir": "/home/jovyan/git-repos/examples/examples/pytorch",
-  "start_script": "pip install torch dask-pytorch-ddp seaborn",
+  "extra_packages": {
+    "pip": "torch dask-pytorch-ddp seaborn"
+  },
   "git_repos": [
     {
       "remote_url": "https://github.com/saturncloud/examples",

@@ -7,7 +7,6 @@
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
   "working_dir": "/home/jovyan/git-repos/examples/examples/prefect",
-  "start_script": "",
   "git_repos": [
     {
       "remote_url": "https://github.com/saturncloud/examples",
