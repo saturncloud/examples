@@ -1,16 +1,16 @@
 {
   "name": "snowflake",
-  "image": "saturncloud/saturn-rapids:2021.09.20",
+  "image_uri": "saturncloud/saturn-rapids:2021.09.20",
   "description": "Connect to a Snowflake database from either a single machine or distributed cluster",
   "environment_variables": {
     "TAXI_DATABASE": "saturn_nyc_taxi",
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
-  "working_dir": "/home/jovyan/git-repos/examples/examples/snowflake",
-  "git_repos": [
+  "working_directory": "/home/jovyan/git-repos/examples/examples/snowflake",
+  "git_repositories": [
     {
-      "remote_url": "https://github.com/saturncloud/examples",
-      "ref": "release-2021.09.20",
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "release-2021.09.20",
       "location": "examples"
     }
   ],
@@ -21,12 +21,12 @@
     "auto_shutoff": "1 hour"
   },
   "dask_cluster": {
-    "n_workers": 3,
+    "num_workers": 3,
     "worker": {
       "instance_type": "large",
-      "nprocs": 1,
-      "nthreads": 1,
-      "is_spot": false
+      "num_processes": 1,
+      "num_threads": 1,
+      "use_spot_instances": false
     },
     "scheduler": {
       "instance_type": "large"

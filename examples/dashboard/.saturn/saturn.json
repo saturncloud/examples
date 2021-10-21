@@ -1,6 +1,6 @@
 {
   "name": "dashboard",
-  "image": "saturncloud/saturn:2021.09.20",
+  "image_uri": "saturncloud/saturn:2021.09.20",
   "description": "Deploy a dashboard to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
@@ -8,11 +8,11 @@
   "extra_packages": {
     "pip": "hvplot"
   },
-  "working_dir": "/home/jovyan/git-repos/examples/examples/dashboard",
-  "git_repos": [
+  "working_directory": "/home/jovyan/git-repos/examples/examples/dashboard",
+  "git_repositories": [
     {
-      "remote_url": "https://github.com/saturncloud/examples",
-      "ref": "release-2021.09.20",
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "release-2021.09.20",
       "location": "examples"
     }
   ],

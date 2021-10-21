@@ -1,13 +1,13 @@
 {
   "name": "examples-r",
-  "image": "saturncloud/saturn-r:2021.09.20",
+  "image_uri": "saturncloud/saturn-r:2021.09.20",
   "description": "Start a project using R in Jupyter for data science.",
   "environment_variables": {},
-  "working_dir": "/home/jovyan/git-repos/examples/examples/examples-r",
-  "git_repos": [
+  "working_directory": "/home/jovyan/git-repos/examples/examples/examples-r",
+  "git_repositories": [
     {
-      "remote_url": "https://github.com/saturncloud/examples",
-      "ref": "release-2021.09.20",
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "release-2021.09.20",
       "location": "examples"
     }
   ],
