@@ -15,7 +15,8 @@ import re
 import requests
 import sys
 
-from marshmallow import fields, Schema, ValidationError
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
 from typing import List
 
 parser = argparse.ArgumentParser()
@@ -28,6 +29,9 @@ SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
 TEMPLATES_JSON_NAME = "templates.json"
 TOP_LEVEL_DIR = ARGS.examples_dir
+
+
+RECIPE_SCHEMA_URL = "https://raw.githubusercontent.com/saturncloud/recipes/resource-v1/resources/resource-schema.json"
 
 
 class ErrorCollection:
@@ -53,23 +57,18 @@ class ErrorCollection:
 
 def validate_recipe(recipe_path):
     """Assuming that 'recipe-schema.json' is available, validate recipe file"""
-    # from jsonschema import validate
-
-    # with open('recipe-schema.json', "r") as f:
-    #     schema = json.load(f)
+    res = requests.get(url=RECIPE_SCHEMA_URL)
+    schema = res.json()
     with open(recipe_path, "r") as f:
         recipe = json.load(f)
 
-    # errors = validate(instance=instance, schema=schema)
-    errors = dict()
+    validate(instance=recipe, schema=schema)
 
-    image_uri = recipe["image"]
+    image_uri = recipe["image_uri"]
     image_name, image_tag = image_uri.split(":")
     image_exists = image_exists_on_dockerhub(image_name=image_name, image_tag=image_tag)
     if not image_exists:
-        errors["_image"] = f"image '{image_name}:{image_tag}' is not available on Docker Hub."
-
-    return errors
+        raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
 
 
 def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
@@ -273,9 +272,10 @@ if __name__ == "__main__":
             ERRORS.add(msg)
             continue
 
-        errors = validate_recipe(saturn_json)
-        if errors:
-            msg = f"'{saturn_json}' has the following schema issues: {str(errors)}"
+        try:
+            validate_recipe(saturn_json)
+        except ValidationError as e:
+            msg = f"'{saturn_json}' has the following schema issues: {str(e)}"
             ERRORS.add(msg)
             continue
 
