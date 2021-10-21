@@ -166,6 +166,12 @@ if __name__ == "__main__":
     for template in templates:
         title = template["title"]
         weight = template["weight"]
+        thumbnail = template["thumbnail_image_url"]
+
+        res = requests.get(url=thumbnail)
+        if not res.status_code == 200:
+            msg = f"Thumbnail image ({thumbnail}) for {title} is not a valid url."
+
         matches = [key for key, value in weights.items() if weight == value]
         if matches:
             msg = f"Weight ({weight}) for '{title}' is non-unique. It matches {matches}."
