@@ -4,7 +4,7 @@
       "title": "Machine Learning with Snowflake",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
       "weight": 60,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/main/examples/snowflake-ml/.saturn/saturn.json"
+      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/jsignell/recipe/examples/snowflake-ml/.saturn/saturn.json"
     },
     {
       "title": "Distributed PyTorch",
