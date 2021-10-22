@@ -10,7 +10,7 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
-      "reference": "release-2021.09.20",
+      "reference": "main",
       "location": "examples"
     }
   ],
