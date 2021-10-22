@@ -28,7 +28,7 @@ SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
 SATURN_JSON_KEYS = [
     "image",
-    ("jupyter", "deployment"),  # require exactly one of the items in a tuple
+    ("jupyter", "deployment", "job"),  # require exactly one of the items in a tuple
     "environment_variables",
     "description",
     "title",
@@ -71,6 +71,11 @@ class DeploymentSchema(Schema):
     command = fields.String(required=True)
 
 
+class JobSchema(Schema):
+    size = fields.String(required=True)
+    command = fields.String(required=True)
+
+
 class DaskClusterSchema(Schema):
     n_workers = fields.Integer(required=False)
     scheduler_size = fields.String(required=False)
@@ -85,6 +90,7 @@ class SaturnJsonSchema(Schema):
     environment_variables = fields.Mapping(required=True)
     jupyter = fields.Nested(JupyterSchema, required=False)
     deployment = fields.Nested(DeploymentSchema, required=False)
+    job = fields.Nested(JobSchema, required=False)
     dask_cluster = fields.Nested(DaskClusterSchema, required=False)
     required_secrets = fields.List(fields.String(), required=False)
     description = fields.String(required=True)
