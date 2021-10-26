@@ -31,7 +31,7 @@ TEMPLATES_JSON_NAME = "templates.json"
 TOP_LEVEL_DIR = ARGS.examples_dir
 
 
-RECIPE_SCHEMA_URL = "https://raw.githubusercontent.com/saturncloud/recipes/resource-v1/resources/resource-schema.json"
+RECIPE_SCHEMA_URL = "https://raw.githubusercontent.com/saturncloud/recipes/resource-v1/resources/schema.json"
 
 
 class ErrorCollection:
