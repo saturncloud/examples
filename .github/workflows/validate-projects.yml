@@ -24,5 +24,5 @@ jobs:
         if: matrix.task == 'linting'
         shell: bash
         run: |
-          pip install --upgrade black flake8 marshmallow nbqa requests
+          pip install --upgrade black[jupyter] flake8 nbqa requests jsonschema
           make lint

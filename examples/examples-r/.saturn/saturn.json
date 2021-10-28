@@ -1,15 +1,18 @@
 {
-    "image": "saturncloud/saturn-r:2021.09.20",
-    "jupyter": {
-        "size": "large",
-        "disk_space": "10Gi",
-        "ssh_enabled": false
-    },
-    "dask_cluster": {},
-    "environment_variables": {},
-    "description": "Start a project using R in Jupyter for data science.",
-    "title": "R Project",
-    "thumbnail_image_url": "https://s3-us-east-2.amazonaws.com/saturn-public-assets/example-thumbnails/rlogo.png",
-    "weight": 150,
-    "include_in_every_saturn": false
+  "name": "examples-r",
+  "image_uri": "saturncloud/saturn-r:2021.09.20",
+  "description": "Start a project using R in Jupyter for data science.",
+  "environment_variables": {},
+  "working_directory": "/home/jovyan/git-repos/examples/examples/examples-r",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "main",
+      "location": "examples"
+    }
+  ],
+  "jupyter_server": {
+    "instance_type": "large",
+    "disk_space": "10Gi"
+  }
 }
