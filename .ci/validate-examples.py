@@ -192,7 +192,7 @@ if __name__ == "__main__":
             ERRORS.add(msg)
         weights[title] = weight
 
-        example_dir = template["recipe_url"].split("examples/")[-1].split("/")[0]
+        example_dir = template["recipe_path"].split("examples/")[-1].split("/")[0]
         if example_dir not in example_dirs:
             msg = (
                 f"Example directory: '{example_dir}' referenced by template: '{title}' does "
