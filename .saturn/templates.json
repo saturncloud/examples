@@ -4,49 +4,49 @@
       "title": "Machine Learning with Snowflake",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
       "weight": 60,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/jsignell/recipe/examples/snowflake-ml/.saturn/saturn.json"
+      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/main/examples/snowflake-ml/.saturn/saturn.json"
     },
     {
       "title": "Distributed PyTorch",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/pytorch.png",
       "weight": 50,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/jsignell/recipe/examples/pytorch/.saturn/saturn.json"
+      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/main/examples/pytorch/.saturn/saturn.json"
     },
     {
       "title": "RAPIDS",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rapids.png",
       "weight": 2,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/jsignell/recipe/examples/rapids/.saturn/saturn.json"
+      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/main/examples/rapids/.saturn/saturn.json"
     },
     {
       "title": "Prefect",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/prefect.png",
       "weight": 20,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/jsignell/recipe/examples/prefect/.saturn/saturn.json"
+      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/main/examples/prefect/.saturn/saturn.json"
     },
     {
       "title": "Snowflake",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
       "weight": 10,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/jsignell/recipe/examples/snowflake/.saturn/saturn.json"
+      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/main/examples/snowflake/.saturn/saturn.json"
     },
     {
       "title": "TensorFlow",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/tensorflow.png",
       "weight": 70,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/jsignell/recipe/examples/tensorflow/.saturn/saturn.json"
+      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/main/examples/tensorflow/.saturn/saturn.json"
     },
     {
       "title": "Dask",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dask.png",
       "weight": 30,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/jsignell/recipe/examples/dask/.saturn/saturn.json"
+      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/main/examples/dask/.saturn/saturn.json"
     },
    {
       "title": "Deploy Dashboards",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
       "weight": 3,
-      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/jsignell/recipe/examples/dashboard/.saturn/saturn.json"
+      "recipe_url": "https://raw.githubusercontent.com/saturncloud/examples/main/examples/dashboard/.saturn/saturn.json"
     }
   ]
 }
