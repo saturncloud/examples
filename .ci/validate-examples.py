@@ -19,7 +19,12 @@ from typing import List
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
-parser.add_argument("--recipe-schema-branch", default="main", type=str, help="Branch of saturncloud/recipes to use.")
+parser.add_argument(
+    "--recipe-schema-branch",
+    default="main",
+    type=str,
+    help="Branch of https://github.com/saturncloud/recipes to use for schema.",
+)
 ADMIN_DIRS = ["_img"]
 ARGS = parser.parse_args()
 DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
