@@ -70,6 +70,10 @@ def validate_recipe(recipe_path):
     if not image_exists:
         raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
 
+    if recipe.get("dask_cluster", None):
+        if recipe["dask_cluster"]["num_workers"] > 3:
+            raise ValidationError("there should not be more than 3 workers per dask cluster.")
+
 
 def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
     """
