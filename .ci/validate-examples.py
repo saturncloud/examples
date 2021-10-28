@@ -1,7 +1,5 @@
 """
-Examples in the `examples/` directory must conform
-to a rigid structure, so Jupyter servers to run them can
-be created automatically in Saturn.
+Examples in the `examples/` directory must contain valid recipes
 
 This script validates the content of those directories,
 to try to prevent pushing broken code to customer's
@@ -21,6 +19,7 @@ from typing import List
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
+parser.add_argument("--recipe-schema-branch", default="main", type=str, help="Branch of saturncloud/recipes to use.")
 ADMIN_DIRS = ["_img"]
 ARGS = parser.parse_args()
 DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
@@ -30,8 +29,12 @@ SATURN_JSON_NAME = "saturn.json"
 TEMPLATES_JSON_NAME = "templates.json"
 TOP_LEVEL_DIR = ARGS.examples_dir
 
-
-RECIPE_SCHEMA_URL = "https://raw.githubusercontent.com/saturncloud/recipes/resource-v1/resources/schema.json"
+# This points to a json file in the saturncloud/recipe repo.
+RECIPE_SCHEMA_BRANCH = ARGS.recipe_schema_branch
+RECIPE_SCHEMA_URL = (
+    "https://raw.githubusercontent.com/saturncloud/recipes/"
+    f"{RECIPE_SCHEMA_BRANCH}/resources/schema.json"
+)
 
 
 class ErrorCollection:
@@ -55,10 +58,9 @@ class ErrorCollection:
         sys.exit(self.num_errors)
 
 
-def validate_recipe(recipe_path):
+def validate_recipe(schema, recipe_path):
     """Assuming that 'recipe-schema.json' is available, validate recipe file"""
-    res = requests.get(url=RECIPE_SCHEMA_URL)
-    schema = res.json()
+
     with open(recipe_path, "r") as f:
         recipe = json.load(f)
 
@@ -155,6 +157,9 @@ def _lint_python_cell(file_name: str, code_lines: List[str]) -> List[str]:
 if __name__ == "__main__":
 
     ERRORS = ErrorCollection()
+
+    res = requests.get(url=RECIPE_SCHEMA_URL)
+    schema = res.json()
 
     example_dirs = os.listdir(TOP_LEVEL_DIR)
     if len(example_dirs) == 0:
@@ -283,7 +288,7 @@ if __name__ == "__main__":
             continue
 
         try:
-            validate_recipe(saturn_json)
+            validate_recipe(schema, saturn_json)
         except ValidationError as e:
             msg = f"'{saturn_json}' has the following schema issues: {str(e)}"
             ERRORS.add(msg)

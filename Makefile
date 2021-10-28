@@ -10,7 +10,7 @@ format:
 
 .PHONY: validate
 validate:
-	python .ci/validate-examples.py --examples-dir $$(pwd)/examples
+	python .ci/validate-examples.py --examples-dir $$(pwd)/examples --recipe-schema-branch main
 
 .PHONY: lint
 lint: validate
