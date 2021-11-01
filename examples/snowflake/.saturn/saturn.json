@@ -34,17 +34,17 @@
   },
   "credentials": [
     {
-      "name": "example_snowflake_account",
+      "name": "example-snowflake-account",
       "type": "environment_variable",
       "location": "EXAMPLE_SNOWFLAKE_ACCOUNT"
     },
     {
-      "name": "example_snowflake_user",
+      "name": "example-snowflake-user",
       "type": "environment_variable",
       "location": "EXAMPLE_SNOWFLAKE_USER"
     },
     {
-      "name": "example_snowflake_password",
+      "name": "example-snowflake-password",
       "type": "environment_variable",
       "location": "EXAMPLE_SNOWFLAKE_PASSWORD"
     }

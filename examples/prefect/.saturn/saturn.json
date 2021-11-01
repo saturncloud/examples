@@ -34,7 +34,7 @@
   },
   "credentials": [
     {
-      "name": "prefect_user_token",
+      "name": "prefect-user-token",
       "type": "environment_variable",
       "location": "PREFECT_USER_TOKEN"
     }
