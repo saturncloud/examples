@@ -31,5 +31,12 @@
     "scheduler": {
       "instance_type": "large"
     }
-  }
+  },
+  "credentials": [
+    {
+      "name": "prefect_user_token",
+      "type": "environment_variable",
+      "location": "PREFECT_USER_TOKEN"
+    }
+  ]
 }

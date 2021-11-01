@@ -31,5 +31,22 @@
     "scheduler": {
       "instance_type": "large"
     }
-  }
+  },
+  "credentials": [
+    {
+      "name": "example_snowflake_account",
+      "type": "environment_variable",
+      "location": "EXAMPLE_SNOWFLAKE_ACCOUNT"
+    },
+    {
+      "name": "example_snowflake_user",
+      "type": "environment_variable",
+      "location": "EXAMPLE_SNOWFLAKE_USER"
+    },
+    {
+      "name": "example_snowflake_password",
+      "type": "environment_variable",
+      "location": "EXAMPLE_SNOWFLAKE_PASSWORD"
+    }
+  ]
 }
