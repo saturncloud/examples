@@ -1,0 +1,20 @@
+{
+  "name": "data-analyst",
+  "image_uri": "saturncloud/saturn:2021.09.20",
+  "description": "Start a data analysis project.",
+  "environment_variables": {},
+  "working_directory": "/home/jovyan/git-repos/examples/examples/",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "main",
+      "location": "examples"
+    }
+  ],
+  "jupyter_server": {
+    "start_ssh": false,
+    "instance_type": "2xlarge",
+    "disk_space": "10Gi",
+    "auto_shutoff": "1 hour"
+  }
+}
