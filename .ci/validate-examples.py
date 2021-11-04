@@ -1,7 +1,5 @@
 """
-Examples in the `examples/` directory must conform
-to a rigid structure, so Jupyter servers to run them can
-be created automatically in Saturn.
+Examples in the `examples/` directory must contain valid recipes
 
 This script validates the content of those directories,
 to try to prevent pushing broken code to customer's
@@ -15,28 +13,33 @@ import re
 import requests
 import sys
 
-from marshmallow import fields, Schema, ValidationError
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
 from typing import List
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
+parser.add_argument(
+    "--recipe-schema-branch",
+    default="main",
+    type=str,
+    help="Branch of https://github.com/saturncloud/recipes to use for schema.",
+)
 ADMIN_DIRS = ["_img"]
 ARGS = parser.parse_args()
 DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
 FILENAME_REGEX = r"^[0-9A-Za-z\-\.]+$"
 SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
-SATURN_JSON_KEYS = [
-    "image",
-    ("jupyter", "deployment", "job"),  # require exactly one of the items in a tuple
-    "environment_variables",
-    "description",
-    "title",
-    "thumbnail_image_url",
-    "weight",
-    "include_in_every_saturn",
-]
+TEMPLATES_JSON_NAME = "templates.json"
 TOP_LEVEL_DIR = ARGS.examples_dir
+
+# This points to a json file in the saturncloud/recipe repo.
+RECIPE_SCHEMA_BRANCH = ARGS.recipe_schema_branch
+RECIPE_SCHEMA_URL = (
+    "https://raw.githubusercontent.com/saturncloud/recipes/"
+    f"{RECIPE_SCHEMA_BRANCH}/resources/schema.json"
+)
 
 
 class ErrorCollection:
@@ -60,44 +63,23 @@ class ErrorCollection:
         sys.exit(self.num_errors)
 
 
-class JupyterSchema(Schema):
-    size = fields.String(required=True)
-    disk_space = fields.String(required=True)
-    ssh_enabled = fields.Boolean(required=True)
+def validate_recipe(schema, recipe_path):
+    """Assuming that 'recipe-schema.json' is available, validate recipe file"""
 
+    with open(recipe_path, "r") as f:
+        recipe = json.load(f)
 
-class DeploymentSchema(Schema):
-    size = fields.String(required=True)
-    command = fields.String(required=True)
+    validate(instance=recipe, schema=schema)
 
+    image_uri = recipe["image_uri"]
+    image_name, image_tag = image_uri.split(":")
+    image_exists = image_exists_on_dockerhub(image_name=image_name, image_tag=image_tag)
+    if not image_exists:
+        raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
 
-class JobSchema(Schema):
-    size = fields.String(required=True)
-    command = fields.String(required=True)
-
-
-class DaskClusterSchema(Schema):
-    n_workers = fields.Integer(required=False)
-    scheduler_size = fields.String(required=False)
-    worker_size = fields.String(required=False)
-    nthreads = fields.Integer(required=False)
-    nprocs = fields.Integer(required=False)
-    worker_is_spot = fields.Boolean(required=False)
-
-
-class SaturnJsonSchema(Schema):
-    image = fields.String(required=True)
-    environment_variables = fields.Mapping(required=True)
-    jupyter = fields.Nested(JupyterSchema, required=False)
-    deployment = fields.Nested(DeploymentSchema, required=False)
-    job = fields.Nested(JobSchema, required=False)
-    dask_cluster = fields.Nested(DaskClusterSchema, required=False)
-    required_secrets = fields.List(fields.String(), required=False)
-    description = fields.String(required=True)
-    title = fields.String(required=True)
-    thumbnail_image_url = fields.Url(required=True)
-    weight = fields.Integer(required=True)
-    include_in_every_saturn = fields.Boolean(required=True)
+    if recipe.get("dask_cluster", None):
+        if recipe["dask_cluster"]["num_workers"] > 3:
+            raise ValidationError("there should not be more than 3 workers per dask cluster.")
 
 
 def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
@@ -181,11 +163,42 @@ if __name__ == "__main__":
 
     ERRORS = ErrorCollection()
 
+    res = requests.get(url=RECIPE_SCHEMA_URL)
+    schema = res.json()
+
     example_dirs = os.listdir(TOP_LEVEL_DIR)
     if len(example_dirs) == 0:
         ERRORS.add(f"No directories found under '{TOP_LEVEL_DIR}'")
 
+    templates_json = os.path.join(TOP_LEVEL_DIR, "..", ".saturn", TEMPLATES_JSON_NAME)
+    with open(templates_json, "r") as f:
+        templates = json.load(f)["templates"]
+
     weights = {}
+
+    print(f"Working on {TEMPLATES_JSON_NAME}")
+    for template in templates:
+        title = template["title"]
+        weight = template["weight"]
+        thumbnail = template["thumbnail_image_url"]
+
+        res = requests.get(url=thumbnail)
+        if not res.status_code == 200:
+            msg = f"Thumbnail image ({thumbnail}) for {title} is not a valid url."
+
+        matches = [key for key, value in weights.items() if weight == value]
+        if matches:
+            msg = f"Weight ({weight}) for '{title}' is non-unique. It matches {matches}."
+            ERRORS.add(msg)
+        weights[title] = weight
+
+        example_dir = template["recipe_path"].split("examples/")[-1].split("/")[0]
+        if example_dir not in example_dirs:
+            msg = (
+                f"Example directory: '{example_dir}' referenced by template: '{title}' does "
+                "not exist."
+            )
+            ERRORS.add(msg)
 
     for example_dir in example_dirs:
         print(f"Working on directory '{example_dir}'")
@@ -279,39 +292,11 @@ if __name__ == "__main__":
             ERRORS.add(msg)
             continue
 
-        with open(saturn_json, "r") as f:
-            try:
-                saturn_config = SaturnJsonSchema().loads(f.read())
-            except ValidationError as err:
-                msg = f"'{saturn_json}' has the following schema issues: {str(err.messages)}"
-                ERRORS.add(msg)
-                continue
-
-        for required_key in SATURN_JSON_KEYS:
-            if isinstance(required_key, tuple):
-                # require exactly one of the items in a tuple
-                if not sum(key in saturn_config.keys() for key in required_key) == 1:
-                    msg = f"'{saturn_json}' missing one of required keys: '{required_key}'"
-                    ERRORS.add(msg)
-            elif required_key not in saturn_config.keys():
-                msg = f"'{saturn_json}' missing required key: '{required_key}'"
-                ERRORS.add(msg)
-
-        weight = saturn_config["weight"]
-        matches = [key for key, value in weights.items() if weight == value]
-        if matches:
-            msg = f"Weight ({weight}) for {example_dir} is non-unique. It matches {matches}."
+        try:
+            validate_recipe(schema, saturn_json)
+        except ValidationError as e:
+            msg = f"'{saturn_json}' has the following schema issues: {str(e)}"
             ERRORS.add(msg)
-        weights[example_dir] = weight
-
-        project_image = saturn_config["image"]
-        image_name, image_tag = project_image.split(":")
-        image_exists = image_exists_on_dockerhub(image_name=image_name, image_tag=image_tag)
-        if not image_exists:
-            msg = (
-                f"image '{image_name}:{image_tag}' is not available on Docker Hub. "
-                f"Found in '{saturn_json}'"
-            )
-            ERRORS.add(msg)
+            continue
 
     ERRORS.report()

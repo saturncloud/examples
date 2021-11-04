@@ -1,13 +1,23 @@
 {
-    "image": "saturncloud/saturn:2021.09.20",
-    "deployment": {
-        "size": "large",
-        "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'"
-    },
-    "environment_variables": {},
-    "description": "Deploy a dashboard to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
-    "title": "Deploy Dashboards",
-    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
-    "weight": 3,
-    "include_in_every_saturn": true
+  "name": "dashboard",
+  "image_uri": "saturncloud/saturn:2021.09.20",
+  "description": "Deploy a dashboard to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
+  "environment_variables": {
+    "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+  },
+  "extra_packages": {
+    "pip": "hvplot"
+  },
+  "working_directory": "/home/jovyan/git-repos/examples/examples/dashboard",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "main",
+      "location": "examples"
+    }
+  ],
+  "deployment": {
+    "instance_type": "large",
+    "command": "panel serve dashboard.ipynb --port=8000 --address='0.0.0.0' --allow-websocket-origin='*'"
+  }
 }

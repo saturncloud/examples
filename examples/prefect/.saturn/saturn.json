@@ -1,25 +1,42 @@
 {
-    "image": "saturncloud/saturn:2021.09.20",
-    "jupyter": {
-        "size": "large",
-        "disk_space": "10Gi",
-        "ssh_enabled": false
+  "name": "prefect",
+  "image_uri": "saturncloud/saturn:2021.09.20",
+  "description": "Scheduled jobs with Prefect and Prefect Cloud",
+  "environment_variables": {
+    "PREFECT_CLOUD_PROJECT_NAME": "dask-iz-gr8",
+    "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+  },
+  "working_directory": "/home/jovyan/git-repos/examples/examples/prefect",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "main",
+      "location": "examples"
+    }
+  ],
+  "jupyter_server": {
+    "start_ssh": false,
+    "disk_space": "10Gi",
+    "instance_type": "large",
+    "auto_shutoff": "1 hour"
+  },
+  "dask_cluster": {
+    "num_workers": 3,
+    "worker": {
+      "instance_type": "large",
+      "num_processes": 1,
+      "num_threads": 2,
+      "use_spot_instances": false
     },
-    "dask_cluster": {
-        "n_workers": 3,
-        "scheduler_size": "large",
-        "worker_size": "large",
-        "nthreads": 2
-    },
-    "environment_variables": {
-        "PREFECT_CLOUD_PROJECT_NAME": "dask-iz-gr8"
-    },
-    "required_secrets": [
-        "PREFECT_USER_TOKEN"
-    ],
-    "description": "Scheduled jobs with Prefect and Prefect Cloud",
-    "title": "Prefect",
-    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/prefect.png",
-    "weight": 20,
-    "include_in_every_saturn": true
+    "scheduler": {
+      "instance_type": "large"
+    }
+  },
+  "credentials": [
+    {
+      "name": "prefect-user-token",
+      "type": "environment_variable",
+      "location": "PREFECT_USER_TOKEN"
+    }
+  ]
 }
