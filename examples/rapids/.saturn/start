@@ -1,2 +1,0 @@
-/srv/conda/bin/pip install jupyterlab-nvdashboard==0.5.0
-/srv/conda/bin/jupyter labextension install jupyterlab-nvdashboard
