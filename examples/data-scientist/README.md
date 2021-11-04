@@ -2,7 +2,7 @@
 
 # Data Science Resouce
 
-This resource gives you an environment ready for conducting data scienct in Python. Open a new Jupyter Lab notebook to begin.
+This resource gives you an environment ready for conducting data science in Python. Open a new Jupyter Lab notebook to begin.
 
 The resource is set up to have a single workspace instance and three additional Dask workers for doing distributed computing. The resouce is currently set up to train PyTorch models, but you can install additional packages by following [these instructions]().
 
