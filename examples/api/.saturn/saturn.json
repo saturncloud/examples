@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "deployment",
   "image_uri": "saturncloud/saturn:2021.09.20",
   "description": "Deploy an API to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
   "working_directory": "/home/jovyan/git-repos/examples/examples/api",
@@ -10,7 +10,7 @@
       "location": "examples"
     }
   ],
-  "api": {
+  "deployment": {
     "instance_type": "large",
     "command": "python3 -m uvicorn houseprice:app --reload --host 0.0.0.0 --port 8000"
   }
