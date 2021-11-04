@@ -1,13 +1,21 @@
 {
-    "image": "saturncloud/saturn:2021.09.20",
-    "job": {
-        "size": "large",
-        "command": "python example.py"
-    },
-    "environment_variables": {},
-    "description": "Run a job on Saturn Cloud. Read more about jobs at: https://scld.io/docs/deployments .",
-    "title": "Run a job",
-    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/jobs.png",
-    "weight": 5,
-    "include_in_every_saturn": true
+  "name": "job",
+  "image_uri": "saturncloud/saturn:2021.09.20",
+  "description": "Run a job on Saturn Cloud. Read more about jobs at: https://scld.io/docs/deployments .",
+  "environment_variables": {
+  },
+  "extra_packages": {
+  },
+  "working_directory": "/home/jovyan/git-repos/examples/examples/jobs",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "main",
+      "location": "examples"
+    }
+  ],
+  "job": {
+    "instance_type": "large",
+    "command": "python example.py"
+  }
 }

@@ -47,6 +47,13 @@
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
       "weight": 3,
       "recipe_path": "examples/dashboard/.saturn/saturn.json"
+    },
+    {
+      "title": "Run a job",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/jobs.png",
+      "weight": 31,
+      "recipe_path": "examples/jobs/.saturn/saturn.json"
     }
+
   ]
 }
