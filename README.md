@@ -2,54 +2,71 @@
 
 [![link checks](https://github.com/saturncloud/examples/workflows/link%20checks/badge.svg?branch=main)](https://github.com/saturncloud/examples/actions/workflows/check-links.yml)
 
-These are the Saturn Cloud Default Resources that populate admin accounts and cannot be deleted. They are used to power template resources (which can turned on or off by Saturn Cloud admins). Each example has a set of files to include on workspace machine when the resource is started, as well as parameters for how the resource should be set up. These parameters match those which users set when creating new resources. If you would like to use code from one of these resources, select one of the template resources from the resource page of Saturn Cloud.
+These are the Saturn Cloud Examples most of which are used to create default template resources on every Saturn Cloud installation (this behavior can be turned on or off by Saturn Cloud admins).
 
-In addition to be used as template resources, many of the [Saturn Cloud docs](http://saturncloud.io/website) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/website/blob/main/make_md.py) from the [website repo](https://github.com/saturncloud/website/).
+Each example has a [recipe](https://github.com/saturncloud/recipes) that describes how the resource should be setup as well as files (notebooks, markdown, python scripts) that contain the actual example content.
+If you would like to explore these examples, select one of the template resources from the resources page of Saturn Cloud or view the examples in the [Saturn Cloud docs](https://saturncloud.io/docs/examples).
 
-**Note: this repo includes the existing legacy `examples-cpu` and `examples-gpu`. This is for compatibility with existing enterprise customers, and will be deprecated in the future**
+The [Saturn Cloud docs](https://saturncloud.io/docs/examples) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/website/blob/main/make_md.py) from the [website repo](https://github.com/saturncloud/website/).
+
+## Templates structure
+
+In the section above we say _most_ of the examples become default templates. This is because there is a special doc that specifies which examples are templates and how those get configured. That doc is `.saturn/templates.json`
+
+Notes about templates:
+
+* CI will check that the thumbnail_image_url exists, so you need to upload the thumbnail for it to pass.
+* Every template needs to have a unique weight
 
 ## Resource structure
 
-Each resource is a separate folder within the `examples` folder. For each resource there is one subfolder called `.saturn` which contains the information specific to the Saturn Cloud resource. Everything not within a `.saturn` folder will be available within the resource in Saturn Cloud.
+Each resource is a separate dir within the `examples` folder. For each resource there is one subdir called `.saturn` which contains the information specific to the Saturn Cloud resource.
 
-The most important file within the `.saturn` folder is the `saturn.json` file which includes setup parameters. Here is an example of a `saturn.json` file:
+The most important file within the `.saturn` folder is the `saturn.json` file which is a resource recipe. Here is an example of a `saturn.json` file:
 
 ```json
 {
-    "image": "saturncloud/saturn-pytorch:2021.09.20",
-    "jupyter": {
-        "size": "g4dnxlarge",
-        "disk_space": "10Gi",
-        "ssh_enabled": false
+  "name": "pytorch",
+  "image_uri": "saturncloud/saturn-pytorch:2021.09.20",
+  "description": "Use PyTorch with a single GPU or across multiple GPUs with Dask",
+  "working_directory": "/home/jovyan/git-repos/examples/examples/pytorch",
+  "extra_packages": {
+    "pip": "torch dask-pytorch-ddp seaborn"
+  },
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "main",
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "10Gi",
+    "instance_type": "g4dnxlarge",
+  },
+  "dask_cluster": {
+    "num_workers": 3,
+    "worker": {
+      "instance_type": "g4dnxlarge",
+      "num_processes": 1,
+      "num_threads": 1,
     },
-    "dask_cluster": {
-        "n_workers": 3,
-        "scheduler_size": "medium",
-        "worker_size": "g4dnxlarge"
-    },
-    "environment_variables": {
-        "DASK_DISTRIBUTED__WORKER__DAEMON": "False"
-    },
-    "description": "Use Pytorch on one GPU or across multiple GPUs with Dask",
-    "title": "Pytorch",
-    "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
-    "weight": 10,
-    "include_in_every_saturn": true
+    "scheduler": {
+      "instance_type": "large"
+    }
+  }
 }
 ```
 
-It's possible that other files might existing in the .saturn folder, such as `start` which contains the initialization script for the resource. However, no file besides `saturn.json` is required.
+It's possible that other files might existing in the .saturn folder, such as `start` which might be referenced from the recipe and contain the start_script for the resource. However, no file besides `saturn.json` is required.
 
-Notes about the resource structure:
+Notes about recipes:
 
 * The disk_space must be one of the preset choices from the Saturn Cloud UI, it can't be an arbitrary amount of disk space.
-* The startup script must be name `start` without a file extension for Atlas to know it.
-* Options like "environment_variables" may be required even if they are empty, be aware there is a risk in removing them entirely.
-* ``include_in_every_saturn`` indicates whether the example will be created by default in every organization's Saturn account. Examples that are more niche or only relevant to certain customers should have ``"include_in_every_saturn": false``
+* You can reference a start script in a separate file by including a start script like `bash .saturn/start`. Note that the path is relative to the `working_directory`.
 
-## Flat files
+## Data files
 
-If your quickstart involves flat files they should be saved in the saturn cloud public S3 (ask @hhuuggoo for permission to access this). Each quickstart's file should be saved in the `examples` folder in the bucket in a subfolder with the same name as the quickstart folder in this repo. In your code, use the HTTP path to download the file rather than a Python S3 package, since not all of the readers will have an understanding of S3. For example in Pandas you can run:
+If your example involves data files they should be saved in the Saturn Cloud public S3 (ask @hhuuggoo for permission to access this). Each data file should be saved in the `examples` folder in the bucket in a subfolder with the same name as the example folder in this repo. In your code, use the HTTP path to download the file rather than a Python S3 package, since not all of the readers will have an understanding of S3. For example in Pandas you can run:
 
 ```python
 pd.read_csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/pickup_grouped_by_zone.csv")
@@ -57,7 +74,7 @@ pd.read_csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dash
 
 ## Dask cluster
 
-If your quickstart needs a Dask cluster, make sure you both specify the number of workers in the `saturn.json` file and also within the notebooks themselves to correctly use wait for workers. If you have to change the number of workers in the quickstart make sure you change it in both places.
+If your example needs a Dask cluster, make sure you specify both the number of workers in the `saturn.json` file and also within the notebooks themselves to correctly use wait for workers. If you have to change the number of workers in the example make sure you change it in both places.
 
 Example chunk in a notebook, where n_workers is the same value as the `saturn.json` one:
 
