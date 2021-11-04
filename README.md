@@ -2,12 +2,12 @@
 
 [![link checks](https://github.com/saturncloud/examples/workflows/link%20checks/badge.svg?branch=main)](https://github.com/saturncloud/examples/actions/workflows/check-links.yml)
 
-These are the Saturn Cloud Examples most of which are used to create default resource templates on every Saturn Cloud installation (this behavior can be turned on or off by Saturn Cloud admins).
+These are the Saturn Cloud Examples most of which are used to create default template resources on every Saturn Cloud installation (this behavior can be turned on or off by Saturn Cloud admins).
 
 Each example has a [recipe](https://github.com/saturncloud/recipes) that describes how the resource should be setup as well as files (notebooks, markdown, python scripts) that contain the actual example content.
-If you would like to explore these examples, select one of the template resources from the resources page of Saturn Cloud.
+If you would like to explore these examples, select one of the template resources from the resources page of Saturn Cloud or view the examples in the [Saturn Cloud docs](https://saturncloud.io/docs/examples).
 
-In addition to be used as template resources, many of the [Saturn Cloud docs](http://saturncloud.io/website) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/website/blob/main/make_md.py) from the [website repo](https://github.com/saturncloud/website/).
+The [Saturn Cloud docs](https://saturncloud.io/docs/examples) pull directly from these notebooks. The docs pull in the notebooks using a manually run script [`make_md.py`](https://github.com/saturncloud/website/blob/main/make_md.py) from the [website repo](https://github.com/saturncloud/website/).
 
 ## Templates structure
 
