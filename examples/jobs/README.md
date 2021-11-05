@@ -1,0 +1,3 @@
+# Set up a job and run on Saturn Cloud
+
+This example shows how to run a job with Saturn Cloud. The example job is located in [example.py](example.py) . The only thing the script does in this example is it writes a line to the logs (you probably want to make it do more interesting things in practice). If you want to manually run the job, you can press the start button in the resource. Want to run a notebook instead of a script, or want to run this script programmatically? Follow the steps in [Host a Jupyter Notebook as an API](https://saturncloud.io/blog/notebook-apis/) . 
