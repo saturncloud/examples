@@ -6,8 +6,7 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
-      "reference": "main",
-      "location": "examples"
+      "reference": "main"
     }
   ],
   "job": {

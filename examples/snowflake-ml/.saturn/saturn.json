@@ -11,23 +11,17 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
-      "reference": "main",
-      "location": "examples"
+      "reference": "main"
     }
   ],
   "jupyter_server": {
-    "start_ssh": false,
     "disk_space": "10Gi",
-    "instance_type": "g4dnxlarge",
-    "auto_shutoff": "1 hour"
+    "instance_type": "g4dnxlarge"
   },
   "dask_cluster": {
     "num_workers": 3,
     "worker": {
-      "instance_type": "large",
-      "num_processes": 1,
-      "num_threads": 1,
-      "use_spot_instances": false
+      "instance_type": "large"
     },
     "scheduler": {
       "instance_type": "large"
