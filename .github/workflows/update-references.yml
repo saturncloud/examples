@@ -1,0 +1,28 @@
+name: update references
+on:
+  push:
+    branches: release*
+
+jobs:
+  update-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Write new reference into recipe files
+        run: python .ci/update-references ${{ github.ref }}
+      - name: Diff recipes
+        id: diff
+        run: echo "::set-output name=result::$(git diff --quiet . || echo 'true')"
+      - name: Commit new files
+        if: ${{ steps.diff.outputs.result }}
+        run: |
+        git config --global user.name "saturn-automation"
+          git config --global user.email "automation@saturncloud.io"
+          git add *.json
+          git commit -m "Update reference in every recipe"
+          git push origin ${{ github.ref }}
