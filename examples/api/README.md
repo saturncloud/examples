@@ -1,0 +1,4 @@
+# Deploying an API with Saturn Cloud
+
+This example shows how to deploy an API with Saturn Cloud. The example API, located in [houseprice.py](houseprice.py), It takes 2 inpus as query parameters , "BedroomAbvGr"(number if bedrooms) and "YearBuilt" (year house was built) and returns predicted house price. To deploy the api to Saturn Cloud so that it's continuously viewable, follow the steps in the [Saturn Clouds docs](https://saturncloud.io/docs/examples/dashboards/dashboard/). 
+Data for this example has been taken from [Kaggle](https://www.kaggle.com/c/house-prices-advanced-regression-techniques)
