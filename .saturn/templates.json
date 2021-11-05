@@ -49,6 +49,12 @@
       "recipe_path": "examples/dashboard/.saturn/saturn.json"
     },
     {
+      "title": "Deploy API",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/api.png",
+      "weight": 32,
+      "recipe_path": "examples/api/.saturn/saturn.json"
+    },
+    {
       "title": "Run a job",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/jobs.png",
       "weight": 31,
