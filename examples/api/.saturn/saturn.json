@@ -1,5 +1,5 @@
 {
-  "name": "deployment",
+  "name": "api",
   "image_uri": "saturncloud/saturn:2021.09.20",
   "description": "Deploy an API to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
   "extra_packages": {
@@ -8,8 +8,7 @@
   "working_directory": "/home/jovyan/git-repos/examples/examples/api",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "main"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "deployment": {

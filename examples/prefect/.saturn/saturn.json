@@ -9,8 +9,7 @@
   "working_directory": "/home/jovyan/git-repos/examples/examples/prefect",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "main"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "jupyter_server": {

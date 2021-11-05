@@ -12,8 +12,7 @@
   },
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "main"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "jupyter_server": {

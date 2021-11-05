@@ -35,8 +35,7 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
   },
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "main",
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "jupyter_server": {
@@ -47,8 +46,6 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
     "num_workers": 3,
     "worker": {
       "instance_type": "g4dnxlarge",
-      "num_processes": 1,
-      "num_threads": 1,
     },
     "scheduler": {
       "instance_type": "large"
