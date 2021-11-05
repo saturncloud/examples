@@ -9,24 +9,17 @@
   "working_directory": "/home/jovyan/git-repos/examples/examples/prefect",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "main",
-      "location": "examples"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "jupyter_server": {
-    "start_ssh": false,
     "disk_space": "10Gi",
-    "instance_type": "large",
-    "auto_shutoff": "1 hour"
+    "instance_type": "large"
   },
   "dask_cluster": {
     "num_workers": 3,
     "worker": {
-      "instance_type": "large",
-      "num_processes": 1,
-      "num_threads": 2,
-      "use_spot_instances": false
+      "instance_type": "large"
     },
     "scheduler": {
       "instance_type": "large"

@@ -1,16 +1,14 @@
 {
-  "name": "deployment",
+  "name": "api",
   "image_uri": "saturncloud/saturn:2021.09.20",
   "description": "Deploy an API to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
   "extra_packages": {
     "pip": "uvicorn fastapi"
   },
-  "working_directory": "/home/jovyan/git-repos/examples/examples/api",  
+  "working_directory": "/home/jovyan/git-repos/examples/examples/api",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "main",
-      "location": "examples"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "deployment": {
