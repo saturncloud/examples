@@ -21,7 +21,7 @@ jobs:
       - name: Commit new files
         if: ${{ steps.diff.outputs.result }}
         run: |
-        git config --global user.name "saturn-automation"
+          git config --global user.name "saturn-automation"
           git config --global user.email "automation@saturncloud.io"
           git add *.json
           git commit -m "Update reference in every recipe"
