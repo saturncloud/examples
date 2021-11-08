@@ -38,8 +38,9 @@ jobs:
     - name: pull-request
       uses: repo-sync/pull-request@v2
       with:
+        source_branch: refs-main-${{ github.job }}
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}
         pr_title: "Update main from release"
-        pr_body: ":rocket: *An automated PR* - Please make any changes needed to resolve merge conflicts and then approve and merge!"
+        pr_body: ":rocket: *An automated PR* - Please make any changes needed to resolve merge conflicts and then approve and merge (don't squash merge)!"
         pr_reviewer: "forana,jsignell,${{ github.actor }}"
