@@ -18,7 +18,23 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Remove reference from recipe files
+      run: python .ci/update-references.py
+    - name: Diff recipes
+      id: diff
+      run: echo "::set-output name=result::$(git diff --quiet . || echo 'true')"
+    - name: Commit new files
+      if: ${{ steps.diff.outputs.result }}
+      run: |
+        git config --global user.name "saturn-automation"
+        git config --global user.email "automation@saturncloud.io"
+        git add *.json
+        git commit -m "Remove reference in every recipe"
+        git push origin ${{ github.ref }}:refs-main-${{ github.job }}
     - name: pull-request
       uses: repo-sync/pull-request@v2
       with:
@@ -26,5 +42,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         pr_title: "Update main from release"
         pr_body: ":rocket: *An automated PR* - Please make any changes needed to resolve merge conflicts and then approve and merge!"
-        pr_reviewer: "forana,${{ github.actor }}"
-        pr_draft: true
+        pr_reviewer: "forana,jsignell,${{ github.actor }}"
