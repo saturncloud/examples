@@ -1,7 +1,7 @@
 name: update references
 on:
   push:
-    branches: fake*
+    branches: release*
 
 jobs:
   update-reference:
