@@ -11,7 +11,8 @@
   "working_directory": "/home/jovyan/git-repos/examples/examples/dashboard",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples"
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "release-2021.10.26"
     }
   ],
   "deployment": {
