@@ -11,7 +11,7 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
-      "reference": "refs/heads/fake-test"
+      "reference": "fake-test"
     }
   ],
   "jupyter_server": {
