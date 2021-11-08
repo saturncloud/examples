@@ -1,10 +1,9 @@
 name: update references
-on:
-  push:
-    branches: release*
+on: create
 
 jobs:
   update-reference:
+    if: ${{ contains(github.ref, 'refs/heads/release') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
