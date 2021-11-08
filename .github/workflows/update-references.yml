@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: 3.7
       - name: Write new reference into recipe files
-        run: python .ci/update-references.py ${{ github.ref }}
+        run: python .ci/update-references.py ${GITHUB_REF##*/}
       - name: Diff recipes
         id: diff
         run: echo "::set-output name=result::$(git diff --quiet . || echo 'true')"
@@ -25,4 +25,14 @@ jobs:
           git config --global user.email "automation@saturncloud.io"
           git add *.json
           git commit -m "Update reference in every recipe"
-          git push origin ${{ github.ref }}
+          git push origin ${{ github.ref }}:refs-${{ github.job }}
+      - name: Open PR
+        if: ${{ steps.diff.outputs.result }}
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: refs-${{ github.job }}
+          destination_branch: ${{ github.ref }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: "Update references in all recipes"
+          pr_body: ":rocket: *An automated PR* - Please make any changes needed to resolve merge conflicts and then approve and merge!"
+          pr_reviewer: "forana,jsignell,${{ github.actor }}"
