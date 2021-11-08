@@ -1,0 +1,27 @@
+{
+  "name": "load-data",
+  "image_uri": "saturncloud/saturn-rapids:2021.09.20",
+  "description": "Connect to external data sources in Saturn Cloud",
+  "environment_variables": {
+    "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+  },
+  "working_directory": "/home/jovyan/git-repos/examples/examples/load-data",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples"
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "10Gi",
+    "instance_type": "large"
+  },
+  "dask_cluster": {
+    "num_workers": 3,
+    "worker": {
+      "instance_type": "large"
+    },
+    "scheduler": {
+      "instance_type": "large"
+    }
+  }
+}
