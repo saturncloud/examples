@@ -1,5 +1,5 @@
 {
-  "name": "logger",
+  "name": "example-job",
   "image_uri": "saturncloud/saturn:2021.09.20",
   "description": "Run a job on Saturn Cloud. Read more about jobs at: https://scld.io/docs/deployments .",
   "working_directory": "/home/jovyan/git-repos/examples/examples/jobs",
