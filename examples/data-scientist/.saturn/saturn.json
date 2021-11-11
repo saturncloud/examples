@@ -14,7 +14,7 @@
     }
   ],
   "jupyter_server": {
-    "start_ssh": false,
+    "start_ssh": true,
     "disk_space": "40Gi",
     "instance_type": "g4dnxlarge",
     "auto_shutoff": "1 hour"

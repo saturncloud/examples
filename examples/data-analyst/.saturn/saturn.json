@@ -12,7 +12,7 @@
     }
   ],
   "jupyter_server": {
-    "start_ssh": false,
+    "start_ssh": true,
     "instance_type": "2xlarge",
     "disk_space": "10Gi",
     "auto_shutoff": "1 hour"
