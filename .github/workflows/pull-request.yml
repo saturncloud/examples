@@ -35,10 +35,21 @@ jobs:
         git add *.json
         git commit -m "Remove reference in every recipe"
         git push origin ${{ github.ref }}:refs-main-${{ github.job }}
-    - name: pull-request
+    - name: Open PR - with refs removed
+      if: ${{ steps.diff.outputs.result }}
       uses: repo-sync/pull-request@v2
       with:
         source_branch: refs-main-${{ github.job }}
+        destination_branch: "main"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_title: "Update main from release"
+        pr_body: ":rocket: *An automated PR* - Please push an empty commit to trigger CI (don't squash merge)!"
+        pr_reviewer: "forana,jsignell,${{ github.actor }}"
+    - name: Open PR
+      if: ${{ !steps.diff.outputs.result }}
+      uses: repo-sync/pull-request@v2
+      with:
+        source_branch: ${{ github.ref }}
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}
         pr_title: "Update main from release"
