@@ -1,5 +1,5 @@
 {
-  "name": "tensorflow",
+  "name": "example-tensorflow",
   "image_uri": "saturncloud/saturn-tensorflow:2021.07.26-2",
   "description": "Train deep learning models with TensorFlow",
   "environment_variables": {
