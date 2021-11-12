@@ -7,7 +7,7 @@
     "MODEL_S3": "s3://saturn-public-files/examples-data/snowflake-ml/modeltrained.pt",
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
-  "working_directory": "/home/jovyan/git-repos/examples/examples/snowflake-ml",
+  "working_directory": "/home/jovyan/examples/examples/snowflake-ml",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples"

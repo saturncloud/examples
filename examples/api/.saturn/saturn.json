@@ -5,7 +5,7 @@
   "extra_packages": {
     "pip": "uvicorn fastapi"
   },
-  "working_directory": "/home/jovyan/git-repos/examples/examples/api",
+  "working_directory": "/home/jovyan/examples/examples/api",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples"

@@ -6,7 +6,7 @@
     "PREFECT_CLOUD_PROJECT_NAME": "dask-iz-gr8",
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
-  "working_directory": "/home/jovyan/git-repos/examples/examples/prefect",
+  "working_directory": "/home/jovyan/examples/examples/prefect",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples"
