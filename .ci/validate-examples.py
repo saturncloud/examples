@@ -83,7 +83,8 @@ def validate_recipe(schema, recipe_path):
 
         jupyter = recipe.get("jupyter_server")
         deployment = recipe.get("deployment")
-        workspace = jupyter or deployment
+        job = recipe.get("job")
+        workspace = jupyter or deployment or job
         if recipe["dask_cluster"]["worker"]["instance_type"] != workspace["instance_type"]:
             raise ValidationError(
                 "Dask worker instance type should match the instance type "
