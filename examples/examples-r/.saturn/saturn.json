@@ -6,8 +6,7 @@
   "working_directory": "/home/jovyan/git-repos/examples/examples/examples-r",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "release-2021.10.26"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "jupyter_server": {
