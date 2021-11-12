@@ -87,9 +87,7 @@ def validate_recipe(schema, recipe_path):
     rel_path = working_dir.replace(working_dir_prefix, "")
     abs_path = os.path.join(EXAMPLES_DIR, rel_path)
     if not os.path.exists(abs_path):
-        raise ValidationError(
-            f"working_directory ('{working_dir}') needs to point to an real path"
-        )
+        raise ValidationError(f"working_directory ('{working_dir}') needs to point to a real path")
 
     if recipe.get("dask_cluster", None):
         if recipe["dask_cluster"]["num_workers"] > 3:
