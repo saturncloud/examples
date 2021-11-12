@@ -19,7 +19,7 @@
   "dask_cluster": {
     "num_workers": 3,
     "worker": {
-      "instance_type": "large"
+      "instance_type": "g4dnxlarge"
     },
     "scheduler": {
       "instance_type": "large"
