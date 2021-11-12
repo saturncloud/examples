@@ -74,9 +74,7 @@ def validate_recipe(schema, recipe_path):
     name_pre = recipe["name"]
     name_prefix = "example-"
     if not name_pre.startswith(name_prefix):
-        raise ValidationError(
-            f"name ('{name_pre}') needs to start with {name_prefix}"
-        )
+        raise ValidationError(f"name ('{name_pre}') needs to start with {name_prefix}")
     image_uri = recipe["image_uri"]
     image_name, image_tag = image_uri.split(":")
     image_exists = image_exists_on_dockerhub(image_name=image_name, image_tag=image_tag)
