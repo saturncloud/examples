@@ -1,5 +1,5 @@
 {
-  "name": "examples-r",
+  "name": "example-r",
   "image_uri": "saturncloud/saturn-r:2021.09.20",
   "description": "Start a project using R in Jupyter for data science.",
   "environment_variables": {},
