@@ -81,6 +81,15 @@ def validate_recipe(schema, recipe_path):
         if recipe["dask_cluster"]["num_workers"] > 3:
             raise ValidationError("there should not be more than 3 workers per dask cluster.")
 
+        jupyter = recipe.get("jupyter_server")
+        deployment = recipe.get("deployment")
+        workspace = jupyter or deployment
+        if recipe["dask_cluster"]["worker"]["instance_type"] != workspace["instance_type"]:
+            raise ValidationError(
+                "Dask worker instance type should match the instance type "
+                "of its attached jupyter_server or deployment"
+            )
+
 
 def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
     """
