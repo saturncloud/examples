@@ -32,7 +32,7 @@ FILENAME_REGEX = r"^[0-9A-Za-z\-\.]+$"
 SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
 TEMPLATES_JSON_NAME = "templates.json"
-TOP_LEVEL_DIR = ARGS.examples_dir
+EXAMPLES_DIR = ARGS.examples_dir
 
 # This points to a json file in the saturncloud/recipe repo.
 RECIPE_SCHEMA_BRANCH = ARGS.recipe_schema_branch
@@ -78,16 +78,17 @@ def validate_recipe(schema, recipe_path):
         raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
 
     working_dir = recipe["working_directory"]
-    working_dir_prefix = "/home/jovyan/git-repos/examples/"
+    working_dir_prefix = "/home/jovyan/git-repos/examples/examples/"
     if not working_dir.startswith(working_dir_prefix):
         raise ValidationError(
             f"working_directory ('{working_dir}') needs to start with {working_dir_prefix}"
         )
 
     rel_path = working_dir.replace(working_dir_prefix, "")
-    if not os.path.exists(os.path.join(TOP_LEVEL_DIR, rel_path)):
+    abs_path = os.path.join(EXAMPLES_DIR, rel_path)
+    if not os.path.exists(abs_path):
         raise ValidationError(
-            f"working_directory ('{working_dir}') needs to point to an existing path"
+            f"working_directory ('{working_dir}') needs to point to an real path"
         )
 
     if recipe.get("dask_cluster", None):
@@ -179,11 +180,11 @@ if __name__ == "__main__":
     res = requests.get(url=RECIPE_SCHEMA_URL)
     schema = res.json()
 
-    example_dirs = os.listdir(TOP_LEVEL_DIR)
+    example_dirs = os.listdir(EXAMPLES_DIR)
     if len(example_dirs) == 0:
-        ERRORS.add(f"No directories found under '{TOP_LEVEL_DIR}'")
+        ERRORS.add(f"No directories found under '{EXAMPLES_DIR}'")
 
-    templates_json = os.path.join(TOP_LEVEL_DIR, "..", ".saturn", TEMPLATES_JSON_NAME)
+    templates_json = os.path.join(EXAMPLES_DIR, "..", ".saturn", TEMPLATES_JSON_NAME)
     with open(templates_json, "r") as f:
         templates = json.load(f)["templates"]
 
@@ -215,11 +216,11 @@ if __name__ == "__main__":
 
     for example_dir in example_dirs:
         print(f"Working on directory '{example_dir}'")
-        full_dir = os.path.join(TOP_LEVEL_DIR, example_dir)
+        full_dir = os.path.join(EXAMPLES_DIR, example_dir)
 
         if not bool(re.search(DIRECTORY_REGEX, os.path.basename(example_dir))):
             msg = (
-                f"All directories under '{TOP_LEVEL_DIR}' should be named with only "
+                f"All directories under '{EXAMPLES_DIR}' should be named with only "
                 "lower alphanumeric characters and dashes. "
                 f"'{full_dir}` violates this rule."
             )
@@ -238,7 +239,7 @@ if __name__ == "__main__":
                 readme_file = os.path.join(fname, "README.md")
                 if not os.path.isfile(readme_file):
                     msg = (
-                        f"Every directory two-levels below '{TOP_LEVEL_DIR}' "
+                        f"Every directory two-levels below '{EXAMPLES_DIR}' "
                         f"must have a README.md. None found for '{fname}'."
                     )
                     ERRORS.add(msg)
