@@ -77,6 +77,19 @@ def validate_recipe(schema, recipe_path):
     if not image_exists:
         raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
 
+    working_dir = recipe["working_directory"]
+    working_dir_prefix = "/home/jovyan/git-repos/examples/"
+    if not working_dir.startswith(working_dir_prefix):
+        raise ValidationError(
+            f"working_directory ('{working_dir}') needs to start with {working_dir_prefix}"
+        )
+
+    rel_path = working_dir.replace(working_dir_prefix, "")
+    if not os.path.exists(os.path.join(TOP_LEVEL_DIR, rel_path)):
+        raise ValidationError(
+            f"working_directory ('{working_dir}') needs to point to an existing path"
+        )
+
     if recipe.get("dask_cluster", None):
         if recipe["dask_cluster"]["num_workers"] > 3:
             raise ValidationError("there should not be more than 3 workers per dask cluster.")
