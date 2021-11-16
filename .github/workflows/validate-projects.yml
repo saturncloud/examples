@@ -1,12 +1,19 @@
 name: Continuous Integration
 
-# alwas run CI on new commits to any branch
-on: push
+# always run CI on new commits to any branch
+on:
+  pull_request:
+  push:
+    branches:
+      - "release*"
+      - main
 
 jobs:
   test:
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
+    env:
+      REF: [[ github.event = 'pull_request' ]] && github.base_ref || github.ref
     strategy:
       fail-fast: false
       matrix:
@@ -24,5 +31,18 @@ jobs:
         if: matrix.task == 'linting'
         shell: bash
         run: |
-          pip install --upgrade black[jupyter] flake8 nbqa requests jsonschema
+          pip install --upgrade black[jupyter] flake8 nbqa
           make lint
+      - name : validate-release
+        if: matrix.task == 'validating-examples' && ${{contains($REF, 'refs/heads/release')}}
+        shell: bash
+        run: |
+          pip install --upgrade requests jsonschema
+          branch=$(echo ${{github.target_ref}} | cut -d- -f2)
+          python .ci/validate-examples.py --examples-dir $(pwd)/examples --recipe-schema-branch ${branch}
+      - name : validate
+        if: matrix.task == 'validating-examples' && ${{!contains($REF, 'refs/heads/release')}}
+        shell: bash
+        run: |
+          pip install --upgrade requests jsonschema
+          make validate
