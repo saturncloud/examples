@@ -34,14 +34,14 @@ jobs:
           pip install --upgrade black[jupyter] flake8 nbqa
           make lint
       - name : validate-release
-        if: matrix.task == 'validating-examples' && ${{contains($REF, 'refs/heads/release')}}
+        if: matrix.task == 'validating-examples' && ${{contains(env.REF, 'refs/heads/release')}}
         shell: bash
         run: |
           pip install --upgrade requests jsonschema
           branch=$(echo ${{github.target_ref}} | cut -d- -f2)
           python .ci/validate-examples.py --examples-dir $(pwd)/examples --recipe-schema-branch ${branch}
       - name : validate
-        if: matrix.task == 'validating-examples' && ${{!contains($REF, 'refs/heads/release')}}
+        if: matrix.task == 'validating-examples' && ${{!contains(env.REF, 'refs/heads/release')}}
         shell: bash
         run: |
           pip install --upgrade requests jsonschema
