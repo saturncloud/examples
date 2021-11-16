@@ -13,7 +13,7 @@ jobs:
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     env:
-      REF: [[ github.event = 'pull_request' ]] && github.base_ref || github.ref
+      REF: $([[ github.event = 'pull_request' ]] && echo github.base_ref || echo github.ref)
     strategy:
       fail-fast: false
       matrix:
