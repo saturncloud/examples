@@ -13,7 +13,7 @@ jobs:
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     env:
-      REF: $([[ github.event = 'pull_request' ]] && echo github.base_ref || echo github.ref)
+      REF: $([[ ${{github.event}} = 'pull_request' ]] && echo ${{github.base_ref}} || ${{echo github.ref}})
     strategy:
       fail-fast: false
       matrix:
@@ -45,5 +45,6 @@ jobs:
         shell: bash
         run: |
           pip install --upgrade requests jsonschema
-          echo env.REF
+          echo ${{env.REF}}
+          echo ${{github.base_ref}}
           make validate
