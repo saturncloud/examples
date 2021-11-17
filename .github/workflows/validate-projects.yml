@@ -13,7 +13,7 @@ jobs:
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     env:
-      REF: ${{ github.base_ref || github.ref }}
+      REF: ${{ github.base_ref || github.ref_name }}
     strategy:
       fail-fast: false
       matrix:
@@ -34,17 +34,18 @@ jobs:
           pip install --upgrade black[jupyter] flake8 nbqa
           make lint
       - name : validate-release
-        if: ${{ matrix.task == 'validating-examples' && contains(env.REF, 'refs/heads/release')}}
-        shell: bash
-        run: |
-          pip install --upgrade requests jsonschema
-          echo env.REF
-          python .ci/validate-examples.py --examples-dir $(pwd)/examples --recipe-schema-branch $(echo ${{env.REF}} | cut -d- -f2)
-      - name : validate
-        if: ${{ matrix.task == 'validating-examples' && !contains(env.REF, 'refs/heads/release')}}
+        if: ${{ matrix.task == 'validating-examples' && contains(env.REF, 'release')}}
+        env:
+          BRANCH: $(echo ${{env.REF}} | cut -d- -f2)
         shell: bash
         run: |
           pip install --upgrade requests jsonschema
           echo ${{env.REF}}
-          echo ${{github.base_ref}}
+          python .ci/validate-examples.py --examples-dir $(pwd)/examples --recipe-schema-branch ${{ env.BRANCH }}
+      - name : validate
+        if: ${{ matrix.task == 'validating-examples' && !contains(env.REF, 'release')}}
+        shell: bash
+        run: |
+          pip install --upgrade requests jsonschema
+          echo ${{env.REF}}
           make validate
