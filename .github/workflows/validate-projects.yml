@@ -13,7 +13,7 @@ jobs:
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     env:
-      REF: release-2021.10.26 # ${{ github.base_ref || github.ref_name }}
+      REF: ${{ github.base_ref || github.ref_name }}
     strategy:
       fail-fast: false
       matrix:
