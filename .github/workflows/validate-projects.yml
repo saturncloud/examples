@@ -3,13 +3,19 @@ name: Continuous Integration
 on:
   # Run manually by clicking a button in the UI
   workflow_dispatch:
-  # always run CI on new commits to any branch
+  # always run CI on PRs and on pushes to release and main
+  pull_request:
   push:
+    branches:
+      - "release*"
+      - main
 
 jobs:
   test:
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
+    env:
+      REF: ${{ github.base_ref || github.ref_name }}
     strategy:
       fail-fast: false
       matrix:
@@ -27,5 +33,23 @@ jobs:
         if: matrix.task == 'linting'
         shell: bash
         run: |
-          pip install --upgrade black[jupyter] flake8 nbqa requests jsonschema
+          pip install --upgrade black[jupyter] flake8 nbqa
           make lint
+      - name : validate-release
+        if: ${{ matrix.task == 'validating-examples' && contains(env.REF, 'release')}}
+        env:
+          BRANCH: $(echo ${{env.REF}} | cut -d- -f2)
+        shell: bash
+        run: |
+          pip install --upgrade requests jsonschema
+          echo examples branch: ${{env.REF}}
+          echo recipe schema branch: ${{env.BRANCH}}
+          python .ci/validate-examples.py --examples-dir $(pwd)/examples --recipe-schema-branch ${{ env.BRANCH }}
+      - name : validate
+        if: ${{ matrix.task == 'validating-examples' && !contains(env.REF, 'release')}}
+        shell: bash
+        run: |
+          pip install --upgrade requests jsonschema
+          echo examples branch: ${{env.REF}}
+          echo recipe schema branch: main
+          make validate
