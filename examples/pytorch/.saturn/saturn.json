@@ -1,5 +1,5 @@
 {
-  "name": "pytorch",
+  "name": "example-pytorch",
   "image_uri": "saturncloud/saturn-pytorch:2021.09.20",
   "description": "Use PyTorch with a single GPU or across multiple GPUs with Dask",
   "environment_variables": {

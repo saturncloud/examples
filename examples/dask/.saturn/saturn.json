@@ -1,5 +1,5 @@
 {
-  "name": "dask",
+  "name": "example-dask",
   "image_uri": "saturncloud/saturn:2021.09.20",
   "description": "Use distributed computing with Dask",
   "environment_variables": {

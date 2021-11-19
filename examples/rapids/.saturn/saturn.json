@@ -1,5 +1,5 @@
 {
-  "name": "rapids",
+  "name": "example-rapids",
   "image_uri": "saturncloud/saturn-rapids:2021.09.20",
   "description": "Use GPUs for data science and machine learning with this platform by NVIDIA",
   "environment_variables": {

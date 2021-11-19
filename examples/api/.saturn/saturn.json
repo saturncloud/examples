@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "example-api",
   "image_uri": "saturncloud/saturn:2021.09.20",
   "description": "Deploy an API to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
   "extra_packages": {
