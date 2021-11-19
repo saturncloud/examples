@@ -13,7 +13,7 @@ validate:
 	python .ci/validate-examples.py --examples-dir $$(pwd)/examples --recipe-schema-branch main
 
 .PHONY: lint
-lint: validate
+lint:
 	black --check --diff .
 	flake8 --count .
 	nbqa flake8 .
