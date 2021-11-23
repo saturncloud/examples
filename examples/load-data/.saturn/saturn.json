@@ -1,5 +1,5 @@
 {
-  "name": "load-data",
+  "name": "example-load-data",
   "image_uri": "saturncloud/saturn-rapids:2021.09.20",
   "description": "Connect to external data sources in Saturn Cloud",
   "environment_variables": {
