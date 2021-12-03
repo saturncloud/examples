@@ -25,7 +25,7 @@ URLS=$(
         -o \
         --binary-files=without-match \
         --no-filename \
-        -E '(http|https)://[^"` )>,\\]+' \
+        -E '(http|https)://[^"` )>,\\<]+' \
         "${SOURCE_TO_CHECK}" \
     | grep -v '\$' \
     | grep -v '{' \
@@ -34,6 +34,7 @@ URLS=$(
     | grep -v 'demo.saturnenterprise.io' \
     | grep -v "https://github.com/saturncloud/docs/" \
     | grep -v "https://github.com/saturncloud/website/" \
+    | grep -v "https://AA99999.us-east-2.aws.snowflakecomputing.com/console/login" \
     | grep -v -E "(http|https)://[0-9]+" \
     | grep -v 'localhost.' \
     | grep -v 'localtest.' \
