@@ -22,6 +22,5 @@
       "worker": {
         "instance_type": "g4dnxlarge"
       }
-    },
-    "version": "2021.10.26-15-customer-Pt4TZHkWK6H"
+    }
   }
