@@ -1,0 +1,27 @@
+{
+    "name": "pytorch-gpu-experiment",
+    "image_uri": "saturncloud/saturn-pytorch:2021.09.20",
+    "description": "Material supporting the Saturn Cloud blog post on training PyTorch neural networks with multiple GPUs and Dask: https://saturncloud.io/blog/dask-with-gpus/",
+    "working_directory": "/home/jovyan/git-repos/examples/pytorch-gpu-experiment",
+    "extra_packages": {
+      "pip": "wandb dask_pytorch_ddp"
+    },
+    "git_repositories": [
+      {
+        "url": "https://github.com/saturncloud/examples"
+      }
+    ],
+    "jupyter_server": {
+      "instance_type": "g4dnxlarge"
+    },
+    "dask_cluster": {
+      "num_workers": 3,
+      "scheduler": {
+        "instance_type": "medium"
+      },
+      "worker": {
+        "instance_type": "g4dnxlarge"
+      }
+    },
+    "version": "2021.10.26-15-customer-Pt4TZHkWK6H"
+  }
