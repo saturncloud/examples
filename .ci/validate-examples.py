@@ -37,8 +37,7 @@ EXAMPLES_DIR = ARGS.examples_dir
 # This points to a json file in the saturncloud/recipe repo.
 RECIPE_SCHEMA_BRANCH = ARGS.recipe_schema_branch
 RECIPE_SCHEMA_URL = (
-    "https://raw.githubusercontent.com/saturncloud/recipes/"
-    f"{RECIPE_SCHEMA_BRANCH}/resources/schema.json"
+    f"https://raw.githubusercontent.com/saturncloud/recipes/{RECIPE_SCHEMA_BRANCH}/resources/schema.json"
 )
 
 
