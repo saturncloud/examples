@@ -25,10 +25,7 @@ def check_jupyter_needs_shutoff(kernels, idle_time_delta):
         return False  # There are no kernels at all so do not act
 
     for k in kernels:
-        if (
-            parser.parse(k["kernel"]["last_activity"]) >= min_time
-            or k["kernel"]["execution_state"] != "idle"
-        ):
+        if (parser.parse(k["kernel"]["last_activity"]) >= min_time) or (k["kernel"]["execution_state"] != "idle"):
             return False
 
     return True
@@ -38,7 +35,8 @@ def shutoff_resource(resource_id, base_url, user_token):
     """Turn off a Saturn Cloud resource for a user"""
     headers = {"Authorization": f"token {user_token}"}
     requests.post(
-        f"{base_url}api/workspaces/{resource_id}/stop", headers=headers,
+        f"{base_url}api/workspaces/{resource_id}/stop",
+        headers=headers,
     )
 
 
@@ -58,7 +56,8 @@ def close_user_resources(base_url, username, user_token):
 
     # get all of their workspace resources
     workspaces = requests.get(
-        f"{base_url}api/workspaces", headers={"Authorization": f"token {user_token}"},
+        f"{base_url}api/workspaces",
+        headers={"Authorization": f"token {user_token}"},
     ).json()["workspaces"]
 
     # filter to only Jupyter servers (to exclude RStudio servers)
@@ -66,9 +65,7 @@ def close_user_resources(base_url, username, user_token):
 
     # for each resource check last activity of the Jupyter kernels
     for resource in jupyter_servers:
-        if (
-            resource["url"] is not None
-        ):  # this means there is an actively running JupyterLab server we can query
+        if resource["url"] is not None:  # this means there is an actively running JupyterLab server we can query
             time_delta = time_delta_mapping.get(resource["auto_shutoff"], None)
             if time_delta is None:
                 continue
