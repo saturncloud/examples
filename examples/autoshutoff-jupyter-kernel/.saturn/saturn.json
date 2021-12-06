@@ -1,5 +1,5 @@
 {
-  "name": "example-autoshutoff",
+  "name": "example-autoshutoff-jupyter-kernel",
   "image_uri": "saturncloud/saturn:2021.09.20",
   "description": "POC of using Jupyter kernel information for shutting off a resource",
   "working_directory": "/home/jovyan/git-repos/examples/examples/autoshutoff-jupyter-kernel",
@@ -8,14 +8,14 @@
   },
   "git_repositories": [
     {
-      "url": "git@github.com:saturncloud/examples.git",
-      "location": "examples",
+      "url": "git@github.com:saturncloud/autoshutoff.git",
+      "location": "autoshutoff",
       "on_restart": "reclone"
     }
   ],
   "job": {
     "instance_type": "medium",
-    "command": "python autoshutoff.py"
+    "command": "python autoshutoff.py",
     "concurrency_policy": "Forbid",
     "backoff_limit": 1
   }
