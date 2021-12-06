@@ -1,6 +1,6 @@
 import requests
 import os
-import user_autoshutoff
+import userautoshutoff
 
 
 def get_user_list(base_url, admin_token):
@@ -31,7 +31,7 @@ def autoshutoff():
     for user in users:
         username = user["username"]
         user_token = get_user_token(base_url, username, admin_token)
-        user_autoshutoff.close_user_resources(base_url, username, user_token)
+        userautoshutoff.close_user_resources(base_url, username, user_token)
 
 
 if __name__ == "__main__":
