@@ -8,8 +8,8 @@
   },
   "git_repositories": [
     {
-      "url": "git@github.com:saturncloud/autoshutoff.git",
-      "location": "autoshutoff",
+      "url": "git@github.com:saturncloud/examples.git",
+      "location": "examples",
       "on_restart": "reclone"
     }
   ],
