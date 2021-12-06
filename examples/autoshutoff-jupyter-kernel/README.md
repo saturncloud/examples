@@ -2,8 +2,9 @@
 
 This repository contains a Saturn Cloud job which can be run to shut down any Jupyter Server resources where all the kernels
 are idle. The process works by having an admin user create login credentials for each user on the application, then queries their
-resources on their behalf to shutdown the ones that have idled for too long. By default the job runs once an hour and turns off any
-resources that have been idling for too long based on the resources "auto shutoff variable"
+resources on their behalf to shutdown the ones that have idled for too long. The job turns off any
+resources that have been idling for too long based on the resources auto-shutoff variable. You can set it up to run on a recurring
+schedule in the UI.
 
 ## Installation
 
