@@ -25,7 +25,9 @@ def check_jupyter_needs_shutoff(kernels, idle_time_delta):
         return False  # There are no kernels at all so do not act
 
     for k in kernels:
-        if (parser.parse(k["kernel"]["last_activity"]) >= min_time) or (k["kernel"]["execution_state"] != "idle"):
+        if (parser.parse(k["kernel"]["last_activity"]) >= min_time) or (
+            k["kernel"]["execution_state"] != "idle"
+        ):
             return False
 
     return True
@@ -61,16 +63,22 @@ def close_user_resources(base_url, username, user_token):
     ).json()["workspaces"]
 
     # filter to only Jupyter servers (to exclude RStudio servers)
-    jupyter_servers = list(filter(lambda w: w["resource_type"] == "Jupyter Workspace", workspaces))
+    jupyter_servers = list(
+        filter(lambda w: w["resource_type"] == "Jupyter Workspace", workspaces)
+    )
 
     # for each resource check last activity of the Jupyter kernels
     for resource in jupyter_servers:
-        if resource["url"] is not None:  # this means there is an actively running JupyterLab server we can query
+        if (
+            resource["url"] is not None
+        ):  # this means there is an actively running JupyterLab server we can query
             time_delta = time_delta_mapping.get(resource["auto_shutoff"], None)
             if time_delta is None:
                 continue
             kernels = get_jupyter_kernels(resource["url"], user_token)
             needs_shutoff = check_jupyter_needs_shutoff(kernels, time_delta)
             if needs_shutoff:
-                logging.warning(f"Shutting down resource: {username}/{resource['name']}")
+                logging.warning(
+                    f"Shutting down resource: {username}/{resource['name']}"
+                )
                 shutoff_resource(resource, base_url, user_token)
