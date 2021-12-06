@@ -33,5 +33,6 @@ def autoshutoff():
         user_token = get_user_token(base_url, username, admin_token)
         user_autoshutoff.close_user_resources(base_url, username, user_token)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     autoshutoff()

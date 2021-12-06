@@ -1,8 +1,8 @@
-import json
 import requests
 from datetime import datetime, timezone, timedelta
 from dateutil import parser
 import logging
+
 
 def get_jupyter_kernels(resource_url, user_token):
     """extracting information for each kernel on a Jupyter server"""
@@ -25,7 +25,10 @@ def check_jupyter_needs_shutoff(kernels, idle_time_delta):
         return False  # There are no kernels at all so do not act
 
     for k in kernels:
-        if parser.parse(k["kernel"]["last_activity"]) >= min_time or k["kernel"]["execution_state"] != "idle":
+        if (
+            parser.parse(k["kernel"]["last_activity"]) >= min_time
+            or k["kernel"]["execution_state"] != "idle"
+        ):
             return False
 
     return True
@@ -35,13 +38,12 @@ def shutoff_resource(resource_id, base_url, user_token):
     """Turn off a Saturn Cloud resource for a user"""
     headers = {"Authorization": f"token {user_token}"}
     requests.post(
-        f"{base_url}api/workspaces/{resource_id}/stop",
-        headers=headers,
+        f"{base_url}api/workspaces/{resource_id}/stop", headers=headers,
     )
 
 
 time_delta_mapping = {
-    "1 hour": timedelta(hours=1), # hack for testing
+    "1 hour": timedelta(hours=1),  # hack for testing
     "6 hours": timedelta(hours=6),
     "24 hours": timedelta(hours=24),
     "3 days": timedelta(hours=24 * 3),
@@ -56,16 +58,17 @@ def close_user_resources(base_url, username, user_token):
 
     # get all of their workspace resources
     workspaces = requests.get(
-        f"{base_url}api/workspaces",
-        headers={"Authorization": f"token {user_token}"},
-        ).json()["workspaces"]
+        f"{base_url}api/workspaces", headers={"Authorization": f"token {user_token}"},
+    ).json()["workspaces"]
 
     # filter to only Jupyter servers (to exclude RStudio servers)
     jupyter_servers = list(filter(lambda w: w["resource_type"] == "Jupyter Workspace", workspaces))
 
     # for each resource check last activity of the Jupyter kernels
     for resource in jupyter_servers:
-        if resource["url"] is not None:  # this means there is an actively running JupyterLab server we can query
+        if (
+            resource["url"] is not None
+        ):  # this means there is an actively running JupyterLab server we can query
             time_delta = time_delta_mapping.get(resource["auto_shutoff"], None)
             if time_delta is None:
                 continue
