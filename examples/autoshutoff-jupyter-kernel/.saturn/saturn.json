@@ -15,8 +15,7 @@
   ],
   "job": {
     "instance_type": "medium",
-    "command": "python autoshutoff.py",
-    "schedule": "@hourly",
+    "command": "python autoshutoff.py"
     "concurrency_policy": "Forbid",
     "backoff_limit": 1
   }
