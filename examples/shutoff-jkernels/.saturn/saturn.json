@@ -1,8 +1,8 @@
 {
-  "name": "example-shutoff-jkernel",
+  "name": "example-shutoff-jkernels",
   "image_uri": "saturncloud/saturn:2021.09.20",
   "description": "POC of using Jupyter kernel information for shutting off a resource",
-  "working_directory": "/home/jovyan/git-repos/examples/examples/autoshutoff-jupyter-kernel",
+  "working_directory": "/home/jovyan/git-repos/examples/examples/shutoff-jkernels",
   "environment_variables": {
     "SATURN_APP_URL": "https://app.internal.saturnenterprise.io/"
   },
