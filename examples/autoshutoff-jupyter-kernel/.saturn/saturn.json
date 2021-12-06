@@ -1,0 +1,23 @@
+{
+  "name": "autoshutoff",
+  "image_uri": "saturncloud/saturn:2021.09.20",
+  "description": "POC of using Jupyter kernel information for shutting off a resource",
+  "working_directory": "/home/jovyan/git-repos/autoshutoff",
+  "environment_variables": {
+    "SATURN_APP_URL": "https://app.internal.saturnenterprise.io/"
+  },
+  "git_repositories": [
+    {
+      "url": "git@github.com:saturncloud/autoshutoff.git",
+      "location": "autoshutoff",
+      "on_restart": "reclone"
+    }
+  ],
+  "job": {
+    "instance_type": "medium",
+    "command": "python autoshutoff.py",
+    "schedule": "@hourly",
+    "concurrency_policy": "Forbid",
+    "backoff_limit": 1
+  }
+}
