@@ -26,8 +26,8 @@ def get_user_token(base_url, username, admin_token):
 def autoshutoff():
     """Get a list of users, get their tokens, then shutoff their idle Jupyter servers
     with it"""
-    base_url = os.environ["SATURN_APP_URL"]
-    admin_token = os.environ["ADMIN_ACCESS_TOKEN"]
+    base_url = os.environ["scl-url"]
+    admin_token = os.environ["admin-token"]
     users = get_user_list(base_url, admin_token)
     for user in users:
         username = user["username"]
