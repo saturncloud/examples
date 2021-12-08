@@ -35,11 +35,10 @@ TEMPLATES_JSON_NAME = "templates.json"
 EXAMPLES_DIR = ARGS.examples_dir
 
 # This points to a json file in the saturncloud/recipe repo.
+# The BASE_URL is there just to ensure the URL fits on one line and doesn't break the link validator
 RECIPE_SCHEMA_BRANCH = ARGS.recipe_schema_branch
-RECIPE_SCHEMA_URL = (
-    "https://raw.githubusercontent.com/saturncloud/recipes/"
-    f"{RECIPE_SCHEMA_BRANCH}/resources/schema.json"
-)
+RECIPE_SCHEMA_BASE_URL = "raw.githubusercontent.com/saturncloud/recipes"
+RECIPE_SCHEMA_URL = f"https://{RECIPE_SCHEMA_BASE_URL}/{RECIPE_SCHEMA_BRANCH}/resources/schema.json"
 
 
 class ErrorCollection:
