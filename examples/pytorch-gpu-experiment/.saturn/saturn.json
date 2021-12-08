@@ -6,6 +6,7 @@
     "extra_packages": {
       "pip": "wandb dask_pytorch_ddp"
     },
+    "start_script": "wandb login --relogin $WANDB_LOGIN || true",
     "git_repositories": [
       {
         "url": "https://github.com/saturncloud/examples"
