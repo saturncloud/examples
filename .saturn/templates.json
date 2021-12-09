@@ -16,7 +16,7 @@
       "title": "RStudio",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rstudio.png",
       "weight": 300,
-      "recipe_path": "examples/api/.saturn/saturn.json"
+      "recipe_path": "examples/rstudio/.saturn/saturn.json"
     },
     {
       "title": "Deploy an API",
