@@ -1,0 +1,28 @@
+{
+  "name": "example-weights-and-biases",
+  "image_uri": "saturncloud/saturn-pytorch:2021.09.20",
+  "description": "Use Weights & Biases to track model training",
+  "working_directory": "/home/jovyan/git-repos/examples/examples/wandb",
+  "extra_packages": {
+    "pip": "wandb dask-pytorch-ddp"
+  },
+  "start_script": "wandb login --relogin $WANDB_LOGIN || true",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples"
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "10Gi",
+    "instance_type": "g4dnxlarge"
+  },
+  "dask_cluster": {
+    "num_workers": 3,
+    "worker": {
+      "instance_type": "g4dnxlarge"
+    },
+    "scheduler": {
+      "instance_type": "large"
+    }
+  }
+}
