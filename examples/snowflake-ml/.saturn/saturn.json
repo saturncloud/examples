@@ -1,6 +1,6 @@
 {
   "name": "example-snowflake-ml",
-  "image_uri": "saturncloud/saturn-pytorch:2021.09.20",
+  "image_uri": "saturncloud/saturn-pytorch:2021.11.10",
   "description": "Use Snowflake unstructured data for image classification with Dask",
   "environment_variables": {
     "DASK_DISTRIBUTED__WORKER__DAEMON": "False",
