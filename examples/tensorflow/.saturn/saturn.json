@@ -1,6 +1,6 @@
 {
   "name": "tensorflow",
-  "image_uri": "saturncloud/saturn-tensorflow:2021.07.26-2",
+  "image_uri": "saturncloud/saturn-tensorflow:2021.11.10",
   "description": "Train deep learning models with TensorFlow",
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
