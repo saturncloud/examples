@@ -1,0 +1,27 @@
+{
+  "name": "example-rapids-comparison",
+  "image_uri": "saturncloud/saturn-rapids:2021.09.20",
+  "description": "Compare how RAPIDS performs at model training with a GPU",
+  "environment_variables": {
+    "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+  },
+  "working_directory": "/home/jovyan/git-repos/examples/examples/rapids",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples"
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "10Gi",
+    "instance_type": "g4dnxlarge"
+  },
+  "dask_cluster": {
+    "num_workers": 3,
+    "worker": {
+      "instance_type": "g4dnxlarge"
+    },
+    "scheduler": {
+      "instance_type": "large"
+    }
+  }
+}
