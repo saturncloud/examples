@@ -1,10 +1,13 @@
 ---
 title: "Train a TensorFlow model with a GPU in R"
-description: "Use the RStudio Keras package to train a model on a GPU"
+description: "Use the RStudio TensorFlow and Keras packages to train a model on a GPU"
 output: html_document
 ---
 
+![TensorFlow Logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/tensorflow.png "doc-image")
+
 ## Overview
+
 R has the capability to train models with TensorFlow and Keras using packages
 developed by RStudio. On the backend, these packages are running TensorFlow in
 Python, and then the reticulate package converts the Python objects to R. As an
