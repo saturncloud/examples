@@ -7,4 +7,4 @@ These notebooks use code from Microsoft Research's [Bringing Old Photos Back to 
 The repository consists of two notebooks:
 
 1. [Examples.ipynb](Examples.ipynb) A script to view the examples provided by the researchers and their results
-2. [Upload_Your_Own_Picture.ipynb](Upload_Your_Own_Picture.ipynb) A script to upload your own photos
+2. [Upload-Your-Own-Pictures.ipynb](Upload-Your-Own-Pictures.ipynb) A script to upload your own photos
