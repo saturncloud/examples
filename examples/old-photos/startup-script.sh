@@ -1,4 +1,4 @@
-cd photo-restoration/Face_Enhancement/models/networks
+cd Code/Face_Enhancement/models/networks
 git clone https://github.com/vacancy/Synchronized-BatchNorm-PyTorch
 cp -rf Synchronized-BatchNorm-PyTorch/sync_batchnorm .
 cd ../../../
@@ -23,4 +23,4 @@ wget https://facevc.blob.core.windows.net/zhanbo/old_photo/pretrain/Global/check
 unzip checkpoints.zip
 cd ../../
 
-mkdir -p /home/jovyan/git-repos/photo-restoration/Upload_Pictures_Here
+mkdir -p /home/jovyan/git-repos/examples/examples/old-photos/Upload_Pictures_Here
