@@ -1,6 +1,7 @@
 import numpy as np
 import io
 import PIL.Image
+import IPython.display
 
 
 def imshow(a, format="png", jpeg_fallback=True):
