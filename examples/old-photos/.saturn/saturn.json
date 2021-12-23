@@ -1,0 +1,24 @@
+{
+    "name": "restoring-photos",
+    "image_uri": "saturncloud/saturn:2021.11.10",
+    "description": "",
+    "environment_variables": {},
+    "working_directory": "/home/jovyan/git-repos/photo-restoration",
+    "extra_packages": {
+        "apt": "unzip cmake libgl1-mesa-glx",
+        "conda": "opencv easydict scikit-image dill dlib tensorboardX pytorch torchvision torchaudio cpuonly -c pytorch",
+        "use_mamba": true
+    },
+    "start_script": "cd Code/Face_Enhancement/models/networks\ngit clone https://github.com/vacancy/Synchronized-BatchNorm-PyTorch\ncp -rf Synchronized-BatchNorm-PyTorch/sync_batchnorm .\ncd ../../../\n\ncd Global/detection_models\ngit clone https://github.com/vacancy/Synchronized-BatchNorm-PyTorch\ncp -rf Synchronized-BatchNorm-PyTorch/sync_batchnorm .\ncd ../../\n\ncd Face_Detection/\nwget http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2\nbzip2 -d shape_predictor_68_face_landmarks.dat.bz2\ncd ../\n\ncd Face_Enhancement/\nwget https://facevc.blob.core.windows.net/zhanbo/old_photo/pretrain/Face_Enhancement/checkpoints.zip\nunzip checkpoints.zip\ncd ../\n\ncd Global/\nwget https://facevc.blob.core.windows.net/zhanbo/old_photo/pretrain/Global/checkpoints.zip\nunzip checkpoints.zip\ncd ../../\n\nmkdir -p /home/jovyan/git-repos/photo-restoration/Upload_Pictures_Here",
+    "git_repositories": [
+        {
+            "url": "git@github.com:nathanballou/Bringing-Old-Photos-Back-to-Life.git",
+            "location": "photo-restoration",
+            "on_restart": "reclone"
+        }
+    ],
+    "jupyter_server": {
+        "instance_type": "2xlarge",
+        "disk_space": "10Gi"
+    }
+}
