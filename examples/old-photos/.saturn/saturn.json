@@ -14,9 +14,7 @@
         {
             "url": "git@github.com:saturncloud/examples.git",
             "location": "examples",
-            "on_restart": "preserve changes",
-            "reference": "old-photos",
-            "reference_type": "branch"
+            "on_restart": "preserve changes"
         },
         {
             "url": "git@github.com:saturncloud/Bringing-Old-Photos-Back-to-Life.git",
