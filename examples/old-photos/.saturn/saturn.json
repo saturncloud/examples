@@ -1,7 +1,7 @@
 {
-    "name": "restoring-photos",
+    "name": "example-restoring-photos",
     "image_uri": "saturncloud/saturn:2021.11.10",
-    "description": "",
+    "description": "Restoring old photos using Saturn Cloud",
     "environment_variables": {},
     "working_directory": "/home/jovyan/git-repos/photo-restoration",
     "extra_packages": {
