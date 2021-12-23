@@ -6,15 +6,12 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples.git",
-      "location": "examples",
-      "on_restart": "preserve changes"
+      "location": "examples"
     }
   ],
   "rstudio_server": {
     "instance_type": "g4dnxlarge",
-    "disk_space": "10Gi",
-    "auto_shutoff": "Never",
-    "start_ssh": false
+    "disk_space": "10Gi"
   },
   "version": "2021.11.10-9"
 }
