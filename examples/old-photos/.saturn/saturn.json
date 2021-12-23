@@ -12,8 +12,15 @@
     "start_script": "sh startup-script.sh",
     "git_repositories": [
         {
+            "url": "git@github.com:saturncloud/examples.git",
+            "location": "examples",
+            "on_restart": "preserve changes",
+            "reference": "old-photos",
+            "reference_type": "branch"
+        },
+        {
             "url": "git@github.com:saturncloud/Bringing-Old-Photos-Back-to-Life.git",
-            "location": "old-photos/photo-restoration",
+            "location": "examples/examples/old-photos/Code",
             "on_restart": "reclone"
         }
     ],
