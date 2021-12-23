@@ -23,4 +23,4 @@ wget https://facevc.blob.core.windows.net/zhanbo/old_photo/pretrain/Global/check
 unzip checkpoints.zip
 cd ../../
 
-mkdir -p /home/jovyan/git-repos/examples/examples/old-photos/Upload_Pictures_Here
+mkdir -p /home/jovyan/git-repos/examples/examples/old-photos/Upload-Photos-Here
