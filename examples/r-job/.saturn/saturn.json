@@ -1,0 +1,16 @@
+{
+  "name": "example-r-job",
+  "image_uri": "saturncloud/saturn-rstudio:2021.11.10",
+  "description": "Run a job on Saturn Cloud using R .",
+  "working_directory": "/home/jovyan/git-repos/examples/examples/r-job",
+  "start_script": "sh /home/jovyan/git-repos/Dashboard/startup_scriptJ.sh",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples"
+    }
+  ],
+  "job": {
+    "instance_type": "large",
+    "command": "Rscript example.R"
+  }
+}
