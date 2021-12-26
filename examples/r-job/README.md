@@ -24,13 +24,13 @@ Save this in your git repository as example.R
 
 ## Installations and Start Script
 
-We will create an R script which installs logger package from CRAN. Let's name this file as install_packagesJ.R.
+We will create an R script which installs logger package from CRAN. Let's name this file as install-packagesJ.R.
 ```R
 install.packages('logger')
 ```
-To run above R script we will create a bash file, let's name that startup_scriptJ.sh.
+To run above R script we will create a bash file, let's name that startup-scriptJ.sh.
 ```bash
-Rscript install_packagesJ.R
+Rscript install-packagesJ.R
 ```
 
 I have saved all the three files under same directory.
@@ -46,7 +46,7 @@ Specify the following settings below. Note that the git settings need to be set 
 * **Command** - `Rscript path_to_your_repository/example.R`. Here 'path_to_your_repository' refers to the path of your repository where file example.R is stored.
 * **Git Repositories** - Select **New Git Repository** and add your repository here.
 * **Image** - Set to `saturn-rstudio` image.
-* **Advanced Settings** -> Start Script - `sh /home/jovyan/git-repos/Dashboard/startup_scriptJ.sh`
+* **Advanced Settings** -> Start Script - `sh /home/jovyan/git-repos/Dashboard/startup-scriptJ.sh`
 
 You are now set. To run your job manually press the green start button on the resource page of the job.
 You can skip this setup step by using the recipe file `.saturn/saturn.json` included in this example.
