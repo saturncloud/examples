@@ -1,0 +1,16 @@
+{
+  "name": "example-r-api",
+  "image_uri": "saturncloud/saturn-rstudio:2021.11.10",
+  "description": "Deploy an API to Saturn Cloud using R .",
+  "working_directory": "/home/jovyan/git-repos/examples/examples/r-api",
+  "start_script": "sh /home/jovyan/git-repos/Dashboard/startup-script.sh",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples"
+    }
+  ],
+  "deployment": {
+    "instance_type": "large",
+    "command": "Rscript example.R"
+  }
+}
