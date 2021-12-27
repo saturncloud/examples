@@ -39,7 +39,7 @@ I have saved all the three files under same directory.
 
 To create a job for example.R script or any of your own script, first press the **New Job** button on the upper right corner of the **Resources** page. 
 
-![New job button](s3://saturn-public-assets/example-resources/newjob.png \"doc-image\")
+![New job button](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/newjob.png "doc-image")
 
 Specify the following settings below. Note that the git settings need to be set after the resource is created.
 
@@ -71,4 +71,4 @@ POST(url, add_headers(Authorization=paste("Token ", user_token)))
 ## Running a Saturn Cloud job on a Schedule
 You can also run this job or any other job you created, on schedule. This will automate running a job on a fixed time.  Check the box for field `Run this job on a schedule` and populate `Scheduled Settings` using [cron syntax](https://en.wikipedia.org/wiki/Cron) to meet the requirements of your task. 
 
-![Schedule](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/schedule.png \"doc-image\")
+![Schedule](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/schedule.png "doc-image")
