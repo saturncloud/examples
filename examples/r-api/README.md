@@ -90,7 +90,7 @@ Following is the setting for rest of the fields:
 
 ![deploy](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/deploy_settings.png "doc-image")
 
-With this you are ready to deploy your API by pressing the green start button on the resource page of the deployment. 
+With this you are ready to deploy your API by pressing the green button on the resource page of the deployment. 
 
 ## Access Deployed API
 
