@@ -73,9 +73,10 @@ Add path to file in working directory field as shown below. In the screenshot be
 
 Go to Advanced Settings -> Start Script.  Add following :
 
-sh /home/jovyan/git-repos/Dashboard/startup-script.sh
+`Rscript setup.R`
 
-Now `setup.R` will be executed when the deployment is started, which installs plumber and dplyr. With this you are ready to deploy your API by pressing the green start button on the resource page of the deployment. 
+
+Now `setup.R` will be executed when the deployment is started, which installs plumber and dplyr. 
 
 ![script](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/script.png "doc-image")
 
@@ -88,6 +89,8 @@ Following is the setting for rest of the fields:
 **Image** - set to saturn-rstudio image
 
 ![deploy](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/deploy_settings.png "doc-image")
+
+With this you are ready to deploy your API by pressing the green start button on the resource page of the deployment. 
 
 ## Access Deployed API
 
