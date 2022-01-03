@@ -1,1 +1,0 @@
-Rscript install-packagesJ.R
