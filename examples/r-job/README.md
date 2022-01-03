@@ -11,6 +11,9 @@ A Saturn Cloud job is a computing environment set up to run recurring tasks. You
 2. manually by pressing start button 
 3. via an API 
 
+## Setting up the Saturn Cloud Job Resource
+Setting up a job in Saturn Cloud is easy- Go to the **Resources** tab of Saturn Cloud and press **New Job**. But before discussing all the options in setting up the job resource, we will walk through an example code which we will be executing as job.
+
 ## Example code
 Saturn Cloud jobs and deployments need to load the code to run, and the easiest way to do so is with a git repository. Create a git repository on a service like [GitHub](github.com)--we'll then tell the Saturn Cloud job to pull the latest version of the code each time the job starts.
 This is an example R script which we will be running as a job. In this script, we are printing a message in logs. You'll want create one of your own more interesting script for your job. If you want to run a python script instead, see [the Saturn Cloud docs](https://saturncloud.io/docs/examples/python/production/jobs/#example-code.
@@ -25,14 +28,13 @@ log_info('Job is successfully running!')
 
 ## Installations and Start Script
 
-The startup command will run before the job does to set up in the environment. In our case the command will be to execute a single start script which installs the packages. In the settings for the Saturn Cloud job,
-
+The startup command will run before the job does to set up in the environment. In our case the command will be to execute a single start script which installs the packages. This start up command is saved in **Advanced Settings** -> **Start Script** section. 
 The startup command is `Rscript setup.R`, and the actual `setup.R` file contains:
 ```R
 install.packages('logger')
 ```
 
-The `setup.R` file needs to be saved in the same git repository as `example.R`
+The `setup.R` file needs to be saved in the same git repository as `example.R`.
 
 ## Create a job
 
@@ -42,10 +44,10 @@ To create a job for example.R script or any of your own script, first press the 
 
 Specify the following settings below. Note that the git settings need to be set after the resource is created.
 
-* **Command** - `Rscript path_to_your_repository/example.R`. Here 'path_to_your_repository' refers to the path of your repository where file example.R is stored.
+* **Command** - `Rscript path_to_your_repository/example.R`. Here 'path_to_your_repository' refers to the path of your repository where file example.R is stored. Instead of Rscript, if you want to run an RMarkdown file, use `RScript -e "rmarkdown::render('filename.Rmd')"`
 * **Git Repositories** - Select **New Git Repository** and add your repository here.
 * **Image** - Set to `saturn-rstudio` image.
-* **Advanced Settings** -> Start Script - `sh /home/jovyan/git-repos/Dashboard/startup-scriptJ.sh`
+* **Advanced Settings** -> Start Script - `Rscript setup.R`
 
 You are now set. To run your job manually press the green start button on the resource page of the job.
 You can skip this setup step by using the recipe file `.saturn/saturn.json` included in this example.
