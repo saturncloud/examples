@@ -1,5 +1,5 @@
 ---
-title: "Create a job using R"
+title: "Create a Job Using R"
 weight: 2
 description: "Setting and executing a job on Saturn Cloud using R"
 ---
@@ -12,28 +12,27 @@ A Saturn Cloud job is a computing environment set up to run recurring tasks. You
 3. via an API 
 
 ## Example code
-Saturn Cloud jobs and deployments need to load the code to run, and the easiest way to do so is with a git repository. So create a git repository on a service like [GitHub](github.com) and put the files your job will need into the repository.
-This is an example R script which we will be running as a job. In this script, we are printing a message in logs. You can create one of your own as well (if you want to run a python script instead, see [this example](https://saturncloud.io/docs/examples/python/production/jobs/#example-code).
+Saturn Cloud jobs and deployments need to load the code to run, and the easiest way to do so is with a git repository. Create a git repository on a service like [GitHub](github.com)--we'll then tell the Saturn Cloud job to pull the latest version of the code each time the job starts.
+This is an example R script which we will be running as a job. In this script, we are printing a message in logs. You'll want create one of your own more interesting script for your job. If you want to run a python script instead, see [the Saturn Cloud docs](https://saturncloud.io/docs/examples/python/production/jobs/#example-code.
+
+Below is the `example.R` script that the job will be running. It is saved in the GitHub repo that our job will be pulling from:
 
 ```R
 library(logger)
 log_info('Job is successfully running!')
 ```
 
-Save this in your git repository as example.R
 
 ## Installations and Start Script
 
-We will create an R script which installs logger package from CRAN. Let's name this file as install-packagesJ.R.
+The startup command will run before the job does to set up in the environment. In our case the command will be to execute a single start script which installs the packages. In the settings for the Saturn Cloud job,
+
+The startup command is `Rscript setup.R`, and the actual `setup.R` file contains:
 ```R
 install.packages('logger')
 ```
-To run above R script we will create a bash file, let's name that startup-scriptJ.sh.
-```bash
-Rscript install-packagesJ.R
-```
 
-I have saved all the three files under same directory.
+The `setup.R` file needs to be saved in the same git repository as `example.R`
 
 ## Create a job
 
