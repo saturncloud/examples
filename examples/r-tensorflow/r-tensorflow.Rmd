@@ -125,7 +125,7 @@ y_name <- np$delete(text_matrix, as.integer((1:max_length)-1), 1L)$squeeze()
 Next we define the layers of the Keras model. This model has 2 LSTM layers to
 find the patterns in the names, a dense layer to predict a value for each
 possible next character, and a softmax activation to turn
-those values into probabilities. Since this is a multiclassification problem,
+those values into probabilities. Since this is a multiclass classification problem,
 the loss is categorical crossentropy.
 
 ```{r define_model}
