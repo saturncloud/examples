@@ -126,7 +126,7 @@ Next we define the layers of the Keras model. This model has 2 LSTM layers to
 find the patterns in the names, a dense layer to predict a value for each
 possible next character, and a softmax activation to turn
 those values into probabilities. Since this is a multiclass classification problem,
-the loss is categorical crossentropy.
+the loss is categorical cross-entropy.
 
 ```{r define_model}
 
