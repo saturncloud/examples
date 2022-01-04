@@ -16,9 +16,9 @@ the R language you're used to.
 
 While often getting Python, R, TensorFlow, and the GPU drivers to all be the
 correct versions and work together, Saturn Cloud provides a convenient
-`saturn-rstudio-tensorflow`image that is preconfigured to train the models on a
+`saturn-rstudio-tensorflow` image that is preconfigured to train the models on a
 GPU. If you'd rather train a model on a CPU, you can use the `saturn-rstudio`
-image and install the keras R package yourself.
+image and install both the Python and R packages for Keras and TensorFlow.
 
 In this example we'll be using pet names data from the city of Seattle and
 training a Keras neural network to generate new names. Note that if instead
