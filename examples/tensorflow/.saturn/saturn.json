@@ -5,7 +5,7 @@
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
-  "working_directory": "/home/jovyan/git-repos/examples/examples/tensorflow",
+  "working_directory": "/home/jovyan/examples/examples/tensorflow",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples"

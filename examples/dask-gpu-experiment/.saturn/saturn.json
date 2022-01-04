@@ -2,7 +2,7 @@
     "name": "example-dask-gpu-experiment",
     "image_uri": "saturncloud/saturn-pytorch:2021.09.20",
     "description": "Material supporting the Saturn Cloud blog post on training PyTorch neural networks with multiple GPUs and Dask: https://saturncloud.io/blog/dask-with-gpus/",
-    "working_directory": "/home/jovyan/git-repos/examples/examples/dask-gpu-experiment",
+    "working_directory": "/home/jovyan/examples/examples/dask-gpu-experiment",
     "extra_packages": {
       "pip": "wandb dask_pytorch_ddp"
     },

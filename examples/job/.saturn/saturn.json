@@ -2,7 +2,7 @@
   "name": "example-job",
   "image_uri": "saturncloud/saturn:2021.11.10",
   "description": "Run a job on Saturn Cloud. Read more about jobs at: https://scld.io/docs/deployments .",
-  "working_directory": "/home/jovyan/git-repos/examples/examples/job",
+  "working_directory": "/home/jovyan/examples/examples/job",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples"
