@@ -1,10 +1,8 @@
 ---
 title: "Create an API with Plumber"
-linkTitle: "Create an API for Deployment"
+linkTitle: "Create an API with Plumber"
 weight: 3
-description: Use *Plumber* to create simple R API and deploy it in Saturn Cloud
-aliases:
-  - /docs/examples/dashboards/api_deploy/
+description: Use Plumber to create simple R API and deploy it in Saturn Cloud
 ---
 ## What is an API?
 An API is a way for programs to communicate with each other. They work similarly to websites, but instead of a human typing in a url and getting an HTML page back, a program can send a similar request to a URL and get different types of data back. For more information about APIs check out [this page](https://www.howtogeek.com/343877/what-is-an-api/).
@@ -13,14 +11,14 @@ An API is a way for programs to communicate with each other. They work similarly
 <a href="https://www.rplumber.io/index.html" target='_blank' rel='noopener'>Plumber</a> is a widely used package for writing APIs in R.  Plumber is easy to use and flexible. It provides a convenient and reliable way for R to communicate with other software and services.
 You can convert a simple R functions to a responsive API by adding few comments. Decorate your existing code with ‘#*’ . By adding these special comments as a prefix you communicate to Plumber that 'these R functions have to be transformed to API endpoints'. 
 ## Objective
-In the example below we are building an API as R script (`.R` files) using Plumber. For this example we are creating a regression model. The data for same is taken from [Kaggle](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data).
+In the example below we are building an API as R script (`.R` file) using Plumber. For this example we are creating a regression model. The data for same is taken from [Kaggle](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data).
 We will be accepting number of bedrooms and year build as inputs. We have defined an endpoint, "/predict", which will return the predicted price of a house.
 . 
 ## Building an API
 First we will create an R script which installs plumber package from CRAN. Let's name this file as `setup.R`.
 
 ```R
-install.packages('plumber')
+install.packages("plumber")
 install.packages("dplyr")
 ```
 
@@ -80,13 +78,13 @@ Now `setup.R` will be executed when the deployment is started, which installs pl
 
 ![script](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/script.png "doc-image")
 
-Following is the setting for rest of the fields:
+These are the rest of the fields you'll need to fill out
 
 
-**Name** - this is set to default as 'your username'-api\
-**Instance Count** - set to default as 1 \
-**Hardware and Size** - This example is small hence I have selected smallest available CPU resource.\
-**Image** - set to saturn-rstudio image
+**Name** - the name of the resource, which also is used as the URL for the API
+**Instance Count** - How many concurrent machines to host the API on. Set to default as 1.
+**Hardware and Size** - This example is small hence I have selected smallest available CPU resource.
+**Image** - set to `saturn-rstudio` image, which is preconfigured to have R and some common R libraries.
 
 ![deploy](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/deploy_settings.png "doc-image")
 
@@ -108,7 +106,7 @@ In example above, the key value pairs that we see after `?` are known as query p
 To access this URL you need to either:
 
 1. Be logged into Saturn Cloud and use your browser to go to the URL, which only works for GET requests.
-2. (recommended) add an authorization token to your HTTP request. On the Saturn Cloud settings page you'll see your user token, which lets Saturn Cloud know that your request is authorized. Add a header to the HTTP request with the key of  `Authorization` and the value `token {USER_TOKEN}` where `{USER_TOKEN}` is your token from the settings page. In R you could make the request like so
+2. (recommended) add an authorization token to your HTTP request. On the Saturn Cloud settings page you'll see your user token, which lets Saturn Cloud know that your request is authorized. Add a header to the HTTP request with the key of  `Authorization` and the value `token {USER_TOKEN}` where `{USER_TOKEN}` is your token from the settings page. In R you could make the request like so:
 
 ```R
 library(httr)
