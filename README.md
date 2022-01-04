@@ -29,7 +29,7 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
   "name": "pytorch",
   "image_uri": "saturncloud/saturn-pytorch:2021.11.10",
   "description": "Use PyTorch with a single GPU or across multiple GPUs with Dask",
-  "working_directory": "/home/jovyan/git-repos/examples/examples/pytorch",
+  "working_directory": "/home/jovyan/examples/examples/pytorch",
   "extra_packages": {
     "pip": "torch dask-pytorch-ddp seaborn"
   },

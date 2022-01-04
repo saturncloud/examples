@@ -81,7 +81,7 @@ def validate_recipe(schema, recipe_path):
         raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
 
     working_dir = recipe["working_directory"]
-    working_dir_prefix = "/home/jovyan/git-repos/examples/examples/"
+    working_dir_prefix = "/home/jovyan/examples/examples/"
     if not working_dir.startswith(working_dir_prefix):
         raise ValidationError(
             f"working_directory ('{working_dir}') needs to start with {working_dir_prefix}"
