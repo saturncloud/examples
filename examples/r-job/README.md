@@ -11,7 +11,6 @@ A Saturn Cloud job is a computing environment set up to run recurring tasks. You
 2. manually by pressing start button 
 3. via an API 
 
-## Setting up the Saturn Cloud Job Resource
 Setting up a job in Saturn Cloud is easy- Go to the **Resources** tab of Saturn Cloud and press **New Job**. But before discussing all the options in setting up the job resource, we will walk through an example code which we will be executing as job.
 
 ## Example code
@@ -50,7 +49,6 @@ Specify the following settings below. Note that the git settings need to be set 
 * **Advanced Settings** -> Start Script - `Rscript setup.R`
 
 You are now set. To run your job manually press the green start button on the resource page of the job.
-You can skip this setup step by using the recipe file `.saturn/saturn.json` included in this example.
 
 ## Running a Saturn Cloud job as an API
 
