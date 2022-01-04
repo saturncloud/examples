@@ -1,8 +1,8 @@
+data <- read.csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/housePriceData.csv")
+l = lm(SalePrice~BedroomAbvGr+YearBuilt, data)
 #* Predict price of a house
 #* @get /predict
 function(bedrooms,year,res){
-  data <- read.csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/housePriceData.csv")
-  l = lm(SalePrice~BedroomAbvGr+YearBuilt, data)
   bedrooms<-as.numeric(bedrooms)
   year<-as.numeric(year)
   if(between(bedrooms,0, 8) & between(year, 1871,2100)){

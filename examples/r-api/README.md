@@ -52,7 +52,7 @@ Now create another R script which will run above piece of code. Let's name this 
 ```R
 library(dplyr)
 library(plumber)
-plumber::pr_run(plumber::plumb("room.R"), port=8000, host="0.0.0.0")
+plumber::pr_run(plumber::plumb("endpoints.R"), port=8000, host="0.0.0.0")
 ```
 
 ## Deployment

@@ -11,6 +11,6 @@
   ],
   "deployment": {
     "instance_type": "large",
-    "command": "Rscript room.R"
+    "command": "Rscript endpoints.R"
   }
 }
