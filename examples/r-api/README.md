@@ -48,7 +48,7 @@ function(bedrooms,year,res){
   }  
 }
 ```
-Now create another R script which will run above piece of code. Let's name this as `run_api.R`.  Load the plumber package. Start the server using plumber object. Since the host listens on 0.0.0.0, it will be reachable on an appropriate interface address to the connection. The API must use port 8000 for Saturn Cloud to be able to direct traffic to it.
+Now create another R script which will run above piece of code. Let's name this as `run-api.R`.  Load the plumber package. Start the server using plumber object. Since the host listens on 0.0.0.0, it will be reachable on an appropriate interface address to the connection. The API must use port 8000 for Saturn Cloud to be able to direct traffic to it.
 ```R
 library(dplyr)
 library(plumber)
@@ -57,16 +57,16 @@ plumber::pr_run(plumber::plumb("room.R"), port=8000, host="0.0.0.0")
 
 ## Deployment
 
-Save both these files (`setup.R`, `endpoints.R`, `run_api.R`) in a GitHub repo, in our case we'll use [saturncloud/examples](github.com/saturncloud/examples). Now click **New Deployment**. It can be found on top right side of the resource page. 
+Save both these files (`setup.R`, `endpoints.R`, `run-api.R`) in a GitHub repo, in our case we'll use [saturncloud/examples](github.com/saturncloud/examples). Now click **New Deployment**. It can be found on top right side of the resource page. 
 
 ![deploy](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/plumber_deployment.png "doc-image")
 
 
 To run, add following to command field.
 ```bash
-Rscript run_api.R
+Rscript run-api.R
 ```
-Add path to file in working directory field as shown below. In the screenshot below, my file `run_api.R` is inside repository Dashboard. If you aren't familiar with how to set up SSH credentials and add git repositories to Saturn Cloud check [here](https://saturncloud.io/docs/using-saturn-cloud/gitrepo/).
+Add path to file in working directory field as shown below. In the screenshot below, my file `run-api.R` is inside repository Dashboard. If you aren't familiar with how to set up SSH credentials and add git repositories to Saturn Cloud check [here](https://saturncloud.io/docs/using-saturn-cloud/gitrepo/).
 
 ![deploy](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/working-directory.png "doc-image")
 

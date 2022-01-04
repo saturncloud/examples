@@ -11,6 +11,6 @@
   ],
   "deployment": {
     "instance_type": "large",
-    "command": "Rscript example.R"
+    "command": "Rscript room.R"
   }
 }
