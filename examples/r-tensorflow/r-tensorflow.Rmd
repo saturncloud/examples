@@ -149,7 +149,7 @@ model <- keras_model(inputs = input, outputs = output) %>%
 
 ### Train the model
 
-Once the model is defined we can then train it.
+Once the model is defined, we can train it.
 
 ```{r train_model}
 fit_results <- model %>% keras::fit(
