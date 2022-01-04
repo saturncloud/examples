@@ -112,7 +112,7 @@ text_matrix <-
 ```
 
 Once that's complete, we split the data into the 3D-matrix of model input (X) and
-y matrix of targets. This last splitting is done on an nparray,
+matrix of targets (y). This last splitting is done on an nparray,
 and hence the need to load `np` from Python via reticulate.
 
 ```{r split_x_y}
