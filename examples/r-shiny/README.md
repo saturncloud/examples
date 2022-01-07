@@ -26,7 +26,7 @@ install.packages("shiny")
 
 Now let us create another R script called `app.R`. This script will contain Shiny Dashboard. We have created a simple dashboard which has a slider and a plot.
 User will select a number as single input from slider This number represents number of bedrooms.  In the following code in first line we have loaded the ggplot2 and shiny packages. 
-Now we will read house price data in variable data. We then create a regression model where Sale price of house is target variable.
+Now we will read house price data in variable data. We then create a regression model where sale price of house is target variable.
 
 In UI function we will create appearance of our dashboard. Title of our dashboard "Housing Data" is added to title panel.
 We then give structure to our app using sidebarLayout function. sidebarLayout contains sidebarPanel and mainPanel. In slider input we are setting number of bedrooms ranging from 0 to 8.
