@@ -18,11 +18,10 @@ Shiny app structure constitutes :
 In the example below we are building a dashboard as R script (`.R` file) using Shiny. For this example we are creating a histogram which predicts sale prices for each year as per selected number of bedrooms. The data for same is taken from [Kaggle](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data).
 
 ## Building a Dashboard
-First we will create an R script which installs shiny and ggplot2 packages from CRAN. Let's name this file as `setup.R`.
+First we will create an R script which installs shiny package from CRAN. Since ggplot2 is included in the saturncloud-rstudio image, so we do not need to install it here. Let's name this file as `setup.R`.
 
 ```R
 install.packages("shiny")
-install.packages("ggplot2")
 ```
 
 Now let us create another R script called `app.R`. This script will contain Shiny Dashboard. We have created a simple dashboard which has a slider and a plot.
@@ -92,7 +91,7 @@ Rscript run-app.R
 ```
 Add path to file in working directory field as shown below--this should be the location off the `app.R` file.
 
-![deploy](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/Shiny-deploy.png "doc-image")
+![deploy](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/rshiny.png "doc-image")
 
 
 Go to Advanced Settings -> Start Script.  Add following :
