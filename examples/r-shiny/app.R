@@ -3,13 +3,13 @@ library(ggplot2)
 library(shiny)
 
 data <- read.csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/housePriceData.csv")
-model <- lm(SalePrice~BedroomAbvGr+YearBuilt, data)
+model <- lm(SalePrice ~ BedroomAbvGr + YearBuilt, data)
 
 ui <- fluidPage(
     titlePanel("Housing Data"),
     sidebarLayout(
         sidebarPanel(
-          sliderInput("bedrooms", "Number of Bedrooms", min=0,max=8, value=3,step=1)
+          sliderInput("bedrooms", "Number of Bedrooms", min = 0,max = 8, value = 3, step = 1)
         ),
         mainPanel(
            plotOutput("price_by_year")
