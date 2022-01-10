@@ -1,0 +1,78 @@
+---
+title: Load Data From Your Local File System
+description: Load data from your local machine into Saturn Cloud
+output: html_notebook
+---
+## Overview
+Flat files are a very common data storage option, and lots of our customers will use them at some time. This tutorial will show you how to load a dataset from a file (for example, a CSV or JSON file) on disk into Saturn Cloud.
+
+Before starting this, you should create a RStudio server resource. See our [quickstart](https://saturncloud.io/docs/start_in_ten/) if you don't know how to do this yet.
+
+## Process
+
+### Upload Files in the UI
+If you want to place a flat file in your Saturn Cloud RStudio server, there's a simple UI option. Navigate to the **Files** pane and click on the **Upload** toolbar button. 
+
+![RStudio workspace with arrow pointing towards the upload button](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/RStudio-local-file-upload-arrow.png "doc-image")
+
+Simply select the file(s) you want to access and they will be uploaded!
+
+### Upload Files via SSH
+If you prefer to upload your local files programmatically, Saturn Cloud makes it easy to copy files from your local machine via SSH.
+#### Set up SSH Keys
+You will need to set up SSH to make the connection between Saturn Cloud and your local machine. The first step is to create a SSH key pair. 
+
+If you need help setting up your SSH keys on your laptop, you can find some good references here:
+* <a href="https://www.ssh.com/ssh/keygen/" target='_blank' rel='noopener'>https://www.ssh.com/ssh/keygen/</a>
+* <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2" target='_blank' rel='noopener'>https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2</a>
+* <a href="https://www.redhat.com/sysadmin/configure-ssh-keygen" target='_blank' rel='noopener'>https://www.redhat.com/sysadmin/configure-ssh-keygen</a>
+
+Once you have your key pair set up, you will need to add your SSH Public Key to your Saturn Cloud account. ***The SSH Private Key will stay on your laptop.***
+
+#### Add Your SSH Credentials to Saturn Cloud
+Sign in to your Saturn Cloud account and select **Credentials** from the menu on the left.
+
+<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn-credentials-arrow.jpeg" style="width:200px;" alt="Saturn Cloud left menu with arrow pointing to Credentials tab" class="doc-image">
+
+This is where you will add your SSH credential information. *This is a secure storage location, and it will not be available to the public or other users without your consent.*
+
+At the top right corner of this page, you will find the **New** button. Click here, and you will be taken to the Credentials Creation form. 
+
+Select *SSH Public Key*, give it an appropriate name, and copy the whole contents of your Public Key file into the *Value* section.
+
+![Credentials page with ssh key selected](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/ssh-crediential.png "doc-image")
+
+With this complete, your SSH credentials will be accessible by Saturn Cloud resources!
+
+#### Enable SSH for a RStudio Resource
+On the resource page, click the pencil/paper icon to edit the resource details. If it is running, you may want to stop it since the resource will restart itself automatically when you make this change.
+
+You will be taken to a page that allows you to edit the settings of the server. Check the box that says "Allow SSH Connections" and click **Save** at the bottom of the page.
+
+![Edit RStudio Server dialogue with an arrow pointing to allow ssh connections](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/RStudio-allow-ssh-connections-arrow.png "doc-image")
+
+Start the RStudio server now, and you will see an SSH URL provided on the instance's card. Click the clipboard icon to copy this for later use.
+
+![Screenshot of RStudio Server card with server running, arrow pointing to SSH URL shown, with box encircling it](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/RStuido-ssh-url-arrow.png "doc-image")
+
+> **Note**: This URL may change if the server is stopped, including after auto-shutoff. When you start a work session, you may need to copy the new URL.
+
+#### Transfer Files via SCP
+
+The `scp` command allows you to copy files over SSH connections. To use it, all you need to do is specify the local path to file you want to transfer, the SSH URL, and the path you want the file transferred to in your Saturn Cloud instance.
+
+From the command line on your local machine, the `scp` command takes the following format:
+
+
+```{shell}
+scp "local-filepath" saturn-cloud-ssh-url:"remote-filepath"
+```
+
+So your command might look like:
+
+
+```{shell}
+scp "test_file.py" jovyan@ae6eb704cfbef4c5c83598483dfdaf7b-672974639.us-west-2.elb.amazonaws.com:"project/scripts/"
+```
+
+And that's it! If you look in your resource's file system, you will see the file.
