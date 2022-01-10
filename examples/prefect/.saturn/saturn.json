@@ -1,5 +1,5 @@
 {
-  "name": "prefect",
+  "name": "example-prefect",
   "image_uri": "saturncloud/saturn:2021.11.10",
   "description": "Scheduled jobs with Prefect and Prefect Cloud",
   "environment_variables": {
