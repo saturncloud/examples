@@ -2,7 +2,7 @@
   "name": "example-r-job",
   "image_uri": "saturncloud/saturn-rstudio:2021.11.10",
   "description": "Run a job on Saturn Cloud using R .",
-  "working_directory": "/home/jovyan/examples/examples/r-job",
+  "working_directory": "/home/jovyan/git-repos/examples/examples/r-job",
   "start_script": "Rscript setup.R",
   "git_repositories": [
     {
