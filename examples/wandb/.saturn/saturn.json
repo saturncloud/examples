@@ -1,11 +1,12 @@
 {
-  "name": "example-rapids",
-  "image_uri": "saturncloud/saturn-rapids:2021.11.10",
-  "description": "Use GPUs for data science and machine learning with this platform by NVIDIA",
-  "environment_variables": {
-    "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
+  "name": "example-weights-and-biases",
+  "image_uri": "saturncloud/saturn-pytorch:2021.09.20",
+  "description": "Use Weights & Biases to track model training",
+  "working_directory": "/home/jovyan/git-repos/examples/examples/wandb",
+  "extra_packages": {
+    "pip": "wandb dask-pytorch-ddp"
   },
-  "working_directory": "/home/jovyan/git-repos/examples/examples/rapids",
+  "start_script": "wandb login --relogin $WANDB_LOGIN || true",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",

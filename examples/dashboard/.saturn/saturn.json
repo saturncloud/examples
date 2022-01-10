@@ -1,5 +1,5 @@
 {
-  "name": "dashboard",
+  "name": "example-dashboard",
   "image_uri": "saturncloud/saturn:2021.11.10",
   "description": "Deploy a dashboard to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
   "environment_variables": {

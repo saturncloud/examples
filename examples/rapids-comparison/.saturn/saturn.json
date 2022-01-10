@@ -1,13 +1,11 @@
 {
-  "name": "example-snowflake-ml",
-  "image_uri": "saturncloud/saturn-pytorch:2021.11.10",
-  "description": "Use Snowflake unstructured data for image classification with Dask",
+  "name": "example-rapids-comparison",
+  "image_uri": "saturncloud/saturn-rapids:2021.09.20",
+  "description": "Compare how RAPIDS performs at model training with a GPU",
   "environment_variables": {
-    "DASK_DISTRIBUTED__WORKER__DAEMON": "False",
-    "MODEL_S3": "s3://saturn-public-files/examples-data/snowflake-ml/modeltrained.pt",
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
-  "working_directory": "/home/jovyan/git-repos/examples/examples/snowflake-ml",
+  "working_directory": "/home/jovyan/git-repos/examples/examples/rapids",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
