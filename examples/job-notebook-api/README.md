@@ -11,7 +11,7 @@ _(By using the recipe file included in this example you can skip this setup step
 In Saturn Cloud, create a new **Job resource** that has the following options:
 
 * **Run Command**: `papermill example.ipynb out.ipynb --stdout-file - --stderr-file - --kernel python3`
-* **Home Directory**: `/home/jovyan/git-repos/examples/examples/job-notebook-api`
+* **Home Directory**: `/home/jovyan/examples/examples/job-notebook-api`
 * **Extra Packages**: `papermill` (as a pip package)
 
 Then, in the **git repositories** of the resource, use this materials resource as a connected repository (`git@github.com:saturncloud/examples.git`). In practice, you'd want to use your own git repo with your particular notebook. 
