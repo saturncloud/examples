@@ -1,7 +1,7 @@
 {
   "name": "example-r-shiny",
   "image_uri": "saturncloud/saturn-rstudio:2021.11.10",
-  "description": "Deploy a dashboard to Saturn Cloud using R Shiny",
+  "description": "Deploy a dashboard to Saturn Cloud using R Shiny. Read more about R dashboard deployments at: https://scld.io/ex/r-dashboard",
   "working_directory": "/home/jovyan/examples/examples/r-shiny",
   "start_script": "Rscript setup.R",
   "git_repositories": [
