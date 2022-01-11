@@ -5,7 +5,7 @@
   "working_directory": "/home/jovyan/examples/examples/r-load-data",
   "extra_packages": {
     "pip": "kaggle",
-    "cran": "odbc"
+    "cran": "odbc aws.s3"
   },
   "git_repositories": [
     {
