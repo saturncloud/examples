@@ -4,6 +4,8 @@ description: "Load Kaggle datasets into Saturn Cloud"
 output: html_notebook
 ---
 
+![Kaggle Logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/kaggle-logo.png)
+
 ## Overview
 
 [Kaggle](https://www.kaggle.com/), in addition to its competitions and other offerings, has an expansive offering of curated and community submitted datasets. The datasets span numerous domains, sizes, and file types. This tutorial will give you the foundational information to load data from Kaggle directly into Saturn Cloud, quickly and easily!
