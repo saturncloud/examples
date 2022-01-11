@@ -1,7 +1,7 @@
 {
   "name": "example-r-job",
   "image_uri": "saturncloud/saturn-rstudio:2021.11.10",
-  "description": "Run a job on Saturn Cloud using R. Read more about Python jobs at: https://scld.io/ex/r-job",
+  "description": "Run a job on Saturn Cloud using R. Read more about R jobs at: https://scld.io/ex/r-job",
   "working_directory": "/home/jovyan/examples/examples/r-job",
   "start_script": "Rscript setup.R",
   "git_repositories": [
