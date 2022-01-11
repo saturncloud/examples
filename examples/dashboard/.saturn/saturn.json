@@ -1,7 +1,7 @@
 {
   "name": "example-dashboard",
   "image_uri": "saturncloud/saturn:2021.11.10",
-  "description": "Deploy a dashboard to Saturn Cloud. Read more about deployments at: https://scld.io/docs/deployments.",
+  "description": "Deploy a dashboard to Saturn Cloud. Read more about Python dashboard deployments at: https://scld.io/ex/py-dashboard",
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
