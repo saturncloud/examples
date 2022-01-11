@@ -1,0 +1,65 @@
+---
+title: Load Data From Snowflake
+description: Load data stored in a Snowflake database into Saturn Cloud
+output: html_notebook
+---
+
+![Snowflake Logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/snowflake.png)
+
+## Overview
+<a href="https://www.snowflake.com/" target='_blank' rel='noopener'>Snowflake</a> is a data platform built for the cloud that allows for fast SQL queries. This example shows how to query data in Snowflake and pull into Saturn Cloud for data science work.
+
+Saturn RStudio images come with the Snowflake ODBC drivers for R installed. If you are building your own images and want to work with Snowflake, you will need to install the ODBC driver yourself.
+
+Before starting this, you should create a RStudio server resource. See our [quickstart](https://saturncloud.io/docs/start_in_ten/) if you don't know how to do this yet.
+
+## Process
+
+### Add Your Snowflake Credentials to Saturn Cloud
+Sign in to your Saturn Cloud account and select **Credentials** from the menu on the left.
+
+<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn-credentials-arrow.jpeg" style="width:200px;" alt="Saturn Cloud left menu with arrow pointing to Credentials tab" class="doc-image">
+
+This is where you will add your Snowflake credential information. *This is a secure storage location, and it will not be available to the public or other users without your consent.*
+
+At the top right corner of this page, you will find the **New** button. Click here, and you will be taken to the Credentials Creation form. 
+
+![Screenshot of Saturn Cloud Create Credentials form](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/credentials.jpg "doc-image")
+
+You will be adding three credentials items: your Snowflake account id, username, and password. Complete the form one time for each item. 
+
+|  Credential | Type  | Name| Variable Name  |
+|---|---|---|---|
+| Snowflake account   | Environment Variable  | `snowflake-account` | `SNOWFLAKE_ACCOUNT` 
+| Snowflake username | Environment Variable  |`snowflake-user`  | `SNOWFLAKE_USER`
+| Snowflake user password  | Environment Variable  |`snowflake-password`  | `SNOWFLAKE_PASSWORD`
+
+Enter your values into the *Value* section of the credential creation form. The credential names are recommendations; feel free to change them as needed for your workflow.
+
+If you are having trouble finding your Snowflake account id, it is the first part of the URL you use to sign into Snowflake. If you use the url `https://AA99999.us-east-2.aws.snowflakecomputing.com/console/login` to login, your account id is `AA99999`.
+
+With this complete, your Snowflake credentials will be accessible by Saturn Cloud resources! You will need to restart any RStudio Server for the credentials to populate to those resources.
+
+### Connect to Data
+
+From a RStudio resource where you want to connect to Snowflake, you can use the credentials as environment variables and provide any additional arguments, if necessary.
+
+
+```{r}
+library(DBI)
+
+con <- dbConnect(odbc::odbc(),
+    driver = "SnowflakeDSIIDriver",
+    server = paste(Sys.getenv("SNOWFLAKE_ACCOUNT"), ".us-east-2.aws.snowflakecomputing.com", sep = ""),
+    uid = Sys.getenv("SNOWFLAKE_USER"),
+    pwd = Sys.getenv("SNOWFLAKE_PASSWORD")
+)
+```
+
+If you changed the *variable name* of any of your credentials, simply change them here for them to populate properly.
+
+In RStudio, the connection will now appear in the **Connections** pane, along with a list of available databases.
+
+> **Note**: A running warehouse is required to actually access any data.
+
+Now you can simply query the database as you would on a local machine.
