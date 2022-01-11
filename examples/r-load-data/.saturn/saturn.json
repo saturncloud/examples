@@ -9,7 +9,8 @@
   },
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples"
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "release-2021.11.10"
     }
   ],
   "rstudio_server": {
