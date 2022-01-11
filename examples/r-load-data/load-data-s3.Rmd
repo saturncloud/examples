@@ -1,7 +1,7 @@
 ---
 title: Load Data From S3 Buckets
 description: Load data stored in AWS S3 buckets into Saturn Cloud
-output: html_document
+output: html_notebook
 ---
 
 ![S3 Logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/s3-logo.png)
