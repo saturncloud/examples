@@ -65,14 +65,14 @@ The `scp` command allows you to copy files over SSH connections. To use it, all 
 From the command line on your local machine, the `scp` command takes the following format:
 
 
-```{shell}
+```{bash}
 scp "local-filepath" saturn-cloud-ssh-url:"remote-filepath"
 ```
 
 So your command might look like:
 
 
-```{shell}
+```{bash}
 scp "test_file.py" jovyan@ae6eb704cfbef4c5c83598483dfdaf7b-672974639.us-west-2.elb.amazonaws.com:"project/scripts/"
 ```
 
