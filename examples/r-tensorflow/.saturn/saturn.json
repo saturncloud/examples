@@ -6,7 +6,6 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples.git",
-      "location": "examples",
       "reference": "release-2022.01.06"
     }
   ],
