@@ -1,29 +1,29 @@
 {
-    "name": "example-restoring-photos",
-    "image_uri": "saturncloud/saturn:2021.11.10",
-    "description": "Restoring old photos using a neural network from Microsoft",
-    "environment_variables": {},
-    "working_directory": "/home/jovyan/examples/examples/old-photos",
-    "extra_packages": {
-        "apt": "unzip cmake libgl1-mesa-glx",
-        "conda": "opencv easydict scikit-image dill dlib tensorboardX pytorch torchvision torchaudio cpuonly -c pytorch",
-        "use_mamba": true
+  "name": "example-restoring-photos",
+  "image_uri": "saturncloud/saturn:2021.11.10",
+  "description": "Restoring old photos using a neural network from Microsoft",
+  "environment_variables": {},
+  "working_directory": "/home/jovyan/examples/examples/old-photos",
+  "extra_packages": {
+    "apt": "unzip cmake libgl1-mesa-glx",
+    "conda": "opencv easydict scikit-image dill dlib tensorboardX pytorch torchvision torchaudio cpuonly -c pytorch",
+    "use_mamba": true
+  },
+  "start_script": "sh startup-script.sh",
+  "git_repositories": [
+    {
+      "url": "git@github.com:saturncloud/examples.git",
+      "path": "/home/jovyan/examples",
+      "on_restart": "preserve changes"
     },
-    "start_script": "sh startup-script.sh",
-    "git_repositories": [
-        {
-            "url": "git@github.com:saturncloud/examples.git",
-            "location": "examples",
-            "on_restart": "preserve changes"
-        },
-        {
-            "url": "git@github.com:saturncloud/Bringing-Old-Photos-Back-to-Life.git",
-            "location": "examples/examples/old-photos/Code",
-            "on_restart": "reclone"
-        }
-    ],
-    "jupyter_server": {
-        "instance_type": "2xlarge",
-        "disk_space": "10Gi"
+    {
+      "url": "git@github.com:saturncloud/Bringing-Old-Photos-Back-to-Life.git",
+      "path": "/home/jovyan/examples/examples/old-photos/Code",
+      "on_restart": "reclone"
     }
+  ],
+  "jupyter_server": {
+    "instance_type": "2xlarge",
+    "disk_space": "10Gi"
+  }
 }

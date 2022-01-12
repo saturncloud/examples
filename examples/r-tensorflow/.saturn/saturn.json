@@ -5,8 +5,7 @@
   "working_directory": "/home/jovyan/examples/examples/r-tensorflow",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples.git",
-      "location": "examples"
+      "url": "https://github.com/saturncloud/examples.git"
     }
   ],
   "rstudio_server": {
