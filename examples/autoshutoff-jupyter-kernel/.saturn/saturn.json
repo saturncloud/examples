@@ -9,7 +9,8 @@
   "git_repositories": [
     {
       "url": "git@github.com:saturncloud/examples.git",
-      "on_restart": "reclone"
+      "on_restart": "reclone",
+      "reference": "release-2022.01.06"
     }
   ],
   "job": {

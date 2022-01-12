@@ -6,7 +6,8 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples.git",
-      "location": "examples"
+      "location": "examples",
+      "reference": "release-2022.01.06"
     }
   ],
   "rstudio_server": {
