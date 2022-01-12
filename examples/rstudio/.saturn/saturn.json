@@ -5,8 +5,7 @@
   "working_directory": "/home/jovyan/examples/examples/rstudio",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "release-2022.01.06"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "rstudio_server": {
