@@ -40,7 +40,6 @@ library(stringr)
 library(purrr)
 library(tidyr)
 library(keras)
-np <- reticulate::import("numpy", convert=FALSE)
 ```
 
 Define what characters can be used for the pet names, and how far back the
@@ -112,12 +111,12 @@ text_matrix <-
 ```
 
 Once that's complete, we split the data into the 3D-matrix of model input (X) and
-matrix of targets (y). This last splitting is done on an nparray,
-and hence the need to load `np` from Python via reticulate.
+matrix of targets (y). We'll make the X matrix of all the letters in each row except
+the last. The y matrix will be the last character (since we want to predict it).
 
 ```{r split_x_y}
-x_name <- np$delete(text_matrix, as.integer(max_length), 1L) 
-y_name <- np$delete(text_matrix, as.integer((1:max_length)-1), 1L)$squeeze()
+x_name <- text_matrix[,1:max_length,]
+y_name <- text_matrix[,max_length+1,]
 ```
 
 ### Create the model
