@@ -1,10 +1,9 @@
-from ensurepip import version
 import json
 import os
 import sys
 
 REF = sys.argv[1] if len(sys.argv) == 2 else None
-VERSION = REF.replace("release-","") if REF else None
+VERSION = REF.replace("release-", "") if REF else None
 
 
 for file in os.listdir("examples"):
