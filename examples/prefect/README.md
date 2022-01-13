@@ -8,10 +8,15 @@ Saturn Cloud supports two different tools in the Prefect ecosystem:
 
 If you would like an introduction to the concepts behind job scheduling with Prefect, you can start with our [Introduction to Prefect Concepts](https://saturncloud.io/docs/examples/prefect/prefect_concepts/) docs page then come back here and run these examples!
 
-## [Develop a Scheduled Data Pipeline with Prefect](./01-prefect.ipynb)
+## [Data Pipeline on Single Node](./01-prefect-singlenode.ipynb)
 
-Use the open-source `prefect` library to schedule a data pipeline.
+Execute all tasks locally in a single thread with Prefect and register this flow with Prefect Cloud.
 
-## [Use Prefect Cloud with Saturn Cloud](./02-prefect-cloud.ipynb)
+## [Data Pipeline: Run all tasks on Dask Cluster](./02-prefect-daskclusters.ipynb)
 
-Connect to Prefect Cloud and orchestrate a flow running from Saturn Cloud.
+Create a prefect flow and distribute all tasks across Dask clusters. 
+
+## [Data Pipeline : Run a task on Dask Cluster](./03-prefect-resource-manager.ipynb)
+
+Create a prefect flow and distribute a task across Dask clusters. 
+
