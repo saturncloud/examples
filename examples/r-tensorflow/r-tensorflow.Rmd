@@ -151,11 +151,12 @@ model <- keras_model(inputs = input, outputs = output) %>%
 Once the model is defined, we can train it.
 
 ```{r train_model}
-fit_results <- model %>% keras::fit(
-  x_name, 
-  y_name,
-  batch_size = 32768,
-  epochs = 200
+fit_results <- model %>% 
+  fit(
+    x_name, 
+    y_name,
+    batch_size = 32768,
+    epochs = 200
 )
 ```
 
