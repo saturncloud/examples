@@ -1,7 +1,7 @@
 {
   "name": "example-r-api",
   "image_uri": "saturncloud/saturn-rstudio:2021.11.10",
-  "description": "Deploy an API to Saturn Cloud using R. Read more about R API deployments at: https://scld.io/ex/r-api",
+  "description": "Deploy an API to Saturn Cloud using R. Learn more at: https://scld.io/ex/r-api",
   "working_directory": "/home/jovyan/examples/examples/r-api",
   "start_script": "Rscript setup.R",
   "git_repositories": [
