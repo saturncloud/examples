@@ -15,5 +15,6 @@
   "deployment": {
     "instance_type": "large",
     "command": "python3 -m uvicorn houseprice:app --reload --host 0.0.0.0 --port 8000"
-  }
+  },
+  "version": "2021.11.10"
 }

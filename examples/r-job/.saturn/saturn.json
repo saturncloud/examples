@@ -13,5 +13,6 @@
   "job": {
     "instance_type": "large",
     "command": "Rscript example.R"
-  }
+  },
+  "version": "2021.11.10"
 }

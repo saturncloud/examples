@@ -12,5 +12,6 @@
   "job": {
     "instance_type": "large",
     "command": "python example.py"
-  }
+  },
+  "version": "2021.11.10"
 }
