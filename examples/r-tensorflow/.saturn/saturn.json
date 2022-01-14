@@ -12,5 +12,6 @@
   "rstudio_server": {
     "instance_type": "g4dnxlarge",
     "disk_space": "10Gi"
-  }
+  },
+  "version": "2022.01.06"
 }
