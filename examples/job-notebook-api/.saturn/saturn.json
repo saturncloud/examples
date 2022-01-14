@@ -15,5 +15,6 @@
   },
   "extra_packages": {
     "pip": "papermill"
-  }
+  },
+  "version": "2022.01.06"
 }
