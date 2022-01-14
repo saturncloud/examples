@@ -12,5 +12,6 @@
   "job": {
     "instance_type": "large",
     "command": "Rscript example.R"
-  }
+  },
+  "version": "2022.01.06"
 }

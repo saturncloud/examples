@@ -31,5 +31,6 @@
       "type": "environment_variable",
       "location": "PREFECT_USER_TOKEN"
     }
-  ]
+  ],
+  "version": "2022.01.06"
 }

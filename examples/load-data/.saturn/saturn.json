@@ -14,5 +14,6 @@
   "jupyter_server": {
     "disk_space": "10Gi",
     "instance_type": "large"
-  }
+  },
+  "version": "2022.01.06"
 }
