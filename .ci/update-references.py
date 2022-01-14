@@ -17,4 +17,4 @@ for file in os.listdir("examples"):
                 repo_dict.pop("reference", None)
 
     with open(recipe_path, "w") as f:
-        f.write(json.dumps(recipe, indent=2))
+        f.write(json.dumps(recipe, indent=2) + "\n")
