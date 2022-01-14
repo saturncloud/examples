@@ -1,6 +1,6 @@
 {
   "name": "example-dask",
-  "image_uri": "saturncloud/saturn:2021.11.10",
+  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.01.06",
   "description": "Use distributed computing with Dask",
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
