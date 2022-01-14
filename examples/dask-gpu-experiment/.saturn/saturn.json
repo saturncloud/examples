@@ -23,5 +23,6 @@
     "worker": {
       "instance_type": "g4dnxlarge"
     }
-  }
+  },
+  "version": "2022.01.06"
 }
