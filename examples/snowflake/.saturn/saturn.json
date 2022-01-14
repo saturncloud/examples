@@ -42,5 +42,6 @@
       "type": "environment_variable",
       "location": "EXAMPLE_SNOWFLAKE_PASSWORD"
     }
-  ]
+  ],
+  "version": "2022.01.06"
 }
