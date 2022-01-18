@@ -1,0 +1,130 @@
+---
+title: Futures in R
+description: An overview of the R future package
+output: html_notebook
+---
+
+Intro about Futures
+
+A future is an abstraction for a value that will be available later. At any given time, it can either be resolved or unresolved. The value is the the result of the expression.
+
+
+
+## Plans
+Intro about plans as computing strategies. These are the built in ones - can be extended (for instance [future.callr]
+The plan does not matter - there is consistent behavior of futures across plans.
+
+
+
+|Name|Execution|Blocking|Description|Machine|
+|---|---|---|---|---|
+|**sequential**|Non-parallel|Blocking|Runs sequential code|Current Machine|
+|**multisession**|Parallel|Non-blocking|Runs on background R sessions|Current Machine|
+|**multicore**|Parallel|Non-blocking|Runs on forked R processes. Cannot be used in RStudio or Windows.|Current Machine|
+|**cluster**|Parallel|Non-blocking|Runs code on external R sessions|Current, local, or remote machines|
+
+
+Can also be any batchtools backend, [callr](https://cran.r-project.org/web/packages/future.callr/index.html) or it can be extended.
+## 
+
+
+
+> **Note**: One useful helper function is [`progressr`](https://cran.r-project.org/web/packages/progressr/index.html) which outputs a progress bar for your future computations!
+
+The state of a future is either unresolved or resolved. The value of a future can be retrieved using v <- value(f). Querying the value of a non-resolved future will block the call until the future is resolved. It is possible to check whether a future is resolved or not without blocking by using resolved(f).
+
+
+f <- future(expr)   # create future
+
+r <- resolved(f)    # check if done
+
+v <- value(f)       # wait & get result
+
+
+
+
+
+
+
+
+```{r imports}
+library(future)
+```
+
+```{r sequential plan}
+plan(sequential)
+```
+
+```{r functions}
+increment <- function(x) {
+    Sys.sleep(runif(1))
+    return(x + 1)
+}
+
+double <- function(x) {
+    Sys.sleep(runif(1))
+    return(2 * x)
+}
+
+add <- function(x, y) {
+    Sys.sleep(runif(1))
+    return(x + y)
+}
+```
+
+```{r test function}
+increment(1)
+```
+```{r implicit future}
+future %<-% increment(1) %seed%
+
+    resolved(future)
+print(future)
+```
+```{r explicit future}
+future <- future(increment(1), seed = NULL)
+
+resolved(future)
+print(value(future))
+```
+```{r mulitisession plan}
+plan(multisession)
+```
+
+```{r multisession implicit future}
+future %<-% increment(1) %seed% TRUE
+
+resolved(future)
+print(future)
+```
+
+```{r multisession explicit future}
+future <- future(increment(1), seed = TRUE)
+
+resolved(future)
+print(value(future))
+```
+```{r future from futures implicit}
+x %<-% increment(1) %seed% TRUE
+y %<-% double(2) %seed% TRUE
+
+# pass them to the next future
+z %<-% add(x, y) %seed% TRUE
+
+print(z)
+```
+
+```{r future from futures explicit}
+x <- future(increment(1), seed = TRUE)
+y <- future(double(2), seed = TRUE)
+
+# evaluate and get the values of the futures
+x <- value(x)
+y <- value(y)
+
+# pass them to the next future
+z <- future(add(x, y), seed = TRUE)
+
+resolved(z)
+print(value(z))
+```

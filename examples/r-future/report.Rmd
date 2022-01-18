@@ -1,0 +1,23 @@
+---
+title: "Results"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(tidyverse.quiet = TRUE)
+```
+
+This report contains the results of the `keras` model. The mean absolute error and model parameters for each run are listed below.
+
+```{r}
+library(targets)
+tar_load(run)
+tar_read(run)
+```
+
+Below are the parameters of the model with the best mean absolute error.
+
+```{r}
+tar_read(best_run)
+```
