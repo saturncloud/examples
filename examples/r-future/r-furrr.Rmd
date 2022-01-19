@@ -5,25 +5,25 @@ output: html_notebook
 ![furrr logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/furrr-logo.png "doc-image")
 
 ## Overview
-[Furrr](https://furrr.futureverse.org/) is an extension of the [purrr](https://purrr.tidyverse.org/) mapping functions using the futures parallel backend. Furrr allows purrr functions like `map()` and `pmap()` to be replaced with `future_map()` and `future_pmap()` respecively to run the functions on a parallel backend. 
+[Furrr](https://furrr.futureverse.org/) is an extension of the [purrr](https://purrr.tidyverse.org/) mapping functions using the future package's parallel backend. Furrr allows purrr functions like `map()` and `pmap()` to be replaced with `future_map()` and `future_pmap()`, respecively, to run the functions in parallel. 
 
-To illustrate the benifits of this package, we will run a [TensorFlow](https://www.tensorflow.org/) regression model based on on a CDC dataset of U.S. birth records in 2005. 
+To illustrate the benefits of this package, we will run a [TensorFlow](https://www.tensorflow.org/) regression model based on on a CDC dataset of U.S. birth records in 2005. We will use this data to answer the following question:
 
-We will use this data to aswer the following question:
-> Based on pregnancy characristics, can we determine the birth weight of the baby?
+> Based on pregnancy characteristics, can we determine the birth weight of the baby?
 
-By using the furrr package, we can iterate over hyperparameters in a parallel fashion - greatly reducing the computation time.
+By using the furrr package, we can iterate over hyperparameters in a parallel fashion, thereby greatly reducing the computation time.
 
-As a bonus, we will go over a bit about the `recipes` package!
+This example will delve into the `recipes` package as well.
 
-> **Note**: The overhead associated with moving data and setting up the parallel computing means it is only sutible for manipulations involving long compute times. Often, simple operations can take significnatly longer when using `furrr` instead of `purrr`. As always, test single-threaded first, then try multi-threaded if single-threaded doens't prove sufficient. 
+> **Note**: The overhead associated with moving data and setting up the parallel computing means that furrr is only suitable for manipulations involving long compute times. Often, simple operations can take significantly longer when using furrr instead of purrr. As always, test single-threaded first, then try multi-threaded if single-threaded doesn't prove sufficient. 
 
 ## Modeling Process
 ### Imports
-This exercise uses a verity of packages to complete the machine learning model. 
-* [`keras`](https://tensorflow.rstudio.com/guide/keras/): For creating the deep learning model
-* [`recipes`](https://recipes.tidymodels.org/): For creating a preprocessing pipeline
-* [`furrr`](https://furrr.futureverse.org/): For running the calculations in parallel
+This exercise uses a variety of packages to complete the machine learning model:
+
+* [keras](https://tensorflow.rstudio.com/guide/keras/): For creating the deep learning model
+* [recipes](https://recipes.tidymodels.org/): For creating a preprocessing pipeline
+* [furrr](https://furrr.futureverse.org/): For running the calculations in parallel
 ```{r imports}
 library(tidyverse)
 library(future)
@@ -36,7 +36,7 @@ library(tictoc)
 
 
 ### Download and Split the Dataset
-The first thinge we need to do is define functions to download the dataset from s3, select the approprate columns, and split the dataset into training and test sets (using the [rsample](https://rsample.tidymodels.org/) package). Here we select 80% of the data for training.
+We first need to define functions to download the dataset from s3, select the approprate columns, and split the dataset into training and test sets (using the [rsample](https://rsample.tidymodels.org/) package). Here we select 80% of the data for training:
 
 ```{r download filter and split data}
 download_data <- function() {
@@ -64,16 +64,19 @@ split_data <- function(births_data) {
 }
 ```
 
-### Make a Recipie
-Once we have the data split approprately, we can begin preprocessing the data. To do this, we use the receipe package to create a pipeline.
+### Make a Recipe
+Once we have the data split appropriately, we can preprocess the data. To do this, we use the recipe package to create a pipeline.
 
-The recipe package allows for [deplyr](https://dplyr.tidyverse.org/-like pipline sequences to make data ready for modeling. In this function, we use a recipe to:
-* Select the training data only
-* Set the "weight_pounds" column as our target column
-* Remove all na values
-* Bin the "mother_age" and "gestation_weeks" columns
-* One-hot encode the nominal columns
-* Center and scale the data
+The recipe package allows for [deplyr](https://dplyr.tidyverse.org/)-like pipline sequences to make data ready for modeling. In this function, we use a recipe to do the following:
+
+* Select the training data only.
+* Set the "weight_pounds" column as our target column.
+* Remove all N/A values.
+* Bin the "mother_age" and "gestation_weeks" columns.
+* One-hot encode the nominal columns.
+* Center and scale the data.
+
+This recipe simply defines the pipeline. In order to actually pass data through the pipeline, we need to use the `bake` function.
 
 ```{r make recipe}
 prepare_recipe <- function(births_data_split) {
@@ -99,11 +102,8 @@ prepare_recipe <- function(births_data_split) {
 }
 ```
 
-This recipe simply defines the pipeline. In order to actually pass data through the pipeline, we need to either use the `juice` function
-
-
 ### Define the Keras Model
-Next, we need to define the model we will run. We do this using a sequential keras model consisting of three dense layers and two dropout layers. The function takes variables for the dense layer dimensions and activation functions for later tuning.
+Next, we need to define the model we will run by using a sequential keras model consisting of three dense layers and two dropout layers. The function takes variables for the dense layer dimensions and activation functions as inputs for tuning later.
 
 ```{r define model}
 define_model <- function(recipe_object,
@@ -145,9 +145,7 @@ define_model <- function(recipe_object,
 ```
 
 ### Train and Test the Model
-Our last function definitions train the model and determine the quality of the results. 
-
-The model is fit, the mean absolute error calculated, and the results added to a table with the corresponding hyperparamenters.
+Our last function definitions train the model and determine the quality of the results. The model is fit, the mean absolute error calculated, and the results added to a table with the corresponding hyperparameters.
 
 ```{r train model}
 train_model <- function(recipe_object,
@@ -224,11 +222,7 @@ test_model <- function(births_data_split,
 ```
 
 ### Let's Run the Model!
-It's finally time to run the functions we just created. Here are all of the preprocessing steps.
-
-We also define the hyperparameters we want to test. In this example, we are simply changing the layer_1 units and activation function, but any number of combinations or other variables could be changed. 
-
-We use the expand_grid function (with `list()` around constants) to create the approprate data.table.
+It's finally time to run the functions we just created. Here are all the preprocessing steps.
 
 ```{r preprocess, eval = FALSE}
 births_raw_data <- download_data()
@@ -246,7 +240,11 @@ hyperparameters <- expand_grid(
 )
 ```
 
-### Model with purrr and furrr
+We also define the hyperparameters we want to test. In this example, we are simply changing the layer_1 units and activation function, but any number of combinations or other variables could be changed. 
+
+We use the expand_grid function (with `list()` around constants) to create the appropriate data.table.
+
+#### Try Running the Model with purrr
 Let's first try it with purrr to iterate through the various models.
 
 Actually, let's not -- it takes over 15 minutes to run this code.  
@@ -265,6 +263,8 @@ Actually, let's not -- it takes over 15 minutes to run this code.
 #   top_n(-1, mean_absolute_error) %>%
 #   head(1)
 ```
+
+#### Run the Model with furrr
 
 Instead, let's try it with a parallel backend. In this case, we ask for six workers for six processes.
 
@@ -290,11 +290,13 @@ print(best_result_furrr)
 plan(sequential)
 ```
 
-Nice! That only took five minutes to complete the training of six different models. That is 3x faster than the purrr code!
+Nice! That only took five minutes to complete the training of six different models. That is three times faster than the purrr code!
 
-Why isn't it 6x faster? Well, despite this being a perfectly parralleizable algorithm, there are still tradeoffs to moving to a parallel backend. Setup and data communication take time which slows down the whole process. Also, keras is slightly parallel even in a single process. Because we are using six cores on an eight core machine, each model trains slightly more slowly than a single model with more overhead.
+Why isn't it six times faster?
+
+Despite this being a perfectly parrallelizable algorithm, moving to a parallel backend involves tradeoffs. Setup and data communication take time. Also, keras is slightly parallel even in a single process. Because we are using six cores on an eight-core machine, each model trains slightly more slowly than a single model with more overhead.
 
 ## Conclusion
-Furrr is a great solution for speeding up parralleizable code. If the computations are extensive enough to overcome any slowdown due to setup and data communication, parrallizing using furrr over purrr can lead to significant time savings. 
+Furrr is a great solution for speeding up parrallelizable code. If the computations are extensive enough to overcome any slowdown due to setup and data communication, parrallelizing using furrr over purrr can lead to significant time savings. 
 
 Thanks to [Deep Learning With Keras To Predict Customer Churn](https://blogs.rstudio.com/ai/posts/2018-01-11-keras-customer-churn/) for the inspiration for this article.

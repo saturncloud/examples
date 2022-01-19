@@ -4,40 +4,39 @@ description: An overview of the R future package
 output: html_notebook
 ---
 
-The [`future`](https://cran.r-project.org/web/packages/future/index.html) package is a simple and uniform method for asynchonous computing. The package provides a way of submitting functions that don't block the current R session. It is cross-platform and works on a variety of backends.
+The [future](https://cran.r-project.org/web/packages/future/index.html) package is a simple and uniform method for asynchonous computing. It provides a way of submitting functions that don't block the current R session. It is cross-platform and works on a variety of backends.
 
 A future is an object that represents a promise to return the value of a function when it is computed. The future itself executes almost instantly, but the function continues to process in the background on a separate R process. This delegation of execution allows the main R process to move on to other computations while the background process continues to execute. 
 
 A future consists of three parts:
-* The execution environment
-* The expression to the executed
-* The status of the execution
 
-## The Execution Enviornment
+1. The execution environment
+2. The expression to the executed
+3. The status of the execution
 
-To start using futures, you first need to define the execution enviornment. The execution environment defines where to execute the calculation defined by the future. 
+## The Execution Environment
 
-Execution environments are defined using the `plan` function:
+To start using futures, first specify the execution environment. The execution environment determines where to execute the calculation defined by the future. It is defined using the `plan` function. Consider this example:
 
 ```{r plan example, eval = FALSE}
 plan(multisession)
 ```
 
-> **Note**: The results of a future does not depend on what `plan` you choose, there is consistent behavior of futures across plans. 
+> **Note**: The result of a future does not depend on what `plan` you choose; a future behaves consistently across plans. 
 
-There are several built in plans for local and distributed computing:
+There are several built-in plans for local and distributed computing:
 
-* **sequential** - This is a non-parallel, blocking execution enviornmnet. This is the standard `plan`. You can think of this as the default single-threaded R process. You won't see any performance increase by using futures in this environment, but it can be useful for debugging and testing.
-* **multisession** - This is a parallel, non-blocking execution enviornmnet. This `plan` will allow futures to utilize additional background R sessions to perform computations. This is useful on local machines where you want to utilize more than one core.
-* **multisession** - This is a parallel, non-blocking execution enviornmnet. Instead of running on background R sessions, like multisession, this `plan` runs on forked R processes. This has some speed advantages, particularly with memory overhead, but is not stable on Windows or RStudio. 
-* **cluster** - This is a parallel, non-blocking execution enviornmnet. It allows futures evaluations to run on external R sessions. It can be used on both local and remote machines. 
+* **sequential**: A non-parallel, blocking execution environment -- This is the standard `plan`. Think of this as the default single-threaded R process. You won't see any performance changes by using futures in this environment, but this `plan` can be useful for debugging and testing.
+* **multisession**: A parallel, non-blocking execution environment -- This `plan` will allow futures to utilize additional background R sessions to perform computations, which is useful on local machines where you want to utilize more than one core.
+* **multisession**: A parallel, non-blocking execution environment -- Instead of running on background R sessions, like multisession, this `plan` runs on forked R processes. This approach has some speed advantages, particularly a reduction in memory overhead, but it is not stable on Windows or RStudio. 
+* **cluster**: A parallel, non-blocking execution environment -- It allows futures evaluations to run on external R sessions. It can be used on both local and remote machines. 
 
-In addition to these built-in plans, futures can also be used with [batchtools](https://github.com/mllg/batchtools) or [callr](https://cran.r-project.org/web/packages/future.callr/index.html) backends, or it can be extended with custom backends.
+In addition to these built-in plans, futures can also be used with [batchtools](https://github.com/mllg/batchtools), [callr](https://cran.r-project.org/web/packages/future.callr/index.html), or custom backends.
 
-## The Expression to be Executed
-Futures can be created either implicitly or explicity. Both styles work -- implict futures are more similar to regular R code while explicit futures can be clearer and easier to read. 
+## The Expression to Be Executed
+Futures can be created either implicitly or explicity. Both styles work to the same end but with different syntax: implict futures are more similar to regular R code, whereas explicit futures can be clearer and easier to read. 
 
-To define an implicit future, all you have to do is to replace `<-` with `%<-%`. 
+To define an implicit future, simply replace `<-` with `%<-%`, like in the example below. The value of an implicitly defined future is returned automatically.
 
 ```{r implict future example, eval = FALSE}
 v %<-% {
@@ -45,9 +44,8 @@ v %<-% {
 }
 ```
 
-The value of an implicitly defined future is returned automatically.
 
-To define an explicit future, you need to wrap it in the `future` function. For explict futures, you need to request the value manually. 
+To define an explicit future, wrap it in the `future` function. For explict futures, you need to request the value manually. Consider the example below:
 
 ```{r explicit future example, eval = FALSE}
 f <- future({
@@ -60,7 +58,7 @@ We will use explict futures for the remainder of this document.
 
 ## The Status of the Execution
 
-The state of a future can either be resolved or unreolved -- finished with it's calculation or still running. Calling `value()` will automatically block the main R process until the future is resolved. If you want to check whether a future is resolved without blocking, you can use the `resolved` function.
+The state of a future can be either resolved or unresolved -- either finished with its calculation or still running. Calling `value()` will automatically block the main R process until the future is resolved and then return the value. If you want to check whether a future is resolved without blocking, you can use the `resolved` function, shown below:
 
 ```{r resolved example, eval = FALSE}
 f <- future({
@@ -72,13 +70,12 @@ r <- resolved(f) # check if it is done
 v <- value(f) # wait and get the result
 ```
 
-## Lets Look At Some Examples
+## Let's Look at Some Examples
 
-First, lets define some simple functions.
-```{r imports}
+Let's start by defining some simple functions:
+```{r imports and functions}
 library(future)
-```
-```{r functions}
+
 increment <- function(x) {
     Sys.sleep(runif(1))
     return(x + 1)
@@ -96,7 +93,7 @@ add <- function(x, y) {
 ```
 
 
-Let's try out the sequential enviornment. We define the seed parameter in the future function due to the use of random numbers in the functions.
+Let's try out the sequential environment. We define the seed parameter in the future function due to the use of random numbers in the functions:
 
 ```{r sequential plan}
 plan(sequential)
@@ -109,7 +106,7 @@ print(value(future))
 
 As you can see, `resolved()` returned TRUE, showing that the future was evaluated completely before the R process moved on to the `resolved` function. This is exactly how we would expect the function to work without the futures package.
 
-If we want to have non-blocking code, we need to use one of the other enviornments. Here we use `multisession`.
+If we want to have non-blocking code, we need to use one of the other environments. Here we use `multisession`:
 
 ```{r mulitisession plan}
 plan(multisession)
@@ -120,9 +117,9 @@ resolved(future)
 print(value(future))
 ```
 
-This time, the `resolved` function returned FALSE. This shows that, instead of waiting until the future completed, this time the R process continued on before finally waiting for the function to complete at the `value` function. 
+This time, the `resolved` function returned FALSE. This shows that, instead of waiting until the future completed, the R process continued on before finally waiting for the function to complete at the `value` function. 
 
-One thing to note is that, while futures can be nested, they can't be chained. Before using a future as an input to another future, you need to evaluate and get the values of the future.
+Note that, although futures can be nested, they can't be chained. Before using a future as an input to another future, you need to evaluate and get its values, as shown below:
 
 ```{r future from futures explicit}
 x <- future(increment(1), seed = TRUE)
@@ -139,7 +136,7 @@ resolved(z)
 print(value(z))
 ```
 
-Before ending your session, it is a good idea to revert the plan to sequential computations.
+Before ending your session, revert the plan to sequential computations:
 ```{r sequential plan reset}
 plan(sequential)
 ```
