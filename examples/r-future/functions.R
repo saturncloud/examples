@@ -26,7 +26,7 @@ filter_data <- function(births_raw_data) {
 
 split_data <- function(births_data) {
     births_data_split <- births_data %>%
-        initial_split(prop = 0.2)
+        initial_split(prop = 0.8)
 
     return(births_data_split)
 }
@@ -59,9 +59,7 @@ define_model <- function(recipe_object,
                          layer2_units,
                          layer1_activation,
                          layer2_activation) {
-    input_shape <- ncol(
-        juice(recipe_object, all_predictors(), composition = "matrix")
-    )
+    input_shape <- ncol(bake(recipe_object, all_predictors(), new_data = NULL))
 
     keras_model <- keras_model_sequential()
 
@@ -106,16 +104,23 @@ train_model <- function(recipe_object,
         layer2_activation
     )
 
-    X_train <- juice(recipe_object, all_predictors(), composition = "matrix")
-    y_train <- juice(recipe_object, all_outcomes()) %>%
-        pull()
+    x_train <- bake(recipe_object,
+        all_predictors(),
+        new_data = NULL,
+        composition = "matrix"
+    )
+    y_train <- bake(recipe_object,
+        all_outcomes(),
+        new_data = NULL,
+        composition = "matrix"
+    )
 
     fit(
         object = model,
-        x = X_train,
+        x = x_train,
         y = y_train,
-        batch_size = 1024,
-        epochs = 2,
+        batch_size = 256,
+        epochs = 8,
         validation_split = 0.2,
         verbose = 0
     )
@@ -126,14 +131,14 @@ train_model <- function(recipe_object,
 
 test_results <- function(births_data_split, recipe_object, keras_model) {
     testing_data <- bake(recipe_object, testing(births_data_split))
-    X_test <- testing_data %>%
+    x_test <- testing_data %>%
         select(-weight_pounds) %>%
         as.matrix()
     y_test <- testing_data %>%
         select(weight_pounds) %>%
         pull()
     results <- keras_model %>%
-        evaluate(X_test, y_test)
+        evaluate(x_test, y_test, verbose = 0)
 
     return(results)
 }

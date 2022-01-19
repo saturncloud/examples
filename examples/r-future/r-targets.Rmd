@@ -1,0 +1,172 @@
+---
+title: "Using Targets in R"
+output: html_notebook
+---
+![targets logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/targets-logo.png "doc-image")
+
+## Overview
+[targets](https://cran.r-project.org/web/packages/targets/index.html) is a pipeline toolkit for R. It allows for reproducable workflows without unnecessarily repeating calculations. It also can use parallel backends ([future]((https://cran.r-project.org/web/packages/future/index.html)) or [clustermq](https://github.com/mschubert/clustermq)). 
+
+To illustrate this package, we use the same data, model, and functions that were used in the [furrr](r-furrr.Rmd) example. See that example for a thurough explaination.
+
+We will be using the future backend for parallel processing. You can learn more about how the future package works [here](r-future.Rmd).
+
+## Modeling Process
+### Imports
+The only library we need to import now is the targets library itself. All other libraries are imported during the workflow process.
+
+```{r imports}
+library(targets)
+```
+
+### Create a "_targets.R" file
+The first thing we need to do is to create a file named "_targets.R". This file will contain all of the information for targets to create a workflow.
+
+We do this using `writeLines` for simplicity. It is also possible to use [Target Markdown](https://books.ropensci.org/targets/markdown.html) to accomplish a similar task.
+
+The "_targets.R" file contains a few items:
+
+* Imports the approprate libraries
+* Imports the functions from "functions.R"
+* Sets global options for targets, including the packages that each target node needs
+* An execution enviornment for the future package
+* A list of target nodes
+
+
+Target nodes are defined in a list using the function `tar_target()`. Each target node is a single step in a workflow. They run an R command and return a value. 
+
+[`tar_target`](https://docs.ropensci.org/targets/reference/tar_target.html) has several inputs, but the important ones here are:
+* **name**: This is the name of the target node. Targets are referenced by name, so downstream nodes can reference upstream nodes by name.
+* **command**: This is the R function to run.
+* **format**: This is a storage format for the return value. This can have considerable positive effects to runtime if you are moving large files around.
+* **deployment**: This dictates where the function is to be run. It can either be "main" or "worker". Many of the functions in this graph will not be improved by parallelisation, so they are run on the "main" process.
+
+```{r create _targets.R}
+out_string <- 'library(targets)
+library(tarchetypes)
+library(future)
+
+source("functions.R")
+
+options(tidyverse.quiet = TRUE)
+
+tar_option_set(
+    packages = c(
+        "keras",
+        "recipes",
+        "rmarkdown",
+        "rsample",
+        "tidyverse",
+        "shiny"
+    )
+)
+
+plan(multisession)
+
+list(
+    tar_target(
+        data_download,
+        download_data(),
+        format = "qs",
+        deployment = "main"
+    ),
+    tar_target(
+        data,
+        filter_data(data_download),
+        format = "qs",
+        deployment = "main"
+    ),
+    tar_target(
+        data_split,
+        split_data(data),
+        format = "qs",
+        deployment = "main"
+    ),
+    tar_target(
+        recipe,
+        prepare_recipe(data_split),
+        format = "qs",
+        deployment = "main"
+    ),
+    tar_target(
+        layer1_units,
+        c(8, 16, 32),
+        deployment = "main"
+    ),
+    tar_target(
+        layer2_units,
+        c(16),
+        deployment = "main"
+    ),
+    tar_target(
+        layer1_activation,
+        c("relu", "sigmoid"),
+        deployment = "main"
+    ),
+    tar_target(
+        layer2_activation,
+        c("relu"),
+        deployment = "main"
+    ),
+    tar_target(
+        run,
+        test_model(
+            data_split,
+            recipe, layer1_units,
+            layer2_units,
+            layer1_activation,
+            layer2_activation
+        ),
+        pattern = cross(layer1_units, layer1_activation),
+        format = "fst_tbl"
+    ),
+    tar_target(
+        best_run,
+        run %>%
+            top_n(-1, mean_absolute_error) %>%
+            head(1),
+        format = "fst_tbl",
+        deployment = "main"
+    ),
+    tar_render(report, "report.Rmd")
+)'
+writeLines(out_string, "_targets.R")
+```
+
+### See the Target Graph
+Once the target workflow is defined by the "_targets.R" file, we can take a look at the resulting directed acyclic graph (DAG). Running `tar_visnetwork()` will output a DAG showing the relationship between target nodes. This can be very useful when you are first setting up a workflow.
+
+```{r tar_visnetwork, eval=FALSE}
+tar_visnetwork()
+```
+
+This is an example of the DAG for this workflow:
+
+!['Example DAG'](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/targets-DAG-legend.png "doc-image")
+
+As you can see, each node is connected and has a status.
+
+### Watch the Progress
+If you want to see a live view of the graph and various statuses, you can run the `tar_watch()` command. This command opens a shiny app which displays a verity of information. It is updated, by default, every 10 seconds.
+
+```{r tar_watch, eval=FALSE}
+tar_watch()
+```
+
+You can see an example for this pipeline below:
+
+!['Example tar_watch'](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/targets-watch.png "doc-image")
+
+### Run the Targets workflow
+
+Finally, lets actually run the workflow. In this case we are using `tar_make_future()` because we want to use the future parallel back-end. Because we defined our plan as multisession in the "_targets.R" file, the code we marked to send to workers will be sent to appropariate future processes.
+
+```{r tar_run, eval=FALSE}
+tar_make_future(workers = 6)
+```
+
+That's it! The process for this particular workflow takes approximatly five minutes to compute all of the hyperparameter options.
+
+If, for instance, you stop the computation in the middle to change a parameter, targets will remember what has already been computed and skip running those steps in the next run. Pretty neat!
+
+## Conclusion

@@ -6,8 +6,6 @@ source("functions.R")
 
 options(tidyverse.quiet = TRUE)
 
-plan(multisession(workers = 6))
-
 tar_option_set(
     packages = c(
         "keras",
@@ -18,6 +16,8 @@ tar_option_set(
         "shiny"
     )
 )
+
+plan(multisession)
 
 list(
     tar_target(
@@ -68,8 +68,7 @@ list(
         run,
         test_model(
             data_split,
-            recipe,
-            layer1_units,
+            recipe, layer1_units,
             layer2_units,
             layer1_activation,
             layer2_activation
