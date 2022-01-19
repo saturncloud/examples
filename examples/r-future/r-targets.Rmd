@@ -137,7 +137,7 @@ writeLines(out_string, "_targets.R")
 ### Show the Target Graph
 Once the target workflow is defined by the "_targets.R" file, we can take a look at the resulting directed acyclic graph (DAG). Running `tar_visnetwork()` will output a DAG that shows the relationship between target nodes. This can be very useful when you are first setting up a workflow.
 
-```{r tar_visnetwork, eval=FALSE}
+```{r tar_visnetwork}
 tar_visnetwork()
 ```
 
@@ -149,7 +149,7 @@ Below is an example of the DAG for this workflow. As you can see, each node is c
 ### Watch the Progress
 If you want to see a live view of the graph and various statuses, you can run the `tar_watch()` command. This command opens a shiny app that displays a variety of information. It is updated, by default, every 10 seconds.
 
-```{r tar_watch, eval=FALSE}
+```{r tar_watch}
 tar_watch()
 ```
 
@@ -161,11 +161,11 @@ You can see an example for this pipeline below:
 
 Finally, let's actually run the workflow. In this case, we are using `tar_make_future()` because we want to use the future parallel backend. Because we defined our plan as multisession in the "_targets.R" file, the code we marked to send to workers will be sent to appropriate future processes.
 
-```{r tar_run, eval=FALSE}
+```{r tar_run}
 tar_make_future(workers = 6)
 ```
 
-That's it! This particular workflow takes approximately five minutes to compute all the hyperparameter options.
+That's it! This particular workflow takes approximately five minutes to compute all the hyperparameter options. You can find the complete results in the "report.html" document.
 
 If, for instance, you stop the computation in the middle to change a parameter, targets will remember what has already been computed and skip running those steps in the next run. Pretty neat!
 

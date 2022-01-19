@@ -224,7 +224,7 @@ test_model <- function(births_data_split,
 ### Let's Run the Model!
 It's finally time to run the functions we just created. Here are all the preprocessing steps.
 
-```{r preprocess, eval = FALSE}
+```{r preprocess}
 births_raw_data <- download_data()
 births_data <- filter_data(births_raw_data)
 births_data_split <- split_data(births_data)
@@ -270,7 +270,7 @@ Instead, let's try it with a parallel backend. In this case, we ask for six work
 
 The only change to the purrr code is to add the futures `plan` and exchanging `pmap_dfr` with `future_pmap_dfr`. 
 
-```{r furrr evaluation, eval = FALSE}
+```{r furrr evaluation}
 #####################
 ## Run this instead##
 #####################
