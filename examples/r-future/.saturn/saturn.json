@@ -20,6 +20,6 @@
   ],
   "rstudio_server": {
     "instance_type": "2xlarge",
-    "disk_space": "10Gi",
+    "disk_space": "10Gi"
   }
 }
