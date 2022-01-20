@@ -1,6 +1,6 @@
 {
   "name": "example-api",
-  "image_uri": "saturncloud/saturn:2021.11.10",
+  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.01.06",
   "description": "Deploy an API to Saturn Cloud. Learn more at: https://scld.io/ex/py-api",
   "extra_packages": {
     "pip": "uvicorn fastapi"
@@ -15,5 +15,6 @@
   "deployment": {
     "instance_type": "large",
     "command": "python3 -m uvicorn houseprice:app --reload --host 0.0.0.0 --port 8000"
-  }
+  },
+  "version": "2022.01.06"
 }

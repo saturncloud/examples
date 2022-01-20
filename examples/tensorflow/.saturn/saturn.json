@@ -1,6 +1,6 @@
 {
   "name": "example-tensorflow",
-  "image_uri": "saturncloud/saturn-tensorflow:2021.11.10",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-tensorflow:2022.01.06",
   "description": "Train deep learning models with TensorFlow",
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
@@ -15,5 +15,6 @@
   "jupyter_server": {
     "disk_space": "40Gi",
     "instance_type": "g4dnxlarge"
-  }
+  },
+  "version": "2022.01.06"
 }
