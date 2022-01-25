@@ -9,7 +9,7 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
-      "reference": "fix-dask"
+      "reference": "release-2022.01.06"
     }
   ],
   "jupyter_server": {
