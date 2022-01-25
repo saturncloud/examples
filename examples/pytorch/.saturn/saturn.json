@@ -1,6 +1,6 @@
 {
   "name": "example-pytorch",
-  "image_uri": "saturncloud/saturn-pytorch:2021.11.10",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-pytorch:2022.01.06",
   "description": "Use PyTorch with a single GPU or across multiple GPUs with Dask",
   "environment_variables": {
     "DASK_DISTRIBUTED__WORKER__DAEMON": "False",
@@ -12,8 +12,7 @@
   },
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "release-2022.01.06"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "jupyter_server": {
@@ -28,5 +27,6 @@
     "scheduler": {
       "instance_type": "large"
     }
-  }
+  },
+  "version": "2022.01.06"
 }

@@ -1,6 +1,6 @@
 {
   "name": "example-rapids",
-  "image_uri": "saturncloud/saturn-rapids:2021.11.10",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-rapids:2022.01.06",
   "description": "Use GPUs for data science and machine learning with this platform by NVIDIA",
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
@@ -8,8 +8,7 @@
   "working_directory": "/home/jovyan/examples/examples/rapids",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "release-2022.01.06"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "jupyter_server": {
@@ -24,5 +23,6 @@
     "scheduler": {
       "instance_type": "large"
     }
-  }
+  },
+  "version": "2022.01.06"
 }

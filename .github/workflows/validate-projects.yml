@@ -29,6 +29,12 @@ jobs:
         uses: s-weigand/setup-conda@v1
         with:
           python-version: 3.7
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_PUBLIC_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_PUBLIC_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
       - name: linting
         if: matrix.task == 'linting'
         shell: bash
