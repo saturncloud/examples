@@ -20,5 +20,5 @@ This resource has multiple Dask example notebooks to show different Dask concept
 * `special-topics` - Other methods helpful for Dask
   * [`special-topics-cli-calls.ipynb`](special-topics-cli-calls.ipynb)
   * [`special-topics-logging.ipynb`](special-topics-logging.ipynb)
-  * ['special-topics-rolling-average.ipynb'](special-topics-rolling-average.ipynb)
+  * [`special-topics-rolling-average.ipynb`](special-topics-rolling-average.ipynb)
 
