@@ -6,7 +6,8 @@
   "start_script": "Rscript setup.R",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples"
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "release-2022.01.06"
     }
   ],
   "deployment": {
