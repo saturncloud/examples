@@ -8,16 +8,17 @@ This resource has multiple Dask example notebooks to show different Dask concept
 
 * [`starting-dask.ipynb`](starting-dask.ipynb) - An introduction to using Dask on Saturn Cloud
 * `dask-collections` - Details on particular Dask Collections
-  * [`dask-dataframe.ipynb`](dask-dataframe.ipynb)
-  * [`dask-array.ipynb`](dask-array.ipynb)
-  * [`dask-bag.ipynb`](dask-bag.ipynb)
+  * [`dask-collections-dask-dataframe.ipynb`](dask-collections-dask-dataframe.ipynb)
+  * [`dask-collections-dask-array.ipynb`](dask-collections-dask-array.ipynb)
+  * [`dask-collections-dask-bag.ipynb`](dask-collections-dask-bag.ipynb)
 * `dask-concurrency` - Using the different concurrency libraries in Dask
-  * [`dask-delayed.ipynb`](dask-delayed.ipynb)
-  * [`dask-futures.ipynb`](dask-future.ipynb)
+  * [`dask-concurrency-dask-delayed.ipynb`](dask-concurrency-dask-delayed.ipynb)
+  * [`dask-concurrency-dask-futures.ipynb`](dask-concurrency-dask-futures.ipynb)
 * `machine-learning` - Machine learning methods for Dask
-  * [`model-training.ipynb`](model-training.ipynb)
-  * [`grid-search.ipynb`](grid-search.ipynb)
+  * [`machine-learning-model-training.ipynb`](machine-learning-model-training.ipynb)
+  * [`machine-learning-grid-search.ipynb`](machine-learning-grid-search.ipynb)
 * `special-topics` - Other methods helpful for Dask
-  * [`cli-calls.ipynb`](cli-calls.ipynb)
-  * [`logging.ipynb`](logging.ipynb)
+  * [`special-topics-cli-calls.ipynb`](special-topics-cli-calls.ipynb)
+  * [`special-topics-logging.ipynb`](special-topics-logging.ipynb)
+  * ['special-topics-rolling-average.ipynb'](special-topics-rolling-average.ipynb)
 
