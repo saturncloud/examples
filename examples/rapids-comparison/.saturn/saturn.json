@@ -1,6 +1,6 @@
 {
   "name": "example-rapids-comparison",
-  "image_uri": "saturncloud/saturn-rapids:2021.09.20",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-rapids:2022.01.06",
   "description": "Compare how RAPIDS performs at model training with a GPU",
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
@@ -8,7 +8,8 @@
   "working_directory": "/home/jovyan/examples/examples/rapids",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples"
+      "url": "https://github.com/saturncloud/examples",
+      "reference": "release-2022.01.06"
     }
   ],
   "jupyter_server": {
