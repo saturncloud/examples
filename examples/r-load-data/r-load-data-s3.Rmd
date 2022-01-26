@@ -1,0 +1,93 @@
+---
+title: Load Data From S3 Buckets
+description: Load data stored in AWS S3 buckets into Saturn Cloud
+output: html_notebook
+---
+
+![S3 Logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/s3-logo.png)
+
+## Overview
+
+If you use AWS S3 to store your data, connecting to Saturn Cloud takes just a couple of steps. 
+
+In this example we use <a href="https://cran.r-project.org/web/packages/aws.s3/" target='_blank' rel='noopener'>`aws.s3`</a> to connect to data, 
+but you can also use libraries like <a href="https://paws-r.github.io/" target='_blank' rel='noopener'>`paws`</a> or 
+<a href="https://cran.r-project.org/web/packages/botor/index.html" target='_blank' rel='noopener'>`botor`</a> if you prefer.
+
+Before starting this, you should create a RStudio server resource. See our [quickstart](https://saturncloud.io/docs/start_in_ten/) if you don't know how to do this yet.
+
+## Process
+
+To connect to public S3 buckets, you can simply connect using anonymous connections in RStudio, the way you might with your local laptop. In this case, you can skip to the [Connect to Data Via `aws.s3` section](#connect-via-aws-s3).
+
+If your S3 data storage is not public and requires AWS credentials, please read on! 
+
+### Create AWS Credentials
+Credentials for S3 access can be acquired inside your AWS account. Visit <a href="https://aws.amazon.com/" target='_blank' rel='noopener'>https://aws.amazon.com/</a> and sign in to your account.
+
+In the top right corner, click the dropdown under your username and select **My Security Credentials**.
+
+![Screenshot of AWS site My Security Credentials page](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/aws-secrurity-credentials-arrow.png "doc-image")
+
+Under "My Security Credentials" you'll see section titled "Access keys for CLI, SDK, & API access". If you don't yet have an access key listed, create one.
+
+![Screenshot of Access Keys section of AWS site My Security Credentials page](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/aws-access-key.png "doc-image")
+
+Save the key information that this generates, and keep it in a safe place!
+
+### Add AWS Credentials to Saturn Cloud
+Sign in to your Saturn Cloud account and select **Credentials** from the menu on the left.
+
+<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn-credentials-arrow.jpeg" style="width:200px;" alt="Saturn Cloud left menu with arrow pointing to Credentials tab" class="doc-image">
+
+This is where you will add your S3 API key information. *This is a secure storage location, and it will not be available to the public or other users without your consent.*
+
+At the top right corner of this page, you will find the **New** button. Click here, and you will be taken to the Credentials Creation form. 
+
+![Screenshot of Saturn Cloud Create Credentials form](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/credentials.jpg "doc-image")
+
+You will be adding three credentials items: your AWS Access Key, AWS Secret Access Key, and you default region. Complete the form one time for each item. 
+
+|  Credential | Type  | Name| Variable Name  |
+|---|---|---|---|
+| AWS Access Key ID   |  Environment Variable  | `aws-access-key-id` | `AWS_ACCESS_KEY_ID`
+| AWS Secret Access Key | Environment Variable  | `aws-secret-access-key`  | `AWS_SECRET_ACCESS_KEY`
+| AWS Default Region  | Environment Variable  | `aws-default-region`  | `AWS_DEFAULT_REGION`
+
+Copy the values from your AWS console into the *Value* section of the credential creation form. The credential names are recommendations; feel free to change them as needed for your workflow. You must, however, use the provided *Variable Names* for S3 to connect correctly.
+
+With this complete, your S3 credentials will be accessible by Saturn Cloud resources! You will need to restart any RStudio Server for the credentials to populate to those resources.
+
+<a id='connect-via-aws-s3'></a>
+
+### Setting Up Your Resource
+`aws.s3` is not installed by default in Saturn images, so you will need to install it onto your resource. This is already done in this example recipe, but if you are using a custom resource you will need to `install.packages("aws.s3")`. Check out our page on [installing packages](https://saturncloud.io/docs/using-saturn-cloud/install-packages/) to see the various methods for achieving this!
+
+### Connect to Data Via `aws.s3`
+#### Set Up the Connection
+Normally, `aws.s3` will automatically seek your AWS credentials from the environment. Since you have followed our instructions above for adding and saving credentials, this will work for you! The below command simply lists your s3 buckets.
+
+```{r}
+library(aws.s3)
+
+bucketlist()
+```
+
+Now you can save files directly to your current working directory using the `save_object` command.
+
+```{r }
+save_object("s3://saturn-public-data/hello_world.txt")
+```
+
+If you prefer to read the data directly into a variable (in this instance, a data.table), you can save it as a temp file and read it from there.
+
+```{r}
+library(dplyr)
+library(data.table)
+
+data <-
+    save_object("s3://saturn-public-data/pet-names/seattle_pet_licenses.csv",
+        file = tempfile(fileext = ".csv")
+    ) %>%
+    fread()
+```
