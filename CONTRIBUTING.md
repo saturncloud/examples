@@ -28,40 +28,36 @@ Each directory below `examples/` corresponds to one new resource that will be cr
 
 ```text
 examples/
-├── examples-cpu
-│   ├── nyc-taxi
-│   │   ├── dashboard.ipynb
-│   │   ├── hyperparameter-dask.ipynb
-│   │   ├── hyperparameter-scikit.ipynb
-│   │   ├── random-forest-scikit.ipynb
-│   │   ├── README.md
-│   │   ├── xgboost-dask.ipynb
-│   │   └── xgboost.ipynb
-│   ├── prefect
-│   │   ├── flow.png
-│   │   ├── prefect-scheduled-scoring.ipynb
-│   │   └── README.md
-│   ├── README.md
-│   └── .saturn
-│       ├── saturn.json
-│       └── start
-└── examples-gpu
-    ├── nyc-taxi
-    │   ├── random-forest-rapids.ipynb
-    │   ├── README.md
-    │   └── xgboost-rapids.ipynb
-    ├── README.md
-    └── .saturn
-        ├── saturn.json
-        └── start
+├── api
+│   ├── houseprice.py
+│   ├── README.md
+│   └── .saturn
+│       └── saturn.json
+├── autoshutoff-jupyter-kernel
+│   ├── autoshutoff.py
+│   ├── README.md
+│   ├── .saturn
+│   │   └── saturn.json
+│   └── userautoshutoff.py
+├── dashboard
+│   ├── dashboard.ipynb
+│   ├── README.md
+│   └── .saturn
+│       └── saturn.json
+├── dask
+│   ├── README.md
+│   ├── .saturn
+│   │   └── saturn.json
+│   └── start-with-dask.ipynb
+
 ```
 
-NOTE: this was generated with `tree -a examples/`.
+NOTE: this is part of the output from `tree -a examples/`.
 
 To test if you've added a new example correctly, run the following from the root of this repo:
 
 ```shell
-make test
+make test validate
 ```
 
 If this raises any issues, try automatically fixing them
@@ -70,69 +66,22 @@ If this raises any issues, try automatically fixing them
 make format
 ```
 
-### The `README.md`
-
-Each folder exactly one and two levels below `examples/` should have a `README.md`. This should contain relevant information for understanding the example, such as:
-
-* description of any manual steps needed to use the code (like configuring credentials)
-* links to reference material like blogs posts or data dictionaries
-
-So, for example, in the directory structure above, `examples-cpu/README.md` is required, `examples-cpu/prefect/README.md` is required, but `examples-cpu/prefect/some-other-directory/README.md` would not be required.
-
-### The `.saturn` Directory
-
-Each example must contain a special directory called `.saturn`. This contains the details needed for Saturn to create the necessary resources for the example. This can contain the following files, and any other files will be ignored.
-
-* [`.saturn/saturn.json`](#saturn-json)
-* [`.saturn/start`](#start-script)
-
-#### `.saturn/saturn.json` <a name="saturn-json"></a>
-
-A JSON with the following structure:
-
-```json
-{
-    "image": "saturncloud/saturn:2020.07.08.1",
-    "jupyter": {
-        "size": "8xlarge",
-        "disk_space": "256Gi",
-        "ssh_enabled": false
-    },
-    "environment_variables": {
-        "TAXI_S3": "s3://saturn-titan/nyc-taxi"
-    },
-    "description": "GPU-accelerated machine learning model training with RAPIDS."
-}
-```
-
-* `image`: the name of an image to use for the Jupyter server and all Dask clusters
-* `jupyter`: customization specific to the jupyter server, including:
-    - `size`: A valid size for a Saturn instance
-    - `disk_space`: An amount of disk space, in units `Gi`. See the "Disk Space" dropdown on the "Jupyter" page in the Saturn UI for valid values.
-    - `ssh_enabled`: A boolean indicating whether to set up [SSH access from outside Saturn into the Server](https://saturncloud.io/docs/tips-and-tricks/ssh/)
-* `environment_variables`:
-    - A dictionary whose keys are the names of environment variables, and whose values are the values for the environment variables.
-* `description`: plain text explaining what the resource does
-
-Any customization of Dask clusters should be done in notebook code, using [`dask-saturn`](https://github.com/saturncloud/dask-saturn).
-
-#### `.saturn/start` <a name="start-script"></a>
-
-A shell script that will be run on startup of the Jupyter server and all Dask resources. This should contain code that runs quickly, like `pip install`-ing libraries.
-
 # Releasing
 
 Releases of this repository follow releases of Saturn Cloud.
 
 When it is time to cut a new release, follow these steps:
 
-1. Create a pull request into `main` which updates all of the `"image"` entries in `saturn.json` files to the latest images released from https://github.com/saturncloud/images (if you want).
+1. Create a pull request into `main` which updates all of the `"image_uri"` entries in `saturn.json` files to the latest images released from https://github.com/saturncloud/images (if you want).
 1. Create a new branch from `main`. It's name must start with `release-`.
 
     ```shell
     git pull origin main
-    git checkout -b release-2020.08.14
-    git push release-2020.08.14
+    git checkout -b release-2022.01.06
+    python .ci/update-references.py release-2022.01.06
+    git add *.json
+    git commit -m "Update reference in every recipe"
+    git push release-2022.01.06
     ```
 
 1. In the private repo with Saturn's backend, update the setting `EXAMPLE_PROJECTS_BRANCH` to this release branch's name.
