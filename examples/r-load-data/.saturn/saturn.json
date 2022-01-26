@@ -16,5 +16,6 @@
     "disk_space": "10Gi",
     "instance_type": "large",
     "start_ssh": true
-  }
+  },
+  "version": "2022.01.06"
 }
