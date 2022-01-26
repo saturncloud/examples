@@ -20,8 +20,7 @@
     {
       "url": "git@github.com:saturncloud/Bringing-Old-Photos-Back-to-Life.git",
       "path": "/home/jovyan/examples/examples/old-photos/Code",
-      "on_restart": "reclone",
-      "reference": "release-2022.01.06"
+      "on_restart": "reclone"
     }
   ],
   "jupyter_server": {
