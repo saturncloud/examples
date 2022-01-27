@@ -1,6 +1,6 @@
 {
   "name": "example-dask",
-  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.01.06",
+  "image_uri": "saturncloud/saturn:2021.11.10",
   "description": "Samples of code and explanations for common Dask user tasks",
   "extra_packages": {
     "pip": "lightgbm"
