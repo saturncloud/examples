@@ -9,8 +9,7 @@
   "start_script": "wandb login --relogin $WANDB_LOGIN || true",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples",
-      "reference": "release-2021.11.10"
+      "url": "https://github.com/saturncloud/examples"
     }
   ],
   "jupyter_server": {
