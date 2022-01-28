@@ -3,7 +3,7 @@ These are the examples which were given in [this](https://saturncloud.io/blog/te
 
 ## Current Scripts
 
-* Training the [single node](comparison-training-multigpu.ipynb)
+* Training the [single node](comparison-training-singlenode.ipynb)
 * Training [multi-gpu single machine](comparison-training-multigpu.ipynb) 
 
 ## Things to Watch For
