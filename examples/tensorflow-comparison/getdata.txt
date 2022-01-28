@@ -1,0 +1,12 @@
+### How to get the datasets for this example
+
+>> Command Line <<
+pip install kaggle
+
+kaggle datasets download -d gpiosenka/100-bird-species
+
+>> Python <<
+import zipfile
+
+with zipfile.ZipFile('/home/jovyan/git-repos/tensorflow_ds/100-bird-species.zip', 'r') as zip_ref:
+    zip_ref.extractall('/home/jovyan/git-repos/tensorflow_ds/datasets/birds')
