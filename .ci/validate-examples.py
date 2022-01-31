@@ -21,7 +21,11 @@ from typing import Dict, List, Optional
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
-parser.add_argument("--skip-image-check", action='store_true', help="Whether to skip the image check (for local use)")
+parser.add_argument(
+    "--skip-image-check",
+    action="store_true",
+    help="Whether to skip the image check (for local use)",
+)
 
 ADMIN_DIRS = ["_img"]
 ARGS = parser.parse_args()
@@ -38,7 +42,9 @@ SKIP_IMAGE_CHECK = ARGS.skip_image_check
 with open("RECIPE_SCHEMA_VERSION", "r") as f:
     RECIPE_SCHEMA_VERSION = f.read()
 RECIPE_SCHEMA_BASE_URL = "raw.githubusercontent.com/saturncloud/recipes"
-RECIPE_SCHEMA_URL = f"https://{RECIPE_SCHEMA_BASE_URL}/{RECIPE_SCHEMA_VERSION}/resources/schema.json"
+RECIPE_SCHEMA_URL = (
+    f"https://{RECIPE_SCHEMA_BASE_URL}/{RECIPE_SCHEMA_VERSION}/resources/schema.json"
+)
 
 
 class ErrorCollection:
@@ -74,7 +80,7 @@ def validate_recipe(schema, recipe_path, example_dir):
     name_prefix = "example-"
     if not name_pre.startswith(name_prefix):
         raise ValidationError(f"name ('{name_pre}') needs to start with {name_prefix}")
-    
+
     image_uri = recipe["image_uri"]
     image_name, image_tag = image_uri.split(":")
     if not SKIP_IMAGE_CHECK:
@@ -88,7 +94,9 @@ def validate_recipe(schema, recipe_path, example_dir):
             registry=image_registry, image_name=image_repository, image_tag=image_tag
         )
         if not image_exists:
-            raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
+            raise ValidationError(
+                f"image '{image_name}:{image_tag}' is not available on Docker Hub."
+            )
 
     working_dir = recipe["working_directory"]
     working_dir_prefix = "/home/jovyan/examples/examples/"
