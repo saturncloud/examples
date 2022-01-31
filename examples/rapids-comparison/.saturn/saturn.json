@@ -5,7 +5,7 @@
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"
   },
-  "working_directory": "/home/jovyan/examples/examples/rapids",
+  "working_directory": "/home/jovyan/examples/examples/rapids-comparison",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples"
