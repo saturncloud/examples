@@ -50,7 +50,7 @@ jobs:
           pip install --upgrade requests jsonschema
           echo examples branch: ${{env.REF}}
           echo recipe schema branch: ${{env.BRANCH}}
-          python .ci/validate-examples.py --examples-dir $(pwd)/examples --recipe-schema-branch ${{ env.BRANCH }}
+          python .ci/validate-examples.py --examples-dir $(pwd)/examples
       - name : validate
         if: ${{ matrix.task == 'validating-examples' && !contains(env.REF, 'release')}}
         shell: bash

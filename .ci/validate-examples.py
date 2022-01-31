@@ -18,14 +18,11 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 from typing import Dict, List, Optional
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
-parser.add_argument(
-    "--recipe-schema-branch",
-    default="main",
-    type=str,
-    help="Branch of https://github.com/saturncloud/recipes to use for schema.",
-)
+parser.add_argument("--skip-image-check", action='store_true', help="Whether to skip the image check (for local use)")
+
 ADMIN_DIRS = ["_img"]
 ARGS = parser.parse_args()
 DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
@@ -34,12 +31,14 @@ SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
 TEMPLATES_JSON_NAME = "templates.json"
 EXAMPLES_DIR = ARGS.examples_dir
+SKIP_IMAGE_CHECK = ARGS.skip_image_check
 
 # This points to a json file in the saturncloud/recipe repo.
 # The BASE_URL is there just to ensure the URL fits on one line and doesn't break the link validator
-RECIPE_SCHEMA_BRANCH = ARGS.recipe_schema_branch
+with open("RECIPE_SCHEMA_VERSION", "r") as f:
+    RECIPE_SCHEMA_VERSION = f.read()
 RECIPE_SCHEMA_BASE_URL = "raw.githubusercontent.com/saturncloud/recipes"
-RECIPE_SCHEMA_URL = f"https://{RECIPE_SCHEMA_BASE_URL}/{RECIPE_SCHEMA_BRANCH}/resources/schema.json"
+RECIPE_SCHEMA_URL = f"https://{RECIPE_SCHEMA_BASE_URL}/{RECIPE_SCHEMA_VERSION}/resources/schema.json"
 
 
 class ErrorCollection:
@@ -63,7 +62,7 @@ class ErrorCollection:
         sys.exit(self.num_errors)
 
 
-def validate_recipe(schema, recipe_path):
+def validate_recipe(schema, recipe_path, example_dir):
     """Assuming that 'recipe-schema.json' is available, validate recipe file"""
 
     with open(recipe_path, "r") as f:
@@ -75,25 +74,33 @@ def validate_recipe(schema, recipe_path):
     name_prefix = "example-"
     if not name_pre.startswith(name_prefix):
         raise ValidationError(f"name ('{name_pre}') needs to start with {name_prefix}")
+    
     image_uri = recipe["image_uri"]
     image_name, image_tag = image_uri.split(":")
-    image_pieces = image_name.rsplit("/", 2)
-    image_registry, image_repository = (
-        (image_pieces[0], f"{image_pieces[1]}/{image_pieces[2]}")
-        if len(image_pieces) == 3
-        else (None, image_name)
-    )
-    image_exists = image_exists_on_registry(
-        registry=image_registry, image_name=image_repository, image_tag=image_tag
-    )
-    if not image_exists:
-        raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
+    if not SKIP_IMAGE_CHECK:
+        image_pieces = image_name.rsplit("/", 2)
+        image_registry, image_repository = (
+            (image_pieces[0], f"{image_pieces[1]}/{image_pieces[2]}")
+            if len(image_pieces) == 3
+            else (None, image_name)
+        )
+        image_exists = image_exists_on_registry(
+            registry=image_registry, image_name=image_repository, image_tag=image_tag
+        )
+        if not image_exists:
+            raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
 
     working_dir = recipe["working_directory"]
     working_dir_prefix = "/home/jovyan/examples/examples/"
     if not working_dir.startswith(working_dir_prefix):
         raise ValidationError(
             f"working_directory ('{working_dir}') needs to start with {working_dir_prefix}"
+        )
+    working_dir_suffix = working_dir.replace(working_dir_prefix, "")
+    if not working_dir_suffix == example_dir:
+        raise ValidationError(
+            f"working_directory ('{working_dir}') needs to end with "
+            f"the name of the example directory: {example_dir}"
         )
 
     rel_path = working_dir.replace(working_dir_prefix, "")
@@ -350,7 +357,7 @@ if __name__ == "__main__":
             continue
 
         try:
-            validate_recipe(schema, saturn_json)
+            validate_recipe(schema, saturn_json, example_dir)
         except ValidationError as e:
             msg = f"'{saturn_json}' has the following schema issues: {str(e)}"
             ERRORS.add(msg)
