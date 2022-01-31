@@ -12,7 +12,7 @@
   ],
   "deployment": {
     "instance_type": "large",
-    "command": "shiny::runApp(host='0.0.0.0', port=8000)"
+    "command": "Rscript -e \"shiny::runApp(host='0.0.0.0', port=8000)\""
   },
   "version": "2021.11.10"
 }
