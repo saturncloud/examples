@@ -19,7 +19,7 @@ jobs:
       matrix:
         include:
           - task: linting
-          - task: validate-examples
+          - task: validating-examples
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python
@@ -38,7 +38,7 @@ jobs:
         run: |
           pip install --upgrade black[jupyter] flake8 nbqa
           make lint
-      - name : validate-examples
+      - name : validating-examples
         shell: bash
         run: |
           pip install --upgrade requests jsonschema
