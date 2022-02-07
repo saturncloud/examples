@@ -1,13 +1,14 @@
-# Comparing training of singlenode and Multi-GPU Tensorflow.
-These are the examples which were given in [this](https://saturncloud.io/blog/tensorflow_intro/) blogpost.
+# Compare Training of Single GPU and Multi-GPU TensorFlow
 
-## Current Scripts
+These examples are the code that supports the Saturn Cloud [Multi-GPU TensorFlow blog post](https://saturncloud.io/blog/tensorflow_intro/).
 
-* Training the [single node](comparison-training-singlenode.ipynb)
-* Training [multi-gpu single machine](comparison-training-multigpu.ipynb) 
+**Included Notebooks:**
 
-## Things to Watch For
+* Train a TensorFlow model with a [single GPU](comparison-training-singlenode.ipynb).
+* Train a TensorFlow model with [multiple GPUs on a single machine](comparison-training-multigpu.ipynb).
 
-* Tensorflow GPU training runs (at least) do not release memory upon concluding. These will use all or nearly all GPU memory available.
-* I've used Weights and Biases throughout this code to monitor GPU performance - if running this, user should set their own Saturn env credential for wandb.
+## Notes
+
+* TensorFlow GPU training runs do not release memory upon concluding. These will use all or nearly all GPU memory available. You can restart the Saturn Cloud resource if need to release the memory.
+* Weights & Biases is used to monitor the examples. To use it, either set the environment variable `WANDB_LOGIN` as a Saturn Cloud credential, or set it manually within the notebooks.
 
