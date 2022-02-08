@@ -1,5 +1,11 @@
 import json
 import subprocess
+import os
+
+
+with open("RECIPE_SCHEMA_VERSION", "r") as f:
+    RECIPE_SCHEMA_VERSION = f.read()
+
 
 cmd = "git log -n 1 --pretty=format:'%H'"
 with subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE) as proc:
@@ -32,9 +38,21 @@ for template in templates["templates"]:
     template["recipe"] = recipe
 
 output = json.dumps(templates, indent=2) + "\n"
-print(output)
+filename = f"{RECIPE_SCHEMA_VERSION}-templates.json"
+with open(filename, "w") as f:
+    f.write(output)
 
-# with open("generated_templates.json", "w") as f:
-#     f.write(output)
-# push to S3
-# delete file
+print(f"Created {filename}")
+
+# If in CI, write to S3
+if os.getenv("CI"):
+    import boto3
+
+    s3 = boto3.client('s3')
+    with open("tilename", "rb") as f:
+        s3.upload_fileobj(
+            f,
+            "saturncloud/prod-facing", 
+            f"filename",
+            ExtraArgs={'ACL': 'public-read'}
+        )

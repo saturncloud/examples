@@ -16,6 +16,7 @@
 *.so
 *.tar.gz
 *.zip
+*-templates.json
 
 # documentation
 *.doc
