@@ -7,7 +7,7 @@ name: Generate Embedded Templates
 on:
   push:
     branches: 
-      - "main"
+      - generate-templates  # just for now to test
       - "release*"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -24,6 +24,12 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.7
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.EXAMPLE_TEMPLATES_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.EXAMPLE_TEMPLATES_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
     - name: Generate recipe set containing with templates containing embedded recipes
       shell: bash
       run: |

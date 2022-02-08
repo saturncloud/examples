@@ -44,12 +44,10 @@ with open(filename, "w") as f:
 
 print(f"Created {filename}")
 
-# If in CI, write to S3
+# If this is running in CI, write to S3
 if os.getenv("CI"):
     import boto3
 
     s3 = boto3.client("s3")
-    with open("tilename", "rb") as f:
-        s3.upload_fileobj(
-            f, "saturncloud/prod-facing", "filename", ExtraArgs={"ACL": "public-read"}
-        )
+    with open(filename, "rb") as f:
+        s3.upload_fileobj(f, "saturn-example-templates", filename)
