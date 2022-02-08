@@ -10,7 +10,7 @@
   ],
   "jupyter_server": {
     "disk_space": "40Gi",
-    "instance_type": "g4dnxlarge"
+    "instance_type": "p3.8xlarge"
   },
   "version": "2022.01.06"
 }
