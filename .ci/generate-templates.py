@@ -48,11 +48,8 @@ print(f"Created {filename}")
 if os.getenv("CI"):
     import boto3
 
-    s3 = boto3.client('s3')
+    s3 = boto3.client("s3")
     with open("tilename", "rb") as f:
         s3.upload_fileobj(
-            f,
-            "saturncloud/prod-facing", 
-            f"filename",
-            ExtraArgs={'ACL': 'public-read'}
+            f, "saturncloud/prod-facing", f"filename", ExtraArgs={"ACL": "public-read"}
         )
