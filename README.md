@@ -2,7 +2,7 @@
 
 [![link checks](https://github.com/saturncloud/examples/workflows/link%20checks/badge.svg?branch=main)](https://github.com/saturncloud/examples/actions/workflows/check-links.yml)
 
-[![generated-templates](https://example-templates.saturncloud.io/2022.01.06-templates.json)](https://github.com/saturncloud/examples/workflows/generate%20embedded%20templates/badge.svg?branch=main)
+[![Generate Embedded Templates](https://github.com/saturncloud/examples/actions/workflows/generate-templates.yml/badge.svg?branch=main)](https://example-templates.saturncloud.io/2022.01.06-templates.json)
 
 These are the Saturn Cloud Examples most of which are used to create default template resources on every Saturn Cloud installation (this behavior can be turned on or off by Saturn Cloud admins).
 
