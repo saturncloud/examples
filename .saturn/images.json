@@ -1,0 +1,24 @@
+{
+  "images": [
+    {
+      "name": "saturncloud/saturn",
+      "hardware_type": "cpu",
+      "versions": [
+        {
+          "name": "2022.01.06",
+          "image_uri": "public.ecr.aws/saturncloud/saturn:2022.01.06"
+        }
+      ]
+    },
+    {
+      "name": "saturncloud/saturn-pytorch",
+      "hardware_type": "gpu",
+      "versions": [
+        {
+          "name": "2022.01.06",
+          "image_uri": "public.ecr.aws/saturncloud/saturn-pytorch:2022.01.06"
+        }
+      ]
+    }
+  ]
+}
