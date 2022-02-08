@@ -28,7 +28,7 @@ for template in templates["templates"]:
         if "saturncloud/examples" in repo_dict["url"]:
             repo_dict["reference"] = COMMIT
             repo_dict["reference_type"] = "commit"
-    
+
     template["recipe"] = recipe
 
 output = json.dumps(templates, indent=2) + "\n"
