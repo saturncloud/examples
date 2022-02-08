@@ -61,6 +61,14 @@ Notes about recipes:
 * The disk_space must be one of the preset choices from the Saturn Cloud UI, it can't be an arbitrary amount of disk space.
 * You can reference a start script in a separate file by including a start script like `bash .saturn/start`. Note that the path is relative to the `working_directory`.
 
+
+### The `README.md`
+
+Each folder below `examples/` should have a `README.md`. This should contain relevant information for understanding the example, such as:
+
+* description of any manual steps needed to use the code (like configuring credentials)
+* links to reference material like blogs posts or data dictionaries
+
 ## Data files
 
 If your example involves data files they should be saved in the Saturn Cloud public S3 (ask @hhuuggoo for permission to access this). Each data file should be saved in the `examples` folder in the bucket in a subfolder with the same name as the example folder in this repo. In your code, use the HTTP path to download the file rather than a Python S3 package, since not all of the readers will have an understanding of S3. For example in Pandas you can run:
