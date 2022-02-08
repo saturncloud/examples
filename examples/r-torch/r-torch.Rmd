@@ -130,32 +130,6 @@ data_y <-
   torch_tensor(device = device)
 ```
 
-To use the data with torch we need to create a `dataset` out of it. A `dataset`
-has the required iterating and batching capabilities to use with in the neural
-network training.
-
-```{r dataset}
-pet_dataset <- dataset(
-  name = "pet_dataset",
-  
-  initialize = function(){
-    self$data_x <- data_x
-    self$data_y <- data_y
-  },
-  
-  .getitem = function(index){
-    x <- self$data_x[index,,]
-    y <- self$data_y[index]
-    
-    list(x, y)
-  },
-  
-  .length = function() {
-    self$data_y$size()[[1]]
-  }
-)
-```
-
 ### Create the model
 
 Next we define the network for the torch mdoel. This model has 2 LSTM layers to
@@ -193,11 +167,12 @@ Set the variables for training, create the model and define the optimizer and
 loss function. 
 
 ```{r}
-batch_size <- 1024
-num_epochs <- 25
+batch_size <- 2048
+num_epochs <- 50
 
-data <- pet_dataset()
-data_loader <- dataloader(data, batch_size = batch_size)
+num_data_points <- data_y$size(1)
+num_batches <- floor(num_data_points/batch_size)
+  
 model <- network()$to(device = device)
 
 optimizer <- optim_adam(model$parameters)
@@ -209,27 +184,40 @@ criterion <- nn_cross_entropy_loss()
 Once the model is defined, we can train it. For convenience here `glue` and
 `progress` are used to monitor how the training is going.
 
+**NOTE:** notice that we are not using a 
+[`dataset`](https://torch.mlverse.org/docs/reference/dataset.html) or 
+[`dataloader`](https://torch.mlverse.org/docs/reference/dataloader.html) for
+this model. Instead we are manually sorting and pulling batches from the data.
+This is because as of the 0.6.0 version of the torch package there are
+performance penalties for using those functions. In the interest having the
+model train as quickly as possible we do not use them. If you chose to use a
+`dataset` the training will still go faster if you use the
+[`.getbatch()`](https://torch.mlverse.org/docs/reference/dataloader.html)
+command instead of `.getitem()`.
+
 ```{r train_model}
-for(epoch_num in 1:num_epochs){
-  
+for(current_epoch in 1:num_epochs){
   pb <- progress::progress_bar$new(
-          total = ceiling(data$.length()/batch_size),
-          format = glue("[:bar] Epoch {epoch_num} :percent eta: :eta")
+          total = num_batches,
+          format = glue("[:bar] Epoch {current_epoch} :percent eta: :eta")
         )
   
-  coro::loop( for (batch in data_loader){
+  permute <- torch_randperm(num_data_points) + 1L
+  data_x <- data_x[permute]
+  data_y <- data_y[permute]
+  
+  for(batch_idx in 1:num_batches){
+    batch <- (batch_size*(batch_idx-1) + 1):(batch_idx*batch_size)
     
     optimizer$zero_grad()
-    output <- model(batch[[1]])
-    
-    loss <- criterion(output, batch[[2]])
+    output <- model(data_x[batch])
+    loss <- criterion(output, data_y[batch])
     loss$backward()
     optimizer$step()
     
     pb$tick()
-  })
-  message(glue("{Sys.time()} - epoch {epoch_num}/",
-               "{num_epochs} complete - loss {loss$item()}"))
+  }
+  message(glue::glue("Epoch {current_epoch} complete, loss: {loss$item()}"))
 }
 ```
 
@@ -238,7 +226,7 @@ for(epoch_num in 1:num_epochs){
 The function below generates a pet name using the trained model.
 
 ```{r generate_names}
-generate_name <- function(model, character_lookup, max_length, temperature = 0.5){
+generate_name <- function(model, character_lookup, max_length, temperature = 1){
   choose_next_char <- function(raw_preds, character_lookup, temperature){
     preds <- 
       raw_preds %>%
@@ -344,4 +332,5 @@ To instead use a cpu make the following changes:
 * In the Saturn Cloud resource settings make the following changes:
   * Switch to using the `saturn-rstudio` image
   * Add `torch` as an CRAN Extra Package for the resource
-  * Add `Rscript -e "torch::install_torch()"` as a line in the startup script option of the resource
+  * Add `Rscript -e "torch::install_torch()"` as a line in the startup
+  script option of the resource
