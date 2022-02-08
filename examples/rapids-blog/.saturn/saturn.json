@@ -1,0 +1,25 @@
+{
+  "name": "example-rapids-blog",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-rapids:2022.01.06",
+  "description": "Compare how CuDF and CuML perform as compared to pandas and sklearn",
+  "working_directory": "/home/jovyan/examples/examples/rapids-blog",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples"
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "10Gi",
+    "instance_type": "g4dnxlarge"
+  },
+  "dask_cluster": {
+    "num_workers": 3,
+    "worker": {
+      "instance_type": "g4dnxlarge"
+    },
+    "scheduler": {
+      "instance_type": "large"
+    }
+  },
+  "version": "2022.01.06"
+}
