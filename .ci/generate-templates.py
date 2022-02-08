@@ -35,7 +35,7 @@ for template in templates["templates"]:
             repo_dict["reference"] = COMMIT
             repo_dict["reference_type"] = "commit"
 
-    template["recipe"] = recipe
+    template["resource"] = recipe
 
 output = json.dumps(templates, indent=2) + "\n"
 filename = f"{RECIPE_SCHEMA_VERSION}-templates.json"
@@ -51,3 +51,5 @@ if os.getenv("CI"):
     s3 = boto3.client("s3")
     with open(filename, "rb") as f:
         s3.upload_fileobj(f, "saturn-example-templates", filename)
+
+    print(f"Uploaded {filename} to https://example-templates.saturncloud.io/{filename}")
