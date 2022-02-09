@@ -4,6 +4,14 @@ SHELL=/bin/bash
 check-links:
 	./.ci/check-links.sh $$(pwd)
 
+.PHONY: install
+install:
+	pip install --upgrade black[jupyter] flake8 nbqa requests jsonschema 
+
+.PHONY: templates.json
+templates.json:
+	python .ci/generate-templates.py
+
 .PHONY: format
 format:
 	black .

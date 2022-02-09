@@ -14,7 +14,7 @@ This document describes how to contribute to `saturncloud/examples`.
 
 All changes to this repository are required to go through pull requests. Create a new branch, commit your changes, and [submit a pull request](https://github.com/saturncloud/examples/compare).
 
-When your pull request is opened, a set of automated checks will run to check that your code conforms with the structure described in ["Example Directory Structure"](#example-directory-structure).
+When your pull request is opened, a set of automated checks will run to check that your code conforms with the structure described in ["`examples/` Directory Structure"](#dir-structure).
 
 # Adding a new example <a name="new-example"></a>
 
@@ -22,9 +22,9 @@ When you add a new example, add an entry to [`CODEOWNERS`](./.github/CODEOWNERS)
 
 ## `examples/` Directory Structure <a name="dir-structure"></a>
 
-Examples in this the `examples/` directory follow a specific directory structure that allows Saturn to automatically seed them in a new user's environment with these.
+Examples in the `examples/` directory follow a specific directory structure so that they can be cloned into Saturn from recipes.
 
-Each directory below `examples/` corresponds to one new resource that will be created in users' environments. Those resources will be named using the directory name, so the names of these directories should have names which only contain lowercase alphanumeric characters and dashes.
+Each directory below `examples/` corresponds to one potential resource that users can clone either from the recipe directly, or from a corresponding  resource template.
 
 ```text
 examples/
@@ -57,7 +57,7 @@ NOTE: this is part of the output from `tree -a examples/`.
 To test if you've added a new example correctly, run the following from the root of this repo:
 
 ```shell
-make test validate
+make install test validate
 ```
 
 If this raises any issues, try automatically fixing them
@@ -68,25 +68,25 @@ make format
 
 # Releasing
 
-Releases of this repository follow releases of Saturn Cloud.
+Releases of this repository lag releases of Saturn Cloud. Anytime after a new release makes it to [hosted](https://app.community.saturnenterprise.io) and you want to take advantage of some new features in it, you can make a release of this repo.
 
-When it is time to cut a new release, follow these steps:
+Follow these steps:
 
 1. Create a pull request into `main` which updates all of the `"image_uri"` entries in `saturn.json` files to the latest images released from https://github.com/saturncloud/images (if you want).
-1. Create a new branch from `main`. It's name must start with `release-`.
+2. Create a new branch from `main`. It's name must start with `release-`.
 
     ```shell
     git pull origin main
     git checkout -b release-2022.01.06
-    python .ci/update-references.py release-2022.01.06
-    git add *.json
-    git commit -m "Update reference in every recipe"
     git push release-2022.01.06
     ```
 
-1. In the private repo with Saturn's backend, update the setting `EXAMPLE_PROJECTS_BRANCH` to this release branch's name.
+3. On `main` update RECIPE_SCHEMA_VERSION to the version on [hosted](https://app.community.saturnenterprise.io).
+4. Update all the `schema_version` fields in all the recipes and make any changes.
+5. Update the button on README.md to point to the new RECIPE_SCHEMA_VERSION
+6. Create a pull request with these changes with `main` as the base.
 
-This repo has a branch protection to prevent deletion or changes without a pull request on all `release-*` branches.
+This repo has branch protection to prevent deletion or changes without a pull request on all `release-*` branches.
 
 # Frequently Asked Questions <a name="faq"></a>
 
@@ -102,6 +102,4 @@ If you need a new image, you can make a pull request in https://github.com/satur
 
 #### Why does this repository use long-lived release branches instead of GitHub releases and tags on `main`?
 
-Using long-lived release branches allows for the possiblility of hotfixing older versions of this repository if issues arise.
-
-Releases of this repository are intended to be tightly coupled to releases of Saturn's main product. Releasing a version of Saturn's main product with code that says "grab the latest commit from a particular branch" allows us to release hotfixes without needing to interrupt any running Saturn installations.
+Using long-lived release branches allows for the possibility of hot-fixing older versions of this repository if issues arise.
