@@ -2,8 +2,8 @@
 
 This resource gives you a starting example for running TensorFlow training tasks on GPU inside Saturn Cloud. 
 
-Open [single-gpu-tensorflow](single-gpu-tensorflow.ipynb) and follow the instructions to train your own classification model with TensorFlow on single GPU. 
-Open [multi-gpu-tensorflow](multi-gpu-tensorflow.ipynb) and follow the instructions to train your own classification model with TensorFlow on multiple GPUs. 
+[single-gpu-tensorflow](single-gpu-tensorflow.ipynb) train your model with TensorFlow on single GPU. 
+[multi-gpu-tensorflow](multi-gpu-tensorflow.ipynb) train your model with TensorFlow on multiple GPUs. 
 
 
 
