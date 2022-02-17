@@ -1,0 +1,82 @@
+{
+  "templates": [
+    {
+      "title": "Dask (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dask.png",
+      "weight": 100,
+      "recipe_path": "examples/dask/.saturn/saturn.json"
+    },
+    {
+      "title": "PyTorch (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/pytorch.png",
+      "weight": 200,
+      "recipe_path": "examples/pytorch/.saturn/saturn.json"
+    },
+    {
+      "title": "Deploy a Dashboard (R)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/r-shiny.png",
+      "weight": 300,
+      "recipe_path": "examples/r-shiny/.saturn/saturn.json"
+    },
+    {
+      "title": "TensorFlow (R)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/tensorflow.png",
+      "weight": 400,
+      "recipe_path": "examples/r-tensorflow/.saturn/saturn.json"
+    },
+    {
+      "title": "Snowflake (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/snowflake.png",
+      "weight": 500,
+      "recipe_path": "examples/snowflake/.saturn/saturn.json"
+    },
+    {
+      "title": "Deploy a Dashboard (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
+      "weight": 600,
+      "recipe_path": "examples/dashboard/.saturn/saturn.json"
+    },
+    {
+      "title": "Deploy an API (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/api.png",
+      "weight": 700,
+      "recipe_path": "examples/api/.saturn/saturn.json"
+    },
+    {
+      "title": "Deploy an API (R)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/api-icon.png",
+      "weight": 800,
+      "recipe_path": "examples/r-api/.saturn/saturn.json"
+    },
+    {
+      "title": "Run Jobs (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/jobs.png",
+      "weight": 900,
+      "recipe_path": "examples/job/.saturn/saturn.json"
+    },
+    {
+      "title": "Run Jobs (R)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/jobs.png",
+      "weight": 1000,
+      "recipe_path": "examples/r-job/.saturn/saturn.json"
+    },
+    {
+      "title": "TensorFlow (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/tensorflow.png",
+      "weight": 1100,
+      "recipe_path": "examples/tensorflow/.saturn/saturn.json"
+    },
+    {
+      "title": "RAPIDS (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rapids.png",
+      "weight": 1200,
+      "recipe_path": "examples/rapids/.saturn/saturn.json"
+    },
+    {
+      "title": "Prefect (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/prefect.png",
+      "weight": 1300,
+      "recipe_path": "examples/prefect/.saturn/saturn.json"
+    }
+  ]
+}
