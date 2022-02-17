@@ -20,36 +20,37 @@ if code != 0:
     if stderr_str:
         raise ValueError(stderr_str)
 
-with open(".saturn/templates.json", "r") as f:
-    templates = json.load(f)
+for installation in ["hosted", "enterprise"]:
+    with open(f".saturn/templates-{installation}.json", "r") as f:
+        templates = json.load(f)
 
-for template in templates["templates"]:
-    recipe_path = template.pop("recipe_path")
+    for template in templates["templates"]:
+        recipe_path = template.pop("recipe_path")
 
-    with open(recipe_path, "r") as f:
-        recipe = json.load(f)
+        with open(recipe_path, "r") as f:
+            recipe = json.load(f)
 
-    # Add the reference commit for saturncloud/examples
-    for repo_dict in recipe["git_repositories"]:
-        if "saturncloud/examples" in repo_dict["url"]:
-            repo_dict["reference"] = COMMIT
-            repo_dict["reference_type"] = "commit"
+        # Add the reference commit for saturncloud/examples
+        for repo_dict in recipe["git_repositories"]:
+            if "saturncloud/examples" in repo_dict["url"]:
+                repo_dict["reference"] = COMMIT
+                repo_dict["reference_type"] = "commit"
 
-    template["resource"] = recipe
+        template["resource"] = recipe
 
-output = json.dumps(templates, indent=2) + "\n"
-filename = f"{RECIPE_SCHEMA_VERSION}-templates.json"
-with open(filename, "w") as f:
-    f.write(output)
+    output = json.dumps(templates, indent=2) + "\n"
+    filename = f"{RECIPE_SCHEMA_VERSION}-templates-{installation}.json"
+    with open(filename, "w") as f:
+        f.write(output)
 
-print(f"Created {filename}")
+    print(f"Created {filename}")
 
-# If this is running in CI, write to S3
-if os.getenv("CI"):
-    import boto3
+    # If this is running in CI, write to S3
+    if os.getenv("CI"):
+        import boto3
 
-    s3 = boto3.client("s3")
-    with open(filename, "rb") as f:
-        s3.upload_fileobj(f, "saturn-example-templates", filename)
+        s3 = boto3.client("s3")
+        with open(filename, "rb") as f:
+            s3.upload_fileobj(f, "saturn-example-templates", filename)
 
-    print(f"Uploaded {filename} to https://example-templates.saturncloud.io/{filename}")
+        print(f"Uploaded {filename} to https://example-templates.saturncloud.io/{filename}")

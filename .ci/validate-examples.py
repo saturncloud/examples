@@ -33,7 +33,7 @@ DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
 FILENAME_REGEX = r"^[0-9A-Za-z\-\.]+$"
 SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
-TEMPLATES_JSON_NAME = "templates.json"
+TEMPLATES_JSON_NAMES = ["templates-hosted.json", "templates-enterprise.json"]
 EXAMPLES_DIR = ARGS.examples_dir
 SKIP_IMAGE_CHECK = ARGS.skip_image_check
 
@@ -242,35 +242,36 @@ if __name__ == "__main__":
     if len(example_dirs) == 0:
         ERRORS.add(f"No directories found under '{EXAMPLES_DIR}'")
 
-    templates_json = os.path.join(EXAMPLES_DIR, "..", ".saturn", TEMPLATES_JSON_NAME)
-    with open(templates_json, "r") as f:
-        templates = json.load(f)["templates"]
+    for template_name in TEMPLATES_JSON_NAMES:
+        templates_json = os.path.join(EXAMPLES_DIR, "..", ".saturn", template_name)
+        with open(templates_json, "r") as f:
+            templates = json.load(f)["templates"]
 
-    weights = {}
+        weights = {}
 
-    print(f"Working on {TEMPLATES_JSON_NAME}")
-    for template in templates:
-        title = template["title"]
-        weight = template["weight"]
-        thumbnail = template["thumbnail_image_url"]
+        print(f"Working on {template_name}")
+        for template in templates:
+            title = template["title"]
+            weight = template["weight"]
+            thumbnail = template["thumbnail_image_url"]
 
-        res = requests.get(url=thumbnail)
-        if not res.status_code == 200:
-            msg = f"Thumbnail image ({thumbnail}) for {title} is not a valid url."
+            res = requests.get(url=thumbnail)
+            if not res.status_code == 200:
+                msg = f"Thumbnail image ({thumbnail}) for {title} is not a valid url."
 
-        matches = [key for key, value in weights.items() if weight == value]
-        if matches:
-            msg = f"Weight ({weight}) for '{title}' is non-unique. It matches {matches}."
-            ERRORS.add(msg)
-        weights[title] = weight
+            matches = [key for key, value in weights.items() if weight == value]
+            if matches:
+                msg = f"Weight ({weight}) for '{title}' is non-unique. It matches {matches}."
+                ERRORS.add(msg)
+            weights[title] = weight
 
-        example_dir = template["recipe_path"].split("examples/")[-1].split("/")[0]
-        if example_dir not in example_dirs:
-            msg = (
-                f"Example directory: '{example_dir}' referenced by template: '{title}' does "
-                "not exist."
-            )
-            ERRORS.add(msg)
+            example_dir = template["recipe_path"].split("examples/")[-1].split("/")[0]
+            if example_dir not in example_dirs:
+                msg = (
+                    f"Example directory: '{example_dir}' referenced by template: '{title}' does "
+                    "not exist."
+                )
+                ERRORS.add(msg)
 
     for example_dir in example_dirs:
         print(f"Working on directory '{example_dir}'")
