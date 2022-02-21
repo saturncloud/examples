@@ -6,7 +6,7 @@ check-links:
 
 .PHONY: install
 install:
-	pip install --upgrade black[jupyter] flake8 nbqa requests jsonschema 
+	pip install --upgrade black[jupyter] flake8 nbqa requests jsonschema ruamel.yaml
 
 .PHONY: templates.json
 templates.json:

@@ -41,5 +41,5 @@ jobs:
       - name : validating-examples
         shell: bash
         run: |
-          pip install --upgrade requests jsonschema
+          pip install --upgrade requests jsonschema ruamel.yaml
           python .ci/validate-examples.py --examples-dir $(pwd)/examples
