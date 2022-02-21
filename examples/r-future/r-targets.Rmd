@@ -81,7 +81,7 @@ Finally, let's actually run the workflow. In this case, we are using `tar_make_f
 tar_make_future(workers = 8)
 ```
 
-That's it! This particular workflow takes approximately five minutes to compute all the hyperparameter options. You can find the complete results in the "report.html" document.
+That's it! This particular workflow takes approximately ten minutes to compute all the hyperparameter options. You can find the complete results in the "report.html" document.
 
 If, for instance, you stop the computation in the middle to change a parameter, targets will remember what has already been computed and skip running those steps in the next run. Pretty neat!
 
