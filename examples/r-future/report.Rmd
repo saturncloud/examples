@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 options(tidyverse.quiet = TRUE)
 ```
 
-This report contains the results of the `keras` model. The mean absolute error and model parameters for each run are listed below.
+This report contains the results of the XGBoost model. The mean absolute error and model parameters for each run are listed below.
 
 ```{r}
 library(targets)

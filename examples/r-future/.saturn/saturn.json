@@ -4,16 +4,15 @@
   "description": "Run parallel computing workloads using the future package",
   "working_directory": "/home/jovyan/examples/examples/r-future",
   "extra_packages": {
-    "cran": "future furrr fst keras qs recipes rsample visNetwork clustermq bs4Dash DT gt pingr shinybusy shinyWidgets shiny tictoc",
+    "cran": "xgboost future furrr fst qs rsample visNetwork clustermq bs4Dash DT gt pingr shinybusy shinyWidgets shiny tictoc",
     "remotes": "wlandau/targets wlandau/tarchetypes",
     "apt": "libzmq3-dev",
     "use_mamba": true
   },
-  "start_script": "Rscript -e \"keras::install_keras()\"",
+  "start_script": "",
   "git_repositories": [
     {
       "url": "git@github.com:saturncloud/examples.git",
-      "public": true,
       "reference": "r-future",
       "reference_type": "branch"
     }
@@ -21,5 +20,6 @@
   "rstudio_server": {
     "instance_type": "2xlarge",
     "disk_space": "10Gi"
-  }
+  },
+  "version": "2022.01.06"
 }

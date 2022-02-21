@@ -5,7 +5,7 @@ output: html_notebook
 ![targets logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/targets-logo.png "doc-image")
 
 ## Overview
-[Targets](https://cran.r-project.org/web/packages/targets/index.html) is a pipeline toolkit for R. It allows for reproducable workflows without unnecessarily repeating calculations. It also can use parallel backends ([future]((https://cran.r-project.org/web/packages/future/index.html)) or [clustermq](https://github.com/mschubert/clustermq)). 
+[Targets](https://cran.r-project.org/web/packages/targets/index.html) is a pipeline toolkit for R. It allows for reproducible workflows without unnecessarily repeating calculations. It also can use parallel backends ([future]((https://cran.r-project.org/web/packages/future/index.html)) or [clustermq](https://github.com/mschubert/clustermq)). 
 
 To illustrate this package, we use the same data, model, and functions that were used in the [furrr](r-furrr.Rmd) example. See that example for a thorough explanation. All these functions are contained in the "functions.R" file in this repository.
 
@@ -19,10 +19,8 @@ The only library we need to import now is the targets library itself. All other 
 library(targets)
 ```
 
-### Create a "_targets.R" file
-First, we need to create a file named "_targets.R". This file will contain all the information for targets to create a workflow.
-
-We do this using `writeLines` for simplicity, but you could also use [Target Markdown](https://books.ropensci.org/targets/markdown.html) to accomplish a similar task.
+### Use a "_targets.R" file
+First, we need a file named "_targets.R". This file will contain all the information for targets to create a workflow.
 
 The "_targets.R" file does the following:
 
@@ -31,7 +29,6 @@ The "_targets.R" file does the following:
 * Sets global options for targets, including the packages that each target node needs
 * Creates an execution environment for the future package
 * Creates a list of target nodes
-
 
 Target nodes are defined in a list using the function `tar_target()`. Each target node is a single step in a workflow. A node runs an R command and returns a value. 
 
@@ -42,96 +39,15 @@ Target nodes are defined in a list using the function `tar_target()`. Each targe
 * **format**: A storage format for the return value -- This can have considerable positive effects to run time if you are moving large files around.
 * **deployment**: This dictates where the function is to be run. It can either be "main" or "worker." Many functions in this graph will not be improved by parallelization, so they are run on the "main" process.
 
-```{r create _targets.R}
-out_string <- 'library(targets)
-library(tarchetypes)
-library(future)
+Below is an example target node. Take a look at the "_targets.R" file for more information.
 
-source("functions.R")
-
-options(tidyverse.quiet = TRUE)
-
-tar_option_set(
-    packages = c(
-        "keras",
-        "recipes",
-        "rmarkdown",
-        "rsample",
-        "tidyverse",
-        "shiny"
-    )
+```{r tar target, eval = FALSE}
+tar_target(
+    preprocessed_data,
+    preprocess_data(data),
+    format = "qs",
+    deployment = "main"
 )
-
-plan(multisession)
-
-list(
-    tar_target(
-        data_download,
-        download_data(),
-        format = "qs",
-        deployment = "main"
-    ),
-    tar_target(
-        data,
-        filter_data(data_download),
-        format = "qs",
-        deployment = "main"
-    ),
-    tar_target(
-        data_split,
-        split_data(data),
-        format = "qs",
-        deployment = "main"
-    ),
-    tar_target(
-        recipe,
-        prepare_recipe(data_split),
-        format = "qs",
-        deployment = "main"
-    ),
-    tar_target(
-        layer1_units,
-        c(8, 16, 32),
-        deployment = "main"
-    ),
-    tar_target(
-        layer2_units,
-        c(16),
-        deployment = "main"
-    ),
-    tar_target(
-        layer1_activation,
-        c("relu", "sigmoid"),
-        deployment = "main"
-    ),
-    tar_target(
-        layer2_activation,
-        c("relu"),
-        deployment = "main"
-    ),
-    tar_target(
-        run,
-        test_model(
-            data_split,
-            recipe, layer1_units,
-            layer2_units,
-            layer1_activation,
-            layer2_activation
-        ),
-        pattern = cross(layer1_units, layer1_activation),
-        format = "fst_tbl"
-    ),
-    tar_target(
-        best_run,
-        run %>%
-            top_n(-1, mean_absolute_error) %>%
-            head(1),
-        format = "fst_tbl",
-        deployment = "main"
-    ),
-    tar_render(report, "report.Rmd")
-)'
-writeLines(out_string, "_targets.R")
 ```
 
 ### Show the Target Graph
@@ -141,7 +57,7 @@ Once the target workflow is defined by the "_targets.R" file, we can take a look
 tar_visnetwork()
 ```
 
-Below is an example of the DAG for this workflow. As you can see, each node is connected and has a status.
+Below is an example of the DAG for a workflow. As you can see, each node is connected and has a status.
 
 ![Example DAG](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/targets-DAG-legend.png "doc-image")
 
@@ -153,7 +69,7 @@ If you want to see a live view of the graph and various statuses, you can run th
 tar_watch()
 ```
 
-You can see an example for this pipeline below:
+You can see an example for a pipeline below:
 
 ![Example tar_watch](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/targets-watch.png "doc-image")
 
@@ -162,7 +78,7 @@ You can see an example for this pipeline below:
 Finally, let's actually run the workflow. In this case, we are using `tar_make_future()` because we want to use the future parallel backend. Because we defined our plan as multisession in the "_targets.R" file, the code we marked to send to workers will be sent to appropriate future processes.
 
 ```{r tar_run}
-tar_make_future(workers = 6)
+tar_make_future(workers = 8)
 ```
 
 That's it! This particular workflow takes approximately five minutes to compute all the hyperparameter options. You can find the complete results in the "report.html" document.
@@ -170,6 +86,6 @@ That's it! This particular workflow takes approximately five minutes to compute 
 If, for instance, you stop the computation in the middle to change a parameter, targets will remember what has already been computed and skip running those steps in the next run. Pretty neat!
 
 ## Conclusion
-The targets package is fantastic for writing pipeline code. It has the added benifit of running on parallel backends like future.  
+The targets package is fantastic for writing pipeline code. It has the added benefit of running on parallel backends like future.  
 
 Thanks to [Deep Learning With Keras To Predict Customer Churn](https://blogs.rstudio.com/ai/posts/2018-01-11-keras-customer-churn/) and the [Targets R Package Keras Model Example](https://github.com/wlandau/targets-keras) for the inspiration for this article.

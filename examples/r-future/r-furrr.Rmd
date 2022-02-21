@@ -5,15 +5,13 @@ output: html_notebook
 ![furrr logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/furrr-logo.png "doc-image")
 
 ## Overview
-[Furrr](https://furrr.futureverse.org/) is an extension of the [purrr](https://purrr.tidyverse.org/) mapping functions using the future package's parallel backend. Furrr allows purrr functions like `map()` and `pmap()` to be replaced with `future_map()` and `future_pmap()`, respecively, to run the functions in parallel. 
+[Furrr](https://furrr.futureverse.org/) is an extension of the [purrr](https://purrr.tidyverse.org/) mapping functions using the future package's parallel backend. Furrr allows purrr functions like `map()` and `pmap()` to be replaced with `future_map()` and `future_pmap()`, respectively, to run the functions in parallel. 
 
-To illustrate the benefits of this package, we will run a [TensorFlow](https://www.tensorflow.org/) regression model based on on a CDC dataset of U.S. birth records in 2005. We will use this data to answer the following question:
+To illustrate the benefits of this package, we will run a [XGBoost](https://xgboost.readthedocs.io/en/stable/index.html) regression model based on on a CDC dataset of U.S. birth records in 2005. We will use this data to answer the following question:
 
 > Based on pregnancy characteristics, can we determine the birth weight of the baby?
 
-By using the furrr package, we can iterate over hyperparameters in a parallel fashion, thereby greatly reducing the computation time.
-
-This example will delve into the `recipes` package as well.
+By using the furrr package, we can iterate over hyperparameters in a parallel fashion, thereby reducing the computation time.
 
 > **Note**: The overhead associated with moving data and setting up the parallel computing means that furrr is only suitable for manipulations involving long compute times. Often, simple operations can take significantly longer when using furrr instead of purrr. As always, test single-threaded first, then try multi-threaded if single-threaded doesn't prove sufficient. 
 
@@ -21,22 +19,21 @@ This example will delve into the `recipes` package as well.
 ### Imports
 This exercise uses a variety of packages to complete the machine learning model:
 
-* [keras](https://tensorflow.rstudio.com/guide/keras/): For creating the deep learning model
-* [recipes](https://recipes.tidymodels.org/): For creating a preprocessing pipeline
 * [furrr](https://furrr.futureverse.org/): For running the calculations in parallel
+* [xgboost](https://xgboost.readthedocs.io/en/stable/R-package/xgboostPresentation.html): For training the model
 ```{r imports}
-library(tidyverse)
-library(future)
+library(Metrics)
 library(furrr)
-library(recipes)
+library(future)
 library(rsample)
-library(keras)
 library(tictoc)
+library(tidyverse)
+library(xgboost)
 ```
 
 
-### Download and Split the Dataset
-We first need to define functions to download the dataset from s3, select the approprate columns, and split the dataset into training and test sets (using the [rsample](https://rsample.tidymodels.org/) package). Here we select 80% of the data for training:
+### Download and select the dataset
+We first need to define functions to download the dataset from s3 and select the appropriate columns.
 
 ```{r download filter and split data}
 download_data <- function() {
@@ -56,217 +53,128 @@ filter_data <- function(births_raw_data) {
 
     return(births_data)
 }
-split_data <- function(births_data) {
-    births_data_split <- births_data %>%
-        initial_split(prop = 0.8)
-
-    return(births_data_split)
-}
 ```
 
-### Make a Recipe
-Once we have the data split appropriately, we can preprocess the data. To do this, we use the recipe package to create a pipeline.
+### Preprocess the data, split, and create DMatricies
+Once we have the data, we can preprocess the data. Here we will simply remove NA values, but other preprocessing steps could be added in the future. We then take this preprocessed data and splits it into training and test sets. Finally, we have a function that converts this data into xgboost DMatrices.
 
-The recipe package allows for [deplyr](https://dplyr.tidyverse.org/)-like pipline sequences to make data ready for modeling. In this function, we use a recipe to do the following:
 
-* Select the training data only.
-* Set the "weight_pounds" column as our target column.
-* Remove all N/A values.
-* Bin the "mother_age" and "gestation_weeks" columns.
-* One-hot encode the nominal columns.
-* Center and scale the data.
-
-This recipe simply defines the pipeline. In order to actually pass data through the pipeline, we need to use the `bake` function.
-
-```{r make recipe}
-prepare_recipe <- function(births_data_split) {
-    recipe_object <- births_data_split %>%
-        training() %>%
-        recipe(weight_pounds ~ .) %>%
-        step_naomit(all_outcomes(), all_predictors()) %>%
-        step_discretize(
-            mother_age,
-            options = list(cuts = 5, min_unique = 2)
-        ) %>%
-        step_discretize(
-            gestation_weeks,
-            options = list(cuts = 5, min_unique = 2)
-        ) %>%
-        step_dummy(all_nominal(), -all_outcomes()) %>%
-        step_mutate(is_male = ifelse(is_male, 1, 0)) %>%
-        step_center(all_predictors(), -all_outcomes()) %>%
-        step_scale(all_predictors(), -all_outcomes()) %>%
-        prep()
-
-    return(recipe_object)
+```{r preprocess, split, and create matrices}
+preprocess_data <- function(df) {
+    df_preprocessed <- df %>%
+        drop_na()
+    return(df_preprocessed)
 }
-```
 
-### Define the Keras Model
-Next, we need to define the model we will run by using a sequential keras model consisting of three dense layers and two dropout layers. The function takes variables for the dense layer dimensions and activation functions as inputs for tuning later.
+create_split <- function(data) {
+    data_split <- initial_split(data, prop = 0.8)
+    return(data_split)
+}
 
-```{r define model}
-define_model <- function(recipe_object,
-                         layer1_units,
-                         layer2_units,
-                         layer1_activation,
-                         layer2_activation) {
-    input_shape <- ncol(bake(recipe_object, all_predictors(), new_data = NULL))
+create_matrices <- function(data) {
+    train_test_split <- create_split(data)
 
-    keras_model <- keras_model_sequential()
+    train_df <- training(train_test_split)
+    test_df <- testing(train_test_split)
 
-    keras_model %>%
-        layer_dense(
-            units = layer1_units,
-            kernel_initializer = "uniform",
-            activation = layer1_activation,
-            input_shape = input_shape
-        ) %>%
-        layer_dropout(rate = 0.1) %>%
-        layer_dense(
-            units = layer2_units,
-            kernel_initializer = "uniform",
-            activation = layer2_activation
-        ) %>%
-        layer_dropout(rate = 0.1) %>%
-        layer_dense(
-            units = 1,
-            kernel_initializer = "uniform",
-            activation = "linear"
-        ) %>%
-        compile(
-            optimizer = "adam",
-            loss = "mse",
-            metrics = list("mean_absolute_error")
-        )
+    train_data <- subset(train_df, select = -c(weight_pounds))
+    test_data <- subset(test_df, select = -c(weight_pounds))
 
-    return(keras_model)
+    dtrain <- xgb.DMatrix(
+        data = as.matrix(train_data),
+        label = train_df$weight_pounds
+    )
+    dtest <- xgb.DMatrix(
+        data = as.matrix(test_data),
+        label = test_df$weight_pounds
+    )
+
+    return(list("train" = dtrain, "test" = dtest))
 }
 ```
 
 ### Train and Test the Model
-Our last function definitions train the model and determine the quality of the results. The model is fit, the mean absolute error calculated, and the results added to a table with the corresponding hyperparameters.
+Our last function definitions define and train the model and determine the quality of the results. The model is fit, the mean absolute error calculated, and the results added to a table with the corresponding hyperparameters.
+
+> **Note**: We disable XGBoost's multi-threading in this example to show the difference between furrr and purrr for single-threaded workloads.
 
 ```{r train model}
-train_model <- function(recipe_object,
-                        layer1_units,
-                        layer2_units,
-                        layer1_activation,
-                        layer2_activation) {
-    model <- define_model(
-        recipe_object,
-        layer1_units,
-        layer2_units,
-        layer1_activation,
-        layer2_activation
+train_model <- function(params, dtrain) {
+    model <- xgb.train(
+        params = params,
+        data = dtrain,
+        nrounds = 100,
+        nthread = 1,
+        objective = "reg:squarederror",
     )
-
-    x_train <- bake(recipe_object,
-        all_predictors(),
-        new_data = NULL,
-        composition = "matrix"
-    )
-    y_train <- bake(recipe_object,
-        all_outcomes(),
-        new_data = NULL,
-        composition = "matrix"
-    )
-
-    fit(
-        object = model,
-        x = x_train,
-        y = y_train,
-        batch_size = 256,
-        epochs = 8,
-        validation_split = 0.2,
-        verbose = 0
-    )
-
     return(model)
 }
-test_results <- function(births_data_split, recipe_object, keras_model) {
-    testing_data <- bake(recipe_object, testing(births_data_split))
-    x_test <- testing_data %>%
-        select(-weight_pounds) %>%
-        as.matrix()
-    y_test <- testing_data %>%
-        select(weight_pounds) %>%
-        pull()
-    results <- keras_model %>%
-        evaluate(x_test, y_test, verbose = 0)
 
+test_results <- function(model, dtest) {
+    results <- predict(model, dtest)
     return(results)
 }
-test_model <- function(births_data_split,
-                       recipe_object,
-                       layer1_units,
-                       layer2_units,
-                       layer1_activation,
-                       layer2_activation) {
-    model <- train_model(
-        recipe_object,
-        layer1_units,
-        layer2_units,
-        layer1_activation,
-        layer2_activation
-    )
-    results <- test_results(births_data_split, recipe_object, model)
-    tibble(
-        mean_absolute_error = results[2],
-        layer1_units = layer1_units,
-        layer2_units = layer2_units,
-        layer1_activation = layer1_activation,
-        layer2_activation = layer2_activation
+
+create_model_table <- function(data, ...) {
+    dmatrices <- create_matrices(data)
+
+    dtrain <- dmatrices$train
+    dtest <- dmatrices$test
+
+    params <- list(...)
+
+    model <- train_model(params, dtrain)
+    results <- test_results(model, dtest)
+    return(
+        tibble(
+            mean_absolute_error = mae(getinfo(dtest, "label"), results),
+            params = params
+        )
     )
 }
 ```
 
 ### Let's Run the Model!
-It's finally time to run the functions we just created. Here are all the preprocessing steps.
+It's finally time to run the functions we just created. We also define the hyperparameters we want to test. We use the expand_grid function (with `list()` around constants) to create the appropriate. Here we are only testing max_depth, but other hyperparameters could be added to the grid.
+
+Here are all the preprocessing steps.
 
 ```{r preprocess}
 births_raw_data <- download_data()
 births_data <- filter_data(births_raw_data)
-births_data_split <- split_data(births_data)
-recipe_object <- prepare_recipe(births_data_split)
+births_data_preprocessed <- preprocess_data(births_data)
 
-hyperparameters <- expand_grid(
-    births_data_split = list(births_data_split),
-    recipe_object = list(recipe_object),
-    layer1_units = c(8, 16, 32),
-    layer1_activation = c("relu", "sigmoid"),
-    layer2_units = list(16),
-    layer2_activation = list("relu")
+params <- expand_grid(
+    data = list(births_data_preprocessed),
+    max_depth = seq(3, 10)
 )
 ```
-
-We also define the hyperparameters we want to test. In this example, we are simply changing the layer_1 units and activation function, but any number of combinations or other variables could be changed. 
-
-We use the expand_grid function (with `list()` around constants) to create the appropriate data.table.
 
 #### Try Running the Model with purrr
 Let's first try it with purrr to iterate through the various models.
 
-Actually, let's not -- it takes over 15 minutes to run this code.  
+Actually, let's not -- it takes over 30 minutes to run this code.  
 ```{r purrr evaluation, eval = FALSE}
 
-###################################################
-## Don't actually run this - it takes forever... ##
-###################################################
+# ###################################################
+# ## Don't actually run this - it takes forever... ##
+# ###################################################
 
 # print("With purrr:")
 # tic()
-# results_purrr <- pmap_dfr(hyperparameters,test_model)
+# results_purrr <- pmap_dfr(params, create_model_table)
 # toc()
 
-# best_result_purrr <- results_furrr %>%
-#   top_n(-1, mean_absolute_error) %>%
-#   head(1)
+# best_result_purrr <- results_purrr %>%
+#     top_n(-1, mean_absolute_error) %>%
+#     head(1)
+
+# print(best_result_purrr)
 ```
 
 #### Run the Model with furrr
 
-Instead, let's try it with a parallel backend. In this case, we ask for six workers for six processes.
+Instead, let's try it with a parallel backend. In this case, we ask for eight workers for eight processes.
 
 The only change to the purrr code is to add the futures `plan` and exchanging `pmap_dfr` with `future_pmap_dfr`. 
 
@@ -274,11 +182,11 @@ The only change to the purrr code is to add the futures `plan` and exchanging `p
 #####################
 ## Run this instead##
 #####################
-plan(multisession(workers = 6))
+plan(multisession(workers = 8))
 
 print("With furrr:")
 tic()
-results_furrr <- future_pmap_dfr(hyperparameters, test_model)
+results_furrr <- future_pmap_dfr(params, create_model_table)
 toc()
 
 best_result_furrr <- results_furrr %>%
@@ -290,13 +198,13 @@ print(best_result_furrr)
 plan(sequential)
 ```
 
-Nice! That only took five minutes to complete the training of six different models. That is three times faster than the purrr code!
+Nice! That only took ten minutes to complete the training of eight different models. That is three times faster than the purrr code!
 
-Why isn't it six times faster?
+Why isn't it eight times faster?
 
-Despite this being a perfectly parrallelizable algorithm, moving to a parallel backend involves tradeoffs. Setup and data communication take time. Also, keras is slightly parallel even in a single process. Because we are using six cores on an eight-core machine, each model trains slightly more slowly than a single model with more overhead.
+Despite this being a perfectly parallelizable algorithm, moving to a parallel backend involves tradeoffs. Setup and data communication take time. Because we are using four cores on an eight-core machine, each model trains slightly more slowly than a single model with more overhead. Additionally, because some of the models complete more quickly than other models, cores may be idle if there are no more calculations to complete. More models would smooth out some of this variability.
 
 ## Conclusion
-Furrr is a great solution for speeding up parrallelizable code. If the computations are extensive enough to overcome any slowdown due to setup and data communication, parrallelizing using furrr over purrr can lead to significant time savings. 
+Furrr is a great solution for speeding up parallelizable code. If the computations are extensive enough to overcome any slowdown due to setup and data communication, parallelizing using furrr over purrr can lead to significant time savings. 
 
 Thanks to [Deep Learning With Keras To Predict Customer Churn](https://blogs.rstudio.com/ai/posts/2018-01-11-keras-customer-churn/) for the inspiration for this article.

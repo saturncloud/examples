@@ -1,6 +1,6 @@
-library(recipes)
 library(rsample)
-library(keras)
+library(xgboost)
+library(Metrics)
 
 
 download_data <- function() {
@@ -15,153 +15,73 @@ download_data <- function() {
     return(births_raw_data)
 }
 
-
 filter_data <- function(births_raw_data) {
     births_data <- births_raw_data %>%
         select(weight_pounds, is_male, plurality, mother_age, gestation_weeks)
 
     return(births_data)
 }
-
-
-split_data <- function(births_data) {
-    births_data_split <- births_data %>%
-        initial_split(prop = 0.8)
-
-    return(births_data_split)
+preprocess_data <- function(df) {
+    df_preprocessed <- df %>%
+        drop_na()
+    return(df_preprocessed)
 }
 
-
-prepare_recipe <- function(births_data_split) {
-    recipe_object <- births_data_split %>%
-        training() %>%
-        recipe(weight_pounds ~ .) %>%
-        step_naomit(all_outcomes(), all_predictors()) %>%
-        step_discretize(
-            mother_age,
-            options = list(cuts = 5, min_unique = 2)
-        ) %>%
-        step_discretize(
-            gestation_weeks,
-            options = list(cuts = 5, min_unique = 2)
-        ) %>%
-        step_dummy(all_nominal(), -all_outcomes()) %>%
-        step_mutate(is_male = ifelse(is_male, 1, 0)) %>%
-        step_center(all_predictors(), -all_outcomes()) %>%
-        step_scale(all_predictors(), -all_outcomes()) %>%
-        prep()
-
-    return(recipe_object)
+create_split <- function(data) {
+    data_split <- initial_split(data, prop = 0.8)
+    return(data_split)
 }
 
-define_model <- function(recipe_object,
-                         layer1_units,
-                         layer2_units,
-                         layer1_activation,
-                         layer2_activation) {
-    input_shape <- ncol(bake(recipe_object, all_predictors(), new_data = NULL))
+create_matrices <- function(data) {
+    train_test_split <- create_split(data)
 
-    keras_model <- keras_model_sequential()
+    train_df <- training(train_test_split)
+    test_df <- testing(train_test_split)
 
-    keras_model %>%
-        layer_dense(
-            units = layer1_units,
-            kernel_initializer = "uniform",
-            activation = layer1_activation,
-            input_shape = input_shape
-        ) %>%
-        layer_dropout(rate = 0.1) %>%
-        layer_dense(
-            units = layer2_units,
-            kernel_initializer = "uniform",
-            activation = layer2_activation
-        ) %>%
-        layer_dropout(rate = 0.1) %>%
-        layer_dense(
-            units = 1,
-            kernel_initializer = "uniform",
-            activation = "linear"
-        ) %>%
-        compile(
-            optimizer = "adam",
-            loss = "mse",
-            metrics = list("mean_absolute_error")
-        )
+    train_data <- subset(train_df, select = -c(weight_pounds))
+    test_data <- subset(test_df, select = -c(weight_pounds))
 
-    return(keras_model)
+    dtrain <- xgb.DMatrix(
+        data = as.matrix(train_data),
+        label = train_df$weight_pounds
+    )
+    dtest <- xgb.DMatrix(
+        data = as.matrix(test_data),
+        label = test_df$weight_pounds
+    )
+
+    return(list("train" = dtrain, "test" = dtest))
 }
-
-train_model <- function(recipe_object,
-                        layer1_units,
-                        layer2_units,
-                        layer1_activation,
-                        layer2_activation) {
-    model <- define_model(
-        recipe_object,
-        layer1_units,
-        layer2_units,
-        layer1_activation,
-        layer2_activation
+train_model <- function(params, dtrain) {
+    model <- xgb.train(
+        params = params,
+        data = dtrain,
+        nrounds = 100,
+        nthread = 1,
+        objective = "reg:squarederror",
     )
-
-    x_train <- bake(recipe_object,
-        all_predictors(),
-        new_data = NULL,
-        composition = "matrix"
-    )
-    y_train <- bake(recipe_object,
-        all_outcomes(),
-        new_data = NULL,
-        composition = "matrix"
-    )
-
-    fit(
-        object = model,
-        x = x_train,
-        y = y_train,
-        batch_size = 256,
-        epochs = 8,
-        validation_split = 0.2,
-        verbose = 0
-    )
-
     return(model)
 }
 
-
-test_results <- function(births_data_split, recipe_object, keras_model) {
-    testing_data <- bake(recipe_object, testing(births_data_split))
-    x_test <- testing_data %>%
-        select(-weight_pounds) %>%
-        as.matrix()
-    y_test <- testing_data %>%
-        select(weight_pounds) %>%
-        pull()
-    results <- keras_model %>%
-        evaluate(x_test, y_test, verbose = 0)
-
+test_results <- function(model, dtest) {
+    results <- predict(model, dtest)
     return(results)
 }
 
-test_model <- function(births_data_split,
-                       recipe_object,
-                       layer1_units,
-                       layer2_units,
-                       layer1_activation,
-                       layer2_activation) {
-    model <- train_model(
-        recipe_object,
-        layer1_units,
-        layer2_units,
-        layer1_activation,
-        layer2_activation
-    )
-    results <- test_results(births_data_split, recipe_object, model)
-    tibble(
-        mean_absolute_error = results[2],
-        layer1_units = layer1_units,
-        layer2_units = layer2_units,
-        layer1_activation = layer1_activation,
-        layer2_activation = layer2_activation
+create_model_table <- function(data, max_depth) {
+    dmatrices <- create_matrices(data)
+
+    dtrain <- dmatrices$train
+    dtest <- dmatrices$test
+
+    params <- list("max_depth" = max_depth)
+
+    model <- train_model(params, dtrain)
+    results <- test_results(model, dtest)
+    return(
+        tibble(
+            mean_absolute_error = mae(getinfo(dtest, "label"), results),
+            params = unlist(params)
+        )
     )
 }
