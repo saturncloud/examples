@@ -1,0 +1,20 @@
+{
+  "name": "example-tensorflow-comparison",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-tensorflow:2022.01.06",
+  "description": "Compare TensorFlow model training for single and multiple GPUs",
+  "working_directory": "/home/jovyan/examples/examples/tensorflow-comparison",
+  "extra_packages": {
+    "pip": "wandb"
+  },
+  "start_script": "wandb login --relogin $WANDB_LOGIN || true",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples"
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "40Gi",
+    "instance_type": "p3.8xlarge"
+  },
+  "version": "2022.01.06"
+}
