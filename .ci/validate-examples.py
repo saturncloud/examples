@@ -16,6 +16,7 @@ import sys
 
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
+from ruamel import yaml
 from typing import Dict, List, Optional
 
 
@@ -45,6 +46,7 @@ RECIPE_SCHEMA_BASE_URL = "raw.githubusercontent.com/saturncloud/recipes"
 RECIPE_SCHEMA_URL = (
     f"https://{RECIPE_SCHEMA_BASE_URL}/{RECIPE_SCHEMA_VERSION}/resources/schema.json"
 )
+INSTANCE_TYPE_OPTIONS_URL = "https://saturncloud.io/static/constants.yaml"
 
 
 class ErrorCollection:
@@ -68,7 +70,7 @@ class ErrorCollection:
         sys.exit(self.num_errors)
 
 
-def validate_recipe(schema, recipe_path, example_dir):
+def validate_recipe(schema, instance_type_options, recipe_path, example_dir):
     """Assuming that 'recipe-schema.json' is available, validate recipe file"""
 
     with open(recipe_path, "r") as f:
@@ -116,15 +118,23 @@ def validate_recipe(schema, recipe_path, example_dir):
     if not os.path.exists(abs_path):
         raise ValidationError(f"working_directory ('{working_dir}') needs to point to a real path")
 
+    jupyter = recipe.get("jupyter_server")
+    deployment = recipe.get("deployment")
+    job = recipe.get("job")
+    rstudio = recipe.get("rstudio_server")
+    resource = jupyter or deployment or job or rstudio
+
+    if resource["instance_type"] not in instance_type_options:
+        raise ValidationError(
+            f"instance_type ('{resource['instance_type']}') is not a valid option. "
+            f"Look at {INSTANCE_TYPE_OPTIONS_URL} for valid options."
+        )
+
     if recipe.get("dask_cluster", None):
         if recipe["dask_cluster"]["num_workers"] > 3:
             raise ValidationError("there should not be more than 3 workers per dask cluster.")
 
-        jupyter = recipe.get("jupyter_server")
-        deployment = recipe.get("deployment")
-        job = recipe.get("job")
-        workspace = jupyter or deployment or job
-        if recipe["dask_cluster"]["worker"]["instance_type"] != workspace["instance_type"]:
+        if recipe["dask_cluster"]["worker"]["instance_type"] != resource["instance_type"]:
             raise ValidationError(
                 "Dask worker instance type should match the instance type "
                 "of its attached jupyter_server or deployment"
@@ -237,6 +247,9 @@ if __name__ == "__main__":
 
     res = requests.get(url=RECIPE_SCHEMA_URL)
     schema = res.json()
+
+    res = requests.get(url=INSTANCE_TYPE_OPTIONS_URL)
+    instance_type_options = yaml.safe_load(res.text)["tiers"]
 
     example_dirs = os.listdir(EXAMPLES_DIR)
     if len(example_dirs) == 0:
@@ -366,7 +379,7 @@ if __name__ == "__main__":
             continue
 
         try:
-            validate_recipe(schema, saturn_json, example_dir)
+            validate_recipe(schema, instance_type_options, saturn_json, example_dir)
         except ValidationError as e:
             msg = f"'{saturn_json}' has the following schema issues: {str(e)}"
             ERRORS.add(msg)
