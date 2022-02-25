@@ -1,0 +1,16 @@
+{
+  "name": "example-tensorflow-multigpu",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-tensorflow:2022.01.06",
+  "description": "Train deep learning models with TensorFlow on multiple GPUs",
+  "working_directory": "/home/jovyan/examples/examples/tensorflow-multigpu",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples"
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "40Gi",
+    "instance_type": "p38xlarge"
+  },
+  "version": "2022.01.06"
+}
