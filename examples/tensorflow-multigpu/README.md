@@ -1,7 +1,7 @@
 # TensorFlow 
 ## Note: This example only runs on Pro and Enterprise
 
-This resource gives you a starting example for running TensorFlow training tasks on GPU inside Saturn Cloud. 
+This resource gives you example for running TensorFlow training tasks on multiple GPU inside Saturn Cloud. 
 
 [multi-gpu-tensorflow](multi-gpu-tensorflow.ipynb) train your model with TensorFlow on multiple GPUs. 
 
