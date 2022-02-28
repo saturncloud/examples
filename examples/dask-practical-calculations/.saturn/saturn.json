@@ -10,7 +10,7 @@
     }
   ],
   "jupyter_server": {
-    "instance_type": "large",
+    "instance_type": "large"
   },
   "dask_cluster": {
     "num_workers": 5,
