@@ -18,7 +18,9 @@ from jsonschema.exceptions import ValidationError
 from typing import List
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
+parser.add_argument(
+    "--examples-dir", type=str, help="Path to the 'examples' directory to check"
+)
 parser.add_argument(
     "--recipe-schema-branch",
     default="main",
@@ -28,7 +30,7 @@ parser.add_argument(
 ADMIN_DIRS = ["_img"]
 ARGS = parser.parse_args()
 DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
-FILENAME_REGEX = r"^[0-9A-Za-z\-\.]+$"
+FILENAME_REGEX = r"^[0-9A-Za-z\-\.\_]+$"
 SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
 TEMPLATES_JSON_NAME = "templates.json"
@@ -38,7 +40,9 @@ EXAMPLES_DIR = ARGS.examples_dir
 # The BASE_URL is there just to ensure the URL fits on one line and doesn't break the link validator
 RECIPE_SCHEMA_BRANCH = ARGS.recipe_schema_branch
 RECIPE_SCHEMA_BASE_URL = "raw.githubusercontent.com/saturncloud/recipes"
-RECIPE_SCHEMA_URL = f"https://{RECIPE_SCHEMA_BASE_URL}/{RECIPE_SCHEMA_BRANCH}/resources/schema.json"
+RECIPE_SCHEMA_URL = (
+    f"https://{RECIPE_SCHEMA_BASE_URL}/{RECIPE_SCHEMA_BRANCH}/resources/schema.json"
+)
 
 
 class ErrorCollection:
@@ -78,7 +82,9 @@ def validate_recipe(schema, recipe_path):
     image_name, image_tag = image_uri.split(":")
     image_exists = image_exists_on_dockerhub(image_name=image_name, image_tag=image_tag)
     if not image_exists:
-        raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
+        raise ValidationError(
+            f"image '{image_name}:{image_tag}' is not available on Docker Hub."
+        )
 
     working_dir = recipe["working_directory"]
     working_dir_prefix = "/home/jovyan/examples/examples/"
@@ -90,11 +96,15 @@ def validate_recipe(schema, recipe_path):
     rel_path = working_dir.replace(working_dir_prefix, "")
     abs_path = os.path.join(EXAMPLES_DIR, rel_path)
     if not os.path.exists(abs_path):
-        raise ValidationError(f"working_directory ('{working_dir}') needs to point to a real path")
+        raise ValidationError(
+            f"working_directory ('{working_dir}') needs to point to a real path"
+        )
 
     if recipe.get("dask_cluster", None):
         if recipe["dask_cluster"]["num_workers"] > 3:
-            raise ValidationError("there should not be more than 3 workers per dask cluster.")
+            raise ValidationError(
+                "there should not be more than 3 workers per dask cluster."
+            )
 
         jupyter = recipe.get("jupyter_server")
         deployment = recipe.get("deployment")
@@ -293,7 +303,7 @@ if __name__ == "__main__":
                 is_valid = bool(re.search(FILENAME_REGEX, base_name))
                 msg = (
                     f"All files should be named with only "
-                    "alphanumeric characters, dashes, and periods. "
+                    "alphanumeric characters, dashes, underscores, and periods. "
                     f"'{fname}` violates this rule."
                 )
             if not is_valid:
