@@ -12,4 +12,4 @@ Use the furrr package to parallelize hyperparameter tuning.
 
 ## [targets](./r-targets.Rmd)
 
-Use the targets package to parallelize hyperparameter tuning with persistance and DAGs.
+Use the targets package to parallelize hyperparameter tuning with persistence and DAGs.

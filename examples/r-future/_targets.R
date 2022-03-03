@@ -40,7 +40,7 @@ list(
     ),
     tar_target(
         max_depth,
-        seq(3, 10),
+        seq(1, 8),
         deployment = "main"
     ),
     tar_target(

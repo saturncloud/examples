@@ -114,7 +114,7 @@ def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
     publicly-accessible on DockerHub.
 
     Based on the code from this blog post:
-    * htttps://ops.tips/blog/inspecting-docker-image-without-pull/
+    * https://ops.tips/blog/inspecting-docker-image-without-pull/
 
     :param image_name: Name of an image, such as ``continuumio/miniconda3``
     :param image_tag: Tag for the image, such as ``4.8.2``
