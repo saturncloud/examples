@@ -20,18 +20,17 @@ correct versions and work together, Saturn Cloud provides a convenient
 GPU. If you'd rather train a model on a CPU, you can use the `saturn-rstudio`
 image and install both the Python and R packages for Keras and TensorFlow.
 
+## Example
+
 In this example we'll be using pet names data from the city of Seattle and
 training a Keras neural network to generate new names. Note that if instead
 of using Keras you'd prefer to use pure TensorFlow you can directly use the 
 tensorflow R package instead of the Keras one.
 
-## Example
-
 ### Setup
 
 The `saturn-rstudio-tensorflow` image has the required libraries
-preinstalled--you just need to import them. Note that you'll need to import
-numpy into R using reticulate for one part of the work.
+preinstalled--you just need to import them.
 
 ```{r libraries}
 library(dplyr)
@@ -40,7 +39,6 @@ library(stringr)
 library(purrr)
 library(tidyr)
 library(keras)
-np <- reticulate::import("numpy", convert=FALSE)
 ```
 
 Define what characters can be used for the pet names, and how far back the
@@ -112,12 +110,12 @@ text_matrix <-
 ```
 
 Once that's complete, we split the data into the 3D-matrix of model input (X) and
-matrix of targets (y). This last splitting is done on an nparray,
-and hence the need to load `np` from Python via reticulate.
+matrix of targets (y). We'll make the X matrix of all the letters in each row except
+the last. The y matrix will be the last character (since we want to predict it).
 
 ```{r split_x_y}
-x_name <- np$delete(text_matrix, as.integer(max_length), 1L) 
-y_name <- np$delete(text_matrix, as.integer((1:max_length)-1), 1L)$squeeze()
+x_name <- text_matrix[,1:max_length,]
+y_name <- text_matrix[,max_length+1,]
 ```
 
 ### Create the model
@@ -152,11 +150,12 @@ model <- keras_model(inputs = input, outputs = output) %>%
 Once the model is defined, we can train it.
 
 ```{r train_model}
-fit_results <- model %>% keras::fit(
-  x_name, 
-  y_name,
-  batch_size = 32768,
-  epochs = 200
+fit_results <- model %>% 
+  fit(
+    x_name, 
+    y_name,
+    batch_size = 32768,
+    epochs = 200
 )
 ```
 
@@ -166,7 +165,7 @@ The function below generates a pet name using the trained model.
 
 ```{r generate_names}
 generate_name <- function(model, character_lookup, max_length, temperature = 1){
-  choose_next_char <- function(preds, character_lookup,temperature = 1){
+  choose_next_char <- function(preds, character_lookup, temperature){
     preds <- log(preds)/temperature
     exp_preds <- exp(preds)
     preds <- exp_preds/sum(exp(preds))
@@ -256,3 +255,13 @@ From the City of Seattle on the pet license data:
 > furnished herein. The data is subject to change as modifications and updates
 > are complete. It is understood that the information contained in the web feed
 > is being used at one's own risk.
+
+#### Appendix: Run on a CPU
+
+To instead use a cpu make the following changes to the Saturn Cloud resource:
+
+* Switch to using the `saturn-rstudio` image.
+* Add `keras` as an CRAN Extra Packages for the resource. This will install the R Keras 
+  and TensorFlow packages.
+* Add `pip install tensorflow` as a line in the startup script option of the resource. This will
+  install the Python Keras and TensorFlow packages.

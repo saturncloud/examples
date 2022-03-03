@@ -27,7 +27,7 @@ The most important file within the `.saturn` folder is the `saturn.json` file wh
 ```json
 {
   "name": "pytorch",
-  "image_uri": "saturncloud/saturn-pytorch:2021.11.10",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-pytorch:2022.01.06",
   "description": "Use PyTorch with a single GPU or across multiple GPUs with Dask",
   "working_directory": "/home/jovyan/examples/examples/pytorch",
   "extra_packages": {
@@ -60,6 +60,14 @@ Notes about recipes:
 
 * The disk_space must be one of the preset choices from the Saturn Cloud UI, it can't be an arbitrary amount of disk space.
 * You can reference a start script in a separate file by including a start script like `bash .saturn/start`. Note that the path is relative to the `working_directory`.
+
+
+### The `README.md`
+
+Each folder below `examples/` should have a `README.md`. This should contain relevant information for understanding the example, such as:
+
+* description of any manual steps needed to use the code (like configuring credentials)
+* links to reference material like blogs posts or data dictionaries
 
 ## Data files
 

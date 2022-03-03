@@ -11,11 +11,12 @@ import json
 import os
 import re
 import requests
+import subprocess
 import sys
 
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
-from typing import List
+from typing import Dict, List, Optional
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
@@ -77,7 +78,15 @@ def validate_recipe(schema, recipe_path):
         raise ValidationError(f"name ('{name_pre}') needs to start with {name_prefix}")
     image_uri = recipe["image_uri"]
     image_name, image_tag = image_uri.split(":")
-    image_exists = image_exists_on_dockerhub(image_name=image_name, image_tag=image_tag)
+    image_pieces = image_name.rsplit("/", 2)
+    image_registry, image_repository = (
+        (image_pieces[0], f"{image_pieces[1]}/{image_pieces[2]}")
+        if len(image_pieces) == 3
+        else (None, image_name)
+    )
+    image_exists = image_exists_on_registry(
+        registry=image_registry, image_name=image_repository, image_tag=image_tag
+    )
     if not image_exists:
         raise ValidationError(f"image '{image_name}:{image_tag}' is not available on Docker Hub.")
 
@@ -108,7 +117,7 @@ def validate_recipe(schema, recipe_path):
             )
 
 
-def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
+def image_exists_on_registry(registry: Optional[str], image_name: str, image_tag: str) -> bool:
     """
     Given an image name and image_tag, check if it is
     publicly-accessible on DockerHub.
@@ -124,26 +133,49 @@ def image_exists_on_dockerhub(image_name: str, image_tag: str) -> bool:
     .. code-block:: python
 
         # should be True
-        image_exists_on_dockerhub("continuumio/miniconda3", "4.8.2")
+        image_exists_on_registry("continuumio/miniconda3", "4.8.2")
 
         # should be False
         import uuid
-        image_exists_on_dockerhub(str(uuid.uuid4()), "0.0.1")
+        image_exists_on_registry(str(uuid.uuid4()), "0.0.1")
     """
-    url = (
-        "https://auth.docker.io/token?scope=repository:"
-        f"{image_name}:pull&service=registry.docker.io"
+    headers: Dict[str, str] = {
+        "Accept": "application/vnd.docker.distribution.manifest.v2+json",
+    }
+    if registry is None or registry == "docker.io":
+        # docker hub requires anonymous login
+        url = (
+            "https://auth.docker.io/token?scope=repository:"
+            f"{image_name}:pull&service=registry.docker.io"
+        )
+        res = requests.get(url=url)
+        res.raise_for_status()
+        token = res.json()["token"]
+        headers["Authorization"] = f"Bearer {token}"
+        registry = "registry-1.docker.io"
+    elif registry == "public.ecr.aws":
+        # ECR public does not support anonymous auth
+        # get a token via CLI
+        token = subprocess.run(
+            [
+                "aws",
+                "ecr-public",
+                "get-authorization-token",
+                "--region=us-east-1",
+                "--output=text",
+                "--query",
+                "authorizationData.authorizationToken",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        headers["Authorization"] = f"Bearer {token}"
+    res = requests.head(
+        url=f"https://{registry}/v2/{image_name}/manifests/{image_tag}",
+        headers=headers,
     )
-    res = requests.get(url=url)
-    res.raise_for_status()
-    token = res.json()["token"]
-    res = requests.get(
-        url=f"https://registry-1.docker.io/v2/{image_name}/manifests/{image_tag}",
-        headers={
-            "Accept": "application/vnd.docker.distribution.manifest.v2+json",
-            "Authorization": f"Bearer {token}",
-        },
-    )
+
     return res.status_code == 200
 
 
