@@ -1,0 +1,21 @@
+{
+  "name": "example-r-load-data",
+  "image_uri": "saturncloud/saturn-rstudio:2021.11.10",
+  "description": "Connect to external data sources in Saturn Cloud",
+  "working_directory": "/home/jovyan/examples/examples/r-load-data",
+  "extra_packages": {
+    "pip": "kaggle",
+    "cran": "odbc aws.s3"
+  },
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples"
+    }
+  ],
+  "rstudio_server": {
+    "disk_space": "10Gi",
+    "instance_type": "large",
+    "start_ssh": true
+  },
+  "version": "2022.01.06"
+}

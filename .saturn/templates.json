@@ -67,6 +67,12 @@
       "recipe_path": "examples/tensorflow/.saturn/saturn.json"
     },
     {
+      "title": "Torch (R)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/r-torch.png",
+      "weight": 1150,
+      "recipe_path": "examples/r-torch/.saturn/saturn.json"
+    },
+    {
       "title": "RAPIDS (Python)",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/rapids.png",
       "weight": 1200,

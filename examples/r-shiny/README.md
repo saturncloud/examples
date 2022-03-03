@@ -77,7 +77,7 @@ Save the `app.R` in inside a GitHub repo. You'll need to connect [git on Saturn 
 You'll want to set the following:
 
 * **Name** - the name of the resource, which also is used as the URL for the Dashboard
-* **Run Command:** - set to `shiny::runApp(host="0.0.0.0", port=8000)`, which starts the shiny app on port 8000 (required for all Saturn Cloud deployments), and open to outside traffic
+* **Run Command:** - set to `Rscript -e "shiny::runApp(host="0.0.0.0", port=8000)"`, which starts the shiny app on port 8000 (required for all Saturn Cloud deployments), and open to outside traffic
 * **Instance Count** - How many concurrent machines to host the API on. Set to default as 1.
 * **Hardware and Size** - This example is small hence I have selected smallest available CPU resource.
 * **Image** - set to `saturn-rstudio` image, which is preconfigured to have R and some common R libraries (including ggplot2).

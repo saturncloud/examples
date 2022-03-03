@@ -1,6 +1,6 @@
 {
   "name": "example-snowflake",
-  "image_uri": "saturncloud/saturn-rapids:2021.11.10",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-rapids:2022.01.06",
   "description": "Connect to a Snowflake database from either a single machine or distributed cluster",
   "environment_variables": {
     "TAXI_DATABASE": "saturn_nyc_taxi",
@@ -42,5 +42,6 @@
       "type": "environment_variable",
       "location": "EXAMPLE_SNOWFLAKE_PASSWORD"
     }
-  ]
+  ],
+  "version": "2022.01.06"
 }
