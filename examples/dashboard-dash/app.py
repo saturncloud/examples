@@ -1,27 +1,13 @@
 # Run this app with `python app.py` and
 # visit http://127.0.0.1:8050/ in your web browser.
 
-from dash import Dash, html, dcc, Input, Output
-import plotly.express as px
-import pandas as pd
-import numpy as np
-from umap import UMAP
 import time
-from PIL import Image
-import base64
-from io import BytesIO
 
-
-def numpy_to_b64(array, scalar=True):
-    # Convert from 0-1 to 0-255
-    if scalar:
-        array = np.uint8(255 * array)
-
-    im_pil = Image.fromarray(array)
-    buff = BytesIO()
-    im_pil.save(buff, format="png")
-    im_b64 = base64.b64encode(buff.getvalue()).decode("utf-8")
-    return im_b64
+import numpy as np
+import pandas as pd
+import plotly.express as px
+from dash import Dash, Input, Output, dcc, html
+from umap import UMAP
 
 
 app = Dash(__name__)
@@ -30,7 +16,18 @@ app.title = "UMAP Projections"
 app.layout = html.Div(
     [
         html.Div(
-            children=[html.Center(html.H1("UMAP Projections for MNIST and Fashion-MNIST Datasets"))]
+            children=[
+                html.H1(
+                    "UMAP Projections for MNIST and Fashion-MNIST Datasets",
+                    style={"text-align": "center"},
+                ),
+                dcc.Markdown(
+                    """
+                    Uniform Manifold Approximation and Projection (UMAP) is a general-purpose dimension reduction algorithm. Similar to t-distributed stochastic neighbor embedding (t-SNE), you can use UMAP to visualize the relationships between datapoints. In this example, we are training a three-component UMAP model on MNIST datasets and then displaying the 3D graph of the result. The color of the point in the graph is based on the label. In the resulting graph, blobs of colors show that UMAP correctly clustered the datapoints.
+                """,
+                ),
+            ],
+            style={"padding": 10},
         ),
         html.Div(
             [
@@ -47,21 +44,16 @@ app.layout = html.Div(
                         html.H1("Output"),
                         dcc.Loading(
                             id="loading-1",
-                            children=[dcc.Graph(id="graph", style={"height": "80vh"})],
+                            children=[dcc.Graph(id="graph", style={"height": "60vh"})],
                             type="circle",
                         ),
                         html.Center(html.H3("Loading...", id="out_message")),
                     ],
-                    style={"padding": 10, "flex": 2},
-                ),
-                html.Div(
-                    children=[html.H1("Individual Value"), html.Div(id="encoded_image"),],
-                    style={"padding": 10, "flex": 1},
+                    style={"padding": 10, "flex": 3},
                 ),
             ],
             style={"display": "flex", "flex-direction": "row"},
         ),
-        dcc.Store(id="images"),
     ]
 )
 
@@ -69,7 +61,6 @@ app.layout = html.Div(
 @app.callback(
     Output("graph", "figure"),
     Output("out_message", "children"),
-    Output("images", "data"),
     Input("dataset_dropdown", "value"),
 )
 def update_figure(selected_dataset):
@@ -97,21 +88,7 @@ def update_figure(selected_dataset):
     t1 = time.time()
     out_msg = f"Projected in {t1-t0:.2f}s."
 
-    return fig, out_msg, X.to_json()
-
-
-@app.callback(
-    Output("encoded_image", "children"), Input("graph", "clickData"), Input("images", "data")
-)
-def display_click_data(clickData, X):
-    if clickData:
-        X = pd.read_json(X)
-        img_array = np.reshape(X.loc[clickData["points"][0]["pointNumber"], :].to_numpy(), [28, 28])
-        encoded_img = numpy_to_b64(img_array)
-        return html.Img(
-            src="data:image/png;base64, " + encoded_img,
-            style={"height": "25vh", "display": "block", "margin": "auto"},
-        )
+    return fig, out_msg
 
 
 if __name__ == "__main__":
