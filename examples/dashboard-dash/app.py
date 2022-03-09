@@ -75,6 +75,9 @@ def update_figure(selected_dataset):
         y = pd.read_csv("data/fashion_1000_labels.csv")
         y = np.unique(y, return_inverse=True)[1]
 
+    else:
+        return None, "Please select a dataset."
+
     umap_3d = UMAP(n_components=3, init="random", random_state=0)
 
     proj_3d = umap_3d.fit_transform(X, y=y)
