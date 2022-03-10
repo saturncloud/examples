@@ -3,18 +3,16 @@
 ![Plotly and Dash logos](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/plotly_dash_logo.png)
 
 ## Overview
-[Plotly's Dash](https://dash.plotly.com/) enables data scientists to produce low-code data apps by abstracting away much of the technologies and protocols required for interactive data visualization. With only a few additional lines of code, data scientists can 
+With [Plotly's Dash](https://dash.plotly.com/), data scientists can produce low-code data apps by abstracting away much of the technologies and protocols typically required for interactive data visualization. Deploying a Dash app on Saturn Cloud provides not only a scalable backend for your app but also a url link for dissemination.
 
-Deploying a Dash app on Saturn Cloud allows for a scalable backend for your app and a url link for dissemination (this sentence sucks).
-
-In this example, we create a simple UI showing a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read in the data, train the model, and output a 3d graph of the result.
+In this example, we create a simple UI showing a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read the data, train the UMAP model, and produce a 3D graph of the result.
 
 ## Creating the App
-All of our app code is contained in a file called "app.py." To deploy this app on Saturn Cloud, we simply need to call `python app.py` as our command. See the [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions for how to deploy this and other dashboards.
+All the app code is contained in a file called "app.py." To deploy this app on Saturn Cloud, call `python app.py` as the command in a Saturn Cloud deployment. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
 
 The "app.py" file contains several sections to create the Dash app. 
 
-### Imports
+### Import the Libraries
 
 This exercise uses Dash and UMAP to create a dashboard app:
 * [plotly](https://plotly.com/python/): interactive graphs
@@ -32,13 +30,13 @@ from umap import UMAP
 ```
 ### Define the App and Layout
 
-Next, we define the app and then specify the layout. Some of this might seem familiar if you are used to working with HTML. Dash uses functions like `html.div` to define html components (in this case a `div`). 
+Next, define the app, then specify the layout. Some of this code might seem familiar if you work with HTML. Dash uses functions like `html.div` to define html components. 
 
-We also are using Dash Core Components (`dcc`) such as `Dropdown` and `Graph` to define our user input and output components. `dcc` also allows you to use markdown!
+You can use Dash Core Components (`dcc`) such as `Dropdown` and `Graph` to define user input and output components.
 
-This example creates two columns. The first contains a dropdown for the user to select a dataset and the second a visualization of the UMAP projection.
+This example creates two columns. The first contains a dropdown for the user to select a dataset, and the second a visualization of the UMAP projection.
 
-See the [Dash documentation](https://dash.plotly.com/) for more information about how to define specific layouts.
+See the [Dash documentation](https://dash.plotly.com/) for more information about defining specific layouts.
 
 ``` python
 app = Dash(__name__)
@@ -54,7 +52,7 @@ app.layout = html.Div(
                 ),
                 dcc.Markdown(
                     """
-                    Uniform Manifold Approximation and Projection (UMAP) is a general-purpose dimension reduction algorithm. Similar to t-distributed stochastic neighbor embedding (t-SNE), you can use UMAP to visualize the relationships between datapoints. In this example, we are training a three-component UMAP model on MNIST datasets and then displaying the 3D graph of the result. The color of the point in the graph is based on the label. In the resulting graph, blobs of colors show that UMAP correctly clustered the datapoints.
+                    Uniform Manifold Approximation and Projection (UMAP) is a general-purpose dimension reduction algorithm. Similar to t-distributed stochastic neighbor embedding (t-SNE), you can use UMAP to visualize the relationships between data points. In this example, we are training a three-component UMAP model on MNIST datasets and then displaying the 3D graph of the result. The color of the point in the graph is based on the label. In the resulting graph, blobs of colors show that UMAP clustered data points with similar labels together.
                 """,
                 ),
             ],
@@ -66,7 +64,9 @@ app.layout = html.Div(
                     children=[
                         html.H1("Input"),
                         html.Label("Dataset"),
-                        dcc.Dropdown(["MNIST", "Fashion-MNIST"], "MNIST", id="dataset_dropdown"),
+                        dcc.Dropdown(
+                            ["MNIST-Digits", "MNIST-Fashion"], "MNIST-Digits", id="dataset_dropdown"
+                        ),
                     ],
                     style={"padding": 10, "flex": 1},
                 ),
@@ -75,10 +75,9 @@ app.layout = html.Div(
                         html.H1("Output"),
                         dcc.Loading(
                             id="loading-1",
-                            children=[dcc.Graph(id="graph", style={"height": "60vh"})],
+                            children=[dcc.Graph(id="graph")],
                             type="circle",
                         ),
-                        html.Center(html.H3("Loading...", id="out_message")),
                     ],
                     style={"padding": 10, "flex": 3},
                 ),
@@ -92,26 +91,32 @@ app.layout = html.Div(
 ### Define the Callbacks
 Dash uses callbacks to run functions based on user input. For this example, we define a single callback to update the graph when the dataset changes.
 
-Dash uses `Input` and `Output` to define callback inputs and outputs. The first parameter is the id of the associated component in the layout and the second is the type of information passed to and from the function.
+Dash uses `Input` and `Output` to define callback inputs and outputs. The first parameter is the id of the associated component in the layout, and the second is the type of information passed to and from the function.
 
-For this example, the callback downloads the correct dataset based on the dropdown selection, runs `fit_transform` on the dataset to create the projection, and finally creates a 3D scatter plot of the result. This function is timed to give the user feedback. 
+For this example, the callback downloads the correct dataset based on the dropdown selection, runs `fit_transform` on the dataset to create the projection, and finally creates a 3D scatter plot of the result.
 
 ``` python
 @app.callback(
     Output("graph", "figure"),
-    Output("out_message", "children"),
     Input("dataset_dropdown", "value"),
 )
 def update_figure(selected_dataset):
-    t0 = time.time()
-    if selected_dataset == "MNIST":
-        X = pd.read_csv("data/mnist_1000_input.csv")
-        y = pd.read_csv("data/mnist_1000_labels.csv")
+    if selected_dataset == "MNIST-Digits":
+        X = pd.read_csv(
+            "https://saturn-public-data.s3.us-east-2.amazonaws.com/MNIST-1000/mnist-1000-input.csv"
+        )
+        y = pd.read_csv(
+            "https://saturn-public-data.s3.us-east-2.amazonaws.com/MNIST-1000/mnist-1000-labels.csv"
+        )
         y = np.unique(y, return_inverse=True)[1]
 
-    elif selected_dataset == "Fashion-MNIST":
-        X = pd.read_csv("data/fashion_1000_input.csv")
-        y = pd.read_csv("data/fashion_1000_labels.csv")
+    elif selected_dataset == "MNIST-Fashion":
+        X = pd.read_csv(
+            "https://saturn-public-data.s3.us-east-2.amazonaws.com/MNIST-1000/fashion-1000-input.csv"
+        )
+        y = pd.read_csv(
+            "https://saturn-public-data.s3.us-east-2.amazonaws.com/MNIST-1000/fashion-1000-labels.csv"
+        )
         y = np.unique(y, return_inverse=True)[1]
 
     else:
@@ -123,28 +128,25 @@ def update_figure(selected_dataset):
 
     fig = px.scatter_3d(proj_3d, x=0, y=1, z=2, color=y)
 
-    fig.update_layout(transition_duration=500, clickmode="event+select")
+    fig.update_layout(transition_duration=500, height=1000)
     fig.update(layout_coloraxis_showscale=False)
     fig.update_traces(marker_size=2)
 
-    t1 = time.time()
-    out_msg = f"Projected in {t1-t0:.2f}s."
-
-    return fig, out_msg
+    return fig
 ```
 
 ### Run the App
 
-Finally, we define the code to run the app. The important points here are the host and port numbers. For deployments to work on Saturn Cloud, the host value must be `"0.0.0.0"` and the port number `8000`. 
+Finally, define the code to run the app. The important points here are the host and port numbers. For deployments to work on Saturn Cloud, the host value must be `"0.0.0.0"` and the port number `"8000"`. 
 
 ``` python
 if __name__ == "__main__":
-    app.run_server(host="0.0.0.0", port="8000", debug=True)
+    app.run_server(host="0.0.0.0", port="8000")
 ```
 
-We then only need to load the app code and data to github and to link the code appropriately to a Saturn Cloud deployment. 
+Then load the app code and data to git, and link the code appropriately to a Saturn Cloud deployment. 
 
 [Click here]("https://app.community.saturncloud.org/dash/resources?recipeUrl=https://raw.githubusercontent.com/saturncloud/examples/main/examples/dashboard-dash/.saturn/saturn.json") to see how this is accomplished. 
 
 ## Conclusion
-Dash makes it easy to develop interactive apps and Saturn Cloud makes it easy to deploy these apps. Check out our other [dashboard resources](https://saturncloud.io/docs/examples/python/production/) for examples using other frameworks.
+Dash makes it easy to develop interactive apps, and Saturn Cloud makes it easy to deploy these apps. Check out our other [dashboard resources](https://saturncloud.io/docs/examples/python/production/) for examples using other frameworks.
