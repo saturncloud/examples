@@ -1,6 +1,8 @@
 library(rsample)
 library(xgboost)
 library(Metrics)
+library(readr)
+library(magrittr)
 
 
 download_data <- function() {
@@ -10,26 +12,20 @@ download_data <- function() {
             "births_data.rds"
         )
     }
-    births_raw_data <- readRDS("births_data.rds")
-
-    return(births_raw_data)
+    read_rds("births_data.rds")
 }
 
 filter_data <- function(births_raw_data) {
     births_data <- births_raw_data %>%
         select(weight_pounds, is_male, plurality, mother_age, gestation_weeks)
-
-    return(births_data)
 }
 preprocess_data <- function(df) {
     df_preprocessed <- df %>%
         drop_na()
-    return(df_preprocessed)
 }
 
 create_split <- function(data) {
     data_split <- initial_split(data, prop = 0.8)
-    return(data_split)
 }
 
 create_matrices <- function(data) {
@@ -60,12 +56,10 @@ train_model <- function(params, dtrain) {
         nthread = 1,
         objective = "reg:squarederror",
     )
-    return(model)
 }
 
 test_results <- function(model, dtest) {
     results <- predict(model, dtest)
-    return(results)
 }
 
 create_model_table <- function(data, max_depth) {

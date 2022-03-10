@@ -38,6 +38,8 @@ Futures can be created either implicitly or explicitly. Both styles work to the 
 
 To define an implicit future, simply replace `<-` with `%<-%`, like in the example below. The value of an implicitly defined future is returned automatically.
 
+> **Note:** This can conflict with packages like `zeallot` that use a similar notation. Use with caution.
+
 ```{r implicit future example, eval = FALSE}
 v %<-% {
     expression
@@ -101,7 +103,7 @@ plan(sequential)
 future <- future(increment(1), seed = NULL)
 
 resolved(future)
-print(value(future))
+message(value(future))
 ```
 
 As you can see, `resolved()` returned TRUE, showing that the future was evaluated completely before the R process moved on to the `resolved` function. This is exactly how we would expect the function to work without the futures package.
@@ -114,7 +116,7 @@ plan(multisession)
 future <- future(increment(1), seed = TRUE)
 
 resolved(future)
-print(value(future))
+message(value(future))
 ```
 
 This time, the `resolved` function returned FALSE. This shows that, instead of waiting until the future completed, the R process continued on before finally waiting for the function to complete at the `value` function. 
@@ -133,12 +135,7 @@ y <- value(y)
 z <- future(add(x, y), seed = TRUE)
 
 resolved(z)
-print(value(z))
-```
-
-Before ending your session, revert the plan to sequential computations:
-```{r sequential plan reset}
-plan(sequential)
+message(value(z))
 ```
 
 ## Conclusion

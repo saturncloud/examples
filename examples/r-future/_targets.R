@@ -8,12 +8,13 @@ options(tidyverse.quiet = TRUE)
 
 tar_option_set(
     packages = c(
-        "xgboost",
+        "Metrics",
+        "magrittr",
         "rmarkdown",
         "rsample",
-        "tidyverse",
         "shiny",
-        "Metrics"
+        "tidyverse",
+        "xgboost"
     )
 )
 
