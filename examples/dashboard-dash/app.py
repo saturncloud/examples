@@ -66,13 +66,13 @@ app.layout = html.Div(
 def update_figure(selected_dataset):
     t0 = time.time()
     if selected_dataset == "MNIST":
-        X = pd.read_csv("data/mnist_1000_input.csv")
-        y = pd.read_csv("data/mnist_1000_labels.csv")
+        X = pd.read_csv("data/mnist-1000-input.csv")
+        y = pd.read_csv("data/mnist-1000-labels.csv")
         y = np.unique(y, return_inverse=True)[1]
 
     elif selected_dataset == "Fashion-MNIST":
-        X = pd.read_csv("data/fashion_1000_input.csv")
-        y = pd.read_csv("data/fashion_1000_labels.csv")
+        X = pd.read_csv("data/fashion-1000-input.csv")
+        y = pd.read_csv("data/fashion-1000-labels.csv")
         y = np.unique(y, return_inverse=True)[1]
 
     else:
