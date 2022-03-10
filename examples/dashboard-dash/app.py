@@ -23,7 +23,7 @@ app.layout = html.Div(
                 ),
                 dcc.Markdown(
                     """
-                    Uniform Manifold Approximation and Projection (UMAP) is a general-purpose dimension reduction algorithm. Similar to t-distributed stochastic neighbor embedding (t-SNE), you can use UMAP to visualize the relationships between datapoints. In this example, we are training a three-component UMAP model on MNIST datasets and then displaying the 3D graph of the result. The color of the point in the graph is based on the label. In the resulting graph, blobs of colors show that UMAP correctly clustered the datapoints.
+                    Uniform Manifold Approximation and Projection (UMAP) is a general-purpose dimension reduction algorithm. Similar to t-distributed stochastic neighbor embedding (t-SNE), you can use UMAP to visualize the relationships between datapoints. In this example, we are training a three-component UMAP model on MNIST datasets and then displaying the 3D graph of the result. The color of the point in the graph is based on the label. In the resulting graph, blobs of colors show that UMAP clustered datapoints with similar labels together.
                 """,
                 ),
             ],
@@ -35,7 +35,9 @@ app.layout = html.Div(
                     children=[
                         html.H1("Input"),
                         html.Label("Dataset"),
-                        dcc.Dropdown(["MNIST", "Fashion-MNIST"], "MNIST", id="dataset_dropdown"),
+                        dcc.Dropdown(
+                            ["MNIST-Digits", "MNIST-Fashion"], "MNIST-Digits", id="dataset_dropdown"
+                        ),
                     ],
                     style={"padding": 10, "flex": 1},
                 ),
@@ -44,7 +46,7 @@ app.layout = html.Div(
                         html.H1("Output"),
                         dcc.Loading(
                             id="loading-1",
-                            children=[dcc.Graph(id="graph", style={"height": "60vh"})],
+                            children=[dcc.Graph(id="graph")],
                             type="circle",
                         ),
                         html.Center(html.H3("Loading...", id="out_message")),
@@ -65,14 +67,22 @@ app.layout = html.Div(
 )
 def update_figure(selected_dataset):
     t0 = time.time()
-    if selected_dataset == "MNIST":
-        X = pd.read_csv("data/mnist-1000-input.csv")
-        y = pd.read_csv("data/mnist-1000-labels.csv")
+    if selected_dataset == "MNIST-Digits":
+        X = pd.read_csv(
+            "https://saturn-public-data.s3.us-east-2.amazonaws.com/MNIST-1000/mnist-1000-input.csv"
+        )
+        y = pd.read_csv(
+            "https://saturn-public-data.s3.us-east-2.amazonaws.com/MNIST-1000/mnist-1000-labels.csv"
+        )
         y = np.unique(y, return_inverse=True)[1]
 
-    elif selected_dataset == "Fashion-MNIST":
-        X = pd.read_csv("data/fashion-1000-input.csv")
-        y = pd.read_csv("data/fashion-1000-labels.csv")
+    elif selected_dataset == "MNIST-Fashion":
+        X = pd.read_csv(
+            "https://saturn-public-data.s3.us-east-2.amazonaws.com/MNIST-1000/fashion-1000-input.csv"
+        )
+        y = pd.read_csv(
+            "https://saturn-public-data.s3.us-east-2.amazonaws.com/MNIST-1000/fashion-1000-labels.csv"
+        )
         y = np.unique(y, return_inverse=True)[1]
 
     else:
@@ -84,7 +94,7 @@ def update_figure(selected_dataset):
 
     fig = px.scatter_3d(proj_3d, x=0, y=1, z=2, color=y)
 
-    fig.update_layout(transition_duration=500, clickmode="event+select")
+    fig.update_layout(transition_duration=500, height=1000)
     fig.update(layout_coloraxis_showscale=False)
     fig.update_traces(marker_size=2)
 
