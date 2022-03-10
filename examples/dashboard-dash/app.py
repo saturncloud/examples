@@ -1,8 +1,3 @@
-# Run this app with `python app.py` and
-# visit http://127.0.0.1:8050/ in your web browser.
-
-import time
-
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -49,7 +44,6 @@ app.layout = html.Div(
                             children=[dcc.Graph(id="graph")],
                             type="circle",
                         ),
-                        html.Center(html.H3("Loading...", id="out_message")),
                     ],
                     style={"padding": 10, "flex": 3},
                 ),
@@ -62,11 +56,9 @@ app.layout = html.Div(
 
 @app.callback(
     Output("graph", "figure"),
-    Output("out_message", "children"),
     Input("dataset_dropdown", "value"),
 )
 def update_figure(selected_dataset):
-    t0 = time.time()
     if selected_dataset == "MNIST-Digits":
         X = pd.read_csv(
             "https://saturn-public-data.s3.us-east-2.amazonaws.com/MNIST-1000/mnist-1000-input.csv"
@@ -98,10 +90,7 @@ def update_figure(selected_dataset):
     fig.update(layout_coloraxis_showscale=False)
     fig.update_traces(marker_size=2)
 
-    t1 = time.time()
-    out_msg = f"Projected in {t1-t0:.2f}s."
-
-    return fig, out_msg
+    return fig
 
 
 if __name__ == "__main__":
