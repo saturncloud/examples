@@ -1,20 +1,16 @@
 # Create A Dashboard on Saturn Cloud Using Streamlit
 
-![Streamlit logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/streamlit-logo.png)
+![Streamlit logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/streamlit-logo.png "doc-image")
 
 ## Overview
-[Streamlit](https://streamlit.io/) enables data scientists to produce low-code data apps by abstracting away much of the technologies and protocols required for interactive data visualization. With only a few additional lines of code, data scientists can 
+With [Streamlit](https://streamlit.io/), data scientists can produce low-code data apps by abstracting away much of the technologies and protocols typically required for interactive data visualization. Deploying a Streamlit app on Saturn Cloud gives you not only a scalable backend but also a url for dissemination.
 
-Deploying a Streamlit app on Saturn Cloud is easy and gives you a scalable backend and a url for dissemination.
-
-In this example, we create a simple UI showing a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read in the data, train the model, and output a 3d graph of the result.
+In this example, we create a simple UI that shows a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read the data, train the UMAP model, and produce a 3D graph of the result.
 
 ## Creating the App
-All of our app code is contained in a file called "app.py." To deploy this app on Saturn Cloud, we simply need to call `streamlit run app.py --server.port 8000 --server.address 0.0.0.0` as our command. It is important that we set the server port and address to "8000" and "0.0.0.0" so that Saturn Cloud can correctly deploy the app. See the [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions for how to deploy this and other dashboards.
+All the app code is contained in a file called "app.py." To deploy this dashboard on Saturn Cloud, simply call **`streamlit run app.py --server.port 8000 --server.address 0.0.0.0`** as the command in a Saturn Cloud deployment. It is important to set the server port and address to `"8000"` and `"0.0.0.0"` so that Saturn Cloud can correctly deploy the app. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
 
-The "app.py" file contains several sections to create the Streamlit app. 
-
-### Imports
+### Import the Libraries
 
 This exercise uses Streamlit and UMAP to create a dashboard app:
 * [plotly](https://plotly.com/python/): interactive graphs
@@ -30,9 +26,9 @@ from umap import UMAP
 ```
 
 ### Create the Data Loading and Processing Functions
-First, we create two functions to handle data loading and processing. The first function simply reads in the data from an AWS S3 bucket. The second takes that data, runs `fit_transform` on it using UMAP to create a projection, and finally creates a Plotly 3D scatter plot of the result.
+First, create two functions to handle data loading and processing. The first function simply reads the data from an AWS S3 bucket. The second takes that data, runs `fit_transform` on it using UMAP to create a projection, and creates a Plotly 3D scatter plot of the result.
 
-Note that we are using `@st.cache` decorator for both of the functions. This tells streamlit to cache the data so that we don't have to wait for it to download or process twice.
+Note that we are using `@st.cache` decorator for both functions. This decorator tells Streamlit to cache the data so that the end user doesn't have to wait for it to download or process twice.
 
 ``` python
 @st.cache
@@ -78,9 +74,9 @@ def create_figure(X, y):
 
 ### Define the App Layout and Content
 
-We then simply define the layout of the Streamlit app. Streamlit makes it easy to define text content with functions like `title`, `markdown`, and `text`. You can also define user input using function like `selectbox` or output using functions like `plotly_chart`.
+After creating the functions, define the layout of the Streamlit app. Streamlit makes it easy to define text content with functions like `title`, `markdown`, and `text`. You can also define user input using functions like `selectbox` or output using functions like `plotly_chart`.
 
-Here we show a title with some markdown text description and create two columns. The first column contains a dropdown selector for the dataset and the second a chart showing the 3D graph of the UMAP projection.
+The following code displays a title with a markdown text description and creates two columns. The first column contains a dropdown selector for the dataset, and the second a chart showing the 3D graph of the UMAP projection.
 
 See the [Streamlit documentation](https://docs.streamlit.io/) for more information about the functions used here and more.
 
@@ -91,7 +87,7 @@ st.title("UMAP Projections for MNIST and Fashion-MNIST Datasets")
 
 st.markdown(
     """
-    Uniform Manifold Approximation and Projection (UMAP) is a general-purpose dimension reduction algorithm. Similar to t-distributed stochastic neighbor embedding (t-SNE), you can use UMAP to visualize the relationships between datapoints. In this example, we are training a three-component UMAP model on MNIST datasets and then displaying the 3D graph of the result. The color of the point in the graph is based on the label. In the resulting graph, blobs of colors show that UMAP clustered datapoints with similar labels together.
+    Uniform Manifold Approximation and Projection (UMAP) is a general-purpose dimension reduction algorithm. Similar to t-distributed stochastic neighbor embedding (t-SNE), you can use UMAP to visualize the relationships between data points. In this example, we are training a three-component UMAP model on MNIST datasets and then displaying the 3D graph of the result. The color of the point in the graph is based on the label. In the resulting graph, blobs of colors show that UMAP clustered data points with similar labels together.
     """
 )
 
@@ -112,9 +108,9 @@ with col2:
 
 ### Run the App
 
-We then only need to load the app code to github and to link the code appropriately to a Saturn Cloud deployment. 
+You then need to only load the app code to git and link the code appropriately to a Saturn Cloud deployment. 
 
 [Click here]("https://app.community.saturncloud.org/dash/resources?recipeUrl=https://raw.githubusercontent.com/saturncloud/examples/main/examples/dashboard-dash/.saturn/saturn.json") to see how this is accomplished. 
 
 ## Conclusion
-Streamlit makes it easy to develop interactive apps and Saturn Cloud makes it easy to deploy these apps. Check out our other [dashboard resources](https://saturncloud.io/docs/examples/python/production/) for examples using other frameworks.
+Streamlit makes it easy to develop interactive apps, and Saturn Cloud makes it easy to deploy these apps. Check out our other [dashboard resources](https://saturncloud.io/docs/examples/python/production/) for examples using other frameworks.
