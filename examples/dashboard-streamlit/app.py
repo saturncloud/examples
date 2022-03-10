@@ -1,10 +1,8 @@
-import streamlit as st
-import pandas as pd
 import numpy as np
-from umap import UMAP
+import pandas as pd
 import plotly.express as px
-
-st.set_page_config(page_title="UMAP Projections", layout="wide")
+import streamlit as st
+from umap import UMAP
 
 
 @st.cache
@@ -47,11 +45,13 @@ def create_figure(X, y):
     return fig
 
 
+st.set_page_config(page_title="UMAP Projections", layout="wide")
+
 st.title("UMAP Projections for MNIST and Fashion-MNIST Datasets")
 
 st.markdown(
     """
-    Uniform Manifold Approximation and Projection (UMAP) is a general-purpose dimension reduction algorithm. Similar to t-distributed stochastic neighbor embedding (t-SNE), you can use UMAP to visualize the relationships between datapoints. In this example, we are training a three-component UMAP model on MNIST datasets and then displaying the 3D graph of the result. The color of the point in the graph is based on the label. In the resulting graph, blobs of colors show that UMAP correctly clustered the datapoints.
+    Uniform Manifold Approximation and Projection (UMAP) is a general-purpose dimension reduction algorithm. Similar to t-distributed stochastic neighbor embedding (t-SNE), you can use UMAP to visualize the relationships between datapoints. In this example, we are training a three-component UMAP model on MNIST datasets and then displaying the 3D graph of the result. The color of the point in the graph is based on the label. In the resulting graph, blobs of colors show that UMAP clustered datapoints with similar labels together.
     """
 )
 
