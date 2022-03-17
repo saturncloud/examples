@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>House Price Prediction</title>
+</head>
+
+<body>
+    <h1>House Price Prediction</h1>
+    <form action="{{url_for('predict')}}" method="POST">
+        Bedrooms: <input type="number" name='bedrooms' value=1><br>
+        Year of Build: <input type="number" name='year_built' value=1872><br><br>
+        <input type="submit" value="predict" class="submit">
+    </form>
+    <br>
+    <p> {{data}}</p>
+</body>
+
+</html>
