@@ -1,10 +1,9 @@
-using Genie
-using CSV
-using AWSS3
 using AWS
-using GLM
+using AWSS3
+using CSV
 using DataFrames
-
+using GLM
+using Genie
 using Genie.Router
 
 
