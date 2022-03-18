@@ -66,7 +66,7 @@ route("/") do
 end
 ```
 
-## Start the Server
+### Start the Server
 
 Lastly, specify the Genie configuration and server specifications. It is important that you set the port to "8000" and the host to "0.0.0.0" for the API to run properly on Saturn Cloud.
 
