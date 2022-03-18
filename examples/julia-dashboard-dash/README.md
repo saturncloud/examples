@@ -1,6 +1,6 @@
 # Create A Dashboard on Saturn Cloud Using Dash in Julia
 
-![Plotly and Dash logos](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/plotly_julia_logo.png "doc-image")
+![Plotly and Julia logos](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/plotly_julia_logo.png "doc-image")
 
 ## Overview
 With [Plotly's Dash](https://dash.plotly.com/), data scientists can produce low-code data apps by abstracting away much of the technologies and protocols typically required for interactive data visualization. Deploying a Dash app on Saturn Cloud provides not only a scalable backend for your app but also a url link for dissemination.
