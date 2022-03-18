@@ -31,17 +31,17 @@ If you need help setting up your SSH keys on your laptop, you can find some good
 Once you have your key pair set up, you will need to add your SSH Public Key to your Saturn Cloud account. ***The SSH Private Key will stay on your laptop.***
 
 #### Add Your SSH Credentials to Saturn Cloud
-Sign in to your Saturn Cloud account and select **Credentials** from the menu on the left.
+Sign in to your Saturn Cloud account and select **Settings** from the menu on the left.
 
-<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/saturn-credentials-arrow.jpeg" style="width:200px;" alt="Saturn Cloud left menu with arrow pointing to Credentials tab" class="doc-image">
+<img src="https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/settings-page.png" style="width:200px;" alt="Saturn Cloud left menu with arrow pointing to Settings tab" class="doc-image">
 
 This is where you will add your SSH credential information. *This is a secure storage location, and it will not be available to the public or other users without your consent.*
 
-At the top right corner of this page, you will find the **New** button. Click here, and you will be taken to the Credentials Creation form. 
+At the top right corner of this page, you will find the **New** button. Click here, and you will be taken to the SSH Key creation form. 
 
-Select *SSH Public Key*, give it an appropriate name, and copy the whole contents of your Public Key file into the *Value* section.
+Select the appropriate owner, give it a name, and copy the whole contents of your Public Key file into the *Value* section.
 
-![Credentials page with ssh key selected](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/ssh-crediential.png "doc-image")
+![Add SSH key page](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/ssh-key-form.png "doc-image")
 
 With this complete, your SSH credentials will be accessible by Saturn Cloud resources!
 
@@ -65,15 +65,17 @@ The `scp` command allows you to copy files over SSH connections. To use it, all 
 From the command line on your local machine, the `scp` command takes the following format:
 
 
-```{bash}
+```{bash, eval = FALSE}
 scp "local-filepath" saturn-cloud-ssh-url:"remote-filepath"
 ```
 
 So your command might look like:
 
 
-```{bash}
+```{bash, eval = FALSE}
 scp "test_file.py" jovyan@ae6eb704cfbef4c5c83598483dfdaf7b-672974639.us-west-2.elb.amazonaws.com:"project/scripts/"
 ```
 
-And that's it! If you look in your resource's file system, you will see the file.
+And that's it! If you look in your resource's file system, you will see the file. 
+
+You can also use `rsync` to perform a similar function. See [the documentation](https://linux.die.net/man/1/rsync) for more information.
