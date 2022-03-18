@@ -15,7 +15,7 @@ All the API code is contained in a file called "app.py." To deploy this dashboar
 
 ### Import the Libraries
 
-This exercise uses Streamlit and UMAP to create a dashboard app:
+This exercise uses GLM and Genie to create a API:
 * [GLM](https://juliastats.org/GLM.jl/v0.11/): generalized linear models
 * [Genie](https://github.com/GenieFramework/Genie.jl): full-stack web apps
 
