@@ -1,0 +1,1 @@
+Genie allows you to create complex web apps, but here we are making a simple api. Check out the [Genie documentation](https://genieframework.com/docs/tutorials/Overview.html) for more information.
