@@ -7,8 +7,8 @@
 # offer a reasonable automatic best-guess
 
 # catch-all rule (this only gets matched if no rules below match)
-*    @jnolis
+*    @jnolis @jsignell
 
-.ci/*     @jsignell
-.github/*    @jsignell
-Makefile    @jsignell
+.ci/*     @jsignell @forana
+.github/*    @jsignell @forana
+Makefile    @jsignell @forana
