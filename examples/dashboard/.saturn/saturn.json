@@ -12,7 +12,8 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
-      "reference": "release-2022.01.06"
+      "reference": "release-2022.01.06",
+      "path": "/home/jovyan/examples"
     }
   ],
   "deployment": {
