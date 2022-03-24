@@ -83,12 +83,6 @@
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/prefect.png",
       "weight": 1300,
       "recipe_path": "examples/prefect/.saturn/saturn.json"
-    },
-    {
-      "title": "Dashboard (Julia)",
-      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/julia-dashboard.png",
-      "weight": 1400,
-      "recipe_path": "examples/julia-dashboard-dash/.saturn/saturn.json"
     }
   ]
 }
