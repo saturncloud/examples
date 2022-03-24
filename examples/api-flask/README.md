@@ -2,6 +2,12 @@
 
 ![Flask logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/flask_logo.png "doc-image")
 
+<div align="center">
+
+## [View the Running Dashboard](https://scld.io/hosted/julia-api) 
+
+</div>
+
 ## Overview
 
 [Flask](https://flask.palletsprojects.com/en/2.0.x/) is a microframework for creating APIs in Python. An API is a way for programs to communicate with each other. They work similarly to websites, but instead of a human typing in a url and getting an HTML page back, a program can send a similar request to a URL and get different types of data back.
@@ -11,13 +17,11 @@ This API example runs a linear regression on historical house prices and outputs
 ## Creating the API
 All the API code is contained in a file called "app.py." There is also a basic HTML front end for the API in the "templates" folder. 
 
-To deploy this dashboard on Saturn Cloud, simply call **`python app.py`** as the command in a Saturn Cloud deployment. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
+To deploy this dashboard on Saturn Cloud, call **`python app.py`** as the command in a Saturn Cloud deployment. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
 
 ### Import the Libraries
 
-This exercise uses scikit-learn and Flask to create a simple API:
-* [scikit-learn](https://scikit-learn.org/stable/): machine learning and modeling
-* [Flask](https://github.com/pallets/flask): microframework for APIs
+This exercise uses scikit-learn and Flask to create a simple API.
 
 ``` python
 from flask import Flask, render_template, request
@@ -91,7 +95,7 @@ The form is a basic HTML form that calls the API when the **Submit** button is p
 
 ### Start the Server
 
-Lastly, specify the Flask server specifications. It is important that you set the port to "8000" and the host to "0.0.0.0" for the API to run properly on Saturn Cloud.
+Lastly, specify the Flask server specifications. For users to access the server, the host value must be `"0.0.0.0"` and the port number `"8000"`. `8000` is the only port exposed on Saturn Cloud deployments.
 
 ``` python
 if __name__ == "__main__":
@@ -102,7 +106,4 @@ if __name__ == "__main__":
 
 You then need to only load the app code to git and link the code appropriately to a Saturn Cloud deployment. 
 
-[Click here]("https://app.community.saturncloud.org/dash/resources?recipeUrl=https://raw.githubusercontent.com/saturncloud/examples/main/examples/python-api-flask/.saturn/saturn.json") to see how this is accomplished. 
-
-## Conclusion
-Flask makes it easy to create simple APIs, and Saturn Cloud makes it easy to deploy these apps. Simply define an endpoint and, optionally, an input template, load it into Saturn Cloud, and you have a functional API ready to go!
+For more examples of creating APIs and dashboards with Python check out the other [Saturn Cloud examples](https://saturncloud.io/docs/examples/python/production/).
