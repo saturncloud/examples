@@ -5,7 +5,8 @@
   "working_directory": "/home/jovyan/examples/examples/job",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples"
+      "url": "https://github.com/saturncloud/examples",
+      "path": "/home/jovyan/examples"
     }
   ],
   "job": {
