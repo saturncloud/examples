@@ -2,20 +2,23 @@
 
 ![Streamlit logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/streamlit-logo.png "doc-image")
 
+<div align="center">
+
+## [View the Running Dashboard](https://scld.io/hosted/streamlit) 
+
+</div>
+
 ## Overview
 With [Streamlit](https://streamlit.io/), data scientists can produce low-code data apps by abstracting away much of the technologies and protocols typically required for interactive data visualization. Deploying a Streamlit app on Saturn Cloud gives you not only a scalable backend but also a url for dissemination.
 
-In this example, we create a simple UI that shows a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read the data, train the UMAP model, and produce a 3D graph of the result.
+In this example, we create a simple UI that shows a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read the data, train the UMAP model, and produce a 3D graph of the result using [plotly](https://plotly.com/python/).
 
 ## Creating the App
-All the app code is contained in a file called "app.py." To deploy this dashboard on Saturn Cloud, simply call **`streamlit run app.py --server.port 8000 --server.address 0.0.0.0`** as the command in a Saturn Cloud deployment. It is important to set the server port and address to `"8000"` and `"0.0.0.0"` so that Saturn Cloud can correctly deploy the app. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
+All the app code is contained in a file called "app.py." To deploy this dashboard on Saturn Cloud, call **`streamlit run app.py --server.port 8000 --server.address 0.0.0.0`** as the command in a Saturn Cloud deployment. It is important to set the server port and address to `"8000"` and `"0.0.0.0"` so that Saturn Cloud can correctly deploy the app. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
 
 ### Import the Libraries
 
-This exercise uses Streamlit and UMAP to create a dashboard app:
-* [plotly](https://plotly.com/python/): interactive graphs
-* [streamlit](https://github.com/streamlit/streamlit): low-code data app framework
-* [UMAP](https://umap-learn.readthedocs.io/en/latest/): dimensionality reduction and visualization
+This exercise uses Streamlit, plotly, and UMAP to create a dashboard app:
 
 ``` python
 import numpy as np
@@ -110,7 +113,4 @@ with col2:
 
 You then need to only load the app code to git and link the code appropriately to a Saturn Cloud deployment. 
 
-[Click here]("https://app.community.saturncloud.org/dash/resources?recipeUrl=https://raw.githubusercontent.com/saturncloud/examples/main/examples/dashboard-dash/.saturn/saturn.json") to see how this is accomplished. 
-
-## Conclusion
-Streamlit makes it easy to develop interactive apps, and Saturn Cloud makes it easy to deploy these apps. Check out our other [dashboard resources](https://saturncloud.io/docs/examples/python/production/) for examples using other frameworks.
+Check out our other [dashboard resources](https://saturncloud.io/docs/examples/python/production/) for examples using other frameworks.
