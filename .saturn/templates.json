@@ -83,12 +83,6 @@
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/prefect.png",
       "weight": 1300,
       "recipe_path": "examples/prefect/.saturn/saturn.json"
-    },
-    {
-      "title": "Deploy an API (Julia)",
-      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/api-icon.png",
-      "weight": 1500,
-      "recipe_path": "examples/julia-api/.saturn/saturn.json"
     }
   ]
 }
