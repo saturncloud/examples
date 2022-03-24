@@ -4,7 +4,7 @@
 
 <div align="center">
 
-## [View the Running Dashboard](https://scld.io/hosted/julia-api) 
+## [View the Running Dashboard](https://scld.io/hosted/api-flask) 
 
 </div>
 
