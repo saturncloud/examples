@@ -1,6 +1,6 @@
 {
   "name": "example-r-future",
-  "image_uri": "saturncloud/saturn-rstudio-parallel:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-rstudio-parallel:2022.03.01",
   "description": "Run parallel computing workloads using the future package.",
   "working_directory": "/home/jovyan/examples/examples/r-future",
   "extra_packages": {
