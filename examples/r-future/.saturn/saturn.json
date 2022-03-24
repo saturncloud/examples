@@ -10,8 +10,7 @@
   "git_repositories": [
     {
       "url": "git@github.com:saturncloud/examples.git",
-      "reference": "r-future",
-      "reference_type": "branch"
+      "path": "/home/jovyan/examples"
     }
   ],
   "rstudio_server": {
