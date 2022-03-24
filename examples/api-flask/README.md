@@ -2,12 +2,6 @@
 
 ![Flask logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/flask_logo.png "doc-image")
 
-<div align="center">
-
-## [View the Running API](https://scld.io/hosted/api-flask) 
-
-</div>
-
 ## Overview
 
 [Flask](https://flask.palletsprojects.com/en/2.0.x/) is a microframework for creating APIs in Python. An API is a way for programs to communicate with each other. They work similarly to websites, but instead of a human typing in a url and getting an HTML page back, a program can send a similar request to a URL and get different types of data back.
