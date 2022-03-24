@@ -17,7 +17,9 @@ This API example runs a linear regression on historical house prices and outputs
 ## Creating the API
 All the API code is contained in a file called "app.py." There is also a basic HTML front end for the API in the "templates" folder. 
 
-To deploy this dashboard on Saturn Cloud, call **`python app.py`** as the command in a Saturn Cloud deployment. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
+To deploy this dashboard on Saturn Cloud, call **`flask run --host=0.0.0.0 --port=8000 `** as the command in a Saturn Cloud deployment. For users to access the server, the host value must be `"0.0.0.0"` and the port number `"8000"`. `8000` is the only port exposed on Saturn Cloud deployments.
+
+See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
 
 ### Import the Libraries
 
@@ -95,11 +97,11 @@ The form is a basic HTML form that calls the API when the **Submit** button is p
 
 ### Start the Server
 
-Lastly, specify the Flask server specifications. For users to access the server, the host value must be `"0.0.0.0"` and the port number `"8000"`. `8000` is the only port exposed on Saturn Cloud deployments.
+Lastly, specify the Flask server specifications. 
 
 ``` python
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    app.run()
 ```
 
 ### Run the API
