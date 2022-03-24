@@ -8,7 +8,8 @@
   "working_directory": "/home/jovyan/examples/examples/dask",
   "git_repositories": [
     {
-      "url": "https://github.com/saturncloud/examples"
+      "url": "https://github.com/saturncloud/examples",
+      "path": "/home/jovyan/examples"
     }
   ],
   "jupyter_server": {
