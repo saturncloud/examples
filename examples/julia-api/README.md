@@ -2,12 +2,6 @@
 
 ![Genie logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/genie_logo.png "doc-image")
 
-<div align="center">
-
-## [View the Running Dashboard](https://scld.io/hosted/julia-api) 
-
-</div>
-
 ## Overview
 
 [Genie](https://genieframework.com/) is a full-stack web framework for Julia. Genie allows you to create complex web apps, but here we are using it to make a simple API. Check out the [Genie documentation](https://genieframework.com/docs/tutorials/Overview.html) for more information.
