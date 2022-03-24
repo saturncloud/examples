@@ -2,6 +2,12 @@
 
 ![Genie logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/genie_logo.png "doc-image")
 
+<div align="center">
+
+## [View the Running Dashboard](https://scld.io/hosted/julia-api) 
+
+</div>
+
 ## Overview
 
 [Genie](https://genieframework.com/) is a full-stack web framework for Julia. Genie allows you to create complex web apps, but here we are using it to make a simple API. Check out the [Genie documentation](https://genieframework.com/docs/tutorials/Overview.html) for more information.
@@ -11,7 +17,7 @@ An API is a way for programs to communicate with each other. They work similarly
 This API runs a linear regression on historical house prices and outputs the predicted house price based on this model when you hit a specific endpoint. 
 
 ## Creating the API
-All the API code is contained in a file called "app.py." To deploy this dashboard on Saturn Cloud, simply call **`julia app.jl`** as the command in a Saturn Cloud deployment. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
+All the API code is contained in a file called "app.py." To deploy this dashboard on Saturn Cloud, call **`julia app.jl`** as the command in a Saturn Cloud deployment. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
 
 ### Import the Libraries
 
@@ -79,7 +85,4 @@ Genie.startup(8000, "0.0.0.0")
 
 You then need to only load the app code to git and link the code appropriately to a Saturn Cloud deployment. 
 
-[Click here]("https://app.community.saturncloud.org/dash/resources?recipeUrl=https://raw.githubusercontent.com/saturncloud/examples/main/examples/julia-api/.saturn/saturn.json") to see how this is accomplished. 
-
-## Conclusion
-Genie makes it easy to create simple APIs, and Saturn Cloud makes it easy to deploy these apps. Check out our other [Julia resources](https://saturncloud.io/docs/examples/julia/) for other examples using Julia.
+Check out our other [Julia resources](https://saturncloud.io/docs/examples/julia/) for other examples using Julia.
