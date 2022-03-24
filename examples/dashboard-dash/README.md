@@ -2,12 +2,6 @@
 
 ![Plotly and Dash logos](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/plotly_dash_logo.png "doc-image")
 
-<div align="center">
-
-## [View the Running Dashboard](https://scld.io/hosted/dash) 
-
-</div>
-
 ## Overview
 With [Dash](https://dash.plotly.com/) from Plotly, data scientists can produce low-code data apps by abstracting away much of the technologies and protocols typically required for interactive data visualization. Deploying a Dash app on Saturn Cloud provides not only a scalable backend for your app but also a url link for dissemination.
 
