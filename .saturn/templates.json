@@ -83,12 +83,6 @@
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/prefect.png",
       "weight": 1300,
       "recipe_path": "examples/prefect/.saturn/saturn.json"
-    },
-    {
-      "title": "Flux (Julia)",
-      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/julia-logo.png",
-      "weight": 1350,
-      "recipe_path": "examples/julia-flux/.saturn/saturn.json"
-    },
+    }
   ]
 }
