@@ -4,7 +4,7 @@
   "description": "Deploy an API to Saturn Cloud using Julia",
   "environment_variables": {},
   "working_directory": "/home/jovyan/examples/examples/julia-api",
-  "start_script": "julia -e 'import Pkg;\nPkg.add([\n\"GLM\",\n\"Genie\",\n])'",
+  "start_script": "julia -e 'import Pkg;\nPkg.add([\n\"GLM\",\n\"Genie\"\n])'",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
