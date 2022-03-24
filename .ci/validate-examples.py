@@ -117,6 +117,12 @@ def validate_recipe(schema, instance_type_options, recipe_path, example_dir):
     abs_path = os.path.join(EXAMPLES_DIR, rel_path)
     if not os.path.exists(abs_path):
         raise ValidationError(f"working_directory ('{working_dir}') needs to point to a real path")
+    
+    git_repositories = recipe["git_repositories"]
+    if len(git_repositories) < 1:
+        raise ValidationError("git_repositories cannot be empty")
+    if not all("path" in repo for repo in git_repositories):
+        raise ValidationError(f"At least one git_repository is missing a path {git_repositories}")
 
     jupyter = recipe.get("jupyter_server")
     deployment = recipe.get("deployment")
