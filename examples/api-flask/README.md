@@ -4,7 +4,7 @@
 
 <div align="center">
 
-## [View the Running Dashboard](https://scld.io/hosted/api-flask) 
+## [View the Running API](https://scld.io/hosted/api-flask) 
 
 </div>
 
