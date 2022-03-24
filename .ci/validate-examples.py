@@ -117,7 +117,7 @@ def validate_recipe(schema, instance_type_options, recipe_path, example_dir):
     abs_path = os.path.join(EXAMPLES_DIR, rel_path)
     if not os.path.exists(abs_path):
         raise ValidationError(f"working_directory ('{working_dir}') needs to point to a real path")
-    
+
     git_repositories = recipe["git_repositories"]
     if len(git_repositories) < 1:
         raise ValidationError("git_repositories cannot be empty")
