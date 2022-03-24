@@ -2,12 +2,6 @@
 
 ![Streamlit logo](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/streamlit-logo.png "doc-image")
 
-<div align="center">
-
-## [View the Running Dashboard](https://scld.io/hosted/streamlit) 
-
-</div>
-
 ## Overview
 With [Streamlit](https://streamlit.io/), data scientists can produce low-code data apps by abstracting away much of the technologies and protocols typically required for interactive data visualization. Deploying a Streamlit app on Saturn Cloud gives you not only a scalable backend but also a url for dissemination.
 
