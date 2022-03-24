@@ -1,12 +1,9 @@
 {
   "name": "example-julia-dashboard-dash",
   "image_uri": "public.ecr.aws/saturncloud/saturn-julia:2022.03.01",
-  "description": "",
+  "description": "Deploy a dashboard using Julia and Dash",
   "working_directory": "/home/jovyan/examples/examples/julia-dashboard-dash",
-  "extra_packages": {
-    "apt": "unzip"
-  },
-  "start_script": "julia -e 'import Pkg;\nPkg.add([\n\"Dash\",\n\"AWSS3\",\n\"CSV\",\n\"PlotlyJS\",\n\"AWS\",\n\"UMAP\"\n])'",
+  "start_script": "julia -e 'import Pkg;\nPkg.add([\n\"Dash\",\n\"PlotlyJS\",\n\"UMAP\"\n])'",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",

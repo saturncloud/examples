@@ -2,10 +2,16 @@
 
 ![Plotly and Julia logos](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/plotly_julia_logo.png "doc-image")
 
-## Overview
-With [Plotly's Dash](https://dash.plotly.com/), data scientists can produce low-code data apps by abstracting away much of the technologies and protocols typically required for interactive data visualization. Deploying a Dash app on Saturn Cloud provides not only a scalable backend for your app but also a url link for dissemination.
+<div align="center">
 
-In this example, we create a simple UI showing a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read the data, train the UMAP model, and produce a 3D graph of the result.
+## [View the Running Dashboard](https://scld.io/hosted/julia-dash) 
+
+</div>
+
+## Overview
+With [Dash](https://dash.plotly.com/) by Plotly, data scientists can produce low-code data apps by abstracting away much of the technologies and protocols typically required for interactive data visualization. Deploying a Dash app on Saturn Cloud provides not only a scalable backend for your app but also a url link for dissemination.
+
+In this example, we create a simple UI showing a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read the data, train the UMAP model, and produce a 3D graph of the result using [PlotlyJS](http://juliaplots.org/PlotlyJS.jl/stable/).
 
 ## Creating the App
 All the app code is contained in a file called "app.jl." To deploy this app on Saturn Cloud, call `julia app.jl` as the command in a Saturn Cloud deployment. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
@@ -14,10 +20,7 @@ The "app.jl" file contains several sections to create the Dash app.
 
 ### Import the Libraries
 
-This exercise uses Dash and UMAP to create a dashboard app:
-* [PlotlyJS](http://juliaplots.org/PlotlyJS.jl/stable/): interactive graphs
-* [dash](https://dash.plotly.com/julia): low-code data app framework
-* [UMAP](https://github.com/dillondaudert/UMAP.jl): dimensionality reduction and visualization
+This exercise uses Dash, PlotlyJS, and UMAP to create a dashboard app.
 
 ``` julia
 using AWS
@@ -134,7 +137,7 @@ end
 
 ### Run the App
 
-Finally, define the code to run the app. The important points here are the host and port numbers. For deployments to work on Saturn Cloud, the host value must be `"0.0.0.0"` and the port number `"8000"`. 
+Finally, define the code to run the app. The important points here are the host and port numbers. For users to access the server, the host value must be `"0.0.0.0"` and the port number `"8000"`. `8000` is the only port exposed on Saturn Cloud deployments.
 
 ``` julia
 run_server(app, "0.0.0.0", 8000)
@@ -142,7 +145,4 @@ run_server(app, "0.0.0.0", 8000)
 
 Then load the app code and data to git, and link the code appropriately to a Saturn Cloud deployment. 
 
-[Click here]("https://app.community.saturncloud.org/dash/resources?recipeUrl=https://raw.githubusercontent.com/saturncloud/examples/main/examples/julia-dashboard-dash/.saturn/saturn.json") to see how this is accomplished. 
-
-## Conclusion
-With Julia support for Dash, Julia users can now easily develop interactive apps and Saturn Cloud makes it easy to deploy these apps. Check out our other [Julia examples](https://saturncloud.io/docs/examples/julia/) for more guides on how to use Julia on Saturn Cloud.
+Check out our other [Julia examples](https://saturncloud.io/docs/examples/julia/) for more guides on how to use Julia on Saturn Cloud.
