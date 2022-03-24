@@ -40,6 +40,7 @@ Untitled*.ipynb
 *.bak
 
 # data files 
+*.csv
 *.dat
 *.data
 *.db
