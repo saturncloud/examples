@@ -29,7 +29,3 @@ def predict():
     prediction = linear_regression.predict(input)
 
     return render_template("index.html", data=f"The house price is: ${int(prediction)}.")
-
-
-if __name__ == "__main__":
-    app.run()

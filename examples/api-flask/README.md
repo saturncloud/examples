@@ -95,15 +95,6 @@ The form is a basic HTML form that calls the API when the **Submit** button is p
 </html>
 ```
 
-### Start the Server
-
-Lastly, specify the Flask server specifications. 
-
-``` python
-if __name__ == "__main__":
-    app.run()
-```
-
 ### Run the API
 
 You then need to only load the app code to git and link the code appropriately to a Saturn Cloud deployment. 
