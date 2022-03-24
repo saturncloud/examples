@@ -11,7 +11,7 @@
 ## Overview
 With [Dash](https://dash.plotly.com/) from Plotly, data scientists can produce low-code data apps by abstracting away much of the technologies and protocols typically required for interactive data visualization. Deploying a Dash app on Saturn Cloud provides not only a scalable backend for your app but also a url link for dissemination.
 
-In this example, we create a simple UI showing a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read the data, train the UMAP model, and produce a 3D graph of the result.
+In this example, we create a simple UI showing a [Uniform Manifold Approximation and Projection (UMAP)](https://umap-learn.readthedocs.io/en/latest/) model projection of the famous MNIST digits and fashion datasets. The app will read the data, train the UMAP model, and produce a 3D graph of the result using [plotly](https://plotly.com/python/).
 
 ## Creating the App
 All the app code is contained in a file called "app.py." To deploy this app on Saturn Cloud, call `python app.py` as the command in a Saturn Cloud deployment. See [Saturn Cloud docs](https://saturncloud.io/docs/examples/dashboards/dashboard/) for more detailed instructions on deploying this and other dashboards.
@@ -20,7 +20,7 @@ The "app.py" file contains several sections to create the Dash app.
 
 ### Import the Libraries
 
-This exercise uses Dash, [plotly](https://plotly.com/python/), and UMAP to create a dashboard app.
+This exercise uses Dash, plotly, and UMAP to create a dashboard app.
 
 ``` python
 import numpy as np
