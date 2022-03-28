@@ -10,7 +10,6 @@ Full dataset: https://github.com/toddwschneider/nyc-taxi-data/blob/master/setup_
 import numpy as np
 import pandas as pd
 import time
-import datetime
 import bodo
 
 
@@ -30,9 +29,9 @@ def get_weekday_trips():
 
     start = time.time()
     trips_weekdays = green_taxi[
-        (green_taxi["lpep_pickup_datetime"] >= pd.to_datetime("2019-01-01"))
-        & (green_taxi["lpep_pickup_datetime"] < pd.to_datetime("2020-01-01"))
-        & (green_taxi["pickup_dow"].isin([1, 2, 3, 4, 5]))
+        (green_taxi["lpep_pickup_datetime"] >= pd.to_datetime("2019-01-01")) &
+        (green_taxi["lpep_pickup_datetime"] < pd.to_datetime("2020-01-01")) & 
+        (green_taxi["pickup_dow"].isin([1, 2, 3, 4, 5]))
     ]
     trips_weekdays = trips_weekdays.groupby(
         ["PULocationID", "DOLocationID"], as_index=False
