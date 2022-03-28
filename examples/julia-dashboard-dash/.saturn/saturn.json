@@ -1,0 +1,18 @@
+{
+  "name": "example-julia-dashboard-dash",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-julia:2022.03.01",
+  "description": "Deploy a dashboard using Julia and Dash",
+  "working_directory": "/home/jovyan/examples/examples/julia-dashboard-dash",
+  "start_script": "julia -e 'import Pkg;\nPkg.add([\n\"Dash\",\n\"PlotlyJS\",\n\"UMAP\"\n])'",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "path": "/home/jovyan/examples"
+    }
+  ],
+  "deployment": {
+    "instance_type": "large",
+    "command": "julia app.jl"
+  },
+  "version": "2022.01.06"
+}
