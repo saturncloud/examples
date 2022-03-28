@@ -22,6 +22,7 @@ from typing import Dict, List, Optional
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--examples-dir", type=str, help="Path to the 'examples' directory to check")
+
 parser.add_argument(
     "--skip-image-check",
     action="store_true",
@@ -31,7 +32,7 @@ parser.add_argument(
 ADMIN_DIRS = ["_img"]
 ARGS = parser.parse_args()
 DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
-FILENAME_REGEX = r"^[0-9A-Za-z\-\.]+$"
+FILENAME_REGEX = r"^[0-9A-Za-z\-\.\_]+$"
 SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
 TEMPLATES_JSON_NAMES = ["templates-hosted.json", "templates-enterprise.json"]
@@ -153,7 +154,7 @@ def image_exists_on_registry(registry: Optional[str], image_name: str, image_tag
     publicly-accessible on DockerHub.
 
     Based on the code from this blog post:
-    * htttps://ops.tips/blog/inspecting-docker-image-without-pull/
+    * https://ops.tips/blog/inspecting-docker-image-without-pull/
 
     :param image_name: Name of an image, such as ``continuumio/miniconda3``
     :param image_tag: Tag for the image, such as ``4.8.2``
@@ -360,7 +361,7 @@ if __name__ == "__main__":
                 is_valid = bool(re.search(FILENAME_REGEX, base_name))
                 msg = (
                     f"All files should be named with only "
-                    "alphanumeric characters, dashes, and periods. "
+                    "alphanumeric characters, dashes, underscores, and periods. "
                     f"'{fname}` violates this rule."
                 )
             if not is_valid:
