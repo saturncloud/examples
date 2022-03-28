@@ -1,6 +1,6 @@
 # Bodo Examples
 
-Welcome to Bodo examples! These are adapted from the [bodo.ai example repository](https://github.com/Bodo-inc/Bodo-examples).
+Welcome to Bodo examples! These are adapted from the [Bodo.ai example repository](https://github.com/Bodo-inc/Bodo-examples).
 
 >**Note**: Bodo works best for very large datasets, so downloading the data used in the examples can take some time. Please be patient while the datasets download for each example - you will see the speed benefits of Bodo when manipulating the downloaded data.
 
@@ -20,4 +20,4 @@ The script examples run using mpiexec in a terminal environment.
 ---------------------------
 More documentation can be found at http://docs.bodo.ai.
 
-Also take a look at [the bodo tutorial](https://github.com/Bodo-inc/Bodo-tutorial) for more inspiration.
+Also take a look at [the Bodo tutorial](https://github.com/Bodo-inc/Bodo-tutorial) for more inspiration.
