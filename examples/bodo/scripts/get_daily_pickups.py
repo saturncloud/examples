@@ -10,7 +10,6 @@ Full dataset: https://github.com/toddwschneider/nyc-taxi-data/blob/master/setup_
 import numpy as np
 import pandas as pd
 import time
-import datetime
 import bodo
 
 
