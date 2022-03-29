@@ -1,0 +1,17 @@
+{
+  "name": "example-julia-flux",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-julia-gpu:2022.03.01",
+  "description": "Use Julia to train a simple neural network model using Flux.",
+  "working_directory": "/home/jovyan/examples/examples/julia-flux",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "path": "/home/jovyan/examples"
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "10Gi",
+    "instance_type": "g4dnxlarge"
+  },
+  "version": "2022.01.06"
+}
