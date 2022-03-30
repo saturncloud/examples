@@ -12,7 +12,7 @@
     }
   ],
   "deployment": {
-    "instance_type": "large",
+    "instance_type": "medium",
     "command": "julia app.jl"
   },
   "version": "2022.01.06"

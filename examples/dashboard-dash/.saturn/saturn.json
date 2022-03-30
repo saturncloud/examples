@@ -14,7 +14,7 @@
     }
   ],
   "deployment": {
-    "instance_type": "large",
+    "instance_type": "medium",
     "command": "python app.py"
   },
   "version": "2022.01.06"

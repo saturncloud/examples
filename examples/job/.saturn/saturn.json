@@ -10,7 +10,7 @@
     }
   ],
   "job": {
-    "instance_type": "large",
+    "instance_type": "medium",
     "command": "python example.py"
   },
   "version": "2022.01.06"

@@ -11,7 +11,7 @@
     }
   ],
   "deployment": {
-    "instance_type": "large",
+    "instance_type": "medium",
     "command": "Rscript run-api.R"
   },
   "version": "2022.01.06"
