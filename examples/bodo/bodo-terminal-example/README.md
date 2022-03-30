@@ -9,5 +9,5 @@ Thus, to increase the performance of the Bodo cluster you only need to increase 
 To run Python scripts with Bodo, use `mpiexe` from the command line and specify the number of parallel processes you would like to use:
 
 ```shell
-mpiexec -n 8 python bodo-terminal-example/example.py
+mpiexec -n 8 python example.py
 ```
