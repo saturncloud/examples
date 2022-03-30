@@ -4,7 +4,7 @@
     "description": "Bodo.ai on Saturn Cloud using a CPU instance",
     "working_directory": "/home/jovyan/examples/examples/bodo",
     "extra_packages": {
-        "conda": "bodo ipyparallel mpi4py xgboost scikit-learn -c bodo.ai -c conda-forge",
+        "conda": "bodo ipyparallel mpi4py -c bodo.ai -c conda-forge",
         "use_mamba": true
     },
     "git_repositories": [
