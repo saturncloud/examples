@@ -14,7 +14,8 @@
     }
   ],
   "jupyter_server": {
-    "instance_type": "g4dnxlarge"
+    "instance_type": "g4dnxlarge",
+    "disk_space": "10Gi"
   },
   "dask_cluster": {
     "num_workers": 3,

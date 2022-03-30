@@ -130,6 +130,7 @@ def validate_recipe(schema, instance_type_options, recipe_path, example_dir):
     job = recipe.get("job")
     rstudio = recipe.get("rstudio_server")
     resource = jupyter or deployment or job or rstudio
+    workspace = jupyter or rstudio
 
     if resource["instance_type"] not in instance_type_options:
         raise ValidationError(
@@ -146,6 +147,9 @@ def validate_recipe(schema, instance_type_options, recipe_path, example_dir):
                 "Dask worker instance type should match the instance type "
                 "of its attached jupyter_server or deployment"
             )
+
+    if workspace is not None and "disk_space" not in workspace:
+        raise ValidationError("disk_space is required for workspaces.")
 
 
 def image_exists_on_registry(registry: Optional[str], image_name: str, image_tag: str) -> bool:
