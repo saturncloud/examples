@@ -41,8 +41,8 @@ Define what characters can be used for the pet names, and how far back the
 neural network should look when generating them.
 
 ```{r lookup_tables}
-character_lookup <- data.frame(character = c(letters,".","-"," ","+"))
-character_lookup[["character_id"]] <- as.integer(1:nrow(character_lookup))
+character_lookup <- data.frame(character = c(letters, ".", "-", " ", "+"))
+character_lookup[["character_id"]] <- as.integer(seq_len(nrow(character_lookup)))
 max_length <- 10
 num_characters <- nrow(character_lookup) + 1
 ```
@@ -52,19 +52,24 @@ Finally, download the raw data and format it into a table
 ```{r cleaned_data}
 data_url <-
   "https://saturn-public-data.s3.us-east-2.amazonaws.com/pet-names/seattle_pet_licenses.csv"
-pet_raw_data <- 
-  read_csv(data_url, 
-           col_types = cols_only(`Animal's Name` = col_character(),
-             Species = col_character(),
-             `Primary Breed` = col_character(),
-             `Secondary Breed` = col_character())) %>%
-  rename(name = `Animal's Name`,
-         species = `Species`,
-         primary_breed = `Primary Breed`,
-         secondary_breed = `Secondary Breed`) %>%
+pet_raw_data <-
+  read_csv(data_url,
+    col_types = cols_only(
+      `Animal's Name` = col_character(),
+      Species = col_character(),
+      `Primary Breed` = col_character(),
+      `Secondary Breed` = col_character()
+    )
+  ) %>%
+  rename(
+    name = `Animal's Name`,
+    species = `Species`,
+    primary_breed = `Primary Breed`,
+    secondary_breed = `Secondary Breed`
+  ) %>%
   mutate_all(toupper) %>%
-  filter(!is.na(name),!is.na(species)) %>%
-  filter(!str_detect(name,"[^ \\.-[a-zA-Z]]")) %>%
+  filter(!is.na(name), !is.na(species)) %>%
+  filter(!str_detect(name, "[^ \\.-[a-zA-Z]]")) %>%
   mutate_all(stringi::stri_trans_tolower) %>%
   filter(name != "") %>%
   mutate(id = row_number())
@@ -79,12 +84,13 @@ the names into sub-sequences so we can predict each character in the name.
 ```{r subsequence_data}
 subsequence_data <-
   pet_raw_data %>%
-  mutate(accumulated_name =
-           name %>%
-           str_c("+") %>%
-           str_split("") %>%
-           map( ~ purrr::accumulate(.x,c))
-         ) %>%
+  mutate(
+    accumulated_name =
+      name %>%
+        str_c("+") %>%
+        str_split("") %>%
+        map(~ purrr::accumulate(.x, c))
+  ) %>%
   select(accumulated_name) %>%
   unnest(accumulated_name) %>%
   arrange(runif(n())) %>%
@@ -98,12 +104,12 @@ use the last column for the _y_-vector of training data. The training data is
 also converted into torch tensors.
 
 ```{r create_tensors}
-pad_sequence_single <- function(seq, maxlen){
+pad_sequence_single <- function(seq, maxlen) {
   diff <- length(seq) - maxlen
-  if(diff < 0){
+  if (diff < 0) {
     c(rep(0L, abs(diff)), seq)
-  } else if (diff > 0){
-    seq[-(1:abs(diff))]
+  } else if (diff > 0) {
+    seq[-seq_len(abs(diff))]
   } else {
     seq
   }
@@ -112,21 +118,21 @@ pad_sequence_single <- function(seq, maxlen){
 # converted characters to numbers then made into a matrix padded with zeros
 text_matrix <-
   subsequence_data %>%
-  map(~ character_lookup$character_id[match(.x,character_lookup$character)]) %>% 
-  map(pad_sequence_single, maxlen = max_length+1) %>%
-  do.call(rbind,.)
+  map(~ character_lookup$character_id[match(.x, character_lookup$character)]) %>%
+  map(pad_sequence_single, maxlen = max_length + 1) %>%
+  do.call(rbind, .)
 
 # the X-matrix of training data as a tensor
-data_x <- 
+data_x <-
   (text_matrix + 1L) %>%
   torch_tensor(device = device) %>%
-  {{.[,1:max_length]}} %>%
-  nnf_one_hot(num_characters+1) %>% # one hot encoding using a torch function
-  {{.$to(dtype= torch_float())}}
+  {{ .[, 1:max_length] }} %>%
+  nnf_one_hot(num_characters + 1) %>% # one hot encoding using a torch function
+  {{ .$to(dtype = torch_float()) }}
 
 # the y-vector of training data
-data_y <- 
-  text_matrix[,max_length+1] %>%
+data_y <-
+  text_matrix[, max_length + 1] %>%
   torch_tensor(device = device)
 ```
 
@@ -143,23 +149,21 @@ network <- nn_module(
   initialize = function() {
     self$num_layers <- 2
     self$hidden_size <- 32
-    
+
     self$lstm <- torch::nn_lstm(
-      input_size = num_characters+1,
+      input_size = num_characters + 1,
       hidden_size = self$hidden_size,
       num_layers = self$num_layers,
       batch_first = TRUE,
       dropout = 0.1
     )
-    self$fc = nn_linear(self$hidden_size, num_characters)
+    self$fc <- nn_linear(self$hidden_size, num_characters)
   },
-  
-  forward = function(x){
+  forward = function(x) {
     result <- self$lstm(x)
     hidden <- result[[2]][[2]]
-    self$fc(hidden[self$num_layers,])
+    self$fc(hidden[self$num_layers, ])
   }
-  
 )
 ```
 
@@ -171,8 +175,8 @@ batch_size <- 2048
 num_epochs <- 50
 
 num_data_points <- data_y$size(1)
-num_batches <- floor(num_data_points/batch_size)
-  
+num_batches <- floor(num_data_points / batch_size)
+
 model <- network()$to(device = device)
 
 optimizer <- optim_adam(model$parameters)
@@ -196,25 +200,25 @@ model train as quickly as possible we do not use them. If you chose to use a
 command instead of `.getitem()`.
 
 ```{r train_model}
-for(current_epoch in 1:num_epochs){
+for (current_epoch in 1:num_epochs) {
   pb <- progress::progress_bar$new(
-          total = num_batches,
-          format = glue("[:bar] Epoch {current_epoch} :percent eta: :eta")
-        )
-  
+    total = num_batches,
+    format = glue("[:bar] Epoch {current_epoch} :percent eta: :eta")
+  )
+
   permute <- torch_randperm(num_data_points) + 1L
   data_x <- data_x[permute]
   data_y <- data_y[permute]
-  
-  for(batch_idx in 1:num_batches){
-    batch <- (batch_size*(batch_idx-1) + 1):(batch_idx*batch_size)
-    
+
+  for (batch_idx in 1:num_batches) {
+    batch <- (batch_size * (batch_idx - 1) + 1):(batch_idx * batch_size)
+
     optimizer$zero_grad()
     output <- model(data_x[batch])
     loss <- criterion(output, data_y[batch])
     loss$backward()
     optimizer$step()
-    
+
     pb$tick()
   }
   message(glue::glue("Epoch {current_epoch} complete, loss: {loss$item()}"))
@@ -226,50 +230,53 @@ for(current_epoch in 1:num_epochs){
 The function below generates a pet name using the trained model.
 
 ```{r generate_names}
-generate_name <- function(model, character_lookup, max_length, temperature = 1){
-  choose_next_char <- function(raw_preds, character_lookup, temperature){
-    preds <- 
+generate_name <- function(model, character_lookup, max_length, temperature = 1) {
+  choose_next_char <- function(raw_preds, character_lookup, temperature) {
+    preds <-
       raw_preds %>%
-      nnf_softmax(dim=2) %>%
-      {{.$to(device="cpu")}} %>%
+      nnf_softmax(dim = 2) %>%
+      {{ .$to(device = "cpu") }} %>%
       as_array()
-    preds <- log(preds)/temperature
-    preds <- exp(preds)/sum(exp(preds))
+    preds <- log(preds) / temperature
+    preds <- exp(preds) / sum(exp(preds))
     next_index <- which.max(as.integer(rmultinom(1, 1, preds)))
     character_lookup$character[next_index]
   }
-  
+
   in_progress_name <- character(0)
   next_letter <- ""
-  
-  while(next_letter != "+" && length(in_progress_name) < 30){
+
+  while (next_letter != "+" && length(in_progress_name) < 30) {
     text_matrix <-
-        in_progress_name %>%
-        {{character_lookup$character_id[match(.,character_lookup$character)]}} %>% 
-        pad_sequence_single( maxlen = max_length) %>%
-        matrix(nrow=1)
+      in_progress_name %>%
+      {{ character_lookup$character_id[match(., character_lookup$character)] }} %>%
+      pad_sequence_single(maxlen = max_length) %>%
+      matrix(nrow = 1)
 
     data_x <- (text_matrix + 1L) %>%
       torch_tensor(device = device) %>%
-      {{.[,1:max_length]}} %>%
-      nnf_one_hot(num_characters+1) %>%
-      {{.$to(dtype= torch_float())}}
+      {{ .[, 1:max_length] }} %>%
+      nnf_one_hot(num_characters + 1) %>%
+      {{ .$to(dtype = torch_float()) }}
 
-    
+
     next_letter_probabilities <- model(data_x)
-    
-    next_letter <- choose_next_char(next_letter_probabilities,
-                                    character_lookup,
-                                    temperature)
-    
-    if(next_letter != "+")
-      in_progress_name <- c(in_progress_name,next_letter)
+
+    next_letter <- choose_next_char(
+      next_letter_probabilities,
+      character_lookup,
+      temperature
+    )
+
+    if (next_letter != "+") {
+      in_progress_name <- c(in_progress_name, next_letter)
+    }
   }
-  
-  raw_name <- paste0(in_progress_name, collapse="")
-  
-  capitalized_name <- gsub("\\b(\\w)","\\U\\1",raw_name,perl=TRUE)
-  
+
+  raw_name <- paste0(in_progress_name, collapse = "")
+
+  capitalized_name <- gsub("\\b(\\w)", "\\U\\1", raw_name, perl = TRUE)
+
   capitalized_name
 }
 ```
@@ -283,7 +290,7 @@ generate_name(model, character_lookup, max_length)
 Or generate many names at once:
 
 ```{r generate_many_names}
-sapply(1:20,function(x) generate_name(model, character_lookup, max_length))
+sapply(1:20, function(x) generate_name(model, character_lookup, max_length))
 ```
 
 This will give you fun outputs like:

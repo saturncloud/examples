@@ -43,10 +43,10 @@ Below is an example target node. Take a look at the "_targets.R" file for more i
 
 ```{r tar target, eval = FALSE}
 tar_target(
-    preprocessed_data,
-    preprocess_data(data),
-    format = "qs",
-    deployment = "main"
+  preprocessed_data,
+  preprocess_data(data),
+  format = "qs",
+  deployment = "main"
 )
 ```
 

@@ -42,7 +42,7 @@ To define an implicit future, simply replace `<-` with `%<-%`, like in the examp
 
 ```{r implicit future example, eval = FALSE}
 v %<-% {
-    expression
+  expression
 }
 ```
 
@@ -51,7 +51,7 @@ To define an explicit future, wrap it in the `future` function. For explicit fut
 
 ```{r explicit future example, eval = FALSE}
 f <- future({
-    expression
+  expression
 })
 v <- value(f)
 ```
@@ -64,7 +64,7 @@ The state of a future can be either resolved or unresolved -- either finished wi
 
 ```{r resolved example, eval = FALSE}
 f <- future({
-    expression
+  expression
 }) # create the future
 
 r <- resolved(f) # check if it is done
@@ -79,18 +79,18 @@ Let's start by defining some simple functions:
 library(future)
 
 increment <- function(x) {
-    Sys.sleep(runif(1))
-    return(x + 1)
+  Sys.sleep(runif(1))
+  return(x + 1)
 }
 
 double <- function(x) {
-    Sys.sleep(runif(1))
-    return(2 * x)
+  Sys.sleep(runif(1))
+  return(2 * x)
 }
 
 add <- function(x, y) {
-    Sys.sleep(runif(1))
-    return(x + y)
+  Sys.sleep(runif(1))
+  return(x + y)
 }
 ```
 
