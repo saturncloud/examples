@@ -4,10 +4,10 @@ results <- lintr::lint_dir(
   pattern = "\\.(R|r|Rmd|rmd)"
 )
 
-print(results)
+non_warning_results <- results[sapply(results, function(x)x$type != "warning")]
 
-error_count <- sum(sapply(results, function(x) x$type) != "warning")
+print(non_warning_results)
 
-if(error_count > 0){
+if(length(non_warning_results) > 0){
   stop("R/Rmd files failed linting")
 }
