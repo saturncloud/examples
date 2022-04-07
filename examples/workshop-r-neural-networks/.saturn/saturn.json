@@ -1,5 +1,5 @@
 {
-  "name": "example-workshop-r-neural-networks",
+  "name": "workshop-r-neural-networks",
   "image_uri": "public.ecr.aws/saturncloud/saturn-rstudio:2022.03.01",
   "description": "Supporting materials Neural Networks with R workshop",
   "environment_variables": {},
@@ -15,7 +15,7 @@
     }
   ],
   "rstudio_server": {
-    "instance_type": "large",
+    "instance_type": "2xlarge",
     "disk_space": "10Gi",
     "auto_shutoff": "1 hour"
   },

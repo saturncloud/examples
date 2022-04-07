@@ -80,9 +80,9 @@ def validate_recipe(schema, instance_type_options, recipe_path, example_dir):
     validate(instance=recipe, schema=schema)
 
     name_pre = recipe["name"]
-    name_prefix = "example-"
+    name_prefix = ("example-","workshop-")
     if not name_pre.startswith(name_prefix):
-        raise ValidationError(f"name ('{name_pre}') needs to start with {name_prefix}")
+        raise ValidationError(f"name ('{name_pre}') needs to start with one of {name_prefix}")
 
     image_uri = recipe["image_uri"]
     image_name, image_tag = image_uri.split(":")

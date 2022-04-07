@@ -111,10 +111,9 @@ input <- layer_input(shape = c(max_length,num_characters))
 
 output <-  # teach only
   input %>%
-  layer_lstm(units = 64, return_sequences = TRUE) %>% #first two layers of 32, then three of 64
-  layer_lstm(units = 64, return_sequences = TRUE) %>%
-  layer_lstm(units = 64, return_sequences = FALSE) %>%
-  layer_dropout(rate = 0.1) %>% #originally 0.2 then adjust to 0.05
+  layer_lstm(units = 24, return_sequences = TRUE) %>% # We tried adjusting to 32 units and adding an extra layer
+  layer_lstm(units = 24, return_sequences = FALSE) %>%
+  layer_dropout(rate = 0.05) %>% # Try adjusting this up to 0.2 and removing
   layer_dense(num_characters) %>%
   layer_activation("softmax")
 
@@ -136,7 +135,7 @@ fit_results <- model %>%
   fit(
     x_name, 
     y_name,
-    batch_size = 64,
+    batch_size = 256,
     epochs = 8,
     validation_split = 0.05,
 )
