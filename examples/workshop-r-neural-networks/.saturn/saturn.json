@@ -21,5 +21,5 @@
     "disk_space": "10Gi",
     "auto_shutoff": "1 hour"
   },
-  "version": "2022.03.01"
+  "version": "2022.01.06"
 }
