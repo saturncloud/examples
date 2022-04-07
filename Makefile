@@ -25,6 +25,8 @@ lint:
 	black --check --diff .
 	flake8 --count .
 	nbqa flake8 .
+	Rscript -e "errors <- lintr::lint_dir(); print(errors); quit(save = 'no', status = length(errors))"
+	
 
 .PHONY: test
 test: lint
