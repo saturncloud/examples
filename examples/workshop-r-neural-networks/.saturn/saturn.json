@@ -5,9 +5,7 @@
   "environment_variables": {},
   "working_directory": "/home/jovyan/examples/examples/workshop-r-neural-networks",
   "extra_packages": {
-    "cran": {
-      "install": "keras"
-    }
+    "cran": "keras"
   },
   "start_script": "pip install tensorflow",
   "git_repositories": [
