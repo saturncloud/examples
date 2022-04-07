@@ -1,9 +1,7 @@
 ---
-title: "Workshop: Neural Networks with R - TEACHERS EDITION"
+title: "Workshop: Neural Networks with R"
 output: html_document
 ---
-
-_**This is the completed R Markdown file to use only after the end of the workshop.**_
 
 ## Setup
 
