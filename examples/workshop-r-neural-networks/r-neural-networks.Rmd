@@ -60,7 +60,7 @@ pet_data <-
 ### Create training data
 
 Next, we take the downloaded data and modify it so it's ready for the model. 
-First we add stop characters to signify the end of the name ("+"), expand
+First we add stop characters to signify the end of the name ("+") and expand
 the names into sub-sequences so we can predict each character in the name.
 
 ```{r model_1_subsequence_data}
@@ -180,7 +180,7 @@ on if it's a cat or a dog. The training data is now previous characters in the
 name AND the species of animal. This requires a more complex network.
 
 
-Generate the X data now requires keeping track of the species.
+Generating the X data now requires keeping track of the species.
 
 ```{r model_2_generate_data}
 subsequence_data_v2_raw <-
