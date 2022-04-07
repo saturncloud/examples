@@ -1,0 +1,302 @@
+---
+title: "Workshop: Neural Networks with R"
+output: html_document
+---
+
+## Setup
+
+The `saturn-rstudio-tensorflow` image has the required libraries
+preinstalled--you just need to import them.
+
+```{r setup_libraries}
+library(dplyr)
+library(readr)
+library(stringr)
+library(purrr)
+library(tidyr)
+library(keras)
+```
+
+Define what characters can be used for the pet names, and how far back the
+neural network should look when generating them.
+
+```{r setup_lookup_tables}
+character_lookup <- data.frame(character = c(letters,".","-"," ","+"))
+character_lookup[["character_id"]] <- 1:nrow(character_lookup)
+
+max_length <- 10
+num_characters <- nrow(character_lookup) + 1
+```
+
+Finally, download the raw data and format it into a table. This formats the
+names and removes names with unusual characters. You don't really need to
+understand what's happening 
+
+```{r setup_cleaned_data}
+data_url <-
+  "https://saturn-public-data.s3.us-east-2.amazonaws.com/pet-names/seattle_pet_licenses.csv"
+pet_data <- 
+  read_csv(data_url, 
+           col_types = cols_only(`Animal's Name` = col_character(),
+             Species = col_character(),
+             `Primary Breed` = col_character(),
+             `Secondary Breed` = col_character())) %>%
+  rename(name = `Animal's Name`,
+         species = `Species`,
+         primary_breed = `Primary Breed`,
+         secondary_breed = `Secondary Breed`) %>%
+  mutate_all(tolower) %>%
+  filter(!is.na(name),
+         !is.na(species),
+         name != "",
+         !str_detect(name,"[^ \\.-[a-zA-Z]]")) %>%
+  sample_n(n())
+```
+
+## Model 1 - generate pet names
+
+### Create training data
+
+Next, we take the downloaded data and modify it so it's ready for the model. 
+First we add stop characters to signify the end of the name ("+") and expand
+the names into sub-sequences so we can predict each character in the name.
+
+```{r model_1_subsequence_data}
+subsequence_data <-
+  pet_data %>%
+  mutate(accumulated_name =
+           name %>%
+           str_c("+") %>%
+           str_split("") %>%
+           map( ~ purrr::accumulate(.x,c))
+         ) %>%
+  select(accumulated_name) %>%
+  unnest(accumulated_name) %>%
+  sample_n(n()) %>%
+  pull(accumulated_name)
+```
+
+Then we make all the sequences the same length by truncating or padding them
+so they can be a matrix. We also 1-hot encode the data.
+
+```{r model_1_data_matrix}
+text_matrix <-
+  subsequence_data %>%
+  map(~ character_lookup$character_id[match(.x,character_lookup$character)]) %>% 
+  pad_sequences(maxlen = max_length+1) %>% 
+  to_categorical(num_classes = num_characters) 
+```
+
+Once that's complete, we split the data into the 3D-matrix of model input (X) and
+matrix of targets (y). We'll make the X matrix of all the letters in each row except
+the last. The y matrix will be the last character (since we want to predict it).
+
+```{r model_1_split_x_y}
+x_name <- text_matrix[,1:max_length,]
+y_name <- text_matrix[,max_length+1,]
+```
+
+### Create the model
+
+Next we define the layers of the Keras model. This model has 2 LSTM layers to
+find the patterns in the names, a dense layer to predict a value for each
+possible next character, and a softmax activation to turn
+those values into probabilities. Since this is a multiclass classification problem,
+the loss is categorical cross-entropy.
+
+```{r model_1_define_model}
+
+# we'll fill this in
+
+```
+
+### Train the model
+
+Once the model is defined, we can train it. Notice that if you run this
+function again it won't train a new model, it'll fit more to the existing one (!)
+
+```{r model_1_train_model}
+
+# we'll fill this in
+
+```
+
+### Generate names
+
+The function below generates a pet name using the trained model. It generates
+characters and adds them to a running list of a name. It chooses each character
+by pulling from the probability distribution from the model output.
+
+```{r model_1_generate_names}
+generate_name <- function(model, character_lookup, max_length, temperature = 1){
+  choose_next_char <- function(preds, character_lookup, temperature){
+    preds <- log(preds)/temperature
+    exp_preds <- exp(preds)
+    preds <- exp_preds/sum(exp(preds))
+    next_index <- which.max(as.integer(rmultinom(1, 1, preds)))
+    character_lookup$character[next_index-1]
+  }
+  
+  in_progress_name <- character(0)
+  next_letter <- ""
+  
+  while(next_letter != "+" && length(in_progress_name) < 30){
+    previous_letters_data <- 
+      list(in_progress_name) %>%
+      map(~character_lookup$character_id[match(.x,character_lookup$character)]) %>%
+      pad_sequences(maxlen = max_length) %>%
+      to_categorical(num_classes = num_characters)
+    
+    next_letter_probabilities <- predict(model,previous_letters_data)
+    
+    next_letter <- choose_next_char(next_letter_probabilities,
+                                    character_lookup,
+                                    temperature)
+    
+    if(next_letter != "+")
+      in_progress_name <- c(in_progress_name,next_letter)
+  }
+  
+  raw_name <- paste0(in_progress_name, collapse="")
+  
+  capitalized_name <-gsub("\\b(\\w)","\\U\\1",raw_name,perl=TRUE)
+  
+  capitalized_name
+}
+```
+
+You can then generate a name by calling the function:
+
+```{r model_1_generate_one_name}
+generate_name(model, character_lookup, max_length)
+```
+
+## Model 2 - Use whether it's a cat or a dog in the name generation
+
+This is the same model as 1, except now we want to have the names depend
+on if it's a cat or a dog. The training data is now previous characters in the
+name AND the species of animal. This requires a more complex network.
+
+
+Generating the X data now requires keeping track of the species.
+
+```{r model_2_generate_data}
+subsequence_data_v2_raw <-
+  pet_data %>%
+  filter(species %in% c("cat","dog")) %>%
+  mutate(accumulated_name =
+           name %>%
+           str_c("+") %>%
+           str_split("") %>%
+           map( ~ purrr::accumulate(.x,c))
+         ) %>%
+  select(species, accumulated_name) %>%
+  unnest(accumulated_name)
+
+subsequence_data_v2 <- subsequence_data_v2_raw$accumulated_name
+species_data_v2 <- (subsequence_data_v2_raw$species == "cat")*1L
+```
+
+There are now two (!) X matrices, one for previous name and one for species.
+
+```{r model_2_generate_data_continued}
+text_matrix_v2 <-
+  subsequence_data_v2 %>%
+  map(~ character_lookup$character_id[match(.x,character_lookup$character)]) %>% 
+  pad_sequences(maxlen = max_length+1) %>% 
+  to_categorical(num_classes = num_characters) 
+
+x_name_v2 <- text_matrix[,1:max_length,]
+x_species_v2 <- species_data_v2
+y_name_v2 <- text_matrix[,max_length+1,]
+```
+
+The network is now more complex with two inputs and a concatenate.
+
+```{r model_2_define_model}
+
+# we'll fill this in
+
+```
+
+The name generation function needs to be adjusted to account for the species too, but that's
+left as an exercise for the reader!
+
+### Model 3 - predict if the name is for a cat or a dog
+
+Instead of trying to predict the next character, let's take a name and predict
+if it's a cat or dog's name. The things that need to change are:
+
+1. The y matrix is now the species
+2. The names should be padded on the right not the left
+
+```{r model_3_generate_data}
+
+x_max_length <- 20
+
+prediction_data <-
+  pet_data %>% 
+  filter(species %in% c("cat","dog")) %>%
+  select(name, species)
+
+pred_text_matrix <-
+  prediction_data %>%
+  pull(name) %>%
+  str_split("") %>%
+  map(~ character_lookup$character_id[match(.x,character_lookup$character)]) %>% 
+  pad_sequences(maxlen = x_max_length, padding = "post", truncating = "post") %>% 
+  to_categorical(num_classes = num_characters) 
+
+pred_class <-
+  as.array((prediction_data$species == "cat")*1L) # needs to be a number!
+
+```
+
+The activation now has to change to sigmoid because we are trying to get a 0-1 probability
+
+```{r model_3_define_model}
+
+# we'll fill this in
+
+```
+
+Model fitting is the same as the other models.
+
+```{r model_3_fit_model}
+fit_results <- pred_model %>% 
+  fit(
+    pred_text_matrix, 
+    pred_class,
+    batch_size = 64,
+    epochs = 16,
+    validation_split = 0.05
+)
+```
+
+We can then run the model on some names to see what happens.
+
+```{r model_3_prediction}
+probability_cat <- function(example_name){
+  formatted_example_name <- example_name %>%
+    str_split("") %>%
+    map(~character_lookup$character_id[match(.x,character_lookup$character)]) %>%
+    pad_sequences(maxlen = x_max_length) %>%
+    to_categorical(num_classes = num_characters)
+
+  # we must account for the fact that it returns a matrix not a single number
+  predict(pred_model, formatted_example_name)[1,1]
+}
+
+many_names <- pet_data %>% 
+  sample_n(100) %>% 
+  select(name, species) %>% 
+  mutate(probability_cat = map_dbl(name, probability_cat))
+```
+
+
+## Next steps
+
+* Predict text at the word level instead of the character level: use an encoding layer
+* Use a model that was already trained and adjust it to your data: transfer learning
+* Train faster with a GPU instead of a CPU: That's easy to do with Saturn Cloud, see the talk Intro to Neural Networks in R: https://saturncloud.io/events/
+* Learn more by reading Deep Learning with R: https://www.manning.com/books/deep-learning-with-r

@@ -1,0 +1,23 @@
+{
+  "name": "workshop-r-neural-networks",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-rstudio:2022.03.01",
+  "description": "Supporting materials Neural Networks with R workshop",
+  "environment_variables": {},
+  "working_directory": "/home/jovyan/examples/examples/workshop-r-neural-networks",
+  "extra_packages": {
+    "cran": "keras"
+  },
+  "start_script": "pip install tensorflow",
+  "git_repositories": [
+    {
+      "url": "git@github.com:saturncloud/examples.git",
+      "path": "/home/jovyan/examples"
+    }
+  ],
+  "rstudio_server": {
+    "instance_type": "2xlarge",
+    "disk_space": "10Gi",
+    "auto_shutoff": "1 hour"
+  },
+  "version": "2022.01.06"
+}
