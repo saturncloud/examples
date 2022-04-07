@@ -9,7 +9,7 @@
       "install": "keras"
     }
   },
-  "start_script": "pip install tensorflow\necho '# cmd: /opt/conda/bin/conda install papermill' > ${CONDA_DIR}/envs/saturn/conda-meta/history",
+  "start_script": "pip install tensorflow",
   "git_repositories": [
     {
       "url": "git@github.com:saturncloud/examples.git",
