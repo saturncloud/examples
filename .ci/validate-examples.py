@@ -32,7 +32,7 @@ parser.add_argument(
 ADMIN_DIRS = ["_img"]
 ARGS = parser.parse_args()
 DIRECTORY_REGEX = r"^[0-9a-z\-]+$"
-FILENAME_REGEX = r"^[0-9A-Za-z\-\.\_]+$"
+FILENAME_REGEX = r"^\_?[0-9A-Za-z\-\.]+$"
 SATURN_DIR_NAME = ".saturn"
 SATURN_JSON_NAME = "saturn.json"
 TEMPLATES_JSON_NAMES = ["templates-hosted.json", "templates-enterprise.json"]
@@ -365,7 +365,7 @@ if __name__ == "__main__":
                 is_valid = bool(re.search(FILENAME_REGEX, base_name))
                 msg = (
                     f"All files should be named with only "
-                    "alphanumeric characters, dashes, underscores, and periods. "
+                    "alphanumeric characters, dashes, and periods (an underscore is allowed at the start). "
                     f"'{fname}` violates this rule."
                 )
             if not is_valid:
