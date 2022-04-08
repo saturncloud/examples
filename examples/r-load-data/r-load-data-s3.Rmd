@@ -86,8 +86,8 @@ library(dplyr)
 library(data.table)
 
 data <-
-    save_object("s3://saturn-public-data/pet-names/seattle_pet_licenses.csv",
-        file = tempfile(fileext = ".csv")
-    ) %>%
-    fread()
+  save_object("s3://saturn-public-data/pet-names/seattle_pet_licenses.csv",
+    file = tempfile(fileext = ".csv")
+  ) %>%
+  fread()
 ```

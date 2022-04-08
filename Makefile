@@ -25,6 +25,8 @@ lint:
 	black --check --diff .
 	flake8 --count .
 	nbqa flake8 .
+	Rscript .ci/lint-r-examples.R
+	
 
 .PHONY: test
 test: lint
