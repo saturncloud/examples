@@ -107,6 +107,12 @@
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/bodo.png",
       "weight": 1400,
       "recipe_path": "examples/bodo/.saturn/saturn.json"
+    },
+    {
+      "title": "Future (R)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/r-future.png",
+      "weight": 1390,
+      "recipe_path": "examples/r-future/.saturn/saturn.json"
     }
   ]
 }
