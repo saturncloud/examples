@@ -78,16 +78,18 @@ After new images are created:
 
 1. Create a pull request into `main` which updates all of the `"image_uri"` entries in `saturn.json` files to the latest images released from https://github.com/saturncloud/images.
 2. Run integration tests using that branch.
-3. If the images are not yet available on one of the staging instances, ask someone on the devops team to update the images there.
-4. Manually test any examples that you are worried about.
-5. Once you are satisfied, ask someone on the devops team to update the images on hosted.
-6. Merge the pull request.
+3. Merge the pull request.
+4. Ask someone on the devops team to update the examples one of the staging instances.
+5. Manually test any examples that you are worried about.
+6. Once you are satisfied, ask someone on the devops team to update the images on hosted.
+
+NOTE: In the future we expect to add a separate mechanism for updating the images separate from the update examples mechanism. Once this is established you will be able to ask someone to update the images on a staging instance then you will be able to test the example using a recipe _before_ merging the PR.
 
 ## Use new version of the recipe schema (rare)
 
 Anytime _after_ a new release makes it to [hosted](https://app.community.saturnenterprise.io), you can start using the latest recipe schema that is supported by that release. Note that the only reason to do this is if you want to take advantage of some new feature in the latest recipe schema.
 
-First create a new branch from `main`. It's name must start with `release-`.
+First create a new branch from `main`. Its name must start with `release-`.
 
 ```shell
 git pull origin main
