@@ -54,10 +54,10 @@ From a RStudio resource where you want to connect to Snowflake, you can use the 
 library(DBI)
 
 con <- dbConnect(odbc::odbc(),
-    driver = "SnowflakeDSIIDriver",
-    server = paste0(Sys.getenv("SNOWFLAKE_ACCOUNT"), ".us-east-2.aws.snowflakecomputing.com"),
-    uid = Sys.getenv("SNOWFLAKE_USER"),
-    pwd = Sys.getenv("SNOWFLAKE_PASSWORD")
+  driver = "SnowflakeDSIIDriver",
+  server = paste0(Sys.getenv("SNOWFLAKE_ACCOUNT"), ".us-east-2.aws.snowflakecomputing.com"),
+  uid = Sys.getenv("SNOWFLAKE_USER"),
+  pwd = Sys.getenv("SNOWFLAKE_PASSWORD")
 )
 ```
 
