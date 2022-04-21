@@ -107,6 +107,12 @@
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/bodo.png",
       "weight": 1400,
       "recipe_path": "examples/bodo/.saturn/saturn.json"
+    },
+    {
+      "title": "Comet.ml (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/comet.png",
+      "weight": 1500,
+      "recipe_path": "examples/comet/.saturn/saturn.json"
     }
   ]
 }
