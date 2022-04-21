@@ -18,13 +18,11 @@
       "path": "/home/jovyan/examples"
     }
   ],
-  "shared_folders": [],
   "jupyter_server": {
     "instance_type": "large",
     "disk_space": "10Gi",
     "auto_shutoff": "1 hour",
     "start_ssh": false,
     "use_spot_instance": false
-  },
-  "schema_version": "2022.03.01"
+  }
 }
