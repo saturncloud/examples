@@ -25,5 +25,5 @@
     "start_ssh": false,
     "use_spot_instance": false
   },
-  "version": "2022.01.06"
+  "version": "2022.03.01"
 }
