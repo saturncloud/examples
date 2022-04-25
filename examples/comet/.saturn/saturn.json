@@ -24,5 +24,6 @@
     "auto_shutoff": "1 hour",
     "start_ssh": false,
     "use_spot_instance": false
-  }
+  },
+  "version": "2022.01.06"
 }
