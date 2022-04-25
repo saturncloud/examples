@@ -4,13 +4,9 @@
   "description": "Track and compare your ML models using Comet",
   "working_directory": "/home/jovyan/examples/examples/comet",
   "extra_packages": {
-    "pip": {
-      "install": "comet_ml"
-    },
-    "conda": {
-      "install": "pytorch torchvision cpuonly -c pytorch",
-      "use_mamba": true
-    }
+    "pip": "comet_ml",
+    "conda": "pytorch torchvision cpuonly -c pytorch",
+    "use_mamba": true
   },
   "git_repositories": [
     {
@@ -25,5 +21,5 @@
     "start_ssh": false,
     "use_spot_instance": false
   },
-  "version": "2022.03.01"
+  "version": "2022.01.06"
 }
