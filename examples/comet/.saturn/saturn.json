@@ -1,5 +1,5 @@
 {
-  "name": "example-comet-ml",
+  "name": "example-comet",
   "image_uri": "public.ecr.aws/saturncloud/saturn:2022.03.01",
   "description": "Track and compare your ML models using Comet",
   "working_directory": "/home/jovyan/examples/examples/comet",
