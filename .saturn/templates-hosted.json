@@ -109,6 +109,12 @@
       "recipe_path": "examples/bodo/.saturn/saturn.json"
     },
     {
+      "title": "Comet (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/comet.png",
+      "weight": 1800,
+      "recipe_path": "examples/comet/.saturn/saturn.json"
+    },
+    {
       "title": "Future (R)",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/r-future.png",
       "weight": 1390,
