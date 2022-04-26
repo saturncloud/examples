@@ -158,7 +158,6 @@ Let's first try it with purrr to iterate through the various models.
 
 Actually, let's not -- it takes over 17 minutes to run this code.  
 ```{r purrr evaluation, eval=FALSE}
-
 ###################################################
 ## Don't actually run this - it takes forever... ##
 ###################################################

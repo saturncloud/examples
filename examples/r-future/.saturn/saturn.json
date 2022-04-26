@@ -1,10 +1,10 @@
 {
   "name": "example-r-future",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-rstudio-parallel:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-rstudio:2022.04.01",
   "description": "Run parallel computing workloads using the future package.",
   "working_directory": "/home/jovyan/examples/examples/r-future",
   "extra_packages": {
-    "cran": "xgboost rsample Metrics"
+    "cran": "xgboost rsample Metrics targets furrr future visNetwork tarchetypes bs4Dash DT gt pingr shiny shinybusy shinyWidgets qs fst tictoc"
   },
   "start_script": "",
   "git_repositories": [
