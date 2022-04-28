@@ -14,3 +14,9 @@ function(bedrooms, year, res) {
     list(error = "Must have 0-8 bedrooms and been built between 1872-2100")
   }
 }
+#* Redirect to Docs
+#* @get /
+function(res) {
+  res$status <- 303 # redirect
+  res$setHeader("Location", "./__docs__/")
+}
