@@ -10,9 +10,11 @@ df = pd.read_csv(
 lr = LinearRegression()
 lr.fit(df[["BedroomAbvGr", "YearBuilt"]], df["SalePrice"])
 
+
 @app.get("/")
 async def docs_redirect():
     return Response("Opening the docs UI", status_code=307, headers={"location": "/docs"})
+
 
 @app.get("/predict")
 async def predict(BedroomAbvGr: int = None, YearBuilt: int = None):
