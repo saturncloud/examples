@@ -92,7 +92,7 @@ With this you are ready to deploy your API by pressing the green button on the r
 
 ## Access Deployed API
 
-Click the URL given in deployment detail page . Add `/__docs__/` in the end of URL, you will see the automatic interactive API documentation. 
+Click the URL given in deployment detail page you will be directed to the automatic interactive API documentation. 
 
 ![doc plumber](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/docsplumber.png "doc-image")
 
