@@ -1,6 +1,6 @@
 {
   "name": "example-r-torch",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-rstudio-torch:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-r-torch:ui",
   "description": "Train a neural network in TensorFlow with R on a GPU",
   "working_directory": "/home/jovyan/examples/examples/r-torch",
   "git_repositories": [

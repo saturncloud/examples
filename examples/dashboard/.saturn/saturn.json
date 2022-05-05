@@ -1,6 +1,6 @@
 {
   "name": "example-dashboard",
-  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:ui",
   "description": "Deploy a dashboard to Saturn Cloud. Learn more at: https://scld.io/ex/py-dashboard",
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"

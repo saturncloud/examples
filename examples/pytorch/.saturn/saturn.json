@@ -1,6 +1,6 @@
 {
   "name": "example-pytorch",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-pytorch:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python-pytorch:ui",
   "description": "Use PyTorch with a single GPU or across multiple GPUs with Dask",
   "environment_variables": {
     "DASK_DISTRIBUTED__WORKER__DAEMON": "False",

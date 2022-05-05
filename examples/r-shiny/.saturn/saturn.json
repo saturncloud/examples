@@ -1,6 +1,6 @@
 {
   "name": "example-r-shiny",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-rstudio:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-r:ui",
   "description": "Deploy a dashboard to Saturn Cloud using R Shiny. Learn more at: https://scld.io/ex/r-dashboard",
   "working_directory": "/home/jovyan/examples/examples/r-shiny",
   "start_script": "Rscript setup.R",
