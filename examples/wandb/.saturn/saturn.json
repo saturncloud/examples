@@ -15,7 +15,7 @@
   ],
   "credentials": [
     {
-      "name": "comet-api-key",
+      "name": "wandb-login",
       "type": "environment_variable",
       "location": "WANDB_LOGIN"
     }
