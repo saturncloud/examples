@@ -14,6 +14,13 @@
       "path": "/home/jovyan/examples"
     }
   ],
+  "credentials": [
+    {
+      "name": "comet-api-key",
+      "type": "environment_variable",
+      "location": "COMET_API_KEY"
+    }
+  ],
   "jupyter_server": {
     "instance_type": "large",
     "disk_space": "10Gi",
