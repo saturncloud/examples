@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 import pandas as pd
 from sklearn.linear_model import LinearRegression
+from starlette.responses import Response
 
 app = FastAPI()
 df = pd.read_csv(
@@ -9,6 +10,9 @@ df = pd.read_csv(
 lr = LinearRegression()
 lr.fit(df[["BedroomAbvGr", "YearBuilt"]], df["SalePrice"])
 
+@app.get("/")
+async def docs_redirect():
+    return Response("Opening the docs UI", status_code=307, headers={"location": "/docs"})
 
 @app.get("/predict")
 async def predict(BedroomAbvGr: int = None, YearBuilt: int = None):
