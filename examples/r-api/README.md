@@ -30,7 +30,7 @@ This function is taking 3 arguments: `response`, `bedrooms` which represents num
 
 Inside function we read houseprice data and perform linear regression to build a model. We then predict price of house for given inputs. We are returning HTTP response 400 if parameters passed are not in range of training data. If the parameters fall within valid range, API will return predicted house price.
 
-The path for second endpoint is `/`. We are redirecting this endpoint to `/docs`, which is interactive API documentation.
+The path for second endpoint is `/`. We are redirecting this endpoint to `/__docs__/`, which is interactive API documentation. In this documentation UI you can enter the required values and trigger response.
 
 ```R
 data <- read.csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/housePriceData.csv")
