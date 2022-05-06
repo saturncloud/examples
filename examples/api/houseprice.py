@@ -13,7 +13,7 @@ lr.fit(df[["BedroomAbvGr", "YearBuilt"]], df["SalePrice"])
 
 @app.get("/")
 async def docs_redirect():
-    return Response("Opening the docs UI", status_code=307, headers={"location": "/docs"})
+    return Response("Opening the docs UI", status_code=302, headers={"location": "/docs"})
 
 
 @app.get("/predict")
