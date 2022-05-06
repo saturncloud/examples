@@ -13,7 +13,7 @@ A restful API is a way for programs to communicate with each other. They work si
 <a href="https://fastapi.tiangolo.com/" target='_blank' rel='noopener'>FastAPI</a> is a python based web framework for building Rest APIs . It does live up to its name--it is as fast as  NodeJS and Go. It has inbuild data validation and as automatic document generation feature so humans can understand your API design. 
 
 ## Objective
-In the code below we are building an API as Python scripts (`.py` files). Its endpoint is "/predict",  which uses the data added as part of the url. The response containing result will be returned in a Python dictionary which gets converted to JSON. This implementation is utilizing FastAPI, but you can try other web frameworks like [Django](https://www.django-rest-framework.org/), [Flask](https://flask.palletsprojects.com/en/2.0.x/), [Falcon](https://falcon.readthedocs.io/en/stable/) as well.
+In the code below we are building an API as Python scripts (`.py` files). Its endpoints are "/" and "/predict", the latter one uses the data added as part of the url. The response containing result will be returned in a Python dictionary which gets converted to JSON. This implementation is utilizing FastAPI, but you can try other web frameworks like [Django](https://www.django-rest-framework.org/), [Flask](https://flask.palletsprojects.com/en/2.0.x/), [Falcon](https://falcon.readthedocs.io/en/stable/) as well.
 ## Building an API
 
 First we will import necessary libraries and create a FastAPI instance and initialize it to variable app. You can start a Saturn Cloud Jupyter Server and work on the .py script yourself. Check [Create a Resource](https://saturncloud.io/docs/getting-started/start_resource/) to learn how to create a resource and use Jupyter on Saturn Cloud.
@@ -35,10 +35,15 @@ df = pd.read_csv(
 lr = LinearRegression()
 lr.fit(df[["BedroomAbvGr", "YearBuilt"]], df["SalePrice"])
 ```
-Now we will define operation and path . Here we have used `GET` operation (read data) on both the paths, `/` and `/predict`. At endpoint `/`, we are simply redirecting request to endpoint `/docs`, which are the interative docs pages of FastAPI. 
-At endpoint `/predict`, we are predicting the price of house. To get the inputs from the client, we are using query parameters. Here we are passing `BedroomAbvGr` for number of bedrooms and `YearBuilt` for year house was built. We are returning HTTP response 400 if parameters passed are not in range of training data. If the parameters fall within valid range, API will return the response as a JSON object which gives us predicted house price. 
+Now we will define operation and path . Here we have used `GET` operation (read data) on both the paths, `/` and `/predict`. At endpoint `/`, we are simply redirecting request to endpoint `/docs`, which are the interative docs pages of FastAPI. In this documentation UI you can enter the required values and trigger response.
+
+At endpoint `/predict`, we are predicting the price of house. To get the inputs from the client, we are using query parameters. Here we are passing `BedroomAbvGr` for number of bedrooms and `YearBuilt` for the year house was built. We are returning HTTP response 400 if parameters passed are not in range of training data. If the parameters fall within valid range, API will return the response as a JSON object which gives us predicted house price. 
 
 ```python
+@app.get("/")
+async def docs_redirect():
+    return Response("Opening the docs UI", status_code=307, headers={"location": "/docs"})
+
 @app.get("/predict")
 async def predict(BedroomAbvGr: int = None, YearBuilt: int = None):
     a = pd.DataFrame([[BedroomAbvGr, YearBuilt]], columns=["BedroomAbvGr", "YearBuilt"])
