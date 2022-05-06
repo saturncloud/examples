@@ -22,11 +22,15 @@ install.packages("plumber")
 install.packages("dplyr")
 ```
 
-Now let us create another R script called `endpoints.R`. This script will contain the endpoints for our plumber API, which in this case will be a single endpoint that calls a regression model. In the following code in first line we have placed oxygen2-like comments for describing what this API will do. Now we will define the operation and path. Here we have used `GET` operation (to read data) and path is `/predict`. This endpoint will return the predicted price of a house.
+Now let us create another R script called `endpoints.R`. This script will contain the endpoints for our plumber API, which in this case will be `/` and `/predict`. The endpoint `/` redirects to the interactive API documentation. The endpoint `/predict` calls a regression model and predics house price. 
+
+In the following code in first line we have placed oxygen2-like comments for describing what this API will do. Now we will define the operation and path. Here we have used `GET` operation (to read data) and path is `/predict`. This endpoint will return the predicted price of a house.
 
 This function is taking 3 arguments: `response`, `bedrooms` which represents number of bedrooms and `year` which represents year build. `bedrooms` and `year` are inputs from the client.
 
 Inside function we read houseprice data and perform linear regression to build a model. We then predict price of house for given inputs. We are returning HTTP response 400 if parameters passed are not in range of training data. If the parameters fall within valid range, API will return predicted house price.
+
+The path for second endpoint is `/`. We are redirecting this endpoint to `/__docs__/`, which is interactive API documentation. In this documentation UI you can enter the required values and trigger response.
 
 ```R
 data <- read.csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/housePriceData.csv")
@@ -44,6 +48,12 @@ function(bedrooms,year,res){
     res$status <- 400  
     return(list(error = "Please enter BedroomAbvGr between 0 and 8. Enter YearBuilt between 1872 and 2100."))
   }  
+}
+#* Redirect to Docs
+#* @get /
+function(res) {
+  res$status <- 302 # redirect
+  res$setHeader("Location", "./__docs__/")
 }
 ```
 Now create another R script which will run above piece of code. Let's name this as `run-api.R`.  Load the plumber package. Start the server using plumber object. Since the host listens on 0.0.0.0, it will be reachable on an appropriate interface address to the connection. The API must use port 8000 for Saturn Cloud to be able to direct traffic to it.
@@ -92,7 +102,7 @@ With this you are ready to deploy your API by pressing the green button on the r
 
 ## Access Deployed API
 
-Click the URL given in deployment detail page . Add `/__docs__/` in the end of URL, you will see the automatic interactive API documentation. 
+Click the URL given in deployment detail page you will be directed to the automatic interactive API documentation. 
 
 ![doc plumber](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/docsplumber.png "doc-image")
 
