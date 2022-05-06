@@ -22,7 +22,7 @@ install.packages("plumber")
 install.packages("dplyr")
 ```
 
-Now let us create another R script called `endpoints.R`. This script will contain the endpoints for our plumber API, which in this case will be `/` and `/predict`. Endpoint `/` redirects to interactive API documentation. Endpoint `/predict` calls a regression model and predics house price. 
+Now let us create another R script called `endpoints.R`. This script will contain the endpoints for our plumber API, which in this case will be `/` and `/predict`. The endpoint `/` redirects to the interactive API documentation. The endpoint `/predict` calls a regression model and predics house price. 
 
 In the following code in first line we have placed oxygen2-like comments for describing what this API will do. Now we will define the operation and path. Here we have used `GET` operation (to read data) and path is `/predict`. This endpoint will return the predicted price of a house.
 
