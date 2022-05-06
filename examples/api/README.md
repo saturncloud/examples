@@ -35,8 +35,8 @@ df = pd.read_csv(
 lr = LinearRegression()
 lr.fit(df[["BedroomAbvGr", "YearBuilt"]], df["SalePrice"])
 ```
-Now we will define operation and path . Here we have used `GET` operation (read data) on both the paths, `/` and `/predict`. At endpoint `/`, we are simply redirecting request to interative docs pages of FastAPI. 
-At endpoint `/predict', we are predicting the price of house. To get the inputs from the client, we are using query parameters. Here we are passing `BedroomAbvGr` for number of bedrooms and `YearBuilt` for year house was built. We are returning HTTP response 400 if parameters passed are not in range of training data. If the parameters fall within valid range, API will return the response as a JSON object which gives us predicted house price. 
+Now we will define operation and path . Here we have used `GET` operation (read data) on both the paths, `/` and `/predict`. At endpoint `/`, we are simply redirecting request to endpoint `/docs`, which are the interative docs pages of FastAPI. 
+At endpoint `/predict`, we are predicting the price of house. To get the inputs from the client, we are using query parameters. Here we are passing `BedroomAbvGr` for number of bedrooms and `YearBuilt` for year house was built. We are returning HTTP response 400 if parameters passed are not in range of training data. If the parameters fall within valid range, API will return the response as a JSON object which gives us predicted house price. 
 
 ```python
 @app.get("/predict")
@@ -78,7 +78,7 @@ Following is the setting for rest of the fields:
 
 ## Access Deployed API
 
-Click the URL given in deployment detail page . Add '/docs' in the end of URL, you will see the automatic interactive API documentation. 
+Click the URL given in deployment detail page you will be redirected to the automatic interactive API documentation. 
 
 ![fast-api](https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-resources/fastapi_docs.png "doc-image")
 
