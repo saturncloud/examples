@@ -52,7 +52,7 @@ function(bedrooms,year,res){
 #* Redirect to Docs
 #* @get /
 function(res) {
-  res$status <- 303 # redirect
+  res$status <- 302 # redirect
   res$setHeader("Location", "./__docs__/")
 }
 ```
