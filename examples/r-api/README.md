@@ -24,13 +24,13 @@ install.packages("dplyr")
 
 Now let us create another R script called `endpoints.R`. This script will contain the endpoints for our plumber API, which in this case will be `/` and `/predict`. The endpoint `/` redirects to the interactive API documentation. The endpoint `/predict` calls a regression model and predics house price. 
 
-In the following code in first line we have placed oxygen2-like comments for describing what this API will do. Now we will define the operation and path. Here we have used `GET` operation (to read data) and path is `/predict`. This endpoint will return the predicted price of a house.
+In the following code in the first line we have placed oxygen2-like comments for describing what this API will do. Now we will define the operation and path. Here we have used `GET` operation and path is `/predict`. This endpoint will return the predicted price of a house.
 
 This function is taking 3 arguments: `response`, `bedrooms` which represents number of bedrooms and `year` which represents year build. `bedrooms` and `year` are inputs from the client.
 
 Inside function we read houseprice data and perform linear regression to build a model. We then predict price of house for given inputs. We are returning HTTP response 400 if parameters passed are not in range of training data. If the parameters fall within valid range, API will return predicted house price.
 
-The path for second endpoint is `/`. We are redirecting this endpoint to `/__docs__/`, which is interactive API documentation. In this documentation UI you can enter the required values and trigger response.
+The path for the second endpoint is `/`. We are redirecting this endpoint to `/__docs__/`, which is the interactive API documentation. In this documentation UI you can enter the required values and trigger a response.
 
 ```R
 data <- read.csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/examples/dashboard/housePriceData.csv")
