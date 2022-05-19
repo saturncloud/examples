@@ -4,13 +4,19 @@
   "description": "Use Weights & Biases to track model training",
   "working_directory": "/home/jovyan/examples/examples/wandb",
   "extra_packages": {
-    "pip": "wandb dask-pytorch-ddp"
+    "pip": "wandb dask-pytorch-ddp boto3"
   },
-  "start_script": "wandb login --relogin $WANDB_LOGIN || true",
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
       "path": "/home/jovyan/examples"
+    }
+  ],
+  "credentials": [
+    {
+      "name": "wandb-api-key",
+      "type": "environment_variable",
+      "location": "WANDB_API_KEY"
     }
   ],
   "jupyter_server": {
