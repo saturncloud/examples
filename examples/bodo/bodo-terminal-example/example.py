@@ -7,7 +7,6 @@ Data source: Green Taxi 2019 s3://bodo-example-data/nyc-taxi/green_tripdata_2019
 Full dataset: https://github.com/toddwschneider/nyc-taxi-data/blob/master/setup_files/raw_data_urls.txt
 """
 
-import numpy as np
 import pandas as pd
 import time
 import bodo
@@ -16,12 +15,9 @@ import bodo
 @bodo.jit(cache=True)
 def get_daily_pickups():
     start = time.time()
-    green_taxi = pd.read_csv(
-        "s3://bodo-example-data/nyc-taxi/green_tripdata_2019.csv",
-        usecols=[1, 5],
-        parse_dates=["lpep_pickup_datetime"],
-        dtype={"PULocationID": np.int64},
-    )
+
+    green_taxi = pd.read_parquet("s3://bodo-example-data/nyc-taxi/green_tripdata_2019.pq")
+
     green_taxi["pickup_date"] = green_taxi["lpep_pickup_datetime"].dt.date
 
     end = time.time()
