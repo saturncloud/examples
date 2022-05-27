@@ -16,7 +16,9 @@ import bodo
 def get_daily_pickups():
     start = time.time()
 
-    green_taxi = pd.read_parquet("s3://bodo-example-data/nyc-taxi/green_tripdata_2019.pq")
+    green_taxi = pd.read_parquet(
+        "s3://bodo-example-data/nyc-taxi/green_tripdata_2019.pq", storage_options={"anon": True}
+    )
 
     green_taxi["pickup_date"] = green_taxi["lpep_pickup_datetime"].dt.date
 
