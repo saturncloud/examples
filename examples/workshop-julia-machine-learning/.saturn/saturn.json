@@ -9,10 +9,10 @@
       "path": "/home/jovyan/examples"
     }
   ],
-  "start_script": "julia -e 'import Pkg;\nPkg.add([\n\"BSON\",\n\"MLDatasets\"\n])'",
+  "start_script": "julia -e 'import Pkg;\nPkg.add([\n\"BSON\",\n\"CUDA\",\n\"MLDatasets\"\n])'",
   "jupyter_server": {
     "disk_space": "10Gi",
-    "instance_type": "g4dnxlarge"
+    "instance_type": "2xlarge"
   },
   "version": "2022.01.06"
 }
