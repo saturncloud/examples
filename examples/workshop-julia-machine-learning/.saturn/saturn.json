@@ -1,6 +1,6 @@
 {
   "name": "workshop-julia-intro",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-julia-gpu:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-julia:2022.03.01",
   "description": "Use Julia to train a simple neural network model using Flux.",
   "working_directory": "/home/jovyan/examples/examples/workshop-julia-machine-learning",
   "git_repositories": [
