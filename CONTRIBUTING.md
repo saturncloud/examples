@@ -66,27 +66,48 @@ If this raises any issues, try automatically fixing them
 make format
 ```
 
-# Releasing
+# Updating examples
 
-Releases of this repository lag releases of Saturn Cloud. Anytime after a new release makes it to [hosted](https://app.community.saturnenterprise.io) and you want to take advantage of some new features in it, you can make a release of this repo.
+The goal is that the you should be able to push changes to main and see those changes as quickly as possible on Saturn without breaking anything that already exists.
 
-Follow these steps:
+To support that goal, there should be only one branch of this repo for every recipe schema version.
 
-1. Create a pull request into `main` which updates all of the `"image_uri"` entries in `saturn.json` files to the latest images released from https://github.com/saturncloud/images (if you want).
-2. Create a new branch from `main`. It's name must start with `release-`.
+## Use new versions of images (common)
 
-    ```shell
-    git pull origin main
-    git checkout -b release-2022.01.06
-    git push release-2022.01.06
-    ```
+After new images are created:
 
-3. On `main` update RECIPE_SCHEMA_VERSION to the version on [hosted](https://app.community.saturnenterprise.io).
-4. Update all the `schema_version` fields in all the recipes and make any changes.
-5. Update the button on README.md to point to the new RECIPE_SCHEMA_VERSION
-6. Create a pull request with these changes with `main` as the base.
+1. Create a pull request into `main` which updates all of the `"image_uri"` entries in `saturn.json` files to the latest images released from https://github.com/saturncloud/images.
+2. Run integration tests using that branch.
+3. Merge the pull request.
+4. Ask someone on the devops team to update the examples one of the staging instances.
+5. Manually test any examples that you are worried about.
+6. Once you are satisfied, ask someone on the devops team to update the images on hosted.
 
-This repo has branch protection to prevent deletion or changes without a pull request on all `release-*` branches.
+NOTE: In the future we expect to add a separate mechanism for updating the images separate from the update examples mechanism. Once this is established you will be able to ask someone to update the images on a staging instance then you will be able to test the example using a recipe _before_ merging the PR.
+
+## Use new version of the recipe schema (rare)
+
+Anytime _after_ a new release makes it to [hosted](https://app.community.saturnenterprise.io), you can start using the latest recipe schema that is supported by that release. Note that the only reason to do this is if you want to take advantage of some new feature in the latest recipe schema.
+
+First create a new branch from `main`. Its name must start with `release-`.
+
+```shell
+git pull origin main
+git checkout -b release-2022.03.01
+git push release-2022.03.01
+```
+
+Remember: the Saturn version on hosted should already be 2022.04.01 _before_ you create that branch.
+
+Once you have created a release branch for the old examples, you can start using the new recipe schema on `main`
+
+1. Update [RECIPE_SCHEMA_VERSION](https://github.com/saturncloud/examples/blob/main/RECIPE_SCHEMA_VERSION) to the version on [hosted](https://app.community.saturnenterprise.io).
+2. Update all the `schema_version` fields in all the recipes and make any changes.
+3. Update the button on [README.md](https://github.com/saturncloud/examples/blob/main/README.md) to point to the new RECIPE_SCHEMA_VERSION
+4. Create a pull request with these changes with `main` as the base.
+5. Run integration tests on that branch to make sure that things work.
+
+After the PR merges, tell someone on the engineering team that you are changing the `schema_version` for examples, and they will change `EXAMPLES_RECIPE_SCHEMA_VERSION` to match and run `make examples`.
 
 # Frequently Asked Questions <a name="faq"></a>
 
