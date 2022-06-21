@@ -3,7 +3,7 @@
 library(shiny)
 
 source("helper_functions.R")
-  
+
 # This swapped from a fluidPage to a bootstrapPage to give us more control
 ui <- bootstrapPage(
   # UI preamble -------------------------
