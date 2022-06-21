@@ -1,8 +1,8 @@
 {
-  "name": "workshop-r-shiny-style",
+  "name": "workshop-r-shiny-styling",
   "image_uri": "public.ecr.aws/saturncloud/saturn-rstudio:2022.04.01",
   "description": "Supporting materials for the Styling Shiny workshop",
-  "working_directory": "/home/jovyan/examples/examples/workshop-r-shiny-style",
+  "working_directory": "/home/jovyan/examples/examples/workshop-r-shiny-styling",
   "extra_packages": {
     "cran": {
       "install": "shiny"
