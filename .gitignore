@@ -75,3 +75,4 @@ prefect-fork/*
 *.pem
 *rsa
 *.pub
+.Rproj.user

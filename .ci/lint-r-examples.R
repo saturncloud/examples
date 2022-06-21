@@ -1,7 +1,7 @@
 results <- lintr::lint_dir(
   linters =
     lintr::with_defaults(line_length_linter = lintr::line_length_linter(100)),
-  pattern = "\\.(R|r|Rmd|rmd)"
+  pattern = "\\.(R|r|Rmd|rmd)$"
 )
 
 non_warning_results <- results[sapply(results, function(x)x$type != "warning")]
