@@ -4,9 +4,7 @@
   "description": "Supporting materials for the Styling Shiny workshop",
   "working_directory": "/home/jovyan/examples/examples/workshop-r-shiny-styling",
   "extra_packages": {
-    "cran": {
-      "install": "shiny"
-    }
+    "cran": "shiny"
   },
   "git_repositories": [
     {
@@ -19,5 +17,5 @@
     "disk_space": "10Gi",
     "auto_shutoff": "1 hour"
   },
-  "version": "2022.04.01"
+  "version": "2022.01.06"
 }
