@@ -2,7 +2,7 @@
 
 library(shiny)
 
-source("helper_functions.R")
+source("helper-functions.R")
 
 # This swapped from a fluidPage to a bootstrapPage to give us more control
 ui <- bootstrapPage(
@@ -52,7 +52,7 @@ ui <- bootstrapPage(
                            # img-fluid resizes with the screen
                            img(height = "48",
                                class = "py-2 img-fluid",
-                               src = "https://saturncloud.io/icons/saturncloud-logo-1.svg"
+                               src = "saturncloud-logo-1.svg"
                            ),
 
                            # the cute cat and dogs with custom css from site.css

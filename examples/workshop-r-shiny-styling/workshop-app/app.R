@@ -1,6 +1,6 @@
 library(shiny)
 
-source("helper_functions.R")
+source("helper-functions.R")
 
 ui <- fluidPage(
   titlePanel("Pet Guesser"),
