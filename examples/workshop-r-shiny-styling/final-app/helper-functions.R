@@ -75,7 +75,7 @@ plot_value <- function(results) {
   }
 
   plot <- ggplot(data = data.frame(x = p),
-                 aes(xmin = x - 0.025, xmax =  + 0.025, ymin = -0.1, ymax = 0.1)) +
+                 aes(xmin = x - 0.025, xmax = x + 0.025, ymin = -0.1, ymax = 0.1)) +
     geom_line(data = rbind(data.frame(x = seq(0, 1, 0.1), y = -0.05, group = 1:11),
                            data.frame(x = seq(0, 1, 0.1), y = 0.05, group = 1:11)),
               aes(x = x, y = y, group = group),
