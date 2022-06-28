@@ -1,0 +1,14 @@
+{
+  "name": "example-opencv",
+  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.04.01",
+  "description": "Perform image processing on a photo using OpenCV functions",
+  "working_directory": "/home/jovyan/examples/examples/opencv",
+  "extra_packages": {
+    "pip":  "opencv-python"
+  },
+  "start_script": "sudo apt-get update\nsudo apt-get install -y libgl1-mesa-glx",
+  "jupyter_server": {
+    "instance_type": "medium",
+    "disk_space": "10Gi"},
+  "version": "2022.01.06"
+}
