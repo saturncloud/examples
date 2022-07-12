@@ -4,7 +4,7 @@
   "description": "POC of using Jupyter kernel information for shutting off a resource",
   "working_directory": "/home/jovyan/examples/examples/autoshutoff-jupyter-kernel",
   "environment_variables": {
-    "SATURN_APP_URL": "https://app.internal.saturnenterprise.io/"
+    "SATURN_APP_URL": "https://app.community.saturnenterprise.io/"
   },
   "git_repositories": [
     {
