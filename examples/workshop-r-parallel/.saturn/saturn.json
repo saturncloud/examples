@@ -1,5 +1,5 @@
 {
-  "name": "r-parallel-workshop",
+  "name": "workshop-r-parallel",
   "image_uri": "public.ecr.aws/saturncloud/saturn-rstudio:2022.04.01",
   "description": "Supporting materials for the R in Parallel workshop",
   "working_directory": "/home/jovyan/examples/examples/workshop-r-parallel",

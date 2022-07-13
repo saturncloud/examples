@@ -21,7 +21,7 @@ ui <- fluidPage(
                   value = 30),
       actionButton("process_button", "Process the data")
     ),
-    
+
     mainPanel(
       plotOutput("distPlot"),
       textOutput("processStart")
@@ -35,7 +35,7 @@ server <- function(input, output) {
     bins <- seq(min(x), max(x), length.out = input$bins + 1)
     hist(x, breaks = bins, col = "darkgray", border = "white")
   })
-  
+
   output$processStart <- renderText({
     if (input$process_button > 0) {
       # WHAT DO WE ADD HERE TO PROCESS DATA IN THE BACKGROUND?
