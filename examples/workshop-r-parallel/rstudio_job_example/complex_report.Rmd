@@ -1,0 +1,39 @@
+---
+title: "Complex Report"
+output: html_document
+params:
+  frac: 1
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_libraries}
+library(tidyverse)
+```
+
+```{r set_params}
+frac_of_data <- params$frac
+```
+
+```{r load_data}
+data <- read_csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/r-parallel/example-data.csv",
+                 show_col_types = FALSE) %>%
+  sample_frac(frac_of_data)
+```
+
+```{r show_table, results = "asis"}
+data |>
+  group_by(region) |>
+  summarize(revenue = sum(revenue)) |>
+  knitr::kable()
+```
+
+```{r show_plot}
+data |>
+  mutate(transaction_date = as.Date(transaction_date)) |>
+  group_by(transaction_date, region) |>
+  summarize(revenue = sum(revenue), .groups = "drop") |>
+  ggplot(aes(x = transaction_date, y = revenue)) + geom_line()
+```
