@@ -1,3 +1,0 @@
-rmarkdown::render("rstudio_job_example/complex_report.Rmd",
-                  output_file = "results_0.1.html",
-                  params = list(frac = 0.1))
