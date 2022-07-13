@@ -61,21 +61,11 @@ region_data <- data %>%
   group_split()
 
 system.time({
-  aggregate_region_data <- list()
-  for (i in 1:length(region_data)) {
-    message(glue("Creating {i} future"))
-    aggregate_region_data[[i]] <- future({
-      aggregate_function(region_data[[i]])
-      })
-  }
-  aggregate_data <- bind_rows(value(aggregate_region_data))
+  # HOW CAN WE PROCESS THE DIFFERENT REGIONS IN PARALLEL
 })
 
 # Method 4: split by region and use furrr -------------------------------------
 
 system.time({
-  region_data <- data %>%
-    group_by(region) %>%
-    group_split() %>%
-    future_map_dfr(aggregate_function)
+  # HOW CAN WE PROCESS THE DIFFERENT REGIONS IN PARALLEL WITH PURRR
 })

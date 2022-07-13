@@ -18,7 +18,8 @@ frac_of_data <- params$frac
 ```
 
 ```{r load_data}
-data <- read_csv("https://saturn-public-data.s3.us-east-2.amazonaws.com/r-parallel/example-data.csv",
+url <- "https://saturn-public-data.s3.us-east-2.amazonaws.com/r-parallel/example-data.csv"
+data <- read_csv(url = url,
                  show_col_types = FALSE) %>%
   sample_frac(frac_of_data)
 ```
