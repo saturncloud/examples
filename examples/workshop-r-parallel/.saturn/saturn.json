@@ -13,7 +13,7 @@
     }
   ],
   "rstudio_server": {
-    "instance_type": "xlarge",
+    "instance_type": "2xlarge",
     "disk_space": "10Gi",
     "auto_shutoff": "1 hour"
   },
