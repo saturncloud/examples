@@ -31,9 +31,12 @@ URLS=$(
     | grep -v '{' \
     | grep -v -E '\:[0-9]+$' \
     | grep -v 'auth.docker.io' \
+    | grep -v "community.saturnenterprise.io/" \
     | grep -v 'demo.saturnenterprise.io' \
     | grep -v "https://github.com/saturncloud/docs/" \
     | grep -v "https://github.com/saturncloud/website/" \
+    | grep -v "https://fonts." \
+    | grep -v "https://www.kaggle.com/code/fahd09/eda-of-crime-in-chicago-2005-2016/notebook" \
     | grep -v "https://AA99999.us-east-2.aws.snowflakecomputing.com/console/login" \
     | grep -v -E "(http|https)://[0-9]+" \
     | grep -v 'localhost.' \
