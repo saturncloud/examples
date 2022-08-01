@@ -9,6 +9,6 @@
 # catch-all rule (this only gets matched if no rules below match)
 *    @jnolis @jsignell
 
-.ci/*     @jsignell @forana
-.github/*    @jsignell @forana
-Makefile    @jsignell @forana
+.ci/*     @jsignell
+.github/*    @jsignell
+Makefile    @jsignell
