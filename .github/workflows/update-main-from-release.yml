@@ -23,4 +23,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pr_title: Update main from ${{ steps.branch-name.outputs.current_branch }}
           pr_body: ":rocket: *An automated PR* - Please make any changes needed to resolve merge conflicts and then approve and merge!"
-          pr_reviewer: "forana,${{ github.actor }}"
+          pr_reviewer: "jsignell,${{ github.actor }}"
