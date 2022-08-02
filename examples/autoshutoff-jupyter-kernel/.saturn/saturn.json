@@ -1,6 +1,6 @@
 {
   "name": "example-autoshutoff",
-  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2022.06.01",
   "description": "POC of using Jupyter kernel information for shutting off a resource",
   "working_directory": "/home/jovyan/examples/examples/autoshutoff-jupyter-kernel",
   "environment_variables": {

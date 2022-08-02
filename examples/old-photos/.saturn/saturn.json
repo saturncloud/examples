@@ -1,6 +1,6 @@
 {
   "name": "example-restoring-photos",
-  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2022.06.01",
   "description": "Restoring old photos using a neural network from Microsoft",
   "environment_variables": {},
   "working_directory": "/home/jovyan/examples/examples/old-photos",
