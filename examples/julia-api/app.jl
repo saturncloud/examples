@@ -31,4 +31,4 @@ route("/") do
     return ("This API returns a linear regression for the price of a house based on the number of bedrooms and the year it was built. For example, append /predict?bedrooms=2&yearBuilt=1900 to the url to predict the sale price for a house built in 1900 with 2 bedrooms.")
 end
 
-Genie.startup(8000, "0.0.0.0")
+Genie.up(8000, "0.0.0.0")
