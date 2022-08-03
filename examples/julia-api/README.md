@@ -72,7 +72,7 @@ Lastly, specify the Genie configuration and server specifications. It is importa
 
 ``` julia
 Genie.config.run_as_server = true
-Genie.startup(8000, "0.0.0.0")
+Genie.up(8000, "0.0.0.0")
 ```
 
 ### Run the API
