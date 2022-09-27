@@ -1,6 +1,6 @@
 {
   "name": "example-api-flask",
-  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.01.06",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2022.06.01",
   "description": "Deploy a flask API on Saturn Cloud",
   "extra_packages": {
     "conda": "flask",

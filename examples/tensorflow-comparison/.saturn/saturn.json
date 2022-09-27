@@ -1,6 +1,6 @@
 {
   "name": "example-tensorflow-comparison",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-tensorflow:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python-tensorflow:2022.06.01",
   "description": "Compare TensorFlow model training for single and multiple GPUs",
   "working_directory": "/home/jovyan/examples/examples/tensorflow-comparison",
   "extra_packages": {

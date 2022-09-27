@@ -1,6 +1,6 @@
 {
   "name": "example-job-notebook-api",
-  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2022.06.01",
   "description": "Run a Jupyter Notebook via calling a REST API using Saturn Cloud jobs",
   "working_directory": "/home/jovyan/examples/examples/job-notebook-api",
   "git_repositories": [

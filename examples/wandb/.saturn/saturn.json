@@ -1,6 +1,6 @@
 {
   "name": "example-weights-and-biases",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-pytorch:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python-pytorch:2022.06.01",
   "description": "Use Weights & Biases to track model training",
   "working_directory": "/home/jovyan/examples/examples/wandb",
   "extra_packages": {

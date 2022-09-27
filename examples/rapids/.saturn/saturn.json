@@ -1,6 +1,6 @@
 {
   "name": "example-rapids",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-rapids:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python-rapids:2022.06.01",
   "description": "Use GPUs for data science and machine learning with this platform by NVIDIA",
   "environment_variables": {
     "SATURN__JUPYTER_SETUP_DASK_WORKSPACE": "true"

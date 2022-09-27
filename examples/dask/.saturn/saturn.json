@@ -1,6 +1,6 @@
 {
   "name": "example-dask",
-  "image_uri": "public.ecr.aws/saturncloud/saturn:2022.03.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2022.06.01",
   "description": "Use distributed computing with Dask",
   "extra_packages": {
     "pip": "lightgbm"
