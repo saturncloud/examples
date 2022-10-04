@@ -103,12 +103,6 @@
       "recipe_path": "examples/julia-api/.saturn/saturn.json"
     },
     {
-      "title": "Bodo.ai (Python)",
-      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/bodo.png",
-      "weight": 1400,
-      "recipe_path": "examples/bodo/.saturn/saturn.json"
-    },
-    {
       "title": "Comet (Python)",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/comet.png",
       "weight": 1800,
