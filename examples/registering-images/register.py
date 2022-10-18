@@ -9,6 +9,7 @@ import boto3
 
 # this should be populated by the secrets manager
 IMAGE_SPEC = json.loads(os.getenv("IMAGE_SPEC"))
+DRY_RUN = True
 
 
 # this should be populated by Saturn.
@@ -44,7 +45,7 @@ def register(ecr_image_name: str, saturn_image_name: str, is_gpu: str):
         if image_uri in existing_image_uris:
             continue
         image_tag = image['image_tag']
-        requests.post(url, json={
+        payload = {
             image_uri: image_uri,
             version: image_tag,
             is_new_version: True,
@@ -54,7 +55,11 @@ def register(ecr_image_name: str, saturn_image_name: str, is_gpu: str):
                 visibility: 'account',
                 image: saturn_image_name
             }
-        })
+        }
+        if DRY_RUN:
+            print(f'REGISTER image_uri {payload}')
+        else:
+            requests.post(url, json=payload)
 
 
 def run():
