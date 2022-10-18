@@ -1,12 +1,14 @@
 import os
 from urllib.parse import urlencode
+import json
 
 import requests
 import boto3
 
+# Currently only works against the 2022.05.01 API.
 
 # this should be populated by the secrets manager
-IMAGES = os.getenv("IMAGES")
+IMAGE_SPEC = json.loads(os.getenv("IMAGE_SPEC"))
 
 
 # this should be populated by Saturn.
@@ -31,13 +33,17 @@ def list_images(ecr_image_name: str):
 
 
 def register(ecr_image_name: str, saturn_image_name: str, is_gpu: str):
+    url = f"{BASE_URL}/api/images?page_size=-1"
+    existing_images = requests.get(url).json()['images']
+    existing_image_uris = set([x['image_uri'] for x in existing_images])
     is_gpu = is_gpu.lower() == 'true'
-
+    url = f"{BASE_URL}/api/images"
     ecr_images = ecr.list_images(ecr_image_name)
     for image in ecr_images:
         image_uri = image['image_uri']
+        if image_uri in existing_image_uris:
+            continue
         image_tag = image['image_tag']
-        url = f"{BASE_URL}/api/images"
         requests.post(url, json={
             image_uri: image_uri,
             version: image_tag,
@@ -52,6 +58,8 @@ def register(ecr_image_name: str, saturn_image_name: str, is_gpu: str):
 
 
 def run():
-    for line in IMAGES.split('\n'):
-        ecr_image_name, saturn_image_name, is_gpu = line.spit(',')
+    for image_spec in IMAGE_SPEC:
+        ecr_image_name = image_spec['ecr_image_name']
+        saturn_image_name = image_spec['saturn_image_name']
+        is_gpu = image_spec['is_gpu']
         register(ecr_image_name, saturn_image_name, is_gpu)
