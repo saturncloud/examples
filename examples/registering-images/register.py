@@ -79,6 +79,8 @@ def register_all(ecr_image_name: str, saturn_image_name: str):
     for image in ecr_images:
         image_uri = image['image_uri']
         image_tag = image['image_tag']
+        import time
+        time.sleep(0.5)
         register(image_uri, image_tag, saturn_image_name, dry_run=DRY_RUN)
 
 
