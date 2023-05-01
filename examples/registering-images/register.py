@@ -103,7 +103,7 @@ def run_once():
 def run():
     while True:
         sync()
-        time.sleep(30)
+        time.sleep(10*60)
 
 
 if __name__ == "__main__":
