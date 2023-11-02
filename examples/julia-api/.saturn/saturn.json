@@ -1,6 +1,6 @@
 {
   "name": "example-julia-api",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-julia:2022.06.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-julia:2023.09.01",
   "description": "Deploy an API to Saturn Cloud using Julia",
   "environment_variables": {},
   "working_directory": "/home/jovyan/examples/examples/julia-api",

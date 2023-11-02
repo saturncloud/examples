@@ -1,6 +1,6 @@
 {
   "name": "example-api",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2022.06.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2023.09.01",
   "description": "Deploy an API to Saturn Cloud. Learn more at: https://scld.io/ex/py-api",
   "extra_packages": {
     "pip": "uvicorn fastapi"

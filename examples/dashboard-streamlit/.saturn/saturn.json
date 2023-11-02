@@ -1,6 +1,6 @@
 {
   "name": "example-dashboard-streamlit",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2022.06.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2023.09.01",
   "description": "Deploy a Streamlit dashboard to Saturn Cloud.",
   "extra_packages": {
     "conda": "streamlit umap-learn plotly",

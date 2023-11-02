@@ -1,6 +1,6 @@
 {
   "name": "example-r-job",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-r:2022.06.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-r:2023.09.01",
   "description": "Run a job on Saturn Cloud using R. Learn more at: https://scld.io/ex/r-job",
   "working_directory": "/home/jovyan/examples/examples/r-job",
   "start_script": "Rscript setup.R",

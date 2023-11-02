@@ -1,6 +1,6 @@
 {
   "name": "example-tensorflow",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-python-tensorflow:2022.06.01",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python-tensorflow:2023.09.01",
   "description": "Train deep learning models with TensorFlow",
   "working_directory": "/home/jovyan/examples/examples/tensorflow",
   "git_repositories": [
