@@ -102,7 +102,7 @@ def delete_all_tags(saturn_image_id: str, tags: List[Dict], dry_run: bool=False)
         url = make_url(f"api/images/{saturn_image_id}/tags/{t['id']}")
         print('delete', url)
         if not dry_run:
-            requests.delete(url, headers=saturn_headers).json()            
+            resp = requests.delete(url, headers=saturn_headers)
             
             
 def register_by_id(image_uri: str, version: str, saturn_image_id: str, dry_run: bool = False):
@@ -169,12 +169,14 @@ def cli():
 @cli.command()
 def run_once():
     sync()
+    sync_base()
 
 
 @cli.command()
 def run():
     while True:
         sync()
+        sync_base()
         time.sleep(30)
 
 
