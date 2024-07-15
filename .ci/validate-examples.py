@@ -39,6 +39,8 @@ TEMPLATES_JSON_NAMES = ["templates-hosted.json", "templates-enterprise.json"]
 EXAMPLES_DIR = ARGS.examples_dir
 SKIP_IMAGE_CHECK = ARGS.skip_image_check
 
+EXCLUDE_SATURN_DIR_CHECK = ["registering-images", "registering-users"]
+
 # This points to a json file in the saturncloud/recipe repo.
 # The BASE_URL is there just to ensure the URL fits on one line and doesn't break the link validator
 with open("RECIPE_SCHEMA_VERSION", "r") as f:
@@ -376,23 +378,26 @@ if __name__ == "__main__":
             msg = f"Every example must have a README.md. '{full_dir}' does not."
             ERRORS.add(msg)
 
+        ignore_saturn_dir = example_dir in EXCLUDE_SATURN_DIR_CHECK
         # each example must have a .saturn/ folder
         saturn_dir = os.path.join(full_dir, SATURN_DIR_NAME)
-        if not os.path.isdir(saturn_dir):
+        if not ignore_saturn_dir and not os.path.isdir(saturn_dir):
             msg = f"'{full_dir}' does not include a '{SATURN_DIR_NAME}/' directory"
             ERRORS.add(msg)
 
         saturn_json = os.path.join(saturn_dir, SATURN_JSON_NAME)
-        if not os.path.isfile(saturn_json):
-            msg = f"Did not find saturn.json in '{saturn_dir}'. This file is required."
-            ERRORS.add(msg)
-            continue
-
-        try:
-            validate_recipe(schema, instance_type_options, saturn_json, example_dir)
-        except ValidationError as e:
-            msg = f"'{saturn_json}' has the following schema issues: {str(e)}"
-            ERRORS.add(msg)
-            continue
+        has_saturn_json = os.path.isfile(saturn_json)
+        if not has_saturn_json:
+            if not ignore_saturn_dir:
+                msg = f"Did not find saturn.json in '{saturn_dir}'. This file is required."
+                ERRORS.add(msg)
+                continue
+        else:
+            try:
+                validate_recipe(schema, instance_type_options, saturn_json, example_dir)
+            except ValidationError as e:
+                msg = f"'{saturn_json}' has the following schema issues: {str(e)}"
+                ERRORS.add(msg)
+                continue
 
     ERRORS.report()
