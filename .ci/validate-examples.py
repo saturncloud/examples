@@ -51,7 +51,6 @@ INSTANCE_TYPE_OPTIONS_URL = "https://saturncloud.io/static/constants.yaml"
 
 
 class ErrorCollection:
-
     _errors: List[str] = []
 
     def add(self, error: str):
@@ -253,7 +252,6 @@ def _lint_python_cell(file_name: str, code_lines: List[str]) -> List[str]:
 
 
 if __name__ == "__main__":
-
     ERRORS = ErrorCollection()
 
     res = requests.get(url=RECIPE_SCHEMA_URL)
