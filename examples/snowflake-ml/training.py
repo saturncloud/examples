@@ -19,7 +19,6 @@ import multiprocessing as mp
 
 
 def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwargs):
-
     # --------- Format params --------- #
     device = torch.device("cuda")
     net = models.resnet50(pretrained=False)  # True means we start with the imagenet version
@@ -111,7 +110,6 @@ def simple_train_single(batch_size, downsample_to, n_epochs, base_lr, conn_kwarg
 
 
 if __name__ == "__main__":
-
     conn_kwargs = dict(
         user=os.environ["SNOWFLAKE_USER"],
         password=os.environ["SNOWFLAKE_PASSWORD"],

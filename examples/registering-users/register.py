@@ -14,12 +14,13 @@ BASE_URL = os.getenv("BASE_URL")
 SATURN_TOKEN = os.getenv("SATURN_TOKEN")
 saturn_headers = {"Authorization": f"token {SATURN_TOKEN}"}
 
+
 def check_for_account_by_email(email: str) -> bool:
     url = f"{BASE_URL}/api/users"
     query_string = urlencode(dict(q=f"email:{email}", page=1, size=1))
     url = url + "?" + query_string
     response = requests.get(url, headers=saturn_headers)
-    results = response.json()['users']
+    results = response.json()["users"]
     if results:
         return True
     return False
@@ -30,7 +31,7 @@ def check_for_account_by_username(username: str) -> bool:
     query_string = urlencode(dict(q=f"username:{username}", page=1, size=1))
     url = url + "?" + query_string
     response = requests.get(url, headers=saturn_headers)
-    results = response.json()['users']
+    results = response.json()["users"]
 
     if results:
         return True
@@ -38,7 +39,7 @@ def check_for_account_by_username(username: str) -> bool:
 
 
 def make_unique_username(email: str) -> str:
-    candidate_username = email.split('@')[0]
+    candidate_username = email.split("@")[0]
     candidate_username = "".join(c for c in candidate_username if c.isalnum())
 
     # we'll try 100 integers until we get a unique name
@@ -48,7 +49,7 @@ def make_unique_username(email: str) -> str:
             to_try = candidate_username + str(c)
         if not check_for_account_by_username(to_try):
             return to_try
-    raise ValueError(f'unable to find username for {candidate_username}')
+    raise ValueError(f"unable to find username for {candidate_username}")
 
 
 def make_account(username: str, email: str):
@@ -73,7 +74,7 @@ def ensure_account_exists(email: str) -> None:
 
 
 def run():
-    for email in EMAILS_FOR_ACCOUNTS.split('\n'):
+    for email in EMAILS_FOR_ACCOUNTS.split("\n"):
         if email:
             ensure_account_exists(email)
 
