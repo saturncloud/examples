@@ -4,7 +4,6 @@ from urllib.parse import urlencode
 import json
 import click
 import time
-from datetime import timedelta
 
 import requests
 import boto3
