@@ -16,7 +16,7 @@ import sys
 
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
-from ruamel import yaml
+from ruamel.yaml import YAML
 from typing import Dict, List, Optional
 
 
@@ -258,7 +258,8 @@ if __name__ == "__main__":
     schema = res.json()
 
     res = requests.get(url=INSTANCE_TYPE_OPTIONS_URL)
-    instance_type_options = yaml.safe_load(res.text)["tiers"]
+    yaml = YAML(typ="safe", pure=True)
+    instance_type_options = yaml.load(res.text)["tiers"]
 
     example_dirs = os.listdir(EXAMPLES_DIR)
     if len(example_dirs) == 0:
