@@ -5,7 +5,7 @@
   "working_directory": "/home/jovyan/examples/examples/comet",
   "extra_packages": {
     "apt": "libtiff5",
-    "pip": "comet_ml",
+    "pip": "comet_ml 'typing_extensions==4.7.1'",
     "conda": "pytorch torchvision cpuonly -c pytorch",
     "use_mamba": true
   },
