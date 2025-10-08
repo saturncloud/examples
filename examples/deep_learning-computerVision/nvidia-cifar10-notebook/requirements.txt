@@ -1,0 +1,21 @@
+# Deep Learning Framework
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Dashboard and Visualization
+panel>=1.2.0
+hvplot>=0.8.0
+holoviews>=1.16.0
+bokeh>=3.1.0
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Image Processing and Plotting
+matplotlib>=3.7.0
+Pillow>=9.5.0
+
+# Jupyter Support (optional, for notebook rendering)
+jupyter>=1.0.0
+notebook>=6.5.0
