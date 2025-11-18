@@ -1,0 +1,7 @@
+vllm
+torch
+huggingface_hub
+fastapi
+uvicorn
+requests
+hf_transfer
