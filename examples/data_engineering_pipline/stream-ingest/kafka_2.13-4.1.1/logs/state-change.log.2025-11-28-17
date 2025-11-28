@@ -1,6 +1,0 @@
-[2025-11-28 17:54:28,723] INFO [Broker id=1] Transitioning 1 partition(s) to local leaders. (state.change.logger)
-[2025-11-28 17:54:28,727] INFO [Broker id=1] Creating new partition quickstart-events-0 with topic id ImzELB6tRIuxiqyKFP2RDg. (state.change.logger)
-[2025-11-28 17:54:28,811] INFO [Broker id=1] Leader quickstart-events-0 with topic id Some(ImzELB6tRIuxiqyKFP2RDg) starts at leader epoch 0 from offset 0 with partition epoch 0, high watermark 0, ISR [1], adding replicas [] and removing replicas [] . Previous leader None and previous leader epoch was -1. (state.change.logger)
-[2025-11-28 17:56:14,103] INFO [Broker id=1] Transitioning 1 partition(s) to local followers. (state.change.logger)
-[2025-11-28 17:56:14,124] INFO [Broker id=1] Follower quickstart-events-0 starts at leader epoch 1 from offset 0 with partition epoch 1 and high watermark 0. Current leader is -1. Previous leader Some(-1) and previous leader epoch was 1. (state.change.logger)
-[2025-11-28 17:56:14,138] INFO [Broker id=1] Stopped fetchers as part of controlled shutdown for 1 partitions (state.change.logger)
