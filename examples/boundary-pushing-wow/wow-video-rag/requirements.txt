@@ -1,0 +1,22 @@
+# Core Libraries
+torch
+transformers
+datasets
+
+# VLM and High-Performance Libraries
+# We are installing a standard LLaVA dependency set.
+accelerate
+deepspeed
+bitsandbytes # For 8-bit or 4-bit VLM loading (VRAM efficiency)
+safetensors
+
+# Video Processing & Vector Search
+opencv-python
+scikit-learn
+faiss-cpu
+
+# Dashboard
+streamlit
+
+# Utility
+requests
