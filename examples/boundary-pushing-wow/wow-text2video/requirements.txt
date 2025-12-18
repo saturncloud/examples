@@ -1,0 +1,17 @@
+# Core Deep Learning
+torch
+torchvision
+torchaudio
+transformers
+diffusers
+accelerate
+
+# Multimodal & Encoding
+open_clip_torch
+pytorch-lightning
+modelscope
+opencv-python
+imageio[ffmpeg]
+
+# Dashboard
+streamlit
