@@ -1,0 +1,4 @@
+confluent-kafka==2.3.0
+streamlit
+pandas
+plotly
