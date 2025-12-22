@@ -1,0 +1,24 @@
+# --- Data Engineering & Feature Store ---
+pyspark==3.5.1
+feast[pyspark]==0.40.0
+pyarrow                   # Efficient Parquet handling for Spark/Feast
+
+# --- Experiment Tracking & ML ---
+mlflow
+scikit-learn              # Standard CPU training
+pandas<2.0.0              # Required for Feast registry compatibility
+
+# --- Serving & API ---
+fastapi
+uvicorn[standard]         # High-performance ASGI server
+pydantic                  # Data validation for API schemas
+
+# --- Hardware Acceleration (CPU/GPU) ---
+xgboost                   # Supports both CPU and GPU training
+torch                     # Deep learning support for GPU
+
+# --- Utilities ---
+python-multipart          # For FastAPI form handling
+boto3                     # For S3/Managed store integration
+dask
+distributed
