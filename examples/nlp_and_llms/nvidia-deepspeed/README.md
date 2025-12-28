@@ -1,4 +1,7 @@
 # DeepSpeed ZeRO-3 Training
+
+![Memory Sharding Icon](./memory-sharding.png)
+
 This template provides a robust environment for training large-scale Transformer models (like GPT-2 Large) using **DeepSpeed ZeRO-Stage 3**. By partitioning model parameters, gradients, and optimizer states across multiple GPUs, this setup overcomes the memory limitations of a single device.
 
 For more information on the underlying platform, visit the [Saturn Cloud Documentation](https://saturncloud.io/docs/).
