@@ -1,0 +1,19 @@
+# Ignore the Environment
+miniconda_dist/
+venv/
+env/
+
+# Ignore Airflow State (Keep the DAGs folder!)
+airflow_home/*
+!airflow_home/dags/
+!airflow_home/dags/*.py
+
+# Ignore Data Logs
+data/*.csv
+
+# Ignore Python Junk
+__pycache__/
+*.pyc
+
+# Ignore System Files
+.DS_Store
