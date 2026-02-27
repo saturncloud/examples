@@ -1,0 +1,4 @@
+openai>=1.14.0
+python-dotenv>=1.1.0
+streamlit>=1.32.0
+jupyterlab>=4.0.0
