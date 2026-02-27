@@ -1,6 +1,6 @@
-# 🤖 Template: HackerNews Analysis Agent
+# Template: HackerNews Analysis Agent
 
-*Deploy this AI Agent instantly on [Saturn Cloud](https://saturncloud.io/) — The premier platform for scalable Python workspaces and AI deployment.*
+*Deploy this AI agent on [Saturn Cloud](https://saturncloud.io/).*
 
 **Hardware:** CPU | **Resource:** Terminal & Streamlit | **Tech Stack:** Python, Agno, Nebius AI, SQLite
 
@@ -8,30 +8,30 @@
 
 ## 📖 Overview
 
-This template provides a ready-to-deploy **HackerNews Analyst Agent** built with the [Agno](https://github.com/agno-agi/agno) framework. Powered by the highly capable **Nebius AI** model (`Qwen/Qwen3-30B-A3B-Instruct-2507`), this agent acts as your personal tech news curator.
+This template provides a Streamlit web interface for a HackerNews Analyst Agent. Built using the [Agno](https://github.com/agno-agi/agno) framework and the **Nebius AI** model (`Qwen/Qwen3-30B-A3B-Instruct-2507`), this agent executes data retrieval and analysis of tech news.
 
-It is deployed as an interactive Streamlit web application that tracks trending topics, analyzes user engagement, and features **SQLite persistent memory** so it remembers your conversation history across different chat sessions.
+The application tracks trending topics and analyzes user engagement. It utilizes a local **SQLite** database to maintain session state and conversation history across interactions.
 
-### 🌟 Why Run This on Saturn Cloud?
+### Infrastructure Deployment (Saturn Cloud)
 
-Building AI agents locally can be a headache due to dependency conflicts, hardware limitations, and secure key management. By running this template on [Saturn Cloud](https://saturncloud.io/), you get:
+Deploying this architecture on [Saturn Cloud](https://saturncloud.io/) provides several environment benefits:
 
-* **Pre-configured Compute:** Launch a CPU or GPU workspace in seconds.
-* **Always-On Workspaces:** Keep your Streamlit server running in the background.
-* **Secure Secrets:** Safely manage your API keys using `.env` files within a secure cloud boundary.
+* **Environment Isolation:** Provisions dedicated compute resources for Python package execution without local dependency conflicts.
+* **Persistent Compute:** Maintains the Streamlit server process in the background.
+* **Secrets Management:** Secures API keys and environment variables via isolated `.env` configurations.
 
 ---
 
 ## ✅ Prerequisites
 
-1. **Saturn Cloud Account:** Sign up for free at [saturncloud.io](https://saturncloud.io/).
-2. **Nebius API Key:** Get your LLM access token from the [Nebius Token Factory](https://studio.nebius.ai/).
+1. **Saturn Cloud Workspace:** Provision a CPU workspace via [Saturn Cloud](https://saturncloud.io/).
+2. **Nebius API Key:** Generate an LLM API token via the [Nebius Token Factory](https://studio.nebius.ai/).
 
 ---
 
 ## 🏗️ Phase 1: Environment Setup
 
-Using a Python virtual environment ensures your dependencies are perfectly isolated. Open a terminal in your Saturn Cloud workspace and run the following:
+Open a terminal in your Saturn Cloud workspace and execute the following commands.
 
 **1. Create and Activate the Virtual Environment**
 
@@ -51,74 +51,65 @@ pip install -r requirements.txt
 
 ```
 
-**3. Configure your `.env` File**
-Copy the example file and add your actual API key securely:
+**3. Configure Environment Variables**
+
+Create your `.env` file and define your API key.
 
 ```bash
 cp .env.example .env
-nano .env  # Open the file and insert your Nebius API Key
+nano .env  # Define NEBIUS_API_KEY. Save and exit.
 
 ```
-
 ---
 
-## 🚀 Phase 2: Running the Agent (Streamlit UI)
+## 🚀 Phase 2: Execution (Streamlit UI)
 
-The Tech News Analyst is designed as a fully interactive web application. It uses Agno's native `HackerNewsTools` to pull live internet data and a local **SQLite Database** (`agent_memory.db`) to remember your past questions.
+The application uses Agno's `HackerNewsTools` to query live data and a local **SQLite Database** (`agent_memory.db`) to persist conversation history.
 
-1. Ensure your virtual environment is activated, then start the Streamlit server:
+1. Ensure your virtual environment is activated, then initialize the Streamlit server:
+
 ```bash
 streamlit run app.py
 
 ```
 
+2. Navigate to the **Local URL** provided in the terminal output (default: `http://localhost:8501`) to access the web interface.
+3. Input natural language commands in the main chat interface.
 
-2. Open the provided `Local URL` (usually `http://localhost:8501`) in your web browser.
-3. Try asking the agent natural language questions like:
+**Example Prompts:**
+
 * *"What are the most discussed topics on HackerNews today?"*
-* *"Can you compare that to the trends from last week?"* (The agent will remember your previous questions!)
-
-
+* *"Can you compare that to the trends from last week?"*
 
 ---
 
-## 🐘 Scaling Up to Production
+## 🐘 Production Scaling (PostgreSQL)
 
-By default, this template uses a local **SQLite** database because it requires zero configuration to get started inside your Saturn Cloud environment. However, if you plan to deploy this agent for multiple users, you should upgrade to **PostgreSQL**.
+By default, this template uses a local **SQLite** database as it requires no initial configuration. For multi-user deployments, the architecture supports migrating to **PostgreSQL**.
 
-**How to Switch (Zero Logic Changes Required):**
+**Migration Steps (No Application Logic Changes Required):**
 
 1. Provision a Postgres Database.
 2. Install the Postgres driver in your terminal: `pip install psycopg2-binary`
-3. In `app.py`, simply swap the Agno storage backend from SQLite to Postgres:
+3. In `app.py`, modify the Agno storage backend from SQLite to Postgres:
+
 ```python
 from agno.db.postgres import PostgresDb
 
-# Replace the SQLite line in get_agent() with:
+# Replace the SQLite configuration in get_agent() with:
 db=PostgresDb(
     table_name="hn_agent_sessions", 
     db_url="postgresql+psycopg2://user:password@host:5432/dbname"
 )
 
 ```
-
-
-
 ---
 
-## 📚 Learn More & Resources
+## 📚 Official Documentation & References
 
-Ready to build even more complex AI agents? Check out these resources:
+For further customization, refer to the official documentation for the stack components used in this project:
 
-* **Saturn Cloud Platform:** [Start building for free](https://saturncloud.io/)
-* **Saturn Cloud Documentation:** [Explore deployment guides](https://saturncloud.io/docs/)
-* **Saturn Cloud Blog:** [Read the latest AI tutorials](https://saturncloud.io/blog/)
-
-## 🤝 Contributing
-
-Contributions to expand the agent's capabilities are welcome!
-
-* Built with the **Agno Framework**
-* Powered by **Nebius Token Factory**
-
----
+* **Deployment Platform:** [Saturn Cloud Documentation](https://saturncloud.io/docs/)
+* **AI Agent Framework:** [Agno Framework](https://github.com/agno-agi/agno)
+* **LLM Provider:** [Nebius AI Studio](https://docs.nebius.com/studio/)
+* **Web UI Framework:** [Streamlit Documentation](https://docs.streamlit.io/)
