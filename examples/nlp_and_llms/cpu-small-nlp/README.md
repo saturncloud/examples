@@ -1,6 +1,6 @@
 # Small Transformer Inference (CPU Baseline)
 
-This template implements a **high-efficiency CPU inference** workflow for Natural Language Processing (NLP). It uses **DistilBERT**, a smaller, faster version of BERT, and demonstrates how to further optimize it using **Dynamic Quantization** to achieve production-grade performance without GPUs.
+This template implements a **CPU-optimized inference** workflow for Natural Language Processing (NLP). It utilizes **DistilBERT**, a compressed version of the BERT architecture, and demonstrates optimization via **Dynamic Quantization** to achieve low-latency performance on CPU-only infrastructure.
 
 **Infrastructure:** [Saturn Cloud](https://saturncloud.io/)
 **Resource:** Jupyter Notebook
@@ -11,12 +11,13 @@ This template implements a **high-efficiency CPU inference** workflow for Natura
 
 ## 📖 Overview
 
-Deploying massive Large Language Models (LLMs) often requires expensive GPUs. However, for specific enterprise tasks like **Sentiment Analysis** or **Named Entity Recognition (NER)**, smaller "distilled" transformers running on standard CPUs are often sufficient, faster, and significantly cheaper.
+Large Language Models (LLMs) often require high-memory GPUs, specific tasks like **Sentiment Analysis** or **Named Entity Recognition (NER)** can be executed effectively using "distilled" transformers. These models offer reduced computational overhead and lower operational costs on standard CPU hardware.
 
-This template provides a **CPU-optimized baseline**:
-1.  **Sentiment Analysis:** Using `distilbert-base-uncased`.
-2.  **Named Entity Recognition (NER):** Using `distilbert-base-cased`.
-3.  **Optimization:** Applies PyTorch **Dynamic Quantization** to boost inference speed by ~2x and reduce memory usage by ~40%.
+This repository provides a **CPU-optimized baseline**:
+
+1. **Sentiment Analysis:** Utilizing `distilbert-base-uncased`.
+2. **Named Entity Recognition (NER):** Utilizing `distilbert-base-cased`.
+3. **Optimization:** Implements PyTorch **Dynamic Quantization** to increase inference throughput by ~2x and reduce memory footprint by ~40%.
 
 ---
 
@@ -26,40 +27,38 @@ This template provides a **CPU-optimized baseline**:
 
 1. Open **`small_transformer_cpu.ipynb`** in the Jupyter interface.
 2. **Run All Cells**:
-* **Install:** Sets up `transformers` and `torch` in the current environment.
-* **Download:** Fetches the public DistilBERT model (no login required).
+
+* **Install:** Installs `transformers` and `torch` dependencies.
+* **Download:** Pulls the DistilBERT weights from the Hugging Face Hub.
 * **Benchmark (FP32):** Measures the baseline latency of the standard 32-bit floating point model.
-* **Quantize (INT8):** Converts the model weights to 8-bit integers on the fly.
-* **Compare:** Validates the speedup (typically **1.5x - 2.0x faster**).
+* **Quantize (INT8):** Converts linear layer weights to 8-bit integers during runtime.
+* **Compare:** Evaluates the execution speedup (typically **1.5x - 2.0x**).
 
 ---
 
 ## 🧠 Architecture: "Distill & Quantize"
 
-We use a two-step optimization strategy to ensure the model runs efficiently on commodity hardware.
+The implementation uses a two-stage optimization strategy to maximize efficiency on commodity hardware.
 
 ### 1. Distillation
 
-We use **DistilBERT**, which acts as a student model trained to mimic the behavior of the larger BERT model.
+**DistilBERT** is a student model trained to approximate the output distributions of the larger BERT model.
 
 * **40% fewer parameters** than BERT.
-* **60% faster** inference.
-* **97% retained accuracy** on standard benchmarks.
+* **60% reduction** in inference latency.
+* **97% accuracy retention** on standard GLUE benchmarks.
 
 ### 2. Dynamic Quantization
 
-Standard models store weights as 32-bit floating point numbers (FP32). This template uses **Dynamic Quantization** to convert the linear layer weights to **8-bit integers (INT8)**.
+Standard model weights are stored as 32-bit floating point numbers (FP32). This workflow uses **Dynamic Quantization** to convert linear layer weights to **8-bit integers (INT8)**.
 
-* **Size Reduction:** The model file shrinks by ~40% (e.g., 255MB → 130MB).
-* **Speedup:** CPUs can process 8-bit integer math significantly faster than 32-bit float math, resulting in lower latency per request.
+* **Size Reduction:** Reduces the model binary size by ~40% (e.g., 255MB → 130MB).
+* **Speedup:** Leverages CPU-optimized integer arithmetic to reduce latency per request compared to floating-point operations.
 
 ---
 
 ## 🏁 Conclusion
 
-This template proves that you don't always need a GPU for NLP. For targeted tasks, a quantized DistilBERT on a modern CPU can handle hundreds of requests per second with minimal cost.
+This implementation demonstrates that specialized NLP tasks can be served efficiently on CPU hardware. A quantized DistilBERT model can support high-throughput request processing without the requirement for GPU acceleration.
 
-To scale this solution—for example, processing millions of documents or deploying this as a serverless API—consider moving this workload to a [Saturn Cloud](https://saturncloud.io/) CPU cluster.
-
-```
-
+To scale this workload—for batch processing or deployment as a production API—this workflow can be migrated to a [Saturn Cloud](https://saturncloud.io/) CPU cluster.
