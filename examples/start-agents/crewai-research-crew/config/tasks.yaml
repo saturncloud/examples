@@ -1,0 +1,18 @@
+research_task:
+  description: >
+    Conduct a comprehensive investigation into {topic}. 
+    Focus on recent breakthroughs, technical architecture, and market impact.
+  expected_output: >
+    A structured list of at least 10 key findings, including technical specs 
+    and verified sources where possible.
+  agent: researcher
+
+writing_task:
+  description: >
+    Review the findings from the research task and compile them into a 
+    technical report. Ensure the tone is professional and the structure 
+    includes an Overview, Key Developments, and Future Outlook.
+  expected_output: >
+    A formatted Markdown report (.md) containing the synthesized research.
+  agent: writer
+  output_file: research_report.md
