@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+datasets
+langchain
+langchain-core
+langchain-huggingface
+langchain-community
+langchain-postgres
+sentence-transformers
+langchain-milvus
+pymilvus
+faiss-cpu
+psycopg2-binary
+python-dotenv
+sqlalchemy
