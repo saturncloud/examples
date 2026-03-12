@@ -50,11 +50,8 @@ GPU recommended for optimal performance.
 ## 📁 Project Structure
 
 ```
-ray-serve-llm/
+nvidia-rag-serve-api/
 │
-├── serve_llm.py          # Ray Serve deployment definition
-├── start_server.py       # Ray launcher (if using outside notebook)
-├── test_client.py        # Example API client test
 └── ray_serve_llm_template.ipynb   # Full Jupyter notebook template (generated)
 ```
 
