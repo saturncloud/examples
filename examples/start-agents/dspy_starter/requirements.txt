@@ -1,0 +1,4 @@
+dspy>=2.5.0
+jupyter>=1.0.0
+python-dotenv>=1.1.0
+streamlit>=1.32.0

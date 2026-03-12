@@ -1,0 +1,6 @@
+camel-ai>=0.2.89
+openai>=1.10.0
+python-dotenv>=1.1.0
+prettytable>=3.10.0
+streamlit>=1.32.0
+pandas>=2.2.0

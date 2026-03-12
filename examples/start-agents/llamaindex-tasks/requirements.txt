@@ -1,0 +1,13 @@
+# Core Framework
+llama-index-core>=0.10.0
+
+# Explicit Integrations
+llama-index-llms-openai
+llama-index-embeddings-openai
+llama-index-readers-file
+
+# Environment Management
+python-dotenv>=1.1.0
+
+# streamlit for dashboard
+streamlit

@@ -1,0 +1,13 @@
+[project]
+name = "hackernews-analyst-agent"
+version = "0.1.0"
+description = "AI Agent for HackerNews trend analysis using Agno and Nebius AI"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "agno>=1.5.1",
+    "openai>=1.78.1",
+    "python-dotenv>=1.1.0",
+    "streamlit",
+    "sqlalchemy"
+]
