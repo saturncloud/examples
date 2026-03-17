@@ -185,7 +185,7 @@ urllib3==2.2.3
 uvicorn==0.40.0
 websocket-client==1.9.0
 websockets==13.1
-Werkzeug==2.2.3
+Werkzeug==3.1.6
 wirerope==0.4.8
 wrapt==1.17.0
 WTForms==3.2.1
