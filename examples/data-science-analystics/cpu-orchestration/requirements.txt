@@ -129,7 +129,7 @@ prison==0.2.1
 propcache==0.2.1
 protobuf==4.25.5
 psutil==6.1.0
-pyasn1==0.6.1
+pyasn1==0.6.3
 pyasn1_modules==0.4.2
 pycparser==2.22
 pydantic==2.12.5
