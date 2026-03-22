@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayna Voice Agent</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #121212; color: white; margin: 0; }
+        h1 { margin-bottom: 10px; }
+        p { color: #a0a0a0; margin-bottom: 30px; text-align: center; max-width: 400px; }
+        button { padding: 15px 30px; font-size: 18px; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: all 0.2s; margin-bottom: 20px; }
+        #startBtn { background-color: #00e676; color: #000; }
+        #startBtn:hover { background-color: #00c853; transform: scale(1.05); }
+        #stopBtn { background-color: #ff5252; color: #fff; display: none; }
+        #stopBtn:hover { background-color: #ff1744; transform: scale(1.05); }
+        #status { font-family: monospace; color: #00e676; margin-bottom: 20px;}
+        
+        /* New Visualizer Canvas styling */
+        canvas {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            display: none; /* Hidden until connected */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎙️ Sayna Voice Agent</h1>
+    <p>Click start, allow microphone access, and say hello!</p>
+
+    <button id="startBtn">Start Conversation</button>
+    <button id="stopBtn">Stop Conversation</button>
+    <div id="status">Ready to connect...</div>
+    
+    <canvas id="visualizer" width="300" height="60"></canvas>
+
+    <script>
+        let ws;
+        let audioContext;
+        let mediaStream;
+        let processor;
+        
+        // Visualizer variables
+        let analyser;
+        let visualizerInterval;
+        const canvas = document.getElementById('visualizer');
+        const canvasCtx = canvas.getContext('2d');
+        
+        // Playback variables
+        let playContext;
+        let nextPlayTime = 0;
+
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const statusText = document.getElementById('status');
+
+        startBtn.onclick = async () => {
+            statusText.innerText = "Connecting to Python server...";
+            statusText.style.color = "#ffea00";
+            
+            ws = new WebSocket('ws://localhost:8000');
+            ws.binaryType = 'arraybuffer';
+
+            ws.onopen = async () => {
+                statusText.innerText = "🟢 Connected! Start talking.";
+                statusText.style.color = "#00e676";
+                startBtn.style.display = "none";
+                stopBtn.style.display = "block";
+                canvas.style.display = "block"; // Show visualizer
+
+                playContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
+                nextPlayTime = playContext.currentTime;
+
+                mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+                // We remove { sampleRate: 16000 } so Firefox is happy with the hardware default
+                audioContext = new (window.AudioContext || window.webkitAudioContext)(); 
+                const source = audioContext.createMediaStreamSource(mediaStream);
+                
+                // --- VISUALIZER SETUP ---
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256;
+                source.connect(analyser);
+                const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+                function drawVisualizer() {
+                    if (!mediaStream) return;
+                    visualizerInterval = requestAnimationFrame(drawVisualizer);
+                    analyser.getByteFrequencyData(dataArray);
+                    
+                    let sum = 0;
+                    for(let i = 0; i < dataArray.length; i++) { sum += dataArray[i]; }
+                    let average = sum / dataArray.length;
+                    
+                    // Draw the green audio bar
+                    canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+                    canvasCtx.fillStyle = '#00e676';
+                    let barWidth = (average / 128) * canvas.width; // Scale to canvas
+                    canvasCtx.fillRect(0, 0, barWidth, canvas.height);
+                }
+                drawVisualizer();
+                // ------------------------
+
+                processor = audioContext.createScriptProcessor(4096, 1, 1);
+                source.connect(processor);
+                processor.connect(audioContext.destination);
+
+                processor.onaudioprocess = (e) => {
+                    const inputData = e.inputBuffer.getChannelData(0);
+                    
+                    // --- CUSTOM DOWNSAMPLER ---
+                    // Mathematically convert the native rate (e.g., 48000) down to Deepgram's 16000
+                    const inputRate = audioContext.sampleRate;
+                    const targetRate = 16000;
+                    const ratio = inputRate / targetRate;
+                    const downsampledLength = Math.floor(inputData.length / ratio);
+                    
+                    const pcm16 = new Int16Array(downsampledLength);
+                    for (let i = 0; i < downsampledLength; i++) {
+                        const originalIndex = Math.floor(i * ratio);
+                        // Convert Float32 to Int16
+                        pcm16[i] = Math.max(-1, Math.min(1, inputData[originalIndex])) * 0x7FFF; 
+                    }
+                    
+                    if (ws.readyState === WebSocket.OPEN) {
+                        ws.send(pcm16.buffer);
+                    }
+                };
+            };
+
+            ws.onmessage = (event) => {
+                if (event.data instanceof ArrayBuffer) {
+                    const int16Array = new Int16Array(event.data);
+                    const float32Array = new Float32Array(int16Array.length);
+                    for (let i = 0; i < int16Array.length; i++) {
+                        float32Array[i] = int16Array[i] / 0x7FFF;
+                    }
+                    
+                    const audioBuffer = playContext.createBuffer(1, float32Array.length, 24000);
+                    audioBuffer.getChannelData(0).set(float32Array);
+
+                    const source = playContext.createBufferSource();
+                    source.buffer = audioBuffer;
+                    source.connect(playContext.destination);
+
+                    if (nextPlayTime < playContext.currentTime) {
+                        nextPlayTime = playContext.currentTime;
+                    }
+                    source.start(nextPlayTime);
+                    nextPlayTime += audioBuffer.duration;
+                }
+            };
+
+            ws.onclose = () => stopRecording();
+        };
+
+        stopBtn.onclick = () => stopRecording();
+
+        function stopRecording() {
+            if (ws) ws.close();
+            if (processor) processor.disconnect();
+            if (audioContext) audioContext.close();
+            if (mediaStream) mediaStream.getTracks().forEach(track => track.stop());
+            if (visualizerInterval) cancelAnimationFrame(visualizerInterval);
+            
+            canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.display = "none";
+            startBtn.style.display = "block";
+            stopBtn.style.display = "none";
+            statusText.innerText = "🔴 Disconnected.";
+            statusText.style.color = "#ff5252";
+        }
+    </script>
+</body>
+</html>
