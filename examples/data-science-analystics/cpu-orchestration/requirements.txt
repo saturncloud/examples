@@ -39,7 +39,7 @@ connexion==2.14.2
 coolname==2.2.0
 cron-descriptor==1.4.5
 croniter==5.0.1
-cryptography==42.0.8
+cryptography==46.0.6
 dateparser==1.2.2
 Deprecated==1.2.15
 dill==0.3.1.1
