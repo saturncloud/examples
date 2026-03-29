@@ -1,0 +1,4 @@
+smolagents
+python-dotenv
+ddgs
+streamlit
