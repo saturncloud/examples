@@ -1,0 +1,4 @@
+semantic-kernel>=1.41.1
+streamlit
+python-dotenv
+openai
