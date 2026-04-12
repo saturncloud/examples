@@ -1,0 +1,21 @@
+# --- PRIMARY ENGINES ---
+metagpt==0.8.2
+openai==1.39.0
+httpx==0.27.2
+pydantic==2.9.2
+
+# --- THE ANCHORS ---
+protobuf==4.25.3
+google-api-core==2.19.1
+google-auth==2.29.0
+googleapis-common-protos==1.63.0
+proto-plus==1.23.0
+opentelemetry-api==1.24.0
+opentelemetry-sdk==1.24.0
+importlib-metadata==7.0.0
+
+# --- UI & SUPPORT ---
+streamlit==1.32.0
+playwright
+beautifulsoup4
+python-docx
