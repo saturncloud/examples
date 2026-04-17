@@ -4,12 +4,12 @@
 
 **Hardware:** CPU/GPU | **Resource:** Python Project & Web App | **Tech Stack:** TaskWeaver, Pandas, Streamlit, OpenAI
 
-\<p align="left"\>
-\<img src="[https://img.shields.io/badge/Deployed\_on-Saturn\_Cloud-blue?style=for-the-badge\&logo=cloud](https://img.shields.io/badge/Deployed_on-Saturn_Cloud-blue?style=for-the-badge&logo=cloud)" alt="Saturn Cloud"\>
-\<img src="[https://img.shields.io/badge/Framework-TaskWeaver-0078D4?style=for-the-badge\&logo=microsoft](https://www.google.com/search?q=https://img.shields.io/badge/Framework-TaskWeaver-0078D4%3Fstyle%3Dfor-the-badge%26logo%3Dmicrosoft)" alt="TaskWeaver"\>
-\<img src="[https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge\&logo=streamlit\&logoColor=white](https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)" alt="Streamlit"\>
-\<img src="[https://img.shields.io/badge/Analytics-Pandas-150458?style=for-the-badge\&logo=pandas\&logoColor=white](https://www.google.com/search?q=https://img.shields.io/badge/Analytics-Pandas-150458%3Fstyle%3Dfor-the-badge%26logo%3Dpandas%26logoColor%3Dwhite)" alt="Pandas"\>
-\</p\>
+<p align="left">
+  <img src="https://img.shields.io/badge/Deployed_on-Saturn_Cloud-blue?style=for-the-badge&logo=cloud" alt="Saturn Cloud">
+  <img src="https://img.shields.io/badge/Framework-TaskWeaver-0078D4?style=for-the-badge&logo=microsoft" alt="TaskWeaver">
+  <img src="https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
+  <img src="https://img.shields.io/badge/Analytics-Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas">
+</p>
 
 ## 📖 Overview
 
