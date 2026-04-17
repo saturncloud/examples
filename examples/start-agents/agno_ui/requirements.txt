@@ -1,0 +1,6 @@
+agno
+openai
+streamlit
+yfinance
+ddgs
+python-dotenv

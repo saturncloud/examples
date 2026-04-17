@@ -1,0 +1,35 @@
+version: "2"
+agents:
+  root:
+    model: openai/gpt-4o-mini
+    description: "The primary orchestrator agent"
+    instruction: |
+      You are the coordinator of a data analysis team. 
+      FIRST, use your 'todo' tool to create a checklist of tasks.
+      THEN, plan your execution using the 'think' tool, 
+      delegate data processing to the 'analyzer', and formatting to the 'writer'.
+      Store important user preferences using the 'memory' tool.
+      Mark each todo as done.
+    toolsets:
+      - type: mcp
+        command: python
+        args: ["mcp_server.py"]
+      - type: think
+      - type: todo
+      - type: memory
+        path: agent_memory.db
+    sub_agents: [analyzer, writer]
+
+  analyzer:
+    model: openai/gpt-4o-mini
+    description: "Data analysis specialist"
+    instruction: |
+      You are a data analysis agent. Use your MCP tools to analyze the text provided 
+      by the root agent and return the exact word and character counts.
+
+  writer:
+    model: openai/gpt-4o-mini
+    description: "Content generation specialist"
+    instruction: |
+      You are a technical writer. Take the raw metrics from the analyzer and format 
+      them into a concise, highly professional summary report.

@@ -1,0 +1,5 @@
+letta
+letta-client
+python-dotenv
+streamlit
+asyncpg
