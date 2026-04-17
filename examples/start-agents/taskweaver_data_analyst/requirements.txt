@@ -1,0 +1,9 @@
+taskweaver @ git+https://github.com/microsoft/TaskWeaver.git@d44ddef23f90059fb17999d3095db4240e98f955
+pandas
+streamlit
+python-dotenv
+pydantic-settings
+openai
+matplotlib
+seaborn
+openpyxl
