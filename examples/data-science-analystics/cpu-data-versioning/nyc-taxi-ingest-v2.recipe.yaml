@@ -1,0 +1,35 @@
+# Saturn Cloud Job recipe for the v2 ingestion (drops trips with fare < $2.5).
+#
+# Same DVC repo as v1 (/home/jovyan/shared/demo/test-data/nyc-taxi). Running this
+# after v1 produces a second git commit on top, giving us a clean version
+# history for the demo. To roll back to v1:
+#   git -C /home/jovyan/shared/demo/test-data/nyc-taxi checkout <v1_sha>
+#   dvc -C /home/jovyan/shared/demo/test-data/nyc-taxi pull
+
+schema_version: "2025.10.01"
+type: job
+spec:
+  name: nyc-taxi-ingest-v2
+  owner: primary-tenant/demo
+  description: >
+    Re-ingest the same month with min_fare=$2.5 filter applied.
+    Produces v2 on top of v1 in the shared DVC repo.
+  image: damac/saturncloud/saturn-python:2025.05.01
+  instance_type: nebius-cpu-d3-4vcpu-16gb
+  working_directory: /home/jovyan/workspace/examples/examples/data-science-analystics/cpu-data-versioning
+  command: python ingest_taxi_dvc.py --min-fare 2.5
+  extra_packages:
+    pip:
+      install: dvc>=3.67
+  environment_variables:
+    SHARED_STORAGE: /home/jovyan/shared/demo/test-data
+  git_repositories:
+    - url: git@github.com:saturncloud/examples.git
+      path: /home/jovyan/workspace/examples
+      reference: demo/saturn-data-pipeline
+      reference_type: branch
+      on_restart: reclone
+  shared_folders:
+    - owner: primary-tenant/demo
+      path: /home/jovyan/shared/demo/test-data
+      name: test-data

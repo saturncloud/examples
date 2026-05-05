@@ -1,0 +1,38 @@
+# Saturn Cloud Job recipe for the NYC taxi DVC ingestion demo.
+#
+# Re-apply with the saturn-cloud Claude plugin:
+#   ask Claude to "apply this recipe" and pass this file's contents
+# Or via the saturn-client CLI:
+#   sc apply nyc-taxi-ingest.recipe.yaml
+#
+# Then trigger via API or UI to produce a new DVC-versioned dataset:
+#   curl -X POST -H "Authorization: token $SATURN_TOKEN" \
+#     "$SATURN_BASE_URL/api/jobs/{id}/start"
+
+schema_version: "2025.10.01"
+type: job
+spec:
+  name: nyc-taxi-ingest
+  owner: primary-tenant/demo
+  description: >
+    Ingest a month of NYC TLC taxi data and version it with DVC.
+    One run = one new dataset version. Trigger via the Saturn API.
+  image: damac/saturncloud/saturn-python:2025.05.01
+  instance_type: nebius-cpu-d3-4vcpu-16gb
+  working_directory: /home/jovyan/workspace/examples/examples/data-science-analystics/cpu-data-versioning
+  command: python ingest_taxi_dvc.py
+  extra_packages:
+    pip:
+      install: dvc>=3.67
+  environment_variables:
+    SHARED_STORAGE: /home/jovyan/shared/demo/test-data
+  git_repositories:
+    - url: git@github.com:saturncloud/examples.git
+      path: /home/jovyan/workspace/examples
+      reference: demo/saturn-data-pipeline
+      reference_type: branch
+      on_restart: reclone
+  shared_folders:
+    - owner: primary-tenant/demo
+      path: /home/jovyan/shared/demo/test-data
+      name: test-data
