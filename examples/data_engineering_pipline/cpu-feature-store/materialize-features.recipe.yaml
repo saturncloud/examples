@@ -1,0 +1,39 @@
+# Saturn Cloud Job recipe for the Feast feature-store materialization step (S3).
+#
+# Reads the DVC-tracked cleaned parquet produced by S1/S2, aggregates trips into
+# per-zone-hour features, registers them with Feast, and materializes recent
+# values to the SQLite online store. All output lands on the shared NFS mount
+# at /home/jovyan/shared/demo/test-data/feast-repo so downstream training and
+# inference can read the same registry.
+#
+# Re-apply with the saturn-cloud Claude plugin or the saturn-client CLI:
+#   sc apply materialize-features.recipe.yaml
+# Trigger via API or UI to refresh features after a new ingest.
+
+schema_version: "2025.10.01"
+type: job
+spec:
+  name: materialize-features
+  owner: primary-tenant/demo
+  description: >
+    Aggregate the DVC-tracked NYC taxi parquet into per-zone-hour Feast
+    features, register them, and materialize to the online store.
+  image: damac/saturncloud/saturn-python:2025.05.01
+  instance_type: nebius-cpu-d3-4vcpu-16gb
+  working_directory: /home/jovyan/workspace/examples/examples/data_engineering_pipline/cpu-feature-store
+  command: python materialize_features.py
+  extra_packages:
+    pip:
+      install: feast>=0.63
+  environment_variables:
+    SHARED_STORAGE: /home/jovyan/shared/demo/test-data
+  git_repositories:
+    - url: git@github.com:saturncloud/examples.git
+      path: /home/jovyan/workspace/examples
+      reference: demo/saturn-data-pipeline
+      reference_type: branch
+      on_restart: reclone
+  shared_folders:
+    - owner: primary-tenant/demo
+      path: /home/jovyan/shared/demo/test-data
+      name: test-data
