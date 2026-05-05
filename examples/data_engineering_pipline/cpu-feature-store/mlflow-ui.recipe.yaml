@@ -1,0 +1,35 @@
+# Saturn Cloud Deployment recipe for a read-only MLflow UI.
+#
+# Browses the file-based mlruns directory on shared storage. Notebook and
+# inference endpoint write/read the same files; this deployment just gives
+# a stable URL to inspect runs, lineage tags, parameters, metrics, and
+# artifacts during the demo.
+#
+# No git_repositories needed — `mlflow ui` is a single command against the
+# shared mount. Re-apply with the saturn-cloud Claude plugin or:
+#   sc apply mlflow-ui.recipe.yaml
+
+schema_version: "2025.10.01"
+type: deployment
+spec:
+  name: mlflow-ui
+  owner: primary-tenant/demo
+  description: >
+    MLflow tracking UI (file-store) for the NYC taxi demo. Read-only browse
+    of the runs at /home/jovyan/shared/demo/test-data/mlruns.
+  image: damac/saturncloud/saturn-python:2025.05.01
+  instance_type: nebius-cpu-d3-4vcpu-16gb
+  working_directory: /home/jovyan/workspace
+  command: mlflow ui --backend-store-uri file:/home/jovyan/shared/demo/test-data/mlruns --host 0.0.0.0 --port 5000
+  scale: 1
+  extra_packages:
+    pip:
+      install: mlflow>=3.0
+  shared_folders:
+    - owner: primary-tenant/demo
+      path: /home/jovyan/shared/demo/test-data
+      name: test-data
+  routes:
+    - container_port: 5000
+      visibility: org
+      subdomain: mlflow-ui

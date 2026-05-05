@@ -1,0 +1,41 @@
+# Saturn Cloud Workspace recipe for the MLflow training step (S4).
+#
+# Open this workspace in Saturn Cloud, navigate to
+#   examples/data_engineering_pipline/cpu-feature-store/train_with_lineage.ipynb
+# and Run All. The notebook reads the DVC-tracked parquet and Feast registry
+# from the shared mount, trains an sklearn classifier, and logs the run to
+# MLflow at /home/jovyan/shared/demo/test-data/mlruns with full lineage tags.
+#
+# Re-apply with the saturn-cloud Claude plugin or:
+#   sc apply training-workspace.recipe.yaml
+
+schema_version: "2025.10.01"
+type: workspace
+spec:
+  name: training-mlflow
+  owner: primary-tenant/demo
+  description: >
+    Jupyter workspace for training the NYC taxi tip-prediction model.
+    Pulls historical features from Feast, trains with MLflow autologging,
+    and stamps DVC + Feast lineage tags on the run.
+  image: damac/saturncloud/saturn-python:2025.05.01
+  instance_type: nebius-cpu-d3-4vcpu-16gb
+  ide: jupyter
+  disk_space: 64Gi
+  auto_shutoff: 6 hours
+  working_directory: /home/jovyan/workspace
+  extra_packages:
+    pip:
+      install: feast>=0.63 mlflow>=3.0
+  environment_variables:
+    SHARED_STORAGE: /home/jovyan/shared/demo/test-data
+  git_repositories:
+    - url: git@github.com:saturncloud/examples.git
+      path: /home/jovyan/workspace/examples
+      reference: demo/saturn-data-pipeline
+      reference_type: branch
+      on_restart: preserve changes
+  shared_folders:
+    - owner: primary-tenant/demo
+      path: /home/jovyan/shared/demo/test-data
+      name: test-data

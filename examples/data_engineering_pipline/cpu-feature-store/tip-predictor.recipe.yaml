@@ -1,0 +1,45 @@
+# Saturn Cloud Deployment recipe for the inference endpoint (S5).
+#
+# Loads the most recent MLflow run from the shared mlruns directory, fetches
+# live zone features from the Feast online store, and exposes a /predict
+# endpoint. POST {PULocationID, trip_distance, fare_amount} → tip probability
+# plus the lineage tags from the source training run.
+#
+# Re-apply with the saturn-cloud Claude plugin or:
+#   sc apply tip-predictor.recipe.yaml
+# After deploy, the service is reachable at the URL Saturn assigns for the
+# 'tip-predictor' subdomain (visibility: org).
+
+schema_version: "2025.10.01"
+type: deployment
+spec:
+  name: nyc-taxi-tip-predictor
+  owner: primary-tenant/demo
+  description: >
+    FastAPI inference endpoint for the NYC taxi tip-prediction model.
+    Combines Feast online features with request-time inputs, returns the
+    prediction plus full DVC + Feast + MLflow lineage.
+  image: damac/saturncloud/saturn-python:2025.05.01
+  instance_type: nebius-cpu-d3-4vcpu-16gb
+  working_directory: /home/jovyan/workspace/examples/examples/data_engineering_pipline/cpu-feature-store
+  command: python3 -m uvicorn serve:app --host 0.0.0.0 --port 8000
+  scale: 1
+  extra_packages:
+    pip:
+      install: feast>=0.63 mlflow>=3.0 fastapi>=0.115 uvicorn>=0.32
+  environment_variables:
+    SHARED_STORAGE: /home/jovyan/shared/demo/test-data
+  git_repositories:
+    - url: git@github.com:saturncloud/examples.git
+      path: /home/jovyan/workspace/examples
+      reference: demo/saturn-data-pipeline
+      reference_type: branch
+      on_restart: reclone
+  shared_folders:
+    - owner: primary-tenant/demo
+      path: /home/jovyan/shared/demo/test-data
+      name: test-data
+  routes:
+    - container_port: 8000
+      visibility: org
+      subdomain: tip-predictor
