@@ -1,0 +1,3 @@
+# Demo: NYC taxi ingest + DVC versioning
+# pandas and pyarrow are present in the saturn base image; dvc is the addition.
+dvc>=3.67
