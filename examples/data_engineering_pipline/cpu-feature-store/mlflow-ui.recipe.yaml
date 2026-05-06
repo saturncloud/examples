@@ -20,7 +20,11 @@ spec:
   image: damac/saturncloud/saturn-python:2025.05.01
   instance_type: nebius-cpu-d3-4vcpu-16gb
   working_directory: /home/jovyan/workspace
-  command: mlflow ui --backend-store-uri file:/home/jovyan/shared/demo/test-data/mlruns --host 0.0.0.0 --port 5000
+  # Saturn's default deployment route lands on container port 8000, so serve
+  # there. --allowed-hosts and --cors-allowed-origins are required by MLflow
+  # 3.x to accept requests with a non-localhost Host header (everything
+  # coming through Saturn's proxy).
+  command: mlflow ui --backend-store-uri file:/home/jovyan/shared/demo/test-data/mlruns --host 0.0.0.0 --port 8000 --allowed-hosts * --cors-allowed-origins *
   scale: 1
   extra_packages:
     pip:
@@ -30,6 +34,6 @@ spec:
       path: /home/jovyan/shared/demo/test-data
       name: test-data
   routes:
-    - container_port: 5000
+    - container_port: 8000
       visibility: org
       subdomain: mlflow-ui
