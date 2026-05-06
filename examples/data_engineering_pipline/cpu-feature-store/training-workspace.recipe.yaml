@@ -24,6 +24,11 @@ spec:
   disk_space: 64Gi
   auto_shutoff: 6 hours
   working_directory: /home/jovyan/workspace
+  # null token_scope = unscoped: the resource's injected SATURN_TOKEN can call
+  # other Saturn services (e.g. the tip-predictor deployment from the
+  # call_inference_endpoint.ipynb notebook). Default auto-populates to a
+  # narrow scope that only allows talking to an attached Dask cluster.
+  token_scope: null
   extra_packages:
     pip:
       install: feast>=0.63 mlflow>=3.0
