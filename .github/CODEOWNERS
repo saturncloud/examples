@@ -12,5 +12,3 @@
 .ci/*     @jsignell
 .github/*    @jsignell
 Makefile    @jsignell
-
-examples/openclaw/    @jnolis @jsignell
