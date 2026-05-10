@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# * Installs Node.js 22 and OpenClaw, then runs the headless gateway on port 8000 (Saturn deployment routing).
+
+set -euo pipefail
+
+export DEBIAN_FRONTEND=noninteractive
+
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+apt-get install -y nodejs
+
+npm install -g openclaw@latest
+
+if [[ -d "/home/jovyan/workspace/.openclaw" ]]; then
+  export OPENCLAW_HOME="/home/jovyan/workspace/.openclaw"
+elif [[ -d "${PWD}/.openclaw" ]]; then
+  export OPENCLAW_HOME="${PWD}/.openclaw"
+fi
+
+export PORT="${PORT:-8000}"
+export HOST="${HOST:-0.0.0.0}"
+
+exec openclaw gateway --headless --port "${PORT}" --host "${HOST}"

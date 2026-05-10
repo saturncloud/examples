@@ -107,6 +107,12 @@
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/weights_and_biases.png",
       "weight": 1900,
       "recipe_path": "examples/wandb/.saturn/saturn.json"
+    },
+    {
+      "title": "OpenClaw (Deployment)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/api-icon.png",
+      "weight": 1950,
+      "recipe_path": "examples/openclaw/.saturn/saturn.json"
     }
   ]
 }
