@@ -14,3 +14,5 @@ Set these in the deployment **Details** (do not commit secrets). The blog explai
 - `WHATSAPP_OWNER_E164`
 
 Optional custom skills: see `skills/README.md`.
+
+Gallery thumbnail source: `_img/openclaw.png` (500×250). Publish to `saturn-public-assets` as `example-thumbnails/openclaw.png` so the template URL resolves.
