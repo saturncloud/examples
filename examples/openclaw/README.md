@@ -1,37 +1,69 @@
 # OpenClaw on Saturn Cloud
 
-This example deploys [OpenClaw](https://docs.openclaw.ai/) as a **Saturn Cloud deployment**: the start script installs Node.js 22 and OpenClaw, then runs `openclaw gateway --headless` bound to **port 8000** and **0.0.0.0** so the dashboard is reachable via Saturn’s external URL.
+This example matches the **setup-first** workflow from the Saturn Cloud blog: create a **Deployment** that keeps running with `sleep infinity`, then install and operate OpenClaw **over SSH** (official installer, onboarding, WhatsApp plugin, foreground gateway). The deployment command does **not** start OpenClaw automatically.
 
-## Before you start
+For the full walkthrough with screenshots, see the Saturn Cloud blog post **How to Deploy OpenClaw on Saturn Cloud** on https://saturncloud.io (same steps as this example).
 
-- Saturn Cloud account  
-- LLM credentials via resource **environment variables** (do not commit secrets), for example `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` / `OPENAI_BASE_URL`  
-- A messaging integration configured inside OpenClaw (for example Discord); see OpenClaw docs  
+## What this recipe provides
 
-## Configure secrets
+| In the template | You do manually (SSH / UI) |
+|-----------------|----------------------------|
+| `saturn-python` image, **medium** instance | Generate gateway token (`openssl rand -hex 32`) |
+| **`sleep infinity`** so the deployment stays alive | Set env vars in Saturn deployment **Details** |
+| Clone path under `working_directory` | Enable **SSH**, external URL on port **8000**, subdomain |
+| | Install OpenClaw via **install.sh**, run **onboard**, configure WhatsApp |
+| | Run **`openclaw gateway`** in a terminal session (foreground) |
 
-In the resource UI, add your provider keys under **Environment Variables**. They are injected at runtime and should not appear in this repository.
+## Deployment settings (summary)
 
-## Optional: existing OpenClaw config
+Create a **Deployment** (not Jupyter) with:
 
-If you already have `config.json` (and optional skills) from a local install:
+- **Image:** `saturncloud/saturn-python` (this recipe uses the equivalent `public.ecr.aws/saturncloud/saturn-python` tag from examples).  
+- **Command:** `sleep infinity` — keeps the container running while you configure OpenClaw in SSH (same as this repo’s `saturn.json`).  
+- **External URL:** enabled, routed to container port **8000**.  
+- **Allow SSH connections:** enabled.  
+- **Custom subdomain:** set a unique value for your public URL.
 
-1. Upload them under `/home/jovyan/workspace/.openclaw/` on the resource **or** place `.openclaw/` next to this example in the cloned repo path.  
-2. The start script sets `OPENCLAW_HOME` automatically when one of those directories exists.
+## Environment variables
 
-## Enable the dashboard URL
+Add in the deployment **Details** (never commit secrets):
 
-Turn on the deployment **external URL** in Saturn Cloud so you can open the OpenClaw dashboard in a browser and finish onboarding if you are not using an uploaded `config.json`.
+```bash
+OPENAI_API_KEY=YOUR_OPENAI_API_KEY
+OPENCLAW_GATEWAY_TOKEN=YOUR_GATEWAY_TOKEN   # from openssl rand -hex 32
+OPENCLAW_PUBLIC_ORIGIN=https://your-subdomain.community.saturnenterprise.io
+WHATSAPP_OWNER_E164=+1234567890
+```
 
-## Custom skills
+Use your real deployment URL for `OPENCLAW_PUBLIC_ORIGIN` (no trailing slash). `WHATSAPP_OWNER_E164` is the allowed sender number for WhatsApp DMs.
 
-See `skills/README.md`. Restart the deployment after changing skills or config.
+## After SSH connects
+
+1. Check Node: `node -v` / `npm -v` (install Node only if missing).  
+2. Install OpenClaw:
+
+   ```bash
+   curl -fsSL --proto '=https' --tlsv1.2 https://openclaw.ai/install.sh | bash -s -- --no-onboard
+   ```
+
+3. Run non-interactive onboarding (port **8000**, token from env), then set `gateway.controlUi.allowedOrigins` — exact flags are in the blog post.  
+4. Install and configure **WhatsApp** (`plugins`, `channels login`, QR scan) per the blog.  
+5. Start the gateway in **Terminal 1:** `openclaw gateway` (foreground). Use **Terminal 2** for `openclaw devices approve` when the browser asks.  
+6. Do **not** rely on `openclaw gateway restart` for this setup (no systemd service).
+
+## Persistence warning
+
+Without persistent storage for `~/.openclaw`, redeploys can lose WhatsApp session, device approvals, and config. Plan storage before changing the deployment command away from `sleep infinity` after setup.
+
+## Optional custom skills
+
+See `skills/README.md` if you add OpenClaw skills under this clone path.
 
 ## References
 
-- OpenClaw documentation: https://docs.openclaw.ai/  
-- Saturn Cloud deployments: https://saturncloud.io/docs/
+- OpenClaw docs: https://openclaw.ai/docs  
+- Saturn Cloud SSH: https://saturncloud.io/docs/user-guide/how-to/access/ide_ssh/
 
 ## Maintainer note (gallery thumbnail)
 
-The default template entry uses the shared deployment thumbnail (`api-icon.png`) until `example-thumbnails/openclaw.png` (500×250) is published under `saturn-public-assets`, then update `.saturn/templates-*.json` to point at that URL.
+Template manifests use `example-thumbnails/api-icon.png` until `example-thumbnails/openclaw.png` (500×250) exists on `saturn-public-assets`; then update `.saturn/templates-*.json`.

@@ -1,13 +1,5 @@
 # Custom skills (optional)
 
-Place OpenClaw skill directories here (each with a `SKILL.md`). Point OpenClaw at this path in your configuration, for example:
+OpenClaw skills are folders with a `SKILL.md`. If you configure OpenClaw to load skills from this repository path, place them here. Most users following the WhatsApp blog workflow configure channels and plugins before adding custom skills.
 
-```json
-{
-  "skills": {
-    "customPath": "/home/jovyan/examples/examples/openclaw/skills"
-  }
-}
-```
-
-Use persistent workspace storage if you prefer skills outside this cloned repository (see the example `README.md`).
+See https://openclaw.ai/docs for skills and plugins.
