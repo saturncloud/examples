@@ -12,5 +12,3 @@ Set these in the deployment **Details** (do not commit secrets). The blog explai
 - `OPENCLAW_GATEWAY_TOKEN`
 - `OPENCLAW_PUBLIC_ORIGIN`
 - `WHATSAPP_OWNER_E164`
-
-Optional custom skills: see `skills/README.md`.
