@@ -1,7 +1,7 @@
 {
   "name": "example-openclaw",
   "image_uri": "public.ecr.aws/saturncloud/saturn-python:2025.05.01",
-  "description": "Deploy OpenClaw on Saturn Cloud.",
+  "description": "Deploy OpenClaw on Saturn Cloud. Gallery thumbnail: https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/openclaw.png",
   "working_directory": "/home/jovyan/examples/examples/openclaw",
   "git_repositories": [
     {
