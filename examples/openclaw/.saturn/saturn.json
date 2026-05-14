@@ -1,7 +1,7 @@
 {
   "name": "example-openclaw",
   "image_uri": "public.ecr.aws/saturncloud/saturn-python:2025.05.01",
-  "description": "Deploy OpenClaw on Saturn Cloud.",
+  "description": "Deploy OpenClaw Beta on Saturn Cloud.",
   "environment_variables": {
     "ANTHROPIC_API_KEY": "",
     "ENABLE_TELEGRAM": "false",
