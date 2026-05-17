@@ -82,7 +82,7 @@ install_nat() {
         || die "plugin registration failed — check $LOG_FILE"
 
     log "Installing telemetry dependencies..."
-    python -m pip install --quiet --upgrade opentelemetry-api opentelemetry-sdk &>>"$LOG_FILE" \
+    python -m pip install --quiet --upgrade opentelemetry-api opentelemetry-sdk "opentelemetry-exporter-otlp~=1.3" &>>"$LOG_FILE" \
         || die "telemetry dependencies install failed — check $LOG_FILE"
 
     log "nvidia-nat and integrations installed successfully"
