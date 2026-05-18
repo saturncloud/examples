@@ -20,3 +20,5 @@ workflow:
   verbose: true
   # Retry up to 3 times on parse errors
   parse_agent_response_max_retries: 3
+  # Stop after 6 tool calls instead of looping indefinitely
+  max_tool_calls: 6

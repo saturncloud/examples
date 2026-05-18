@@ -1,4 +1,5 @@
 import gradio as gr
+from langgraph.errors import GraphRecursionError
 from nat.runtime.loader import load_workflow
 
 
@@ -8,6 +9,12 @@ async def predict(message, history):
             async with session.run(message) as runner:
                 result = await runner.result()
                 return str(result)
+    except GraphRecursionError:
+        return (
+            "I searched Wikipedia but couldn't find enough information to answer "
+            "this question within the search limit. Try rephrasing your question or "
+            "asking about a more specific topic."
+        )
     except Exception as e:
         return f"Error: {str(e)}"
 
