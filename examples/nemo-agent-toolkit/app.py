@@ -5,8 +5,9 @@ from nat.runtime.loader import load_workflow
 async def predict(message, history):
     try:
         async with load_workflow("workflow.yml") as session:
-            response = await session.run(input=message)
-            return response.result
+            async with session.run(message) as runner:
+                result = await runner.result()
+                return str(result)
     except Exception as e:
         return f"Error: {str(e)}"
 
