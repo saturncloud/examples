@@ -27,7 +27,16 @@ Get a free key at [build.nvidia.com](https://build.nvidia.com) → sign up → *
 
 ### 2. Create the workspace from the template
 
-In Saturn Cloud, go to **New Resource → Workspace → Templates** and select **NeMo Agent Toolkit — Research Assistant**. Before clicking Start, open **Settings → Environment Variables**, find `NVIDIA_API_KEY`, and paste your key in.
+In Saturn Cloud, go to **New Resource → Workspace → Templates** and select **NeMo Agent Toolkit — Research Assistant**.
+
+Before clicking Start, add your NVIDIA API key:
+
+1. Open **Settings → Environment Variables**
+2. Find `NVIDIA_API_KEY` in the list — it will be empty
+3. Click the edit icon next to it and paste your `nvapi-...` key
+4. Click **Save**
+
+If you started the workspace without setting the key, stop it, add the key following the steps above, then start it again.
 
 ### 3. Start the workspace
 
