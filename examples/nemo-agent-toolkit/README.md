@@ -4,7 +4,7 @@
 
 This template deploys an AI research agent powered by the [NVIDIA NeMo Agent Toolkit](https://github.com/NVIDIA/NeMo-Agent-Toolkit). Given any question or topic, the agent searches Wikipedia, reasons step-by-step using a **ReAct loop** (Reason + Act), and returns a structured answer — all backed by **NVIDIA NIM cloud inference**. No GPU required.
 
-* **Hardware:** CPU Large (2 cores, 16 GB RAM)
+* **Hardware:** CPU Large (2 cores, 16 GB RAM) — GPU supported but not required
 * **Runtime:** NVIDIA NIM cloud API — bring your own `nvapi-...` key
 * **Use Case:** Research automation, knowledge summarization, agentic reasoning demos
 
@@ -37,6 +37,8 @@ Before clicking Start, add your NVIDIA API key:
 4. Click **Save**
 
 If you started the workspace without setting the key, stop it, add the key following the steps above, then start it again.
+
+> **GPU users** — the template defaults to CPU Large since inference runs in the cloud via NVIDIA NIM. If you want to run on a GPU instance (e.g. to extend the agent with local model inference), go to **Settings → Hardware** and select a GPU instance type before starting. Everything else works the same.
 
 ### 3. Start the workspace
 
