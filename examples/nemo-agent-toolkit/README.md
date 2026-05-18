@@ -70,21 +70,17 @@ nat run --config_file workflow.yml --input "Research the history of autonomous v
 
 ```bash
 source .venv/bin/activate
-nat serve --config_file workflow.yml --host 0.0.0.0
+python app.py
 ```
 
-Opens the NeMo Agent Toolkit built-in chat interface on port 8000. Type questions, watch the agent's step-by-step reasoning, and debug the workflow interactively.
+Opens a Gradio chat interface on port 8000. Type questions and the agent will search Wikipedia and reason step-by-step in the background.
 
-**On Saturn Cloud** — access it via the port 8000 route on your workspace URL:
-```
-https://<your-workspace-subdomain>.community.saturnenterprise.io/
-```
-The port 8000 route is pre-configured on the workspace. The `--host 0.0.0.0` flag is required so Saturn's proxy can reach the server.
+**On Saturn Cloud** — the port 8000 route is pre-configured on the workspace. Once `app.py` is running, open the port 8000 URL from your workspace settings.
 
 To stop:
 
 ```bash
-pkill -f "nat serve"
+pkill -f "app.py"
 ```
 
 ---

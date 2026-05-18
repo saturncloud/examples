@@ -63,7 +63,7 @@ setup_venv() {
 
 # ─── 5. Install nvidia-nat ───────────────────────────────────────────────────
 install_nat() {
-    if python -c "import nemo_agent_toolkit; import langchain_core; import langchain_nvidia_ai_endpoints; import nat.plugins.langchain; import nat.plugins.eval; import nat.plugins.opentelemetry" &>/dev/null 2>&1; then
+    if python -c "import nemo_agent_toolkit; import langchain_core; import langchain_nvidia_ai_endpoints; import nat.plugins.langchain; import nat.plugins.eval; import nat.plugins.opentelemetry; import gradio" &>/dev/null 2>&1; then
         log "nvidia-nat and integrations already installed — OK"
         apply_wikipedia_patch
         apply_loader_patch
@@ -84,6 +84,10 @@ install_nat() {
     log "Installing telemetry dependencies..."
     python -m pip install --quiet --upgrade opentelemetry-api opentelemetry-sdk "opentelemetry-exporter-otlp~=1.3" &>>"$LOG_FILE" \
         || die "telemetry dependencies install failed — check $LOG_FILE"
+
+    log "Installing Gradio chat UI..."
+    python -m pip install --quiet --upgrade gradio &>>"$LOG_FILE" \
+        || die "gradio install failed — check $LOG_FILE"
 
     log "nvidia-nat and integrations installed successfully"
     apply_wikipedia_patch
@@ -138,7 +142,7 @@ run_demo() {
     log "  nat run --config_file workflow.yml --input \"your question here\""
     log ""
     log "To launch the chat UI:"
-    log "  nat serve --config_file workflow.yml"
+    log "  python app.py"
     log "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 }
 
