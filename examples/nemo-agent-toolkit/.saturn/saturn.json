@@ -11,9 +11,7 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
-      "path": "/home/jovyan/examples",
-      "reference": "nemo-agent-toolkit",
-      "reference_type": "branch"
+      "path": "/home/jovyan/examples"
     }
   ],
   "jupyter_server": {
