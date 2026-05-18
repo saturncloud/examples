@@ -19,6 +19,51 @@ This template deploys an AI research agent powered by the [NVIDIA NeMo Agent Too
 
 ---
 
+## 🪐 Using on Saturn Cloud
+
+### 1. Get an NVIDIA API key
+
+Get a free key at [build.nvidia.com](https://build.nvidia.com) → sign up → **API Keys** → **Generate Key**. Your key will start with `nvapi-`.
+
+### 2. Create the workspace from the template
+
+In Saturn Cloud, go to **New Resource → Workspace → Templates** and select **NeMo Agent Toolkit — Research Assistant**. Before clicking Start, open **Settings → Environment Variables**, find `NVIDIA_API_KEY`, and paste your key in.
+
+### 3. Start the workspace
+
+Click **Start**. Saturn Cloud will clone the repo and run `start.sh` automatically — this installs all dependencies and runs a demo query. The process takes about 3–4 minutes. You can watch it complete by opening **Logs** from the workspace panel.
+
+### 4. Open JupyterLab
+
+Once the workspace status shows **Running**, click the **JupyterLab** button to open the IDE. Open a terminal from **File → New → Terminal**.
+
+### 5. Run a query from the terminal
+
+```bash
+cd /home/jovyan/examples/examples/nemo-agent-toolkit
+source .venv/bin/activate
+nat run --config_file workflow.yml --input "your question here"
+```
+
+You will see the agent's full reasoning — each Wikipedia search and every reasoning step — printed live in the terminal.
+
+### 6. Launch the Gradio chat UI
+
+```bash
+source .venv/bin/activate
+python app.py
+```
+
+Then go to **Settings → Routes** on the workspace and open the URL listed next to port **8000**. This opens the chat interface in your browser where you can have a full conversation with the agent.
+
+To stop the UI:
+
+```bash
+pkill -f "app.py"
+```
+
+---
+
 ## 🛠️ Local Setup
 
 ### 1. Set your NVIDIA API key
