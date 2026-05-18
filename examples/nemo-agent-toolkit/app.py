@@ -15,7 +15,6 @@ demo = gr.ChatInterface(
     fn=predict,
     title="NeMo Agent — Research Assistant",
     description="Ask any question. The agent searches Wikipedia and reasons step-by-step.",
-    theme="soft",
 )
 
 if __name__ == "__main__":
