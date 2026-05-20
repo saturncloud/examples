@@ -1,0 +1,28 @@
+{
+  "name": "example-openclaw",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2025.05.01",
+  "description": "Deploy OpenClaw Beta on Saturn Cloud.",
+  "environment_variables": {
+    "ANTHROPIC_API_KEY": "",
+    "ENABLE_TELEGRAM": "false",
+    "ENABLE_WHATSAPP": "false",
+    "OPENCLAW_GATEWAY_TOKEN": "",
+    "OPENCLAW_MODEL": "anthropic/claude-sonnet-4-5",
+    "OPENCLAW_PUBLIC_ORIGIN": "https://your-subdomain.community.saturnenterprise.io",
+    "TELEGRAM_ALLOW_FROM": "[\"123456789\"]",
+    "TELEGRAM_BOT_TOKEN": "",
+    "WHATSAPP_ALLOW_FROM": "[\"+1234567890\"]"
+  },
+  "working_directory": "/home/jovyan/examples/examples/openclaw",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "path": "/home/jovyan/examples"
+    }
+  ],
+  "deployment": {
+    "instance_type": "large",
+    "command": "bash .saturn/bootstrap-openclaw.sh"
+  },
+  "version": "2022.01.06"
+}
