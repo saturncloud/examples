@@ -7,9 +7,7 @@
   "git_repositories": [
     {
       "url": "https://github.com/saturncloud/examples",
-      "path": "/home/jovyan/examples",
-      "reference": "nemo-text-processing",
-      "reference_type": "branch"
+      "path": "/home/jovyan/examples"
     }
   ],
   "jupyter_server": {
