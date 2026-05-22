@@ -124,7 +124,7 @@ pathspec==0.12.1
 pendulum==2.1.2
 plotly==6.5.2
 pluggy==1.5.0
-prefect==2.20.25
+prefect==3.6.28.dev2
 prison==0.2.1
 propcache==0.2.1
 protobuf==4.25.5
