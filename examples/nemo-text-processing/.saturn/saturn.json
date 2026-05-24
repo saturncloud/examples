@@ -1,0 +1,19 @@
+{
+  "name": "example-nemo-text-processing",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2025.05.01",
+  "description": "NVIDIA NeMo Text Processing — normalize text for TTS and ASR pipelines. Demonstrates Text Normalization (written→spoken) and Inverse Text Normalization (spoken→written) across 15 languages.",
+  "working_directory": "/home/jovyan/examples/examples/nemo-text-processing",
+  "start_script": "bash start.sh",
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "path": "/home/jovyan/examples"
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "10Gi",
+    "instance_type": "large",
+    "auto_shutoff": "1 hour"
+  },
+  "version": "2022.01.06"
+}
