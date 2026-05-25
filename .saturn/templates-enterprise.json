@@ -113,6 +113,12 @@
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/openclaw.png",
       "weight": 1950,
       "recipe_path": "examples/openclaw/.saturn/saturn.json"
+    },
+    {
+      "title": "Streamlit EDA Dashboard (Python)",
+      "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/dashboard.png",
+      "weight": 2000,
+      "recipe_path": "examples/data-science-analystics/cpu-streamlit-eda/.saturn/saturn.json"
     }
   ]
 }
