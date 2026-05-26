@@ -109,9 +109,9 @@
       "recipe_path": "examples/wandb/.saturn/saturn.json"
     },
     {
-      "title": "OpenClaw (Deployment)",
+      "title": "OpenClaw Beta",
       "thumbnail_image_url": "https://saturn-public-assets.s3.us-east-2.amazonaws.com/example-thumbnails/openclaw.png",
-      "weight": 1950,
+      "weight": 10,
       "recipe_path": "examples/openclaw/.saturn/saturn.json"
     }
   ]

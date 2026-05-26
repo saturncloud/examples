@@ -1,28 +1,59 @@
 {
-  "name": "example-openclaw",
-  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2025.05.01",
-  "description": "Deploy OpenClaw Beta on Saturn Cloud.",
-  "environment_variables": {
-    "ANTHROPIC_API_KEY": "",
-    "ENABLE_TELEGRAM": "false",
-    "ENABLE_WHATSAPP": "false",
-    "OPENCLAW_GATEWAY_TOKEN": "",
-    "OPENCLAW_MODEL": "anthropic/claude-sonnet-4-5",
-    "OPENCLAW_PUBLIC_ORIGIN": "https://your-subdomain.community.saturnenterprise.io",
-    "TELEGRAM_ALLOW_FROM": "[\"123456789\"]",
-    "TELEGRAM_BOT_TOKEN": "",
-    "WHATSAPP_ALLOW_FROM": "[\"+1234567890\"]"
-  },
-  "working_directory": "/home/jovyan/examples/examples/openclaw",
-  "git_repositories": [
-    {
-      "url": "https://github.com/saturncloud/examples",
-      "path": "/home/jovyan/examples"
-    }
-  ],
-  "deployment": {
+  "schema_version": "2024.04.01",
+  "type": "deployment",
+  "spec": {
+    "name": "example-openclaw",
+    "description": "Deploy OpenClaw Beta on Saturn Cloud.",
+    "tags": {
+      "type": "featured-tutorial"
+    },
+    "image": "saturncloud/saturn-python:2025.05.01",
     "instance_type": "large",
-    "command": "bash .saturn/bootstrap-openclaw.sh"
-  },
-  "version": "2022.01.06"
+    "environment_variables": {
+      "ENABLE_TELEGRAM": "false",
+      "ENABLE_WHATSAPP": "false",
+      "OPENCLAW_MODEL": "anthropic/claude-sonnet-4-5",
+      "OPENCLAW_PUBLIC_ORIGIN": "https://your-subdomain.community.saturnenterprise.io",
+      "TELEGRAM_ALLOW_FROM": "[\"123456789\"]",
+      "WHATSAPP_ALLOW_FROM": "[\"+1234567890\"]"
+    },
+    "secrets": [
+      {
+        "description": "Gateway token for the OpenClaw deployment",
+        "location": "OPENCLAW_GATEWAY_TOKEN",
+        "attachment_type": "environment_variable"
+      },
+      {
+        "description": "Anthropic API key for OpenClaw",
+        "location": "ANTHROPIC_API_KEY",
+        "attachment_type": "environment_variable"
+      },
+      {
+        "description": "Telegram bot token (only required if ENABLE_TELEGRAM is true)",
+        "location": "TELEGRAM_BOT_TOKEN",
+        "attachment_type": "environment_variable"
+      }
+    ],
+    "working_directory": "/home/jovyan/examples/examples/openclaw",
+    "extra_packages": {},
+    "start_script": "",
+    "token_scope": null,
+    "git_repositories": [
+      {
+        "url": "https://github.com/saturncloud/examples",
+        "path": "/home/jovyan/examples",
+        "public": true,
+        "reference": "main",
+        "reference_type": "branch",
+        "on_restart": "preserve changes"
+      }
+    ],
+    "start_dind": false,
+    "command": "bash .saturn/bootstrap-openclaw.sh",
+    "scale": 1,
+    "start_ssh": false,
+    "use_spot_instance": false,
+    "routes": [],
+    "viewers": []
+  }
 }
