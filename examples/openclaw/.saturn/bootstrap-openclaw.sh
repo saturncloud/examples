@@ -8,7 +8,25 @@ set -euo pipefail
 echo "[openclaw] starting setup..."
 
 : "${OPENCLAW_GATEWAY_TOKEN:?OPENCLAW_GATEWAY_TOKEN is required}"
-: "${OPENCLAW_PUBLIC_ORIGIN:?OPENCLAW_PUBLIC_ORIGIN is required}"
+
+# Auto-detect the public origin from Saturn Cloud's injected env vars.
+# SATURN_JUPYTER_BASE_DOMAIN is available in every Saturn Cloud container
+# (workspace or deployment) and always matches the resource's public URL.
+# If OPENCLAW_PUBLIC_ORIGIN is explicitly set to a real URL, that takes
+# precedence — useful when a custom domain is in front of the deployment.
+_PLACEHOLDER_ORIGIN="https://your-subdomain.community.saturnenterprise.io"
+if [ -z "${OPENCLAW_PUBLIC_ORIGIN:-}" ] || [ "${OPENCLAW_PUBLIC_ORIGIN}" = "${_PLACEHOLDER_ORIGIN}" ]; then
+  if [ -n "${SATURN_JUPYTER_BASE_DOMAIN:-}" ]; then
+    OPENCLAW_PUBLIC_ORIGIN="https://${SATURN_JUPYTER_BASE_DOMAIN}"
+    echo "[openclaw] auto-detected public origin: $OPENCLAW_PUBLIC_ORIGIN"
+  else
+    echo "[openclaw] ERROR: OPENCLAW_PUBLIC_ORIGIN is not set and could not be auto-detected."
+    echo "[openclaw] Set OPENCLAW_PUBLIC_ORIGIN to your deployment URL and restart."
+    exit 1
+  fi
+else
+  echo "[openclaw] using configured public origin: $OPENCLAW_PUBLIC_ORIGIN"
+fi
 
 ENABLE_WHATSAPP="${ENABLE_WHATSAPP:-false}"
 ENABLE_TELEGRAM="${ENABLE_TELEGRAM:-false}"
