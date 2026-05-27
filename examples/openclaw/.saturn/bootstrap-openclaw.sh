@@ -8,7 +8,62 @@ set -euo pipefail
 echo "[openclaw] starting setup..."
 
 : "${OPENCLAW_GATEWAY_TOKEN:?OPENCLAW_GATEWAY_TOKEN is required}"
-: "${OPENCLAW_PUBLIC_ORIGIN:?OPENCLAW_PUBLIC_ORIGIN is required}"
+
+# Auto-detect the public origin from the Saturn Cloud API.
+# SATURN_TOKEN (a JWT) contains the deployment ID in its payload.
+# We decode it, call the Saturn API to get the deployment's public URL,
+# and use that as the allowed origin for the OpenClaw Control UI.
+# If OPENCLAW_PUBLIC_ORIGIN is explicitly set to a real URL, that takes
+# precedence — useful when a custom domain is in front of the deployment.
+_PLACEHOLDER_ORIGIN="https://your-subdomain.community.saturnenterprise.io"
+if [ -z "${OPENCLAW_PUBLIC_ORIGIN:-}" ] || [ "${OPENCLAW_PUBLIC_ORIGIN}" = "${_PLACEHOLDER_ORIGIN}" ]; then
+  echo "[openclaw] auto-detecting public origin via Saturn API..."
+
+  if [ -n "${SATURN_TOKEN:-}" ] && [ -n "${SATURN_BASE_URL:-}" ]; then
+    # Decode JWT payload to extract the deployment ID
+    _RESOURCE_ID=$(python3 -c "
+import json, base64, sys
+try:
+    token = '$SATURN_TOKEN'
+    payload = token.split('.')[1]
+    payload += '=' * (4 - len(payload) % 4)
+    data = json.loads(base64.urlsafe_b64decode(payload))
+    resource = data.get('resource', '')
+    print(resource.split(':')[-1] if ':' in resource else '')
+except:
+    print('')
+" 2>/dev/null)
+
+    if [ -n "$_RESOURCE_ID" ]; then
+      _PUBLIC_URL=$(curl -sf \
+        -H "Authorization: token $SATURN_TOKEN" \
+        "$SATURN_BASE_URL/api/deployments/$_RESOURCE_ID" \
+        | python3 -c "
+import json, sys
+try:
+    data = json.load(sys.stdin)
+    url = (data.get('state', {}).get('url') or
+           data.get('url') or '')
+    print(url)
+except:
+    print('')
+" 2>/dev/null)
+
+      if [ -n "$_PUBLIC_URL" ]; then
+        OPENCLAW_PUBLIC_ORIGIN="$_PUBLIC_URL"
+        echo "[openclaw] auto-detected public origin: $OPENCLAW_PUBLIC_ORIGIN"
+      fi
+    fi
+  fi
+
+  if [ -z "${OPENCLAW_PUBLIC_ORIGIN:-}" ]; then
+    echo "[openclaw] ERROR: OPENCLAW_PUBLIC_ORIGIN is not set and could not be auto-detected."
+    echo "[openclaw] Set OPENCLAW_PUBLIC_ORIGIN to your deployment URL and restart."
+    exit 1
+  fi
+else
+  echo "[openclaw] using configured public origin: $OPENCLAW_PUBLIC_ORIGIN"
+fi
 
 ENABLE_WHATSAPP="${ENABLE_WHATSAPP:-false}"
 ENABLE_TELEGRAM="${ENABLE_TELEGRAM:-false}"
