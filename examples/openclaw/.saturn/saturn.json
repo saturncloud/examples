@@ -19,19 +19,22 @@
     },
     "secrets": [
       {
-        "description": "Gateway token for the OpenClaw deployment",
+        "name": "OPENCLAW_GATEWAY_TOKEN",
         "location": "OPENCLAW_GATEWAY_TOKEN",
-        "attachment_type": "environment_variable"
+        "attachment_type": "environment_variable",
+        "description": "Gateway token for the OpenClaw deployment"
       },
       {
-        "description": "Anthropic API key for OpenClaw",
+        "name": "ANTHROPIC_API_KEY",
         "location": "ANTHROPIC_API_KEY",
-        "attachment_type": "environment_variable"
+        "attachment_type": "environment_variable",
+        "description": "Anthropic API key for OpenClaw"
       },
       {
-        "description": "Telegram bot token (only required if ENABLE_TELEGRAM is true)",
+        "name": "TELEGRAM_BOT_TOKEN",
         "location": "TELEGRAM_BOT_TOKEN",
-        "attachment_type": "environment_variable"
+        "attachment_type": "environment_variable",
+        "description": "Telegram bot token (only required if ENABLE_TELEGRAM is true)"
       }
     ],
     "working_directory": "/home/jovyan/examples/examples/openclaw",
