@@ -12,29 +12,46 @@
     "environment_variables": {
       "ENABLE_TELEGRAM": "false",
       "ENABLE_WHATSAPP": "false",
-      "OPENCLAW_MODEL": "anthropic/claude-sonnet-4-5",
+      "OPENCLAW_MODEL": "",
       "OPENCLAW_PUBLIC_ORIGIN": "",
       "TELEGRAM_ALLOW_FROM": "[\"123456789\"]",
       "WHATSAPP_ALLOW_FROM": "[\"+1234567890\"]"
     },
     "secrets": [
       {
-        "name": "OPENCLAW_GATEWAY_TOKEN",
         "location": "OPENCLAW_GATEWAY_TOKEN",
         "attachment_type": "environment_variable",
-        "description": "Gateway token for the OpenClaw deployment"
+        "description": "Gateway authentication token — set this to a secure random string (e.g. openssl rand -hex 32). Required."
       },
       {
-        "name": "ANTHROPIC_API_KEY",
         "location": "ANTHROPIC_API_KEY",
         "attachment_type": "environment_variable",
-        "description": "Anthropic API key for OpenClaw"
+        "description": "Anthropic API key. Link this OR one of the other provider keys below — only one is needed."
       },
       {
-        "name": "TELEGRAM_BOT_TOKEN",
+        "location": "OPENAI_API_KEY",
+        "attachment_type": "environment_variable",
+        "description": "OpenAI API key. Link this OR one of the other provider keys — only one is needed."
+      },
+      {
+        "location": "GEMINI_API_KEY",
+        "attachment_type": "environment_variable",
+        "description": "Google Gemini API key. Link this OR one of the other provider keys — only one is needed."
+      },
+      {
+        "location": "MISTRAL_API_KEY",
+        "attachment_type": "environment_variable",
+        "description": "Mistral API key. Link this OR one of the other provider keys — only one is needed."
+      },
+      {
+        "location": "OPENROUTER_API_KEY",
+        "attachment_type": "environment_variable",
+        "description": "OpenRouter API key. Link this OR one of the other provider keys — only one is needed."
+      },
+      {
         "location": "TELEGRAM_BOT_TOKEN",
         "attachment_type": "environment_variable",
-        "description": "Telegram bot token (only required if ENABLE_TELEGRAM is true)"
+        "description": "Telegram bot token from BotFather. Only required if ENABLE_TELEGRAM is set to true."
       }
     ],
     "working_directory": "/home/jovyan/examples/examples/openclaw",
