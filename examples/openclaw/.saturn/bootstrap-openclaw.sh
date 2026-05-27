@@ -7,6 +7,12 @@ set -euo pipefail
 
 echo "[openclaw] starting setup..."
 
+echo "[openclaw] debug — Saturn Cloud env vars:"
+env | grep -i saturn || true
+echo "[openclaw] debug — BOKEH vars:"
+env | grep -i bokeh || true
+echo "[openclaw] debug — end"
+
 : "${OPENCLAW_GATEWAY_TOKEN:?OPENCLAW_GATEWAY_TOKEN is required}"
 
 # Auto-detect the public origin from Saturn Cloud's injected env vars.
