@@ -1,5 +1,5 @@
 # --- Data Engineering & Feature Store ---
-pyspark==3.5.1
+pyspark==3.5.2
 feast[pyspark]==0.40.0
 pyarrow                   # Efficient Parquet handling for Spark/Feast
 
