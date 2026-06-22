@@ -117,7 +117,7 @@ opentelemetry-proto==1.27.0
 opentelemetry-sdk==1.27.0
 opentelemetry-semantic-conventions==0.48b0
 ordered-set==4.1.0
-orjson==3.11.5
+orjson==3.11.6
 packaging==24.2
 pandas==2.3.3
 pathspec==0.12.1
