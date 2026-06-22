@@ -181,7 +181,7 @@ tzlocal==5.3.1
 uc-micro-py==1.0.3
 ujson==5.11.0
 universal_pathlib==0.2.5
-urllib3==2.2.3
+urllib3==2.7.0
 uvicorn==0.40.0
 websocket-client==1.9.0
 websockets==13.1
