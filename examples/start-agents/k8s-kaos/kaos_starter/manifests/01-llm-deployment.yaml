@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaos-llm
+  namespace: kaos-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kaos-llm
+  template:
+    metadata:
+      labels:
+        app: kaos-llm
+    spec:
+      containers:
+      - name: ollama
+        image: ollama/ollama:latest
+        ports:
+        - containerPort: 11434
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-service
+  namespace: kaos-system
+spec:
+  selector:
+    app: kaos-llm
+  ports:
+    - protocol: TCP
+      port: 11434
+      targetPort: 11434

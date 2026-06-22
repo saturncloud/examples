@@ -1,0 +1,5 @@
+ollama>=0.1.8
+streamlit==1.32.0
+python-dotenv==1.0.1
+pandas>=2.2.0
+pydantic-settings==2.2.1

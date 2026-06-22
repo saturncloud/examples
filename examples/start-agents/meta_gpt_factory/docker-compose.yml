@@ -1,0 +1,12 @@
+services:
+  factory:
+    build: .
+    container_name: software_factory
+    volumes:
+      - ./workspace:/app/workspace
+      - ./config2.yaml:/app/config/config2.yaml
+    ports:
+      - "8501:8501"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - METAGPT_CONFIG_PATH=/app/config/config2.yaml

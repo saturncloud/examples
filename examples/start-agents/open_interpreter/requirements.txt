@@ -1,0 +1,6 @@
+open-interpreter
+streamlit
+python-dotenv
+pydantic-settings
+openai
+setuptools<71.0.0

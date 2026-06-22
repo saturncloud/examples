@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  letta_db:
+    image: ankane/pgvector:latest
+    container_name: letta-postgres
+    environment:
+      - POSTGRES_USER=letta
+      - POSTGRES_PASSWORD=letta
+      - POSTGRES_DB=letta
+    ports:
+      - "5432:5432"
+    volumes:
+      - letta_db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  letta_server:
+    image: letta/letta:latest
+    container_name: letta-server
+    depends_on:
+      - letta_db
+    ports:
+      - "8283:8283"
+    env_file:
+      - .env
+    environment:
+      - LETTA_PG_URI=postgresql+asyncpg://letta:letta@letta_db:5432/letta
+
+volumes:
+  letta_db_data:

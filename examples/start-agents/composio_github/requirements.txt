@@ -1,0 +1,15 @@
+# Core Agent Framework (v1.2 Standard)
+langchain>=1.2.0
+langchain-openai>=0.3.0
+langgraph>=0.2.0
+
+# Integration & Tools
+composio-langchain>=0.5.21
+composio-core>=0.5.21
+
+# UI & Environment
+streamlit>=1.40.0
+pillow>=11.0.0
+python-dotenv>=1.0.1
+pydantic-settings>=2.4.0
+pydantic>=2.9.0

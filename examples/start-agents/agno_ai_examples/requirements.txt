@@ -1,0 +1,8 @@
+agno
+openai
+duckduckgo-search
+lancedb
+tantivy
+python-dotenv
+ddgs
+streamlit

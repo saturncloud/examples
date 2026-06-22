@@ -1,0 +1,10 @@
+{
+  "llm.api_base": "https://api.openai.com/v1",
+  "llm.api_type": "openai",
+  "llm.response_format": "json_object",
+  "planner.use_example": false,
+  "code_generator.use_example": false,
+  "code_generator.enabled": true,
+  "session.execution_timeout_seconds": 300,
+  "app.workspace": "workspace"
+}

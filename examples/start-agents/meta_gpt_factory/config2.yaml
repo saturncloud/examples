@@ -1,0 +1,5 @@
+llm:
+  api_type: "openai"
+  api_key: "sk-YOUR_KEY_HERE"
+  model: "gpt-4o"
+  base_url: "https://api.openai.com/v1"
