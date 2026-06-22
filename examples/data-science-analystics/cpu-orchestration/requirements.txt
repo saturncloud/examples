@@ -5,7 +5,7 @@ aiosqlite==0.22.1
 alembic==1.14.0
 annotated-types==0.7.0
 anyio==4.7.0
-apache-airflow==2.10.4
+apache-airflow==3.2.1rc1
 apache-airflow-providers-common-compat==1.2.2
 apache-airflow-providers-common-io==1.4.2
 apache-airflow-providers-common-sql==1.20.0
