@@ -27,6 +27,7 @@ First we will import necessary libraries and create a FastAPI instance and initi
 from fastapi import FastAPI, HTTPException
 import pandas as pd
 from sklearn.linear_model import LinearRegression
+from starlette.responses import Response
 
 app = FastAPI()
 ```
