@@ -1,0 +1,26 @@
+{
+  "name": "example-nemo-agent-toolkit",
+  "image_uri": "public.ecr.aws/saturncloud/saturn-python:2025.05.01",
+  "description": "NVIDIA NeMo Agent Toolkit — Research Assistant. An AI agent that uses Wikipedia search and NVIDIA NIM cloud inference to research and summarize any topic. Bring your own NVIDIA_API_KEY.",
+  "working_directory": "/home/jovyan/examples/examples/nemo-agent-toolkit",
+  "start_script": "bash start.sh",
+  "environment_variables": {
+    "NVIDIA_API_KEY": "",
+    "NAT_TELEMETRY_ENABLED": "false"
+  },
+  "git_repositories": [
+    {
+      "url": "https://github.com/saturncloud/examples",
+      "path": "/home/jovyan/examples"
+    }
+  ],
+  "jupyter_server": {
+    "disk_space": "10Gi",
+    "instance_type": "large",
+    "auto_shutoff": "1 hour",
+    "routes": [
+      {"container_port": 8000, "visibility": "owner"}
+    ]
+  },
+  "version": "2022.01.06"
+}

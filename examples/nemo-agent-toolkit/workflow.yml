@@ -1,0 +1,24 @@
+functions:
+  # Wikipedia search — no extra API key needed, works out of the box
+  wikipedia_search:
+    _type: wiki_search
+    max_results: 3
+
+llms:
+  nim_llm:
+    _type: nim
+    # Change this to any model available at build.nvidia.com
+    model_name: nvidia/nemotron-3-nano-30b-a3b
+    temperature: 0.0
+    chat_template_kwargs:
+      enable_thinking: false
+
+workflow:
+  _type: react_agent
+  tool_names: [wikipedia_search]
+  llm_name: nim_llm
+  verbose: true
+  # Retry up to 3 times on parse errors
+  parse_agent_response_max_retries: 3
+  # Stop after 6 tool calls instead of looping indefinitely
+  max_tool_calls: 6
