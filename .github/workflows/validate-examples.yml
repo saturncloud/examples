@@ -10,6 +10,9 @@ on:
       - "release*"
       - main
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: ${{ matrix.task }}
@@ -21,17 +24,17 @@ jobs:
           - task: linting
           - task: validating-examples
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           python-version: 3.7
       - name: Set up R
-        uses: r-lib/actions/setup-r@v2
+        uses: r-lib/actions/setup-r@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05 # v2.14.0
         with:
           use-public-rspm: true
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # v1.7.0
         with:
           aws-access-key-id: ${{ secrets.ECR_PUBLIC_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.ECR_PUBLIC_SECRET_ACCESS_KEY }}

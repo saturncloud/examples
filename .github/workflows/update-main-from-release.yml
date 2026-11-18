@@ -6,18 +6,21 @@ on:
   push:
     branches: "release-*"
 
+permissions:
+  contents: read
+
 jobs:
   pull-request:
     name: Open PR
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Get branch name
         id: branch-name
-        uses: tj-actions/branch-names@v9.0.0
+        uses: tj-actions/branch-names@e497ceb8ccd43fd9573cf2e375216625bc411d1f # v9.0.0
       - name: Open PR
-        uses: repo-sync/pull-request@v2
+        uses: repo-sync/pull-request@7e79a9f5dc3ad0ce53138f01df2fad14a04831c5 # v2.12.1
         with:
           destination_branch: "main"
           github_token: ${{ secrets.GITHUB_TOKEN }}
